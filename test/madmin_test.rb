@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Madmin::Test < ActiveSupport::TestCase
   test "can figure out its model" do

@@ -9,11 +9,11 @@ module Madmin
       end
 
       def scope(name)
-        self.scopes << name
+        scopes << name
       end
 
-      def attribute(name, type=nil, **options)
-        self.attributes << options.merge(
+      def attribute(name, type = nil, **options)
+        attributes << options.merge(
           name: name,
           field: field_for_type(type)
         )
@@ -39,7 +39,7 @@ module Madmin
           has_one: Object,
           rich_text: Object,
           file: Object,
-          files: Object,
+          files: Object
         }[type || infer_type(type)]
       end
 
@@ -50,11 +50,11 @@ module Madmin
           model.attribute_types[name.to_s].type || :string
         elsif (association = model.reflect_on_association(name))
           type_for_association(association)
-        elsif (association = model.reflect_on_association(:"rich_text_#{name_string}"))
+        elsif model.reflect_on_association(:"rich_text_#{name_string}")
           :rich_text
-        elsif (association = model.reflect_on_association(:"#{name_string}_attachment"))
+        elsif model.reflect_on_association(:"#{name_string}_attachment")
           :file
-        elsif (association = model.reflect_on_association(:"#{name_string}_attachments"))
+        elsif model.reflect_on_association(:"#{name_string}_attachments")
           :files
         end
       end
@@ -71,6 +71,5 @@ module Madmin
         end
       end
     end
-
   end
 end

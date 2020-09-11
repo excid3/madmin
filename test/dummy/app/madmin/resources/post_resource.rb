@@ -7,4 +7,3 @@ class PostResource < Madmin::Resource
   attribute :created_at
   attribute :updated_at
 end
-
