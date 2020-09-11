@@ -7,6 +7,7 @@ class Madmin::Test < ActiveSupport::TestCase
 
   test "can find nested model" do
     assert_equal ActionText::RichTextResource.model, ActionText::RichText
+    assert_equal User::ConnectedAccountResource.model, User::ConnectedAccount
   end
 
   test "stores scopes" do
