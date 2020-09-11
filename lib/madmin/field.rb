@@ -7,7 +7,7 @@ module Madmin
     end
 
     def initialize(record:, attribute_name:, partial:)
-      unless %w{ index show form }.include? partial
+      unless %w[index show form].include? partial
         raise ArgumentError, "`partial` must be 'index', 'show', or 'form'"
       end
 

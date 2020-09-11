@@ -45,7 +45,7 @@ module Madmin
           belongs_to: Fields::BelongsTo,
           has_many: Fields::HasMany,
           has_one: Fields::HasOne,
-          rich_text: Fields::RichText,
+          rich_text: Fields::RichText
         }[type || infer_type(name)]
       end
 

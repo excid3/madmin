@@ -16,4 +16,4 @@ gem "byebug", group: [:development, :test]
 gem "standardrb", group: [:development, :test]
 gem "ffaker", "~> 2.17"
 gem "name_of_person", "~> 1.1", ">= 1.1.1"
-gem 'web-console', '~> 4.0', '>= 4.0.4'
+gem "web-console", group: :development

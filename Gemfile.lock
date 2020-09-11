@@ -181,7 +181,7 @@ DEPENDENCIES
   name_of_person (~> 1.1, >= 1.1.1)
   sqlite3
   standardrb
-  web-console (~> 4.0, >= 4.0.4)
+  web-console
 
 BUNDLED WITH
    2.1.4
