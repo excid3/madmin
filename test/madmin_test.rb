@@ -1,8 +1,12 @@
 require "test_helper"
 
 class Madmin::Test < ActiveSupport::TestCase
-  test "can figure out its model" do
+  test "can find model" do
     assert_equal UserResource.model, User
+  end
+
+  test "can find nested model" do
+    assert_equal ActionText::RichTextResource.model, ActionText::RichText
   end
 
   test "stores scopes" do
