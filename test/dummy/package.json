@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@rails/actiontext": "^6.0.3-3",
+    "trix": "^1.2.0"
+  }
+}
