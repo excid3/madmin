@@ -1,9 +1,10 @@
 class ActiveStorage::AttachmentResource < Madmin::Resource
+  # Attributes
   attribute :id
   attribute :name
-  attribute :record_type
-  attribute :record_id
-  attribute :blob_id
   attribute :created_at
-  attribute :updated_at
+
+  # Associations
+  attribute :record
+  attribute :blob
 end

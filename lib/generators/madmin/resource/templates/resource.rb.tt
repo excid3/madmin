@@ -1,0 +1,11 @@
+class <%= class_name %>Resource < Madmin::Resource
+  # Attributes
+<% attributes.each do |attribute_name| -%>
+  attribute :<%= attribute_name %>
+<% end -%>
+
+  # Associations
+<% associations.each do |association_name| -%>
+  attribute :<%= association_name %>
+<% end -%>
+end

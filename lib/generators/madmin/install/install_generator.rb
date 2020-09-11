@@ -1,20 +1,29 @@
-# frozen_string_literal: true
+require "madmin/generator_helpers"
 
 module Madmin
   module Generators
     class InstallGenerator < Rails::Generators::Base
-      def generate_resources
+      include Madmin::GeneratorHelpers
+
+      def eager_load
         Rails.application.eager_load!
+      end
+
+      def generate_resources
         generateable_models.each do |model|
-          puts model
+          if model.table_exists?
+            call_generator "madmin:resource", model.to_s
+          else
+            puts "Skipping #{model} because database table does not exist"
+          end
         end
       end
 
       private
 
       def generateable_models
-        active_record_models.reject do |klass|
-          klass.abstract_class? || klass == ActiveRecord::Base || !klass.table_exists?
+        active_record_models.reject do |model|
+          model.abstract_class? || model == ActiveRecord::Base
         end
       end
 

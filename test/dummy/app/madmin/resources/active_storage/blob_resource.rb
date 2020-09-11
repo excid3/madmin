@@ -1,4 +1,5 @@
 class ActiveStorage::BlobResource < Madmin::Resource
+  # Attributes
   attribute :id
   attribute :key
   attribute :filename
@@ -7,5 +8,9 @@ class ActiveStorage::BlobResource < Madmin::Resource
   attribute :byte_size
   attribute :checksum
   attribute :created_at
-  attribute :updated_at
+
+  # Associations
+  attribute :preview_image_attachment
+  attribute :preview_image_blob
+  attribute :attachments
 end

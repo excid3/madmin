@@ -1,10 +1,14 @@
 class UserResource < Madmin::Resource
-  # Display scopes as filters (these cannot take arguments)
-  scope :active
-  scope :inactive
-
+  # Attributes
   attribute :id
-  attribute :name, :string
+  attribute :first_name
+  attribute :last_name
+  attribute :birthday
   attribute :created_at
   attribute :updated_at
+  attribute :virtual_attribute
+
+  # Associations
+  attribute :posts
+  attribute :comments
 end
