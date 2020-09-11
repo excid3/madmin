@@ -14,7 +14,7 @@ module Madmin
 
       def generateable_models
         active_record_models.reject do |klass|
-          klass.abstract_class? || klass == ActiveRecord::Base
+          klass.abstract_class? || klass == ActiveRecord::Base || !klass.table_exists?
         end
       end
 
