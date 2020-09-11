@@ -1,5 +1,7 @@
+require "madmin/engine"
 require "madmin/resource"
-require "madmin/railtie"
+
+require "pagy"
 
 module Madmin
   # Your code goes here...

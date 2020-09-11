@@ -19,6 +19,7 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = ">= 2.5.0"
 
   spec.add_dependency "rails", "~> 6.0.3", ">= 6.0.3.3"
+  spec.add_dependency "pagy", ">= 3.5", "< 4.0"
 
   spec.add_development_dependency "sqlite3"
 end

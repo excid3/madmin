@@ -1,0 +1,10 @@
+<h1><%= resource %></h1>
+
+<% @records.each do |record| %>
+  <div>
+    <%= record %>
+  </div>
+<% end %>
+
+<%== pagy_nav(@pagy) %>
+
