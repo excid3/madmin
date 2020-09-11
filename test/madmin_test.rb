@@ -11,7 +11,7 @@ class Madmin::Test < ActiveSupport::TestCase
   end
 
   test "stores scopes" do
-    assert_equal UserResource.scopes, [:active, :inactive]
+    assert_equal UserResource.scopes, []
   end
 
   test "stores attributes" do
