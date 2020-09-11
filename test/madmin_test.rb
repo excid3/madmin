@@ -27,8 +27,8 @@ class Madmin::Test < ActiveSupport::TestCase
     assert_equal UserResource.send(:infer_type, :virtual_attribute), :string
 
     assert_equal PostResource.send(:infer_type, :user), :belongs_to
-    assert_equal PostResource.send(:infer_type, :image), :file
-    assert_equal PostResource.send(:infer_type, :attachments), :files
+    assert_equal PostResource.send(:infer_type, :image), :attachment
+    assert_equal PostResource.send(:infer_type, :attachments), :attachments
 
     assert_equal CommentResource.send(:infer_type, :commentable), :polymorphic
   end

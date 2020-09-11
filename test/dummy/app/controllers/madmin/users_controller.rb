@@ -1,2 +1,2 @@
-class Madmin::UsersController < Madmin::ApplicationController
+class Madmin::UsersController < Madmin::ResourceController
 end

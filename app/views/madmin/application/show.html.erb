@@ -1,0 +1,8 @@
+<h1><%= resource.model.name.pluralize %></h1>
+
+<% resource.attributes.each do |attribute| %>
+  <% next if attribute[:field].nil? %>
+  <% field = attribute[:field].new(record: @record, attribute_name: attribute[:name], partial: "show") %>
+
+  <div><%= render partial: field.to_partial_path, locals: { field: field } %></div>
+<% end %>

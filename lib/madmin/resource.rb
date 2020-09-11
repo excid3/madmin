@@ -4,6 +4,12 @@ module Madmin
     class_attribute :scopes, default: []
 
     class << self
+      def inherited(base)
+        base.attributes = attributes.dup
+        base.scopes = scopes.dup
+        super
+      end
+
       def model
         to_s.chomp("Resource").classify.constantize
       end
@@ -15,32 +21,32 @@ module Madmin
       def attribute(name, type = nil, **options)
         attributes << options.merge(
           name: name,
-          field: field_for_type(type)
+          field: field_for_type(name, type)
         )
       end
 
       private
 
-      def field_for_type(type)
+      def field_for_type(name, type)
         {
-          integer: Object,
-          string: Object,
-          text: Object,
-          date: Object,
-          datetime: Object,
-          json: Object,
-          enum: Object,
-          float: Object,
-          time: Object,
+          date: Fields::Date,
+          datetime: Fields::DateTime,
+          enum: Fields::Enum,
+          float: Fields::Float,
+          integer: Fields::Integer,
+          json: Fields::Json,
+          string: Fields::String,
+          text: Fields::Text,
+          time: Fields::Time,
 
           # Associations
-          belongs_to: Object,
-          has_many: Object,
-          has_one: Object,
-          rich_text: Object,
-          file: Object,
-          files: Object
-        }[type || infer_type(type)]
+          attachment: Fields::Attachment,
+          attachments: Fields::Attachments,
+          belongs_to: Fields::BelongsTo,
+          has_many: Fields::HasMany,
+          has_one: Fields::HasOne,
+          rich_text: Fields::RichText,
+        }[type || infer_type(name)]
       end
 
       def infer_type(name)
@@ -53,9 +59,9 @@ module Madmin
         elsif model.reflect_on_association(:"rich_text_#{name_string}")
           :rich_text
         elsif model.reflect_on_association(:"#{name_string}_attachment")
-          :file
+          :attachment
         elsif model.reflect_on_association(:"#{name_string}_attachments")
-          :files
+          :attachments
         end
       end
 

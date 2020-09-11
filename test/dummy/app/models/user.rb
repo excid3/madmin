@@ -4,5 +4,5 @@ class User < ApplicationRecord
 
   has_person_name
 
-  attribute :virtual_attribute
+  attribute :virtual_attribute, default: "virtual"
 end
