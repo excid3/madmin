@@ -1,4 +1,4 @@
-<%= form_with model: [:madmin, record], local: true do |form| %>
+<%= form_with model: [:madmin, record], url: (record.persisted? ? resource.edit_path(record) : resource.index_path), local: true do |form| %>
   <% if form.object.errors.any? %>
     <div class="mb-4 rounded-md text-sm text-red-700 bg-red-100 p-4">
       <div class="mb-2 font-medium leading-5 text-red-800">There was <%= pluralize form.object.errors.full_messages.count, "error" %> with your submission</div>

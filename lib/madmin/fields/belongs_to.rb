@@ -2,8 +2,13 @@ module Madmin
   module Fields
     class BelongsTo < Field
       def options_for_select(record)
-        klass = record.class.reflect_on_association(attribute_name).klass
-        klass.all.map do |r|
+        association = record.class.reflect_on_association(attribute_name)
+
+        # Polymorphic associations could be against any model
+        # So we cannot provide a list of models by default
+        return [] if association.polymorphic?
+
+        association.klass.all.map do |r|
           ["#{klass.name} ##{r.id}", r.id]
         end
       end
