@@ -4,4 +4,6 @@ class Post < ApplicationRecord
   has_rich_text :body
   has_one_attached :image
   has_many_attached :attachments
+
+  validates :title, presence: true
 end

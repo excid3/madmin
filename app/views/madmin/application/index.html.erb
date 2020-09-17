@@ -1,4 +1,5 @@
-<h1><%= resource.model.name.pluralize %></h1>
+<h1><%= resource.friendly_name.pluralize %></h1>
+<%= link_to "New #{resource.friendly_name}", resource.new_path %>
 
 <table class="table-auto">
   <thead>
@@ -6,6 +7,7 @@
       <% resource.attributes.each do |attribute| %>
         <th><%= attribute[:name].to_s.titleize %></th>
       <% end %>
+      <th>Actions</th>
     </tr>
   </thead>
 
@@ -14,10 +16,12 @@
       <tr>
         <% resource.attributes.each do |attribute| %>
           <% next if attribute[:field].nil? %>
-          <% field = attribute[:field].new(record: record, attribute_name: attribute[:name], partial: "index") %>
+          <% field = attribute[:field] %>
 
-          <td><%= render partial: field.to_partial_path, locals: { field: field } %></td>
+          <td><%= render partial: field.to_partial_path("index"), locals: { field: field, record: record } %></td>
         <% end %>
+
+        <td><%= link_to "View", resource.show_path(record) %></td>
       </tr>
     <% end %>
   </tbody>

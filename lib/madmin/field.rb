@@ -1,27 +1,29 @@
 module Madmin
   class Field
-    attr_reader :record, :attribute_name, :partial
+    attr_reader :attribute_name
 
     def self.field_type
       to_s.split("::").last.underscore
     end
 
-    def initialize(record:, attribute_name:, partial:)
-      unless %w[index show form].include? partial
-        raise ArgumentError, "`partial` must be 'index', 'show', or 'form'"
-      end
-
-      @record = record
+    def initialize(attribute_name:, **options)
       @attribute_name = attribute_name
-      @partial = partial
     end
 
-    def value
+    def value(record)
       record.public_send(attribute_name)
     end
 
-    def to_partial_path
-      "/madmin/fields/#{self.class.field_type}/#{partial}"
+    def to_partial_path(name)
+      unless %w[index show form].include? name
+        raise ArgumentError, "`partial` must be 'index', 'show', or 'form'"
+      end
+
+      "/madmin/fields/#{self.class.field_type}/#{name}"
+    end
+
+    def to_param
+      attribute_name
     end
   end
 end

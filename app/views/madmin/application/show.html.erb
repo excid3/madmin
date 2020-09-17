@@ -1,8 +1,11 @@
-<h1><%= resource.model.name.singularize %> #<%= @record.id %></h1>
+<h1><%= link_to resource.friendly_name.pluralize, resource.index_path %> / <%= resource.model.name.singularize %> #<%= @record.id %></h1>
+
+<%= link_to "Edit", resource.edit_path(@record) %>
+<%= link_to "Delete", resource.show_path(@record), method: :delete, data: { confirm: "Are you sure?" } %>
 
 <% resource.attributes.each do |attribute| %>
   <% next if attribute[:field].nil? %>
-  <% field = attribute[:field].new(record: @record, attribute_name: attribute[:name], partial: "show") %>
+  <% field = attribute[:field] %>
 
   <div class="flex py-2">
     <div class="w-32 flex-shrink-0 text-gray-700 uppercase tracking-wide text-sm">
@@ -10,7 +13,7 @@
     </div>
 
     <div>
-      <%= render partial: field.to_partial_path, locals: { field: field } %>
+      <%= render partial: field.to_partial_path("show"), locals: { field: field, record: @record } %>
     </div>
   </div>
 <% end %>

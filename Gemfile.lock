@@ -97,6 +97,8 @@ GEM
     parser (2.7.1.4)
       ast (~> 2.4.1)
     rack (2.2.3)
+    rack-proxy (0.6.5)
+      rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (6.0.3.3)
@@ -143,6 +145,7 @@ GEM
     rubocop-performance (1.8.0)
       rubocop (>= 0.87.0)
     ruby-progressbar (1.10.1)
+    semantic_range (2.3.0)
     sprockets (4.0.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -166,6 +169,11 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
+    webpacker (5.2.1)
+      activesupport (>= 5.2)
+      rack-proxy (>= 0.6.1)
+      railties (>= 5.2)
+      semantic_range (>= 2.3.0)
     websocket-driver (0.7.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -182,6 +190,7 @@ DEPENDENCIES
   sqlite3
   standardrb
   web-console
+  webpacker (~> 5.2, >= 5.2.1)
 
 BUNDLED WITH
    2.1.4

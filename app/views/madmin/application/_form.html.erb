@@ -1,27 +1,20 @@
-<h1><%= resource.model.name.pluralize %></h1>
+<%= form_with model: [:madmin, record], local: true do |form| %>
+  <% if form.object.errors.any? %>
+    <div class="mb-4 rounded-md text-sm text-red-700 bg-red-100 p-4">
+      <div class="mb-2 font-medium leading-5 text-red-800">There was <%= pluralize form.object.errors.full_messages.count, "error" %> with your submission</div>
 
-<table>
-  <thead>
-    <tr>
-      <% resource.attributes.each do |attribute| %>
-        <td><%= attribute[:name].to_s.titleize %></td>
+      <% form.object.errors.full_messages.each do |message| %>
+        <div class="ml-4"><%= message %></div>
       <% end %>
-    </tr>
-  </thead>
+    </div>
+  <% end %>
 
-  <tbody>
-    <% @records.each do |record| %>
-      <tr>
-        <% resource.attributes.each do |attribute| %>
-          <% next if attribute[:field].nil? %>
-          <% field = attribute[:field].new(record: record, attribute_name: attribute[:name], partial: "index") %>
+  <% resource.attributes.each do |attribute| %>
+    <% next if attribute[:field].nil? %>
+    <% field = attribute[:field] %>
 
-          <td><%= render partial: field.to_partial_path, locals: { field: field } %></td>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    <div><%= render partial: field.to_partial_path("form"), locals: { field: field, record: record, form: form } %></div>
+  <% end %>
 
-<%== pagy_nav(@pagy) %>
-
+  <%= form.submit class: "bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" %>
+<% end %>

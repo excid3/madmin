@@ -29,16 +29,36 @@ module Madmin
       def attribute(name, type = nil, **options)
         attributes << options.merge(
           name: name,
-          field: field_for_type(name, type)
+          field: field_for_type(name, type).new(attribute_name: name)
         )
       end
 
       def friendly_name
-        model_name.gsub("::", " / ").pluralize
+        model_name.gsub("::", " / ")
       end
 
-      def route_path
+      def index_path
         "/madmin/#{model.model_name.collection}"
+      end
+
+      def new_path
+        "/madmin/#{model.model_name.collection}/new"
+      end
+
+      def show_path(record)
+        "/madmin/#{model.model_name.collection}/#{record.id}"
+      end
+
+      def edit_path(record)
+        "/madmin/#{model.model_name.collection}/#{record.id}/edit"
+      end
+
+      def param_key
+        model.model_name.param_key
+      end
+
+      def permitted_params
+        attributes.map{ |a| a[:field].to_param }
       end
 
       private
@@ -59,6 +79,7 @@ module Madmin
           attachment: Fields::Attachment,
           attachments: Fields::Attachments,
           belongs_to: Fields::BelongsTo,
+          polymorphic: Fields::BelongsTo,
           has_many: Fields::HasMany,
           has_one: Fields::HasOne,
           rich_text: Fields::RichText

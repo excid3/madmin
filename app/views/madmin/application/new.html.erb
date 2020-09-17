@@ -1,8 +1,3 @@
-<h1>New <%= resource.model.name.singularize %></h1>
+<h1><%= link_to resource.friendly_name.pluralize, resource.index_path %> / New <%= resource.friendly_name %></h1>
 
-<% resource.attributes.each do |attribute| %>
-  <% next if attribute[:field].nil? %>
-  <% field = attribute[:field].new(record: @record, attribute_name: attribute[:name], partial: "form") %>
-
-  <div><%= render partial: field.to_partial_path, locals: { field: field } %></div>
-<% end %>
+<%= render partial: "form", locals: { record: @record } %>

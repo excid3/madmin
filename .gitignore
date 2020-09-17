@@ -8,3 +8,4 @@ test/dummy/log/*.log
 test/dummy/storage/
 test/dummy/tmp/
 .byebug_history
+test/dummy/node_modules
