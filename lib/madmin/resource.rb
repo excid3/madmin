@@ -58,7 +58,7 @@ module Madmin
       end
 
       def permitted_params
-        attributes.map{ |a| a[:field].to_param }
+        attributes.map { |a| a[:field].to_param }
       end
 
       private
