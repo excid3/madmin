@@ -5,13 +5,21 @@ module Madmin
 
     class << self
       def inherited(base)
+        # Remove any old references
+        Madmin.resources.delete(base)
+        Madmin.resources << base
+
         base.attributes = attributes.dup
         base.scopes = scopes.dup
         super
       end
 
       def model
-        to_s.chomp("Resource").classify.constantize
+        model_name.constantize
+      end
+
+      def model_name
+        to_s.chomp("Resource").classify
       end
 
       def scope(name)
@@ -23,6 +31,14 @@ module Madmin
           name: name,
           field: field_for_type(name, type)
         )
+      end
+
+      def friendly_name
+        model_name.gsub("::", " / ").pluralize
+      end
+
+      def route_path
+        "/madmin/#{model.model_name.collection}"
       end
 
       private

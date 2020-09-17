@@ -23,4 +23,6 @@ module Madmin
     autoload :Attachment, "madmin/fields/attachment"
     autoload :Attachments, "madmin/fields/attachments"
   end
+
+  mattr_accessor :resources, default: []
 end

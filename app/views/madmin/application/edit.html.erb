@@ -1,4 +1,4 @@
-<h1>New <%= resource.model.name.pluralize %></h1>
+<h1>Edit <%= resource.model.name.singularize %></h1>
 
 <% resource.attributes.each do |attribute| %>
   <% next if attribute[:field].nil? %>

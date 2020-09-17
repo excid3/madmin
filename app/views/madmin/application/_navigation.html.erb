@@ -1,0 +1,7 @@
+<%= link_to "← Back to App", main_app.root_url if main_app.respond_to?(:root_url) %>
+
+<% Madmin.resources.each do |resource| %>
+  <div>
+  <%= link_to resource.friendly_name, resource.route_path%>
+  </div>
+<% end %>
