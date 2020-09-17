@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+<head>
+  <meta charset="utf-8">
+  <meta name="ROBOTS" content="NOODP">
+  <meta name="viewport" content="initial-scale=1">
+  <title>
+    <%= Rails.application.class %>
+  </title>
+  <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
+  <link href="https://unpkg.com/@tailwindcss/typography@0.2.x/dist/typography.min.css" rel="stylesheet" />
+  <%= csrf_meta_tags %>
+</head>
+<body class="prose" style="max-width:none">
+  <div class="flex w-full p-4">
+    <div id="sidebar" class="w-64 flex-shrink-0">
+      Sidebar
+
+      <%#= render "navigation" -%>
+    </div>
+
+    <main class="w-full" role="main">
+      <%#= render "flashes" -%>
+      <%= yield %>
+    </main>
+  </div>
+
+  <%#= render "javascript" %>
+</body>
+</html>
+

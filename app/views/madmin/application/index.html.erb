@@ -1,10 +1,10 @@
 <h1><%= resource.model.name.pluralize %></h1>
 
-<table>
+<table class="table-auto">
   <thead>
     <tr>
       <% resource.attributes.each do |attribute| %>
-        <td><%= attribute[:name].to_s.titleize %></td>
+        <th><%= attribute[:name].to_s.titleize %></th>
       <% end %>
     </tr>
   </thead>
