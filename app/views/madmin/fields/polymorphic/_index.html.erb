@@ -1,1 +1,2 @@
-<%= field.value(record) %>
+<% object = field.value(record) %>
+<%= link_to Madmin.resource_for(object).display_name(object), Madmin.resource_for(object).show_path(object) %>
