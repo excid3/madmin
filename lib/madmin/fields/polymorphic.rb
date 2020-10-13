@@ -10,7 +10,7 @@ module Madmin
       end
 
       def to_param
-        { attribute_name => %i{type value} }
+        { attribute_name => %i[type value] }
       end
     end
   end

@@ -14,14 +14,14 @@ module Madmin
       private
 
       def associations
-        model.reflections.reject do |name, association|
+        model.reflections.reject { |name, association|
           # Hide these special associations
           name.starts_with?("rich_text") ||
             name.ends_with?("_attachment") ||
             name.ends_with?("_attachments") ||
             name.ends_with?("_blob") ||
             name.ends_with?("_blobs")
-        end.keys
+        }.keys
       end
 
       def attributes

@@ -32,7 +32,7 @@ module Madmin
       Rails.application.eager_load!
 
       klass_name = object.class.name
-      Madmin.resources.find{ |r| r.model_name == klass_name }
+      Madmin.resources.find { |r| r.model_name == klass_name }
     end
   end
 end
