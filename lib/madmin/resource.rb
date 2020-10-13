@@ -29,7 +29,7 @@ module Madmin
       def attribute(name, type = nil, **options)
         attributes << options.merge(
           name: name,
-          field: field_for_type(name, type).new(attribute_name: name)
+          field: field_for_type(name, type).new(attribute_name: name, collection: options[:collection])
         )
       end
 
@@ -61,6 +61,10 @@ module Madmin
         attributes.map { |a| a[:field].to_param }
       end
 
+      def display_name(record)
+        "#{record.class} ##{record.id}"
+      end
+
       private
 
       def field_for_type(name, type)
@@ -79,7 +83,7 @@ module Madmin
           attachment: Fields::Attachment,
           attachments: Fields::Attachments,
           belongs_to: Fields::BelongsTo,
-          polymorphic: Fields::BelongsTo,
+          polymorphic: Fields::Polymorphic,
           has_many: Fields::HasMany,
           has_one: Fields::HasOne,
           rich_text: Fields::RichText

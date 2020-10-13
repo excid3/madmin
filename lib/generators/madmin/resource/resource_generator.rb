@@ -14,11 +14,35 @@ module Madmin
       private
 
       def associations
-        model.reflections.keys
+        model.reflections.reject do |name, association|
+          # Hide these special associations
+          name.starts_with?("rich_text") ||
+            name.ends_with?("_attachment") ||
+            name.ends_with?("_attachments") ||
+            name.ends_with?("_blob") ||
+            name.ends_with?("_blobs")
+        end.keys
       end
 
       def attributes
-        model.attribute_names - redundant_attributes
+        model.attribute_names + virtual_attributes - redundant_attributes
+      end
+
+      def virtual_attributes
+        virtual = []
+
+        # Add virtual attributes for ActionText and ActiveStorage
+        model.reflections.each do |name, association|
+          if name.starts_with?("rich_text")
+            virtual << name.split("rich_text_").last
+          elsif name.ends_with?("_attachment")
+            virtual << name.split("_attachment").first
+          elsif name.ends_with?("_attachments")
+            virtual << name.split("_attachments").first
+          end
+        end
+
+        virtual
       end
 
       def redundant_attributes
@@ -32,6 +56,8 @@ module Madmin
           elsif association.polymorphic?
             redundant << "#{name}_id"
             redundant << "#{name}_type"
+          elsif name.starts_with?("rich_text")
+            redundant << name
           else # belongs to
             redundant << "#{name}_id"
           end

@@ -1,4 +1,4 @@
-<%= form_with model: [:madmin, record], url: (record.persisted? ? resource.edit_path(record) : resource.index_path), local: true do |form| %>
+<%= form_with model: [:madmin, record], url: (record.persisted? ? resource.show_path(record) : resource.index_path), local: true do |form| %>
   <% if form.object.errors.any? %>
     <div class="mb-4 rounded-md text-sm text-red-700 bg-red-100 p-4">
       <div class="mb-2 font-medium leading-5 text-red-800">There was <%= pluralize form.object.errors.full_messages.count, "error" %> with your submission</div>
@@ -13,7 +13,9 @@
     <% next if attribute[:field].nil? %>
     <% field = attribute[:field] %>
 
-    <div><%= render partial: field.to_partial_path("form"), locals: { field: field, record: record, form: form } %></div>
+    <div class="mb-4">
+      <%= render partial: field.to_partial_path("form"), locals: { field: field, record: record, form: form, resource: resource } %>
+    </div>
   <% end %>
 
   <%= form.submit class: "bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" %>

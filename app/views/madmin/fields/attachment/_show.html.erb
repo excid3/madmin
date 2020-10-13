@@ -1,1 +1,3 @@
-<%= field.value(record) %>
+<% if (attachment = field.value(record)) && attachment.attached? %>
+  <%= link_to attachment.filename, attachment, target: :_blank %>
+<% end %>

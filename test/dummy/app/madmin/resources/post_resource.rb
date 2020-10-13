@@ -6,13 +6,11 @@ class PostResource < Madmin::Resource
   attribute :metadata
   attribute :created_at
   attribute :updated_at
+  attribute :body
+  attribute :image
+  attribute :attachments
 
   # Associations
   attribute :user
   attribute :comments
-  attribute :rich_text_body
-  attribute :image_attachment
-  attribute :image_blob
-  attribute :attachments_attachments
-  attribute :attachments_blobs
 end

@@ -17,6 +17,7 @@ module Madmin
     autoload :Float, "madmin/fields/float"
     autoload :Time, "madmin/fields/time"
     autoload :BelongsTo, "madmin/fields/belongs_to"
+    autoload :Polymorphic, "madmin/fields/polymorphic"
     autoload :HasMany, "madmin/fields/has_many"
     autoload :HasOne, "madmin/fields/has_one"
     autoload :RichText, "madmin/fields/rich_text"
@@ -25,4 +26,13 @@ module Madmin
   end
 
   mattr_accessor :resources, default: []
+
+  class << self
+    def resource_for(object)
+      Rails.application.eager_load!
+
+      klass_name = object.class.name
+      Madmin.resources.find{ |r| r.model_name == klass_name }
+    end
+  end
 end

@@ -1,6 +1,6 @@
 module Madmin
   class Field
-    attr_reader :attribute_name
+    attr_reader :attribute_name, :options
 
     def self.field_type
       to_s.split("::").last.underscore
@@ -8,6 +8,7 @@ module Madmin
 
     def initialize(attribute_name:, **options)
       @attribute_name = attribute_name
+      @options = options
     end
 
     def value(record)

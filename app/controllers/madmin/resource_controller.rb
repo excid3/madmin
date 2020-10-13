@@ -54,7 +54,17 @@ module Madmin
     end
 
     def resource_params
-      params.require(resource.param_key).permit(*resource.permitted_params)
+      params.require(resource.param_key).permit(*resource.permitted_params).transform_values { |v| change_polymorphic(v) }
+    end
+
+    def change_polymorphic(data)
+      return data unless data.is_a?(ActionController::Parameters) && data[:type]
+
+      if data[:type] == "polymorphic"
+        GlobalID::Locator.locate(data[:value])
+      else
+        raise "Unrecognised param data: #{data.inspect}"
+      end
     end
   end
 end

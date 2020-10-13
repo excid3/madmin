@@ -1,1 +1,7 @@
-<%= field.value(record) %>
+<% if (attachments = field.value(record)) && attachments.attached? %>
+  <% attachments.each do |attachment| %>
+    <div>
+      <%= link_to attachment.filename, attachment, target: :_blank %>
+    </div>
+  <% end %>
+<% end %>

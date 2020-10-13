@@ -7,5 +7,5 @@ class CommentResource < Madmin::Resource
 
   # Associations
   attribute :user
-  attribute :commentable
+  attribute :commentable, collection: ->{ Post.all }
 end
