@@ -1,0 +1,5 @@
+<%= form.fields_for field.attribute_name do |pf| %>
+  <%= pf.label field.attribute_name %>
+  <%= pf.select :value, field.options_for_select(record).map(&:to_global_id), { selected: field.value(record).to_global_id, prompt: true }, { class: "form-select" } %>
+  <%= pf.hidden_field :type, value: "polymorphic" %>
+<% end %>

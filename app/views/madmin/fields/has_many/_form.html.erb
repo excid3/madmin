@@ -1,3 +1,2 @@
-HAS MANY
 <%= form.label field.attribute_name %>
-<%= field.value(record) %>
+<%= form.select "#{field.attribute_name.to_s.singularize}_ids", field.options_for_select(record), { prompt: true }, { multiple: true, class: "form-select" } %>
