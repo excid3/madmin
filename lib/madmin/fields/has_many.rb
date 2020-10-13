@@ -11,7 +11,7 @@ module Madmin
       end
 
       def to_param
-        { "#{attribute_name.to_s.singularize}_ids".to_sym => [] }
+        {"#{attribute_name.to_s.singularize}_ids".to_sym => [] }
       end
     end
   end
