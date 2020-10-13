@@ -16,7 +16,7 @@ module Madmin
     def create
       @record = resource.model.new(resource_params)
       if @record.save
-        redirect_to [:madmin, @record]
+        redirect_to resource.show_path(@record)
       else
         render :new
       end
@@ -27,7 +27,7 @@ module Madmin
 
     def update
       if @record.update(resource_params)
-        redirect_to [:madmin, @record]
+        redirect_to resource.show_path(@record)
       else
         render :edit
       end
@@ -35,7 +35,7 @@ module Madmin
 
     def destroy
       @record.destroy
-      redirect_to [:madmin, resource.model]
+      redirect_to resource.index_path
     end
 
     private

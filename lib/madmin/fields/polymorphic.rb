@@ -2,7 +2,11 @@ module Madmin
   module Fields
     class Polymorphic < Field
       def options_for_select(record)
-        options.fetch(:collection).call
+        if (collection = options[:collection])
+          collection.call
+        else
+          []
+        end
       end
 
       def to_param
