@@ -89,9 +89,9 @@ module Madmin
 
       # Method copied from Rails 6.1 master
       def route(routing_code, namespace: nil, sentinel: nil, indentation: 2)
-        routing_code = Array(namespace).reverse.reduce(routing_code) do |code, ns|
+        routing_code = Array(namespace).reverse.reduce(routing_code) { |code, ns|
           "namespace :#{ns} do\n#{indent(code, 2)}\nend"
-        end
+        }
 
         log :route, routing_code
         sentinel ||= /\.routes\.draw do\s*\n/m
@@ -102,7 +102,7 @@ module Madmin
       end
 
       # Method copied from Rails 6.1 master
-      def optimize_indentation(value, amount = 0) # :doc:
+      def optimize_indentation(value, amount = 0)
         return "#{value}\n" unless value.is_a?(String)
         "#{value.strip_heredoc.indent(amount).chomp}\n"
       end
