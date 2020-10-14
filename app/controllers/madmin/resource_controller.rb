@@ -54,7 +54,9 @@ module Madmin
     end
 
     def resource_params
-      params.require(resource.param_key).permit(*resource.permitted_params).transform_values { |v| change_polymorphic(v) }
+      params.require(resource.param_key)
+        .permit(*resource.permitted_params)
+        .transform_values { |v| change_polymorphic(v) }
     end
 
     def change_polymorphic(data)

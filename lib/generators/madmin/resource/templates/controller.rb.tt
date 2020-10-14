@@ -1,0 +1,4 @@
+module Madmin
+  class <%= class_name.pluralize %>Controller < Madmin::ResourceController
+  end
+end

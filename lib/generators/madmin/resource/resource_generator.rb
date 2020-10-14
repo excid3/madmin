@@ -11,6 +11,11 @@ module Madmin
         template "resource.rb", "app/madmin/resources/#{file_path}_resource.rb"
       end
 
+      def generate_controller
+        destination = Rails.root.join("app/controllers/madmin/#{file_name.pluralize}_controller.rb")
+        template("controller.rb", destination)
+      end
+
       private
 
       def associations
