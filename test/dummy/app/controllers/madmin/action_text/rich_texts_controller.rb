@@ -1,2 +1,4 @@
-class Madmin::ActionText::RichTextsController < Madmin::ResourceController
+module Madmin
+  class ActionText::RichTextsController < Madmin::ResourceController
+  end
 end

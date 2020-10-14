@@ -1,2 +1,4 @@
-class Madmin::ActionMailbox::InboundEmailsController < Madmin::ResourceController
+module Madmin
+  class ActionMailbox::InboundEmailsController < Madmin::ResourceController
+  end
 end

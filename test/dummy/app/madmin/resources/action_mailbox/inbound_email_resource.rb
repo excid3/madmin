@@ -6,8 +6,7 @@ class ActionMailbox::InboundEmailResource < Madmin::Resource
   attribute :message_checksum
   attribute :created_at
   attribute :updated_at
+  attribute :raw_email
 
   # Associations
-  attribute :raw_email_attachment
-  attribute :raw_email_blob
 end

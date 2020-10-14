@@ -8,9 +8,8 @@ class ActiveStorage::BlobResource < Madmin::Resource
   attribute :byte_size
   attribute :checksum
   attribute :created_at
+  attribute :preview_image
 
   # Associations
-  attribute :preview_image_attachment
-  attribute :preview_image_blob
   attribute :attachments
 end

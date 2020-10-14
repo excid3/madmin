@@ -1,2 +1,4 @@
-class Madmin::CommentsController < Madmin::ResourceController
+module Madmin
+  class CommentsController < Madmin::ResourceController
+  end
 end

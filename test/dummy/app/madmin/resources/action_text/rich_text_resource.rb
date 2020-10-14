@@ -5,9 +5,8 @@ class ActionText::RichTextResource < Madmin::Resource
   attribute :body
   attribute :created_at
   attribute :updated_at
+  attribute :embeds
 
   # Associations
   attribute :record
-  attribute :embeds_attachments
-  attribute :embeds_blobs
 end

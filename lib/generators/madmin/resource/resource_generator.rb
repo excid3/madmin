@@ -12,8 +12,16 @@ module Madmin
       end
 
       def generate_controller
-        destination = Rails.root.join("app/controllers/madmin/#{file_name.pluralize}_controller.rb")
+        destination = Rails.root.join("app/controllers/madmin/#{file_path.pluralize}_controller.rb")
         template("controller.rb", destination)
+      end
+
+      def generate_route
+        if route_namespace_exists?
+          route "resources :#{plural_name}", namespace: class_path, indentation: 4, sentinel: /namespace :madmin do\s*\n/m
+        else
+          route "resources :#{plural_name}", namespace: [:madmin] + class_path
+        end
       end
 
       private
@@ -73,6 +81,30 @@ module Madmin
 
       def model
         @model ||= class_name.constantize
+      end
+
+      def route_namespace_exists?
+        File.readlines(Rails.root.join("config/routes.rb")).grep(/namespace :madmin/).size > 0
+      end
+
+      # Method copied from Rails 6.1 master
+      def route(routing_code, namespace: nil, sentinel: nil, indentation: 2)
+        routing_code = Array(namespace).reverse.reduce(routing_code) do |code, ns|
+          "namespace :#{ns} do\n#{indent(code, 2)}\nend"
+        end
+
+        log :route, routing_code
+        sentinel ||= /\.routes\.draw do\s*\n/m
+
+        in_root do
+          inject_into_file "config/routes.rb", optimize_indentation(routing_code, indentation), after: sentinel, verbose: false, force: false
+        end
+      end
+
+      # Method copied from Rails 6.1 master
+      def optimize_indentation(value, amount = 0) # :doc:
+        return "#{value}\n" unless value.is_a?(String)
+        "#{value.strip_heredoc.indent(amount).chomp}\n"
       end
     end
   end

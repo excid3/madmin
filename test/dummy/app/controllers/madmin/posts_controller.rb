@@ -1,2 +1,4 @@
-class Madmin::PostsController < Madmin::ResourceController
+module Madmin
+  class PostsController < Madmin::ResourceController
+  end
 end

@@ -1,2 +1,4 @@
-class Madmin::ActiveStorage::AttachmentsController < Madmin::ResourceController
+module Madmin
+  class ActiveStorage::AttachmentsController < Madmin::ResourceController
+  end
 end
