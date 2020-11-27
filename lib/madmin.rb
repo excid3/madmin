@@ -7,6 +7,7 @@ module Madmin
   autoload :Resource, "madmin/resource"
 
   module Fields
+    autoload :Boolean, "madmin/fields/boolean"
     autoload :Integer, "madmin/fields/integer"
     autoload :String, "madmin/fields/string"
     autoload :Text, "madmin/fields/text"

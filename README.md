@@ -5,20 +5,16 @@ Short description and motivation.
 How to use my plugin.
 
 ## Installation
-Add this line to your application's Gemfile:
+Add `madmin` to your application's Gemfile:
 
-```ruby
-gem 'madmin'
+```bash
+bundle add madmin
 ```
 
-And then execute:
-```bash
-$ bundle
-```
+Then run the madmin generator:
 
-Or install it yourself as:
 ```bash
-$ gem install madmin
+rails g madmin:install
 ```
 
 ## Contributing

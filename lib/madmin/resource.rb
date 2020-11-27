@@ -68,6 +68,8 @@ module Madmin
       private
 
       def field_for_type(name, type)
+        type ||= infer_type(name)
+
         {
           date: Fields::Date,
           datetime: Fields::DateTime,
@@ -78,6 +80,7 @@ module Madmin
           string: Fields::String,
           text: Fields::Text,
           time: Fields::Time,
+          boolean: Fields::Boolean,
 
           # Associations
           attachment: Fields::Attachment,
@@ -87,14 +90,14 @@ module Madmin
           has_many: Fields::HasMany,
           has_one: Fields::HasOne,
           rich_text: Fields::RichText
-        }[type || infer_type(name)]
+        }.fetch(type)
       end
 
       def infer_type(name)
         name_string = name.to_s
 
         if model.attribute_types.include?(name_string)
-          model.attribute_types[name.to_s].type || :string
+          model.attribute_types[name_string].type || :string
         elsif (association = model.reflect_on_association(name))
           type_for_association(association)
         elsif model.reflect_on_association(:"rich_text_#{name_string}")

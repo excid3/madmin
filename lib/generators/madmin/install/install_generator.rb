@@ -9,6 +9,14 @@ module Madmin
         Rails.application.eager_load!
       end
 
+      def generate_routes
+        if route_namespace_exists?
+          route "root to: \"dashboard#show\"", indentation: 4, sentinel: /namespace :madmin do\s*\n/m
+        else
+          route "root to: \"dashboard#show\"", namespace: [:madmin]
+        end
+      end
+
       def generate_resources
         generateable_models.each do |model|
           if model.table_exists?
