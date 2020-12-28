@@ -7,8 +7,8 @@ require "madmin/version"
 Gem::Specification.new do |spec|
   spec.name = "madmin"
   spec.version = Madmin::VERSION
-  spec.authors = ["Chris Oliver", "Andrew Fomera"]
-  spec.email = ["excid3@gmail.com", "andrew@zerlex.net"]
+  spec.authors = ["Chris Oliver", "Andrea Fomera"]
+  spec.email = ["excid3@gmail.com", "afomera@hey.com"]
   spec.homepage = "https://github.com/excid3/madmin"
   spec.summary = "A modern admin for Ruby on Rails apps"
   spec.description = "It's an admin, obviously."
