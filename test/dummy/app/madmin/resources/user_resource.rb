@@ -1,6 +1,6 @@
 class UserResource < Madmin::Resource
   # Attributes
-  attribute :id
+  attribute :id, form: false
   attribute :first_name
   attribute :last_name
   attribute :birthday

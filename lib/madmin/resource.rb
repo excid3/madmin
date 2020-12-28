@@ -27,10 +27,10 @@ module Madmin
       end
 
       def attribute(name, type = nil, **options)
-        attributes << options.merge(
+        attributes << {
           name: name,
-          field: field_for_type(name, type).new(attribute_name: name, collection: options[:collection])
-        )
+          field: field_for_type(name, type).new(options.merge(attribute_name: name))
+        }
       end
 
       def friendly_name

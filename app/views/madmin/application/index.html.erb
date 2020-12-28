@@ -16,6 +16,7 @@
       <tr>
         <% resource.attributes.each do |attribute| %>
           <% next if attribute[:field].nil? %>
+          <% next unless attribute[:field].options.fetch(:index, true) %>
           <% field = attribute[:field] %>
 
           <td><%= render partial: field.to_partial_path("index"), locals: { field: field, record: record } %></td>

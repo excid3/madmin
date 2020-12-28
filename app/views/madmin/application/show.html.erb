@@ -1,10 +1,15 @@
-<h1><%= link_to resource.friendly_name.pluralize, resource.index_path %> / <%= resource.model.name.singularize %> #<%= @record.id %></h1>
+<div class="flex justify-between">
+  <h1><%= link_to resource.friendly_name.pluralize, resource.index_path %> / <%= resource.model.name.singularize %> #<%= @record.id %></h1>
 
-<%= link_to "Edit", resource.edit_path(@record) %>
-<%= link_to "Delete", resource.show_path(@record), method: :delete, data: { confirm: "Are you sure?" } %>
+  <div class="flex px-4">
+    <%= link_to "Edit", resource.edit_path(@record), class: "mr-2" %>
+    <%= button_to "Delete", resource.show_path(@record), method: :delete, data: { confirm: "Are you sure?" }, class: "inline-block" %>
+  </div>
+</div>
 
 <% resource.attributes.each do |attribute| %>
   <% next if attribute[:field].nil? %>
+  <% next unless attribute[:field].options.fetch(:index, true) %>
   <% field = attribute[:field] %>
 
   <div class="flex py-2">
