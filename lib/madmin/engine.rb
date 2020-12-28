@@ -5,9 +5,6 @@ module Madmin
       app.config.paths.add "app/madmin/fields", eager_load: true
     end
 
-    initializer "pagy" do |app|
-    end
-
     config.to_prepare do
       Madmin.resources = []
     end
