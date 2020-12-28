@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   namespace :madmin do
+    root to: "dashboard#show"
     resources :users
     resources :comments
     resources :posts
