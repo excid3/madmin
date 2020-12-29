@@ -71,6 +71,7 @@ GEM
     crass (1.0.6)
     erubi (1.9.0)
     ffaker (2.17.0)
+    ffi (1.14.2)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     i18n (1.8.5)
@@ -145,6 +146,16 @@ GEM
     rubocop-performance (1.8.0)
       rubocop (>= 0.87.0)
     ruby-progressbar (1.10.1)
+    sass-rails (6.0.0)
+      sassc-rails (~> 2.1, >= 2.1.1)
+    sassc (2.4.0)
+      ffi (~> 1.9)
+    sassc-rails (2.1.2)
+      railties (>= 4.0.0)
+      sassc (>= 2.0)
+      sprockets (> 3.0)
+      sprockets-rails
+      tilt
     semantic_range (2.3.0)
     sprockets (4.0.2)
       concurrent-ruby (~> 1.0)
@@ -161,6 +172,7 @@ GEM
       standard
     thor (1.0.1)
     thread_safe (0.3.6)
+    tilt (2.0.10)
     tzinfo (1.2.7)
       thread_safe (~> 0.1)
     unicode-display_width (1.7.0)
@@ -187,6 +199,7 @@ DEPENDENCIES
   ffaker (~> 2.17)
   madmin!
   name_of_person (~> 1.1, >= 1.1.1)
+  sass-rails (>= 6)
   sqlite3
   standardrb
   web-console

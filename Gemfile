@@ -18,3 +18,6 @@ gem "ffaker", "~> 2.17"
 gem "name_of_person", "~> 1.1", ">= 1.1.1"
 gem "web-console", group: :development
 gem "webpacker", "~> 5.2", ">= 5.2.1"
+
+# Use SCSS for stylesheets
+gem 'sass-rails', '>= 6'

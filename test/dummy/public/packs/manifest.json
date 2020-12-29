@@ -1,24 +1,24 @@
 {
-  "application.js": "/packs/js/application-770ace383a6a2b408530.js",
-  "application.js.map": "/packs/js/application-770ace383a6a2b408530.js.map",
+  "application.js": "/packs/js/application-f0277545b0ab7214590e.js",
+  "application.js.map": "/packs/js/application-f0277545b0ab7214590e.js.map",
   "entrypoints": {
     "application": {
       "js": [
-        "/packs/js/application-770ace383a6a2b408530.js"
+        "/packs/js/application-f0277545b0ab7214590e.js"
       ],
       "js.map": [
-        "/packs/js/application-770ace383a6a2b408530.js.map"
+        "/packs/js/application-f0277545b0ab7214590e.js.map"
       ]
     },
     "madmin": {
       "js": [
-        "/packs/js/madmin-e0d25f809dc52a4972c2.js"
+        "/packs/js/madmin-a648baa5fbef4eb53c17.js"
       ],
       "js.map": [
-        "/packs/js/madmin-e0d25f809dc52a4972c2.js.map"
+        "/packs/js/madmin-a648baa5fbef4eb53c17.js.map"
       ]
     }
   },
-  "madmin.js": "/packs/js/madmin-e0d25f809dc52a4972c2.js",
-  "madmin.js.map": "/packs/js/madmin-e0d25f809dc52a4972c2.js.map"
+  "madmin.js": "/packs/js/madmin-a648baa5fbef4eb53c17.js",
+  "madmin.js.map": "/packs/js/madmin-a648baa5fbef4eb53c17.js.map"
 }
