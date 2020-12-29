@@ -101,6 +101,10 @@ module Madmin
         # Attributes without a database column
         elsif !model.column_names.include?(name)
           { index: false }
+
+        # Counter cache columns are typically not editable
+        elsif name.ends_with?("_count")
+          { form: false }
         end
       end
     end
