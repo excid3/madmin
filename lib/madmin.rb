@@ -4,6 +4,7 @@ require "pagy"
 
 module Madmin
   autoload :Field, "madmin/field"
+  autoload :GeneratorHelpers, "madmin/generator_helpers"
   autoload :Resource, "madmin/resource"
 
   module Fields

@@ -4,9 +4,10 @@ class UserResource < Madmin::Resource
   attribute :first_name
   attribute :last_name
   attribute :birthday
-  attribute :created_at
-  attribute :updated_at
-  attribute :virtual_attribute
+  attribute :created_at, form: false
+  attribute :updated_at, form: false
+  attribute :virtual_attribute, index: false
+  attribute :avatar, index: false
 
   # Associations
   attribute :posts

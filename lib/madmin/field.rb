@@ -26,5 +26,10 @@ module Madmin
     def to_param
       attribute_name
     end
+
+    # Used for checking visibility of attribute on an view
+    def visible?(action, default: true)
+      options.fetch(action.to_sym, default)
+    end
   end
 end

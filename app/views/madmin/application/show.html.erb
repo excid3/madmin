@@ -9,7 +9,7 @@
 
 <% resource.attributes.each do |attribute| %>
   <% next if attribute[:field].nil? %>
-  <% next unless attribute[:field].options.fetch(:index, true) %>
+  <% next unless attribute[:field].visible?(action_name) %>
   <% field = attribute[:field] %>
 
   <div class="flex py-2">

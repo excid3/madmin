@@ -1,7 +1,7 @@
 class <%= class_name %>Resource < Madmin::Resource
   # Attributes
 <% attributes.each do |attribute_name| -%>
-  attribute :<%= attribute_name %>
+  attribute :<%= attribute_name %><%= formatted_options_for_attribute(attribute_name) %>
 <% end -%>
 
   # Associations

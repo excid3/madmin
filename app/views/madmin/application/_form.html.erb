@@ -11,8 +11,9 @@
 
   <% resource.attributes.each do |attribute| %>
     <% next if attribute[:field].nil? %>
-    <% next unless attribute[:field].options.fetch(:form, true) %>
-    <% next unless attribute[:field].options.fetch(action_name.to_sym, true) %>
+    <% next unless attribute[:field].visible?(action_name) %>
+    <% next unless attribute[:field].visible?(:form) %>
+
     <% field = attribute[:field] %>
 
     <div class="mb-4">

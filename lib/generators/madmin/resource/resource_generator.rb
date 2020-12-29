@@ -84,6 +84,25 @@ module Madmin
       def model
         @model ||= class_name.constantize
       end
+
+      def formatted_options_for_attribute(name)
+        options = options_for_attribute(name)
+        return if options.blank?
+
+        ", " + options.map do |key, value|
+          "#{key}: #{value}"
+        end.join(", ")
+      end
+
+      def options_for_attribute(name)
+        if %w{ id created_at updated_at }.include?(name)
+          { form: false }
+
+        # Attributes without a database column
+        elsif !model.column_names.include?(name)
+          { index: false }
+        end
+      end
     end
   end
 end
