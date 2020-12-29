@@ -1,31 +1,29 @@
 <!DOCTYPE html>
 <html lang="<%= I18n.locale %>">
-<head>
-  <meta charset="utf-8">
-  <meta name="ROBOTS" content="NOODP">
-  <meta name="viewport" content="initial-scale=1">
-  <title>
-    <%= Rails.application.class %>
-  </title>
-  <link href="https://unpkg.com/tailwindcss@^2.0/dist/tailwind.min.css" rel="stylesheet" />
-  <link href="https://unpkg.com/@tailwindcss/forms/dist/forms.min.css" rel="stylesheet" />
-  <link href="https://unpkg.com/@tailwindcss/typography/dist/typography.min.css" rel="stylesheet" />
-  <%= stylesheet_link_tag "application" %>
-  <%= javascript_pack_tag "madmin" %>
-  <%= csrf_meta_tags %>
-</head>
-<body class="prose" style="max-width:none">
-  <div class="flex w-full p-4">
-    <div id="sidebar" class="w-64 flex-shrink-0">
-      <%= render "navigation" -%>
+  <head>
+    <meta charset="utf-8">
+    <meta name="ROBOTS" content="NOODP">
+    <meta name="viewport" content="initial-scale=1">
+    <title>
+      Madmin: <%= Rails.application.class %>
+    </title>
+    <link href="https://unpkg.com/tailwindcss@^2.0/dist/tailwind.min.css" rel="stylesheet" />
+    <link href="https://unpkg.com/@tailwindcss/forms/dist/forms.min.css" rel="stylesheet" />
+    <link href="https://unpkg.com/@tailwindcss/typography/dist/typography.min.css" rel="stylesheet" />
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_pack_tag "madmin", "data-turbo-track": "reload" %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body class="prose" style="max-width:none">
+    <div class="flex w-full p-4">
+      <div id="sidebar" class="w-64 flex-shrink-0">
+        <%= render "navigation" -%>
+      </div>
+      <main class="w-full" role="main">
+        <%#= render "flashes" -%>
+        <%= yield %>
+      </main>
     </div>
-
-    <main class="w-full" role="main">
-      <%#= render "flashes" -%>
-      <%= yield %>
-    </main>
-  </div>
-
-  <%#= render "javascript" %>
-</body>
+    <%#= render "javascript" %>
+  </body>
 </html>
