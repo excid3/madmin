@@ -1,8 +1,8 @@
 class ActiveStorage::AttachmentResource < Madmin::Resource
   # Attributes
-  attribute :id
+  attribute :id, form: false
   attribute :name
-  attribute :created_at
+  attribute :created_at, form: false
 
   # Associations
   attribute :record

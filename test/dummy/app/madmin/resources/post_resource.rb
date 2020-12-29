@@ -1,14 +1,14 @@
 class PostResource < Madmin::Resource
   # Attributes
-  attribute :id
+  attribute :id, form: false
   attribute :title
-  attribute :comments_count
+  attribute :body, index: false
+  attribute :comments_count, form: false
   attribute :metadata
-  attribute :created_at
-  attribute :updated_at
-  attribute :body
-  attribute :image
-  attribute :attachments
+  attribute :image, index: false
+  attribute :attachments, index: false
+  attribute :created_at, form: false
+  attribute :updated_at, form: false
 
   # Associations
   attribute :user

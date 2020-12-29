@@ -1,9 +1,9 @@
 class User::ConnectedAccountResource < Madmin::Resource
   # Attributes
-  attribute :id
+  attribute :id, form: false
   attribute :service
-  attribute :created_at
-  attribute :updated_at
+  attribute :created_at, form: false
+  attribute :updated_at, form: false
 
   # Associations
   attribute :user
