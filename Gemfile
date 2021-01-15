@@ -20,4 +20,4 @@ gem "web-console", group: :development
 gem "webpacker", "~> 5.2", ">= 5.2.1"
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '>= 6'
+gem "sass-rails", ">= 6"
