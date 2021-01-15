@@ -4,8 +4,11 @@
 
 [![Build Status](https://github.com/excid3/madmin/workflows/Tests/badge.svg)](https://github.com/excid3/madmin/actions) [![Gem Version](https://badge.fury.io/rb/madmin.svg)](https://badge.fury.io/rb/madmin)
 
-## Usage
-How to use my plugin.
+Why another Ruby on Rails admin? We wanted an admin that was:
+
+* Familiar and customizable like Rails scaffolds (less DSL)
+* Supports all the Rails features out of the box (ActionText, ActionMailbox, etc)
+* Stimulus / Turbolinks / Hotwire ready
 
 ## Installation
 Add `madmin` to your application's Gemfile:
