@@ -1,8 +1,6 @@
-<p align="center">
-  <h1>Noticed</h1>
-</p>
+# Madmin
 
-### Madmin - A robust admin interface for Ruby on Rails apps
+### A robust admin interface for Ruby on Rails apps
 
 [![Build Status](https://github.com/excid3/madmin/workflows/Tests/badge.svg)](https://github.com/excid3/madmin/actions) [![Gem Version](https://badge.fury.io/rb/madmin.svg)](https://badge.fury.io/rb/madmin)
 
