@@ -1,5 +1,5 @@
 PATH
-  remote: .
+  remote: ..
   specs:
     madmin (0.1.1)
       pagy (>= 3.5, < 4.0)
@@ -94,14 +94,12 @@ GEM
     method_source (1.0.0)
     mimemagic (0.3.5)
     mini_mime (1.0.2)
-    mini_portile2 (2.5.0)
     minitest (5.14.3)
     mysql2 (0.5.3)
     name_of_person (1.1.1)
       activesupport (>= 5.2.0)
     nio4r (2.5.4)
-    nokogiri (1.11.1)
-      mini_portile2 (~> 2.5.0)
+    nokogiri (1.11.1-x86_64-darwin)
       racc (~> 1.4)
     pagy (3.10.0)
     parallel (1.20.1)
@@ -204,7 +202,7 @@ GEM
     zeitwerk (2.4.2)
 
 PLATFORMS
-  ruby
+  x86_64-darwin-20
 
 DEPENDENCIES
   appraisal
@@ -214,6 +212,7 @@ DEPENDENCIES
   mysql2
   name_of_person (~> 1.1, >= 1.1.1)
   pg
+  rails (~> 6.1.0)
   sass-rails (>= 6)
   sqlite3
   standardrb

@@ -11,7 +11,7 @@ gemspec
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
 
-# To use a debugger
+gem "appraisal"
 gem "byebug", group: [:development, :test]
 gem "standardrb", group: [:development, :test]
 gem "ffaker", "~> 2.17"
@@ -21,3 +21,8 @@ gem "webpacker", "~> 5.2", ">= 5.2.1"
 
 # Use SCSS for stylesheets
 gem "sass-rails", ">= 6"
+
+# Databases to test against
+gem "pg"
+gem "mysql2"
+gem "sqlite3"
