@@ -89,22 +89,22 @@ module Madmin
         options = options_for_attribute(name)
         return if options.blank?
 
-        ", " + options.map do |key, value|
+        ", " + options.map { |key, value|
           "#{key}: #{value}"
-        end.join(", ")
+        }.join(", ")
       end
 
       def options_for_attribute(name)
-        if %w{ id created_at updated_at }.include?(name)
-          { form: false }
+        if %w[id created_at updated_at].include?(name)
+          {form: false}
 
         # Attributes without a database column
         elsif !model.column_names.include?(name)
-          { index: false }
+          {index: false}
 
         # Counter cache columns are typically not editable
         elsif name.ends_with?("_count")
-          { form: false }
+          {form: false}
         end
       end
     end
