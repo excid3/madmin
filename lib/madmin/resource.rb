@@ -29,7 +29,7 @@ module Madmin
       def attribute(name, type = nil, **options)
         attributes << {
           name: name,
-          field: field_for_type(name, type).new(options.merge(attribute_name: name))
+          field: field_for_type(name, type).new(**options.merge(attribute_name: name))
         }
       end
 
