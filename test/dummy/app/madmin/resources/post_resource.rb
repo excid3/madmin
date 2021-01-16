@@ -13,4 +13,6 @@ class PostResource < Madmin::Resource
   # Associations
   attribute :user
   attribute :comments
+
+  scope :recent
 end

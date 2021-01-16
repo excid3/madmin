@@ -1,5 +1,17 @@
-<h1><%= resource.friendly_name.pluralize %></h1>
-<%= link_to "New #{resource.friendly_name}", resource.new_path %>
+<div class="flex justify-between">
+  <h1><%= resource.friendly_name.pluralize %></h1>
+  <%= link_to "New #{resource.friendly_name}", resource.new_path %>
+</div>
+
+<div>
+  <% if resource.scopes.any? %>
+    <%= link_to "All", resource.index_path %>
+  <% end %>
+
+  <% resource.scopes.each do |scope| %>
+    <%= link_to scope.to_s.humanize, resource.index_path(scope: scope) %>
+  <% end %>
+</div>
 
 <table class="table-auto">
   <thead>

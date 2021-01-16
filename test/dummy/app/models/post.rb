@@ -5,5 +5,7 @@ class Post < ApplicationRecord
   has_one_attached :image
   has_many_attached :attachments
 
+  scope :recent, -> { where(created_at: 2.weeks.ago..) }
+
   validates :title, presence: true
 end

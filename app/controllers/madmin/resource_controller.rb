@@ -3,7 +3,7 @@ module Madmin
     before_action :set_record, except: [:index, :new, :create]
 
     def index
-      @pagy, @records = pagy(resource.model.all)
+      @pagy, @records = pagy(scoped_resources)
     end
 
     def show
@@ -51,6 +51,14 @@ module Madmin
 
     def resource_name
       "#{controller_path.singularize}_resource".delete_prefix("madmin/").classify
+    end
+
+    def scoped_resources
+      resource.model.send(valid_scope)
+    end
+
+    def valid_scope
+      resource.scopes.include?(params[:scope].to_sym) ? params[:scope] : :all
     end
 
     def resource_params

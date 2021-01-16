@@ -37,8 +37,10 @@ module Madmin
         model_name.gsub("::", " / ")
       end
 
-      def index_path
-        "/madmin/#{model.model_name.collection}"
+      def index_path(options = {})
+        path = "/madmin/#{model.model_name.collection}"
+        path += "?#{options.to_param}" if options.any?
+        path
       end
 
       def new_path
