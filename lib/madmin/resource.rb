@@ -79,11 +79,14 @@ module Madmin
           enum: Fields::Enum,
           float: Fields::Float,
           integer: Fields::Integer,
-          json: Fields::Json,
           string: Fields::String,
           text: Fields::Text,
           time: Fields::Time,
           boolean: Fields::Boolean,
+
+          json: Fields::Json,
+          jsonb: Fields::Json,
+          hstore: Fields::Json,
 
           # Associations
           attachment: Fields::Attachment,
