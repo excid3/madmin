@@ -14,6 +14,7 @@ module Madmin
     autoload :Text, "madmin/fields/text"
     autoload :Date, "madmin/fields/date"
     autoload :DateTime, "madmin/fields/date_time"
+    autoload :Decimal, "madmin/fields/decimal"
     autoload :Json, "madmin/fields/json"
     autoload :Enum, "madmin/fields/enum"
     autoload :Float, "madmin/fields/float"
