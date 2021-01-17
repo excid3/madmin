@@ -1,0 +1,2 @@
+class Numerical < ApplicationRecord
+end

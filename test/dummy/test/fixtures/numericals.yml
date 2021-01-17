@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  decimal: 9.99
+  float: 1.5
+
+two:
+  decimal: 9.99
+  float: 1.5

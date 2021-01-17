@@ -1,6 +1,6 @@
 module Madmin
   module Fields
-    class Decimal< Field
+    class Decimal < Field
     end
   end
 end

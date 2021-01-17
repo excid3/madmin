@@ -75,6 +75,7 @@ module Madmin
         {
           date: Fields::Date,
           datetime: Fields::DateTime,
+          decimal: Fields::Decimal,
           enum: Fields::Enum,
           float: Fields::Float,
           integer: Fields::Integer,
@@ -93,6 +94,15 @@ module Madmin
           has_one: Fields::HasOne,
           rich_text: Fields::RichText
         }.fetch(type)
+      rescue
+        raise ArgumentError, <<~MESSAGE
+          Couldn't find attribute or association '#{name}' with type '#{type}' on #{model} model
+
+            To fix this, either:
+
+            1. Remove 'attribute #{name}' from app/madmin/resources/#{model.to_s.underscore}_resource.rb
+            2. Or add the missing attribute or association to the #{model} model
+        MESSAGE
       end
 
       def infer_type(name)

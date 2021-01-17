@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_11_160756) do
+ActiveRecord::Schema.define(version: 2021_01_17_174119) do
 
   create_table "action_mailbox_inbound_emails", force: :cascade do |t|
     t.integer "status", default: 0, null: false
@@ -34,8 +34,8 @@ ActiveRecord::Schema.define(version: 2020_09_11_160756) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
-    t.bigint"record_id", null: false
-    t.bigint "blob_id", null: false
+    t.integer "record_id", null: false
+    t.integer "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 2020_09_11_160756) do
   end
 
   create_table "active_storage_variant_records", force: :cascade do |t|
-    t.bigint "blob_id", null: false
+    t.integer "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
@@ -68,6 +68,17 @@ ActiveRecord::Schema.define(version: 2020_09_11_160756) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "habtms", force: :cascade do |t|
+    t.string "name"
+  end
+
+  create_table "numericals", force: :cascade do |t|
+    t.decimal "decimal"
+    t.float "float"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "posts", force: :cascade do |t|
@@ -86,6 +97,13 @@ ActiveRecord::Schema.define(version: 2020_09_11_160756) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_user_connected_accounts_on_user_id"
+  end
+
+  create_table "user_habtms", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "habtm_id"
+    t.index ["habtm_id"], name: "index_user_habtms_on_habtm_id"
+    t.index ["user_id"], name: "index_user_habtms_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
