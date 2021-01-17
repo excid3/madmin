@@ -1,0 +1,16 @@
+<%= stylesheet_link_tag "https://cdn.skypack.dev/flatpickr/dist/flatpickr.min.css", "data-turbo-track": "reload" %>
+<%= stylesheet_link_tag "https://cdn.skypack.dev/slim-select/dist/slimselect.min.css", "data-turbo-track": "reload" %>
+<%= stylesheet_link_tag "https://cdn.skypack.dev/trix/dist/trix.css", "data-turbo-track": "reload" %>
+
+<%= javascript_pack_tag "madmin", "data-turbo-track": "reload" %>
+
+<script type="module">
+  import { Application } from 'https://cdn.skypack.dev/stimulus'
+  const application = Application.start()
+
+  import stimulusFlatpickr from 'https://cdn.skypack.dev/stimulus-flatpickr'
+  application.register("flatpickr", stimulusFlatpickr)
+
+  import stimulusSlimselect from 'https://cdn.skypack.dev/stimulus-slimselect'
+  application.register("slimselect", stimulusSlimselect)
+</script>

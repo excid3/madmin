@@ -7,8 +7,8 @@ class PostResource < Madmin::Resource
   attribute :metadata
   attribute :image, index: false
   attribute :attachments, index: false
-  attribute :created_at, form: false
-  attribute :updated_at, form: false
+  attribute :created_at
+  attribute :updated_at
 
   # Associations
   attribute :user

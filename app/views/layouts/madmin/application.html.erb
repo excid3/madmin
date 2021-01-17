@@ -11,8 +11,9 @@
     <link href="https://unpkg.com/@tailwindcss/forms/dist/forms.min.css" rel="stylesheet" />
     <link href="https://unpkg.com/@tailwindcss/typography/dist/typography.min.css" rel="stylesheet" />
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_pack_tag "madmin", "data-turbo-track": "reload" %>
     <%= csrf_meta_tags %>
+
+    <%= render "javascript" %>
   </head>
   <body class="prose" style="max-width:none">
     <div class="flex w-full p-4">
