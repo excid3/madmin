@@ -58,7 +58,7 @@ module Madmin
     end
 
     def valid_scope
-      scope = params.fetch(:scope, 'all')
+      scope = params.fetch(:scope, "all")
       resource.scopes.include?(scope.to_sym) ? scope : :all
     end
 
