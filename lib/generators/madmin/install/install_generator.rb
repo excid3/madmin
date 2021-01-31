@@ -5,8 +5,14 @@ module Madmin
     class InstallGenerator < Rails::Generators::Base
       include Madmin::GeneratorHelpers
 
+      source_root File.expand_path("../templates", __FILE__)
+
       def eager_load
         Rails.application.eager_load!
+      end
+
+      def copy_controller
+        template("controller.rb.tt", "app/controllers/madmin/application_controller.rb")
       end
 
       def generate_routes
