@@ -12,7 +12,6 @@
   import stimulusSlimselect from 'https://cdn.skypack.dev/stimulus-slimselect'
   application.register("slimselect", stimulusSlimselect)
 
-  console.log("Rails" in window)
   import Rails from 'https://cdn.skypack.dev/@rails/ujs@<%= npm_rails_version %>'
   import * as ActiveStorage from 'https://cdn.skypack.dev/@rails/activestorage@<%= npm_rails_version %>'
   import 'https://cdn.skypack.dev/trix'
@@ -20,4 +19,6 @@
 
   Rails.start()
   ActiveStorage.start()
+
+  import * as Turbo from "https://cdn.skypack.dev/@hotwired/turbo"
 </script>

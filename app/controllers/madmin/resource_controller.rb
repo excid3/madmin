@@ -18,7 +18,7 @@ module Madmin
       if @record.save
         redirect_to resource.show_path(@record)
       else
-        render :new
+        render :new, status: :unprocessable_entity
       end
     end
 
@@ -29,7 +29,7 @@ module Madmin
       if @record.update(resource_params)
         redirect_to resource.show_path(@record)
       else
-        render :edit
+        render :edit, status: :unprocessable_entity
       end
     end
 

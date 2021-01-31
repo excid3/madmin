@@ -1,5 +1,5 @@
 <div class="text-sm">
-  <%= link_to "← Back to App", main_app.root_url, class: "block p-1" if main_app.respond_to?(:root_url) %>
+  <%= link_to "← Back to App", main_app.root_url, class: "block p-1", data: { turbo: false } if main_app.respond_to?(:root_url) %>
   <% Madmin.resources.each do |resource| %>
     <%= link_to resource.friendly_name.pluralize, resource.index_path, class: "block p-1" %>
   <% end %>
