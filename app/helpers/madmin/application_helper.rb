@@ -7,7 +7,7 @@ module Madmin
       version = [
         Rails::VERSION::MAJOR,
         Rails::VERSION::MINOR,
-        Rails::VERSION::TINY,
+        Rails::VERSION::TINY
       ].join(".")
 
       version += "-#{Rails::VERSION::PRE}" if Rails::VERSION::PRE
