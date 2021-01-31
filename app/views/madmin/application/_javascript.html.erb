@@ -2,8 +2,6 @@
 <%= stylesheet_link_tag "https://cdn.skypack.dev/slim-select/dist/slimselect.min.css", "data-turbo-track": "reload" %>
 <%= stylesheet_link_tag "https://cdn.skypack.dev/trix/dist/trix.css", "data-turbo-track": "reload" %>
 
-<%= javascript_pack_tag "madmin", "data-turbo-track": "reload" %>
-
 <script type="module">
   import { Application } from 'https://cdn.skypack.dev/stimulus'
   const application = Application.start()
@@ -13,4 +11,13 @@
 
   import stimulusSlimselect from 'https://cdn.skypack.dev/stimulus-slimselect'
   application.register("slimselect", stimulusSlimselect)
+
+  console.log("Rails" in window)
+  import Rails from 'https://cdn.skypack.dev/@rails/ujs@<%= npm_rails_version %>'
+  import * as ActiveStorage from 'https://cdn.skypack.dev/@rails/activestorage@<%= npm_rails_version %>'
+  import 'https://cdn.skypack.dev/trix'
+  import 'https://cdn.skypack.dev/@rails/actiontext@<%= npm_rails_version %>'
+
+  Rails.start()
+  ActiveStorage.start()
 </script>

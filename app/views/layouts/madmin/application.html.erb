@@ -10,7 +10,6 @@
     <link href="https://unpkg.com/tailwindcss@^2.0/dist/tailwind.min.css" rel="stylesheet" />
     <link href="https://unpkg.com/@tailwindcss/forms/dist/forms.min.css" rel="stylesheet" />
     <link href="https://unpkg.com/@tailwindcss/typography/dist/typography.min.css" rel="stylesheet" />
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= csrf_meta_tags %>
 
     <%= render "javascript" %>
@@ -25,6 +24,5 @@
         <%= yield %>
       </main>
     </div>
-    <%#= render "javascript" %>
   </body>
 </html>
