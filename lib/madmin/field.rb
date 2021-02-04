@@ -6,7 +6,7 @@ module Madmin
       to_s.split("::").last.underscore
     end
 
-    def initialize(attribute_name:, model: , **options)
+    def initialize(attribute_name:, model:, **options)
       @attribute_name = attribute_name
       @model = model
       @options = options
