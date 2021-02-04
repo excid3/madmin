@@ -1,13 +1,14 @@
 module Madmin
   class Field
-    attr_reader :attribute_name, :options
+    attr_reader :attribute_name, :model, :options
 
     def self.field_type
       to_s.split("::").last.underscore
     end
 
-    def initialize(attribute_name:, **options)
+    def initialize(attribute_name:, model: , **options)
       @attribute_name = attribute_name
+      @model = model
       @options = options
     end
 
@@ -30,6 +31,10 @@ module Madmin
     # Used for checking visibility of attribute on an view
     def visible?(action, default: true)
       options.fetch(action.to_sym, default)
+    end
+
+    def required?
+      model._validators[attribute_name].any? { |v| v.is_a? ActiveModel::Validations::PresenceValidator }
     end
   end
 end
