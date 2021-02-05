@@ -35,9 +35,10 @@ module Madmin
 
       private
 
+      # Skip Abstract classes, ActiveRecord::Base, and auto-generated HABTM models
       def generateable_models
         active_record_models.reject do |model|
-          model.abstract_class? || model == ActiveRecord::Base
+          model.abstract_class? || model == ActiveRecord::Base || model.name.start_with?("HABTM_")
         end
       end
 
