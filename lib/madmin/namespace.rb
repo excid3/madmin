@@ -5,17 +5,17 @@ module Madmin
     end
 
     def resources
-      @resources ||= routes.map(&:first).uniq.map do |path|
+      @resources ||= routes.map(&:first).uniq.map { |path|
         Resource.new(namespace, path)
-      end
+      }
     end
 
     def routes
-      @routes ||= all_routes.select do |controller, _action|
+      @routes ||= all_routes.select { |controller, _action|
         controller.starts_with?("#{namespace}/")
-      end.map do |controller, action|
+      }.map { |controller, action|
         [controller.gsub(/^#{namespace}\//, ""), action]
-      end
+      }
     end
 
     def resources_with_index_route

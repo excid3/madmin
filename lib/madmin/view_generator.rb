@@ -10,8 +10,8 @@ module Madmin
     def self.template_source_path
       File.expand_path(
         "../../../app/views/madmin/application",
-        __FILE__,
-        )
+        __FILE__
+      )
     end
 
     private
@@ -25,8 +25,8 @@ module Madmin
 
       copy_file(
         template_file,
-        "app/views/#{namespace}/#{resource_path}/#{template_file}",
-        )
+        "app/views/#{namespace}/#{resource_path}/#{template_file}"
+      )
     end
 
     def resource_path
