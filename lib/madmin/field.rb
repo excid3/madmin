@@ -34,7 +34,7 @@ module Madmin
     end
 
     def required?
-      model._validators[attribute_name].any? { |v| v.is_a? ActiveModel::Validations::PresenceValidator }
+      model.validators_on(attribute_name).any? { |v| v.is_a? ActiveModel::Validations::PresenceValidator }
     end
   end
 end
