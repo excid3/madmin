@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    madmin (1.0.0.beta2)
+    madmin (1.0.0)
       pagy (>= 3.5, < 4.0)
       rails (>= 6.0.3)
 
@@ -99,7 +99,7 @@ GEM
     mysql2 (0.5.3)
     name_of_person (1.1.1)
       activesupport (>= 5.2.0)
-    nio4r (2.5.4)
+    nio4r (2.5.5)
     nokogiri (1.11.1)
       mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
