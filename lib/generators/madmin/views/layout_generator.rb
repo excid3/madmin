@@ -9,7 +9,7 @@ module Madmin
         def copy_template
           copy_file(
             "../../layouts/madmin/application.html.erb",
-            "app/views/layouts/admin/application.html.erb",
+            "app/views/layouts/madmin/application.html.erb",
           )
 
           call_generator("madmin:views:navigation")

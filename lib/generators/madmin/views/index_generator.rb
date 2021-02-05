@@ -8,7 +8,6 @@ module Madmin
 
         def copy_template
           copy_resource_template("index")
-          copy_resource_template("_collection")
         end
       end
     end
