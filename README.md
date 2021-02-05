@@ -37,6 +37,29 @@ To generate a resource for a model, you can run:
 rails g madmin:resource ActionText::RichText
 ```
 
+## Configuring Views
+
+The views packaged within the gem are a great starting point, but inevitably people will need to be able to customize those views.
+
+You can use the included generator to create the appropriate view files, which can then be customized.
+
+For example, running the following will copy over all of the views into your application that will be used for every resource:
+```bash
+rails generate madmin:views
+```
+
+If you only need to customize specific views, you can restrict which views are copied by the generator:
+```bash
+rails g madmin:views:index
+ # -> app/views/madmin/application/index.html.erb
+```
+
+You can also scope the copied view(s) to a specific Resource/Model:
+```bash
+rails generate madmin:views:index Book
+ # -> app/views/madmin/books/index.html.erb
+```
+
 ## 🙏 Contributing
 
 This project uses Standard for formatting Ruby code. Please make sure to run standardrb before submitting pull requests.
