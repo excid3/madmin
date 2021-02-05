@@ -10,3 +10,4 @@ test/dummy/tmp/
 .byebug_history
 test/dummy/node_modules
 .DS_Store
+.idea/
