@@ -11,5 +11,6 @@ class ActiveStorage::BlobResource < Madmin::Resource
   attribute :preview_image, index: false
 
   # Associations
+  attribute :variant_records
   attribute :attachments
 end

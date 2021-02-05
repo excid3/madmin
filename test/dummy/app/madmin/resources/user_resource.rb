@@ -12,4 +12,5 @@ class UserResource < Madmin::Resource
   # Associations
   attribute :posts
   attribute :comments
+  attribute :habtms
 end
