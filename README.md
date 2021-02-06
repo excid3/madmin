@@ -48,6 +48,22 @@ For example, running the following will copy over all of the views into your app
 rails generate madmin:views
 ```
 
+The view files that are copied over in this case includes all of the standard Rails action views (index, new, edit, show, and _form), as well as:
+* application.html.erb (layout file)
+* _javascript.html.erb (default JavaScript setup)
+* _navigation.html.erb (renders the navigation/sidebar menu)
+
+As with the other views, you can specifically run the views generator for only the navigation or application layout views:
+```bash
+rails g madmin:views:navigation
+ # -> app/views/madmin/_navigation.html.erb
+ 
+rails g madmin:views:layout  # Note the layout generator includes the layout, javascript, and navigation files.
+ # -> app/views/madmin/application.html.erb
+ # -> app/views/madmin/_javascript.html.erb
+ # -> app/views/madmin/_navigation.html.erb
+```
+
 If you only need to customize specific views, you can restrict which views are copied by the generator:
 ```bash
 rails g madmin:views:index
