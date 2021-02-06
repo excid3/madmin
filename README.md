@@ -64,8 +64,6 @@ rails g madmin:views:layout  # Note the layout generator includes the layout, ja
  # -> app/views/madmin/_navigation.html.erb
 ```
 
-Running the views g
-
 If you only need to customize specific views, you can restrict which views are copied by the generator:
 ```bash
 rails g madmin:views:index
