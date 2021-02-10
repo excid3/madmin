@@ -49,9 +49,9 @@ rails generate madmin:views
 ```
 
 The view files that are copied over in this case includes all of the standard Rails action views (index, new, edit, show, and _form), as well as:
-* application.html.erb (layout file)
-* _javascript.html.erb (default JavaScript setup)
-* _navigation.html.erb (renders the navigation/sidebar menu)
+* `application.html.erb` (layout file)
+* `_javascript.html.erb` (default JavaScript setup)
+* `_navigation.html.erb` (renders the navigation/sidebar menu)
 
 As with the other views, you can specifically run the views generator for only the navigation or application layout views:
 ```bash
