@@ -22,9 +22,11 @@ If you want to use HTTP Basic Authentication, you can use this in your
 module Madmin
   class ApplicationController < Madmin::BaseController
     http_basic_authenticate_with(
-      name: ENV['ADMIN_USERNAME'],
-      password: ENV['ADMIN_PASSWORD']
+      name: ENV['ADMIN_USERNAME'] || Rails.application.credentials.admin_username,
+      password: ENV['ADMIN_PASSWORD'] || Rails.application.credentials.admin_password
     )
   end
 end
 ```
+
+This will use ENV vars (if defined) or fallback to the Rails credentials for admin username and password.
