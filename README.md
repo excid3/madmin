@@ -57,7 +57,7 @@ As with the other views, you can specifically run the views generator for only t
 ```bash
 rails g madmin:views:navigation
  # -> app/views/madmin/_navigation.html.erb
- 
+
 rails g madmin:views:layout  # Note the layout generator includes the layout, javascript, and navigation files.
  # -> app/views/madmin/application.html.erb
  # -> app/views/madmin/_javascript.html.erb
@@ -75,6 +75,11 @@ You can also scope the copied view(s) to a specific Resource/Model:
 rails generate madmin:views:index Book
  # -> app/views/madmin/books/index.html.erb
 ```
+
+## Authentication
+
+You can use a couple of strategies to authenticate users who are trying to
+access your madmin panel: [Authentication Docs](docs/authentication.md)
 
 ## 🙏 Contributing
 
