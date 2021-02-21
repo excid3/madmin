@@ -1,3 +1,2 @@
-ENUM
 <%= form.label field.attribute_name, class: "inline-block w-32 flex-shrink-0" %>
-<%= field.value(record) %>
+<%= form.select field.attribute_name, field.options_for_select(record), { prompt: true }, { class: "form-select" } %>
