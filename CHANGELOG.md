@@ -1,5 +1,7 @@
 ### Unreleased
 
+* Improve support for enums
+
 ### 1.0.0
 
 * Add view generators - @esmale
