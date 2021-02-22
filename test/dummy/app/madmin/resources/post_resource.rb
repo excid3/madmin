@@ -9,6 +9,7 @@ class PostResource < Madmin::Resource
   attribute :body, index: false
   attribute :image, index: false
   attribute :attachments, index: false
+  attribute :enum
 
   # Associations
   attribute :user
