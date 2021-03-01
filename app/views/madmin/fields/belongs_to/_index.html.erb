@@ -1,2 +1,3 @@
-<% object = field.value(record) %>
-<%= link_to Madmin.resource_for(object).display_name(object), Madmin.resource_for(object).show_path(object) %>
+<% if (object = field.value(record)) %>
+  <%= link_to Madmin.resource_for(object).display_name(object), Madmin.resource_for(object).show_path(object) %>
+<% end %>
