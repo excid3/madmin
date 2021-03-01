@@ -1,6 +1,7 @@
 ### Unreleased
 
-* Improve support for enums
+* Fix belongs_to when nil - @excid3
+* Improve support for enums - @excid3
 
 ### 1.0.0
 
