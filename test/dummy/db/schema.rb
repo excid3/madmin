@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(version: 2021_01_17_174119) do
     t.string "title"
     t.integer "comments_count"
     t.json "metadata"
+    t.integer "enum"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_posts_on_user_id"

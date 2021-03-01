@@ -7,5 +7,7 @@ class Post < ApplicationRecord
 
   scope :recent, -> { where(created_at: 2.weeks.ago..) }
 
+  enum enum: [ :draft, :published, :archived]
+
   validates :title, presence: true
 end
