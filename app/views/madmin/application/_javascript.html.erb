@@ -1,6 +1,6 @@
-<%= stylesheet_link_tag "https://cdn.skypack.dev/flatpickr/dist/flatpickr.min.css", "data-turbo-track": "reload" %>
-<%= stylesheet_link_tag "https://cdn.skypack.dev/slim-select/dist/slimselect.min.css", "data-turbo-track": "reload" %>
-<%= stylesheet_link_tag "https://cdn.skypack.dev/trix/dist/trix.css", "data-turbo-track": "reload" %>
+<%= stylesheet_link_tag "https://unpkg.com/flatpickr/dist/flatpickr.min.css", "data-turbo-track": "reload" %>
+<%= stylesheet_link_tag "https://unpkg.com/trix/dist/trix.css", "data-turbo-track": "reload" %>
+<%= stylesheet_link_tag "https://unpkg.com/slim-select@1.27.0/dist/slimselect.min.css", "data-turbo-track": "reload" %>
 
 <script type="module">
   import { Application } from 'https://cdn.skypack.dev/stimulus'
@@ -17,7 +17,7 @@
   import 'https://cdn.skypack.dev/trix'
   import 'https://cdn.skypack.dev/@rails/actiontext@<%= npm_rails_version %>'
 
-  Rails.start()
+  if (!window._rails_loaded) { Rails.start() }
   ActiveStorage.start()
 
   import * as Turbo from "https://cdn.skypack.dev/@hotwired/turbo"
