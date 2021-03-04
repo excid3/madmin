@@ -86,7 +86,7 @@ GIT
 PATH
   remote: ..
   specs:
-    madmin (1.0.0)
+    madmin (1.0.1)
       pagy (>= 3.5, < 4.0)
       rails (>= 6.0.3)
 
@@ -129,7 +129,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.11.1-x86_64-linux)
       racc (~> 1.4)
-    pagy (3.10.0)
+    pagy (3.11.0)
     parallel (1.20.1)
     parser (3.0.0.0)
       ast (~> 2.4.1)
@@ -228,4 +228,4 @@ DEPENDENCIES
   webpacker (~> 5.2, >= 5.2.1)
 
 BUNDLED WITH
-   2.2.7
+   2.2.9
