@@ -10,6 +10,9 @@ Why another Ruby on Rails admin? We wanted an admin that was:
 * Supports all the Rails features out of the box (ActionText, ActionMailbox, etc)
 * Stimulus / Turbolinks / Hotwire ready
 
+![Madmin Screenshot](docs/images/screenshot.png)
+_We're still working on the design!_
+
 ## Installation
 Add `madmin` to your application's Gemfile:
 
