@@ -1,5 +1,10 @@
 ### Unreleased
 
+# 1.0.2
+
+* Use unpkg for assets instead of skypack. Skypack was missing slimselect css
+* Check if Rails UJS is loaded before starting it
+
 # 1.0.1
 
 * Fix belongs_to when nil - @excid3

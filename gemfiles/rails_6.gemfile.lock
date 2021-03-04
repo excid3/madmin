@@ -1,7 +1,7 @@
 PATH
   remote: ..
   specs:
-    madmin (1.0.1)
+    madmin (1.0.2)
       pagy (>= 3.5, < 4.0)
       rails (>= 6.0.3)
 
@@ -220,4 +220,4 @@ DEPENDENCIES
   webpacker (~> 5.2, >= 5.2.1)
 
 BUNDLED WITH
-   2.2.9
+   2.2.13
