@@ -41,7 +41,7 @@ module Madmin
     private
 
     def set_record
-      @record = resource.model.find(params[:id])
+      @record = resource.model_find(params[:id])
     end
 
     def resource

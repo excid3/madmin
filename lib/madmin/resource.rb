@@ -18,6 +18,10 @@ module Madmin
         model_name.constantize
       end
 
+      def model_find(id)
+        friendly_model? ? model.friendly.find(id) : model.find(id)
+      end
+
       def model_name
         to_s.chomp("Resource").classify
       end
@@ -48,11 +52,11 @@ module Madmin
       end
 
       def show_path(record)
-        "/madmin/#{model.model_name.collection}/#{record.id}"
+        "/madmin/#{model.model_name.collection}/#{friendly_id(record)}"
       end
 
       def edit_path(record)
-        "/madmin/#{model.model_name.collection}/#{record.id}/edit"
+        "/madmin/#{model.model_name.collection}/#{friendly_id(record)}/edit"
       end
 
       def param_key
@@ -68,6 +72,18 @@ module Madmin
       end
 
       private
+
+      def friendly_model?
+        model.respond_to? :friendly
+      end
+
+      def friendly_id(record)
+        if friendly_model?
+          record.friendly_id
+        else
+          record.id
+        end
+      end
 
       def field_for_type(name, type)
         type ||= infer_type(name)
