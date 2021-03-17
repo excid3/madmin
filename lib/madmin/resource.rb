@@ -52,11 +52,11 @@ module Madmin
       end
 
       def show_path(record)
-        "/madmin/#{model.model_name.collection}/#{friendly_id(record)}"
+        "/madmin/#{model.model_name.collection}/#{record.to_param}"
       end
 
       def edit_path(record)
-        "/madmin/#{model.model_name.collection}/#{friendly_id(record)}/edit"
+        "/madmin/#{model.model_name.collection}/#{record.to_param}/edit"
       end
 
       def param_key
@@ -75,14 +75,6 @@ module Madmin
 
       def friendly_model?
         model.respond_to? :friendly
-      end
-
-      def friendly_id(record)
-        if friendly_model?
-          record.friendly_id
-        else
-          record.id
-        end
       end
 
       def field_for_type(name, type)
