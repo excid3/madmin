@@ -76,6 +76,8 @@ GEM
     erubi (1.10.0)
     ffaker (2.17.0)
     ffi (1.14.2)
+    friendly_id (5.4.2)
+      activerecord (>= 4.0.0)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     i18n (1.8.7)
@@ -201,6 +203,7 @@ GEM
     zeitwerk (2.4.2)
 
 PLATFORMS
+  x86_64-darwin-19
   x86_64-darwin-20
   x86_64-linux
 
@@ -208,6 +211,7 @@ DEPENDENCIES
   appraisal
   byebug
   ffaker (~> 2.17)
+  friendly_id (~> 5.4.0)
   madmin!
   mysql2
   name_of_person (~> 1.1, >= 1.1.1)
@@ -220,4 +224,4 @@ DEPENDENCIES
   webpacker (~> 5.2, >= 5.2.1)
 
 BUNDLED WITH
-   2.2.13
+   2.2.14
