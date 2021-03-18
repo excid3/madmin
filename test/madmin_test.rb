@@ -32,4 +32,5 @@ class Madmin::Test < ActiveSupport::TestCase
 
     assert_equal CommentResource.send(:infer_type, :commentable), :polymorphic
   end
+
 end

@@ -71,11 +71,11 @@ module Madmin
         "#{record.class} ##{record.id}"
       end
 
-      private
-
       def friendly_model?
         model.respond_to? :friendly
       end
+
+      private
 
       def field_for_type(name, type)
         type ||= infer_type(name)
