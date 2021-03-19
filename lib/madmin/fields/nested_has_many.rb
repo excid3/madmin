@@ -1,9 +1,8 @@
 module Madmin
   module Fields
     class NestedHasMany < Field
-
       def nested_attributes
-        resource.attributes.select{|i| allowed_params.include?(i[:name]) }
+        resource.attributes.select { |i| allowed_params.include?(i[:name]) }
       end
 
       def resource
@@ -11,7 +10,7 @@ module Madmin
       end
 
       def to_param
-        { "#{attribute_name}_attributes": allowed_params }
+        {"#{attribute_name}_attributes": allowed_params}
       end
 
       def allowed_params
