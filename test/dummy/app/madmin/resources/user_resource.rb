@@ -10,7 +10,9 @@ class UserResource < Madmin::Resource
   attribute :avatar, index: false
 
   # Associations
-  attribute :posts
+  attribute :posts, :nested_has_many, {
+    allowed_attributes: [:id, :title, :body] # TODO:: make it more configurable
+  }
   attribute :comments
   attribute :habtms
 end

@@ -26,6 +26,7 @@ module Madmin
     autoload :RichText, "madmin/fields/rich_text"
     autoload :Attachment, "madmin/fields/attachment"
     autoload :Attachments, "madmin/fields/attachments"
+    autoload :NestedHasMany, "madmin/fields/nested_has_many"
   end
 
   mattr_accessor :resources, default: []

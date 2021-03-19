@@ -134,7 +134,8 @@ module Madmin
           polymorphic: Fields::Polymorphic,
           has_many: Fields::HasMany,
           has_one: Fields::HasOne,
-          rich_text: Fields::RichText
+          rich_text: Fields::RichText,
+          nested_has_many: Fields::NestedHasMany
         }.fetch(type)
       rescue
         raise ArgumentError, <<~MESSAGE
