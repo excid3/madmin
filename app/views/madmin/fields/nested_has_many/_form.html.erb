@@ -13,6 +13,11 @@
         <%= render partial: nested_field.to_partial_path("form"), locals: { field: nested_field, record: nested_form.object, form: nested_form, resource: field.resource } %>
       </div>
     <% end %>
+
+    <% unless nested_form.object.new_record? %>
+      <%= nested_form.label "Delete", class: 'inline-block w-32 flex-shrink-0' %>
+      <%= nested_form.check_box :_destroy, class: 'form-input' %>
+    <% end %>
   <% end %>
 </div>
 <%# <%= form.select "#{field.attribute_name.to_s.singularize}_ids", field.options_for_select(record), { prompt: true }, { multiple: true, class: "form-select", data: { controller: "slimselect" } } %1> %>

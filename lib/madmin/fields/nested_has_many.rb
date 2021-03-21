@@ -15,7 +15,7 @@ module Madmin
 
       private
       def permitted_fields
-        resource.permitted_params - skipped_fields
+        resource.permitted_params - skipped_fields + ['_destroy']
       end
 
       def skipped_fields
