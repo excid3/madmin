@@ -1,23 +1,25 @@
 <%= form.label field.attribute_name, class: "inline-block w-32 flex-shrink-0" %>
 
-<div class="container">
+<div class="container space-y-8">
   <%= form.fields_for field.attribute_name do |nested_form| %>
-    <% field.nested_attributes.each do |nested_attribute| %>
-      <% next if nested_attribute[:field].nil? %>
-      <% next unless nested_attribute[:field].visible?(action_name) %>
-      <% next unless nested_attribute[:field].visible?(:nested_form) %>
+    <div class=" bg-gray-100 rounded-t-xl p-5">
+      <% field.nested_attributes.each do |nested_attribute| %>
+        <% next if nested_attribute[:field].nil? %>
+        <% next unless nested_attribute[:field].visible?(action_name) %>
+        <% next unless nested_attribute[:field].visible?(:nested_form) %>
 
-      <% nested_field = nested_attribute[:field] %>
+        <% nested_field = nested_attribute[:field] %>
 
-      <div class="mb-4 flex">
-        <%= render partial: nested_field.to_partial_path("form"), locals: { field: nested_field, record: nested_form.object, form: nested_form, resource: field.resource } %>
-      </div>
-    <% end %>
+        <div class="mb-4 flex">
+          <%= render partial: nested_field.to_partial_path("form"), locals: { field: nested_field, record: nested_form.object, form: nested_form, resource: field.resource } %>
+        </div>
+      <% end %>
 
-    <% unless nested_form.object.new_record? %>
-      <%= nested_form.label "Delete", class: 'inline-block w-32 flex-shrink-0' %>
-      <%= nested_form.check_box :_destroy, class: 'form-input' %>
-    <% end %>
+      <% unless nested_form.object.new_record? %>
+        <%= nested_form.label "Delete", class: 'inline-block w-32 flex-shrink-0' %>
+        <%= nested_form.check_box :_destroy, class: 'form-input' %>
+      <% end %>
+    </div>
   <% end %>
+  <button class="bg-white hover:bg-gray-100 text-gray-800 font-semibold px-3 border border-gray-400 rounded shadow">+ Add new <%= field.attribute_name.to_s.singularize %></button>
 </div>
-<%# <%= form.select "#{field.attribute_name.to_s.singularize}_ids", field.options_for_select(record), { prompt: true }, { multiple: true, class: "form-select", data: { controller: "slimselect" } } %1> %>
