@@ -2,7 +2,7 @@ module Madmin
   module Fields
     class NestedHasMany < Field
       def nested_attributes
-        resource.attributes.select { |i| allowed_params.include?(i[:name]) }
+        resource.attributes.reject { |i| skipped_fields.include?(i[:name]) }
       end
 
       def resource
@@ -10,11 +10,16 @@ module Madmin
       end
 
       def to_param
-        {"#{attribute_name}_attributes": allowed_params}
+        {"#{attribute_name}_attributes": permitted_fields}
       end
 
-      def allowed_params
-        options[:allowed_attributes]
+      private
+      def permitted_fields
+        resource.permitted_params - skipped_fields
+      end
+
+      def skipped_fields
+        options[:skip] || []
       end
     end
   end
