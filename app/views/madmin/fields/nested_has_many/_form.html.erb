@@ -24,3 +24,20 @@
 
   <%= link_to_add_association("+ Add new", resource: field.resource, form: form, field: field) %>
 </div>
+<script>
+  displayFormTemplate = (event) => {
+    event.preventDefault();
+    let currentTarget = event.currentTarget;
+    let html = currentTarget.attributes['data-association-insert-template'].textContent
+    console.log(html);
+
+    let template = document.createElement("template")
+    template.innerHTML = html;
+    template.innerHTML = template.content.textContent
+
+    currentTarget.parentNode.insertBefore(template.content, currentTarget);
+  }
+
+var addFields = document.getElementsByClassName('add_fields')
+addFields[0].onclick = displayFormTemplate
+</script>

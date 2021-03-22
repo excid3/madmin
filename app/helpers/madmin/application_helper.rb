@@ -27,9 +27,11 @@ module Madmin
     end
 
     def form_template(form, field, resource, record, attribute)
-      form.fields_for field.attribute_name, child_index: "new_#{attribute}" do |nested_form|
+      form_fields = form.fields_for field.attribute_name, child_index: "new_#{attribute}" do |nested_form|
         render(partial: "./madmin/application/fields", locals: { resource: resource, record: record, form: nested_form })
       end
+
+      "<div class='bg-gray-100 rounded-t-xl p-5'>#{form_fields}</div>"
     end
 
   end
