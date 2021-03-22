@@ -21,5 +21,6 @@
       <% end %>
     </div>
   <% end %>
-  <button class="bg-white hover:bg-gray-100 text-gray-800 font-semibold px-3 border border-gray-400 rounded shadow">+ Add new <%= field.attribute_name.to_s.singularize %></button>
+
+  <%= link_to_add_association("+ Add new", resource: field.resource, form: form, field: field) %>
 </div>

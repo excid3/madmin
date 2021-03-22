@@ -9,17 +9,7 @@
     </div>
   <% end %>
 
-  <% resource.attributes.each do |attribute| %>
-    <% next if attribute[:field].nil? %>
-    <% next unless attribute[:field].visible?(action_name) %>
-    <% next unless attribute[:field].visible?(:form) %>
-
-    <% field = attribute[:field] %>
-
-    <div class="mb-4 flex">
-      <%= render partial: field.to_partial_path("form"), locals: { field: field, record: record, form: form, resource: resource } %>
-    </div>
-  <% end %>
+  <%= render partial: "./madmin/application/fields", locals: { resource: resource, record: record, form: form } %>
 
   <%= form.submit class: "bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" %>
 <% end %>
