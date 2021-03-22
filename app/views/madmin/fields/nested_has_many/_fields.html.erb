@@ -1,0 +1,14 @@
+<div class=" bg-gray-100 rounded-t-xl p-5">
+  <% field.nested_attributes.each do |nested_attribute| %>
+    <% next if nested_attribute[:field].nil? %>
+    <% next unless nested_attribute[:field].visible?(action_name) %>
+    <% next unless nested_attribute[:field].visible?(:nested_form) %>
+
+    <% nested_field = nested_attribute[:field] %>
+
+    <div class="mb-4 flex">
+      <%= render partial: nested_field.to_partial_path("form"), locals: { field: nested_field, record: f.object, form: f, resource: field.resource } %>
+    </div>
+  <% end %>
+
+</div>

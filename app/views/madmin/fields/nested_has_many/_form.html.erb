@@ -2,42 +2,20 @@
 
 <div class="container space-y-8">
   <%= form.fields_for field.attribute_name do |nested_form| %>
-    <div class=" bg-gray-100 rounded-t-xl p-5">
-      <% field.nested_attributes.each do |nested_attribute| %>
-        <% next if nested_attribute[:field].nil? %>
-        <% next unless nested_attribute[:field].visible?(action_name) %>
-        <% next unless nested_attribute[:field].visible?(:nested_form) %>
+    <%= render(
+      partial: field.to_partial_path('fields'),
+      locals: {
+        f: nested_form,
+        field: field
+      }
+    ) %>
+<% end %>
 
-        <% nested_field = nested_attribute[:field] %>
-
-        <div class="mb-4 flex">
-          <%= render partial: nested_field.to_partial_path("form"), locals: { field: nested_field, record: nested_form.object, form: nested_form, resource: field.resource } %>
-        </div>
-      <% end %>
-
-      <% unless nested_form.object.new_record? %>
-        <%= nested_form.label "Delete", class: 'inline-block w-32 flex-shrink-0' %>
-        <%= nested_form.check_box :_destroy, class: 'form-input' %>
-      <% end %>
-    </div>
-  <% end %>
-
-  <%= link_to_add_association("+ Add new", resource: field.resource, form: form, field: field) %>
+<%= link_to_add_association(
+  '+ Add new',
+  form,
+  field.attribute_name,
+  partial: field.to_partial_path('fields'),
+  render_options: { locals: { field: field} }
+) %>
 </div>
-<script>
-  displayFormTemplate = (event) => {
-    event.preventDefault();
-    let currentTarget = event.currentTarget;
-    let html = currentTarget.attributes['data-association-insert-template'].textContent
-    console.log(html);
-
-    let template = document.createElement("template")
-    template.innerHTML = html;
-    template.innerHTML = template.content.textContent
-
-    currentTarget.parentNode.insertBefore(template.content, currentTarget);
-  }
-
-var addFields = document.getElementsByClassName('add_fields')
-addFields[0].onclick = displayFormTemplate
-</script>
