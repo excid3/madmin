@@ -14,15 +14,16 @@ module Madmin
         {"#{attribute_name}_attributes": permitted_fields}
       end
 
-    def to_partial_path(name)
-      unless %w[index show form fields].include? name
-        raise ArgumentError, "`partial` must be 'index', 'show', 'form' or 'fields'"
+      def to_partial_path(name)
+        unless %w[index show form fields].include? name
+          raise ArgumentError, "`partial` must be 'index', 'show', 'form' or 'fields'"
+        end
+
+        "/madmin/fields/#{self.class.field_type}/#{name}"
       end
 
-      "/madmin/fields/#{self.class.field_type}/#{name}"
-    end
-
       private
+
       def permitted_fields
         (resource.permitted_params - skipped_fields + DEFAULT_ATTRIBUTES).uniq
       end
