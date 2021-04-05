@@ -1,21 +1,30 @@
 <%= form.label field.attribute_name, class: "inline-block w-32 flex-shrink-0" %>
 
-<div class="container space-y-8">
-  <%= form.fields_for field.attribute_name do |nested_form| %>
-    <%= render(
-      partial: field.to_partial_path('fields'),
-      locals: {
-        f: nested_form,
-        field: field
-      }
-    ) %>
-<% end %>
+<div class="container space-y-8" data-controller="nested-form">
+  <template data-target="nested-form.template">
 
-<%= link_to_add_association(
-  '+ Add new',
-  form,
-  field.attribute_name,
-  partial: field.to_partial_path('fields'),
-  render_options: { locals: { field: field} }
-) %>
+    <%= form.fields_for field.attribute_name, field.attribute_name.to_s.singularize.classify.constantize.new, child_index: 'NEW_RECORD' do |nested_form| %>
+      <%= render(
+        partial: field.to_partial_path('fields'),
+        locals: {
+          f: nested_form,
+          field: field
+        }
+      ) %>
+  <% end %>
+  </template>
+
+    <%= form.fields_for field.attribute_name do |nested_form| %>
+      <%= render(
+        partial: field.to_partial_path('fields'),
+        locals: {
+          f: nested_form,
+          field: field
+        }
+      ) %>
+  <% end %>
+
+  <%= content_tag :div, class: '', data: { target:"nested-form.links" } do %>
+    <%= link_to "+ Add new", "#",  data: { action: "click->nested-form#add_association" } %>
+  <% end %>
 </div>
