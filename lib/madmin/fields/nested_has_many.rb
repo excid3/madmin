@@ -22,6 +22,10 @@ module Madmin
         "/madmin/fields/#{self.class.field_type}/#{name}"
       end
 
+      def to_model
+        attribute_name.to_s.singularize.classify.constantize
+      end
+
       private
 
       def permitted_fields
