@@ -1,8 +1,8 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  first_name: MyString
-  last_name: MyString
+  first_name: Chris
+  last_name: Oliver
   birthday: 2020-09-10
 
 two:
