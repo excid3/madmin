@@ -2,16 +2,16 @@ require "test_helper"
 
 class NestedHasManyTest < ActiveSupport::TestCase
   test "checks for the right field class" do
-    field = UserResource.attributes.find{|i| i[:name] == :posts }[:field]
-    field_comment = UserResource.attributes.find{|i| i[:name] == :comments }[:field]
+    field = UserResource.attributes.find { |i| i[:name] == :posts }[:field]
+    field_comment = UserResource.attributes.find { |i| i[:name] == :comments }[:field]
     # Make sure :posts is a :nested_has_many type
-    assert field.class == Madmin::Fields::NestedHasMany
-    refute field_comment.class == Madmin::Fields::NestedHasMany
+    assert field.instance_of?(Madmin::Fields::NestedHasMany)
+    refute field_comment.instance_of?(Madmin::Fields::NestedHasMany)
     assert_equal field.resource, PostResource
   end
 
   test "skips fields which is skipped in configuration" do
-    field = UserResource.attributes.find{|i| i[:name] == :posts }[:field]
+    field = UserResource.attributes.find { |i| i[:name] == :posts }[:field]
 
     # Make sure :enum is skipped in the UserResource
     refute field.to_param.values.flatten.include?(:enum)
@@ -19,9 +19,8 @@ class NestedHasManyTest < ActiveSupport::TestCase
   end
 
   test "whitelists unskipped and required params" do
-    field = UserResource.attributes.find{|i| i[:name] == :posts }[:field]
+    field = UserResource.attributes.find { |i| i[:name] == :posts }[:field]
 
-    assert field.to_param == { posts_attributes: [:id, :title, :body, :image, { attachments: [] }, "_destroy", "id"]}
+    assert field.to_param == {posts_attributes: [:id, :title, :body, :image, {attachments: []}, "_destroy", "id"]}
   end
-
 end
