@@ -42,21 +42,27 @@ module Madmin
       end
 
       def index_path(options = {})
-        path = "/madmin/#{model.model_name.collection}"
-        path += "?#{options.to_param}" if options.any?
-        path
+        route_name = "madmin_#{model.model_name.collection}_path"
+
+        url_helpers.send(route_name, options)
       end
 
       def new_path
-        "/madmin/#{model.model_name.collection}/new"
+        route_name = "new_madmin_#{model.model_name.singular}_path"
+
+        url_helpers.send(route_name)
       end
 
       def show_path(record)
-        "/madmin/#{model.model_name.collection}/#{record.to_param}"
+        route_name = "madmin_#{model.model_name.singular}_path"
+
+        url_helpers.send(route_name, record.to_param)
       end
 
       def edit_path(record)
-        "/madmin/#{model.model_name.collection}/#{record.to_param}/edit"
+        route_name = "edit_madmin_#{model.model_name.singular}_path"
+
+        url_helpers.send(route_name, record.to_param)
       end
 
       def param_key
@@ -179,6 +185,10 @@ module Madmin
         else
           :belongs_to
         end
+      end
+
+      def url_helpers
+        @url_helpers ||= Rails.application.routes.url_helpers
       end
     end
   end
