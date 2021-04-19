@@ -10,7 +10,7 @@ class UserResource < Madmin::Resource
   attribute :avatar, index: false
 
   # Associations
-  attribute :posts
+  attribute :posts, :nested_has_many, skip: %I[enum attachments]
   attribute :comments
   attribute :habtms
 
