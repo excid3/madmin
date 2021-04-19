@@ -42,7 +42,7 @@ module Madmin
       end
 
       def index_path(options = {})
-        route_name = "madmin_#{model.model_name.collection}_path"
+        route_name = "madmin_#{model.table_name}_path"
 
         url_helpers.send(route_name, options)
       end
