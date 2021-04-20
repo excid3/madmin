@@ -47,8 +47,8 @@ module Madmin
         virtual = []
 
         # has_secure_password columns
-        password_attributes = model.attribute_types.keys.select{ |k| k.ends_with?("_digest") }.map{ |k| k.delete_suffix("_digest") }
-        virtual += password_attributes.map{ |attr| [attr, "#{attr}_confirmation"] }.flatten
+        password_attributes = model.attribute_types.keys.select { |k| k.ends_with?("_digest") }.map { |k| k.delete_suffix("_digest") }
+        virtual += password_attributes.map { |attr| [attr, "#{attr}_confirmation"] }.flatten
 
         # Add virtual attributes for ActionText and ActiveStorage
         model.reflections.each do |name, association|
@@ -68,7 +68,7 @@ module Madmin
         redundant = []
 
         # has_secure_password columns
-        redundant += model.attribute_types.keys.select{ |k| k.ends_with?("_digest") }
+        redundant += model.attribute_types.keys.select { |k| k.ends_with?("_digest") }
 
         model.reflections.each do |name, association|
           if association.has_one?
