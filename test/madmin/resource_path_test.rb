@@ -22,4 +22,8 @@ class ResourcePathTest < ActiveSupport::TestCase
     post = posts(:one)
     assert_equal "/madmin/posts/#{post.id}/edit", PostResource.edit_path(post.id)
   end
+
+  test "resource has an index path for non-model resource" do
+    assert_equal "/madmin/action_text/rich_texts", ActionText::RichTextResource.index_path
+  end
 end
