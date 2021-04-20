@@ -175,7 +175,7 @@ module Madmin
           :attachments
 
         # has_secure_password
-        elsif model.attribute_types.include?("#{name_string}_digest") || name.ends_with?("_confirmation")
+        elsif model.attribute_types.include?("#{name_string}_digest") || name_string.ends_with?("_confirmation")
           :password
         end
       end
