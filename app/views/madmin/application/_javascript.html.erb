@@ -24,7 +24,9 @@
 
   (() => {
     application.register('nested-form', class extends Controller {
-      static targets = [ "links", "template" ]
+      static get targets() {
+        return [ "links", "template" ]
+      }
 
       connect() {
         this.wrapperClass = this.data.get("wrapperClass") || "nested-fields"
