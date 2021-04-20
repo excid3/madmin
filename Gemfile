@@ -19,6 +19,7 @@ gem "name_of_person", "~> 1.1", ">= 1.1.1"
 gem "web-console", group: :development
 gem "webpacker", "~> 5.2", ">= 5.2.1"
 gem "friendly_id", "~> 5.4.0"
+gem "bcrypt"
 
 # Use SCSS for stylesheets
 gem "sass-rails", ">= 6"

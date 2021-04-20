@@ -10,4 +10,7 @@ class User < ApplicationRecord
   attribute :virtual_attribute, default: "virtual"
 
   has_one_attached :avatar
+
+  has_secure_password
+  has_secure_token
 end

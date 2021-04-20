@@ -104,6 +104,7 @@ module Madmin
           text: Fields::Text,
           time: Fields::Time,
           timestamp: Fields::Time,
+          password: Fields::Password,
 
           # Postgres specific types
           bit: Fields::String,
@@ -172,6 +173,10 @@ module Madmin
           :attachment
         elsif model.reflect_on_association(:"#{name_string}_attachments")
           :attachments
+
+        # has_secure_password
+        elsif model.attribute_types.include?("#{name_string}_digest") || name.ends_with?("_confirmation")
+          :password
         end
       end
 

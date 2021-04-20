@@ -1,5 +1,7 @@
 ### Unreleased
 
+* Add `has_secure_password` support
+
 # 1.0.2
 
 * Use unpkg for assets instead of skypack. Skypack was missing slimselect css
