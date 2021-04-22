@@ -9,4 +9,9 @@ class ActionText::RichTextResource < Madmin::Resource
 
   # Associations
   attribute :record
+
+  # Uncomment this to customize the display name of records in the admin area.
+  # def self.display_name(record)
+  #   record.name
+  # end
 end
