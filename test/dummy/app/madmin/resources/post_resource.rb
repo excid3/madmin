@@ -6,6 +6,8 @@ class PostResource < Madmin::Resource
   attribute :image, index: false
   attribute :attachments, index: false
   attribute :enum
+  attribute :tags
+  attribute :ratings
 
   scope :recent
 end

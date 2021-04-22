@@ -8,6 +8,7 @@ module Madmin
   autoload :Resource, "madmin/resource"
 
   module Fields
+    autoload :Array, "madmin/fields/array"
     autoload :Attachment, "madmin/fields/attachment"
     autoload :Attachments, "madmin/fields/attachments"
     autoload :BelongsTo, "madmin/fields/belongs_to"
