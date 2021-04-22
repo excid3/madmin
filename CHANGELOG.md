@@ -1,6 +1,10 @@
 ### Unreleased
 
+# 1.1.0
+
 * Add `has_secure_password` support
+* Add `madmin:views:javascript` generator
+* Fix `madmin:views` generator to copy all templates
 
 # 1.0.2
 
