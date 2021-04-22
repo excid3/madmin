@@ -13,7 +13,10 @@ class PostResource < Madmin::Resource
 
   # Associations
   attribute :user
-  attribute :comments
+  attribute :comments, form: false
+
+  # Scopes
+  scope :recent
 
   # Uncomment this to customize the display name of records in the admin area.
   # def self.display_name(record)

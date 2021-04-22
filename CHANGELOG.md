@@ -1,5 +1,7 @@
 ### Unreleased
 
+* Don't include `form: false` fields from nested resources in nested resource field params
+
 # 1.1.0
 
 * Add `has_secure_password` support
