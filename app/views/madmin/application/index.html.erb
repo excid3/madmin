@@ -20,7 +20,7 @@
         <% next if attribute[:field].nil? %>
         <% next unless attribute[:field].visible?(action_name) %>
 
-        <th><%= attribute[:name].to_s.titleize %></th>
+        <th><%= sortable resource, attribute[:name], attribute[:name].to_s.titleize %></th>
       <% end %>
       <th>Actions</th>
     </tr>

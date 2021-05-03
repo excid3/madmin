@@ -1,5 +1,7 @@
 module Madmin
   class ResourceController < ApplicationController
+    include SortHelper
+
     before_action :set_record, except: [:index, :new, :create]
 
     def index
@@ -54,7 +56,7 @@ module Madmin
     end
 
     def scoped_resources
-      resource.model.send(valid_scope)
+      resource.model.send(valid_scope).order(sort_column => sort_direction)
     end
 
     def valid_scope
@@ -76,6 +78,18 @@ module Madmin
       else
         raise "Unrecognised param data: #{data.inspect}"
       end
+    end
+
+    def sort_column
+      resource.sortable_columns.include?(params[:sort]) ? params[:sort] : default_sort_column
+    end
+
+    def sort_direction(default: "asc")
+      ["asc", "desc"].include?(params[:direction]) ? params[:direction] : default
+    end
+
+    def default_sort_column
+      "created_at"
     end
   end
 end

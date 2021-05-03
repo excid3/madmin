@@ -81,6 +81,10 @@ module Madmin
         model.respond_to? :friendly
       end
 
+      def sortable_columns
+        model.column_names
+      end
+
       private
 
       def field_for_type(name, type)
