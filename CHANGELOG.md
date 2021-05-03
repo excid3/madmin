@@ -1,5 +1,6 @@
 ### Unreleased
 
+* Add sortable columns on the index for resources
 * Don't include `form: false` fields from nested resources in nested resource field params
 
 # 1.1.0
