@@ -1,5 +1,8 @@
 ### Unreleased
 
+### 1.2.0
+
+* Allow users to override default sort column and direction on resources
 * Add sortable columns on the index for resources
 * Don't include `form: false` fields from nested resources in nested resource field params
 
