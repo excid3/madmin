@@ -1,25 +1,31 @@
 module Madmin
   module SortHelper
-    def sortable(klass, column, title, options = {})
-      matching_column = column.to_s == sort_column(klass)
-      direction = sort_direction == "asc" ? "desc" : "asc"
+    def sortable(column, title, options = {})
+      matching_column = (column.to_s == sort_column)
 
-      link_to request.params.merge(sort: column, direction: direction), options do
+      link_to request.params.merge(sort: column, direction: sort_direction), options do
         concat title
         if matching_column
-          caret = sort_direction == "asc" ? "up" : "down"
           concat " "
-          concat tag.i(caret == "up" ? "▲" : "▼")
+          concat tag.i(sort_direction == "asc" ? "▲" : "▼")
         end
       end
     end
 
-    def sort_column(klass)
-      klass.sortable_columns.include?(params[:sort]) ? params[:sort] : "created_at"
+    def sort_column
+      resource.sortable_columns.include?(params[:sort]) ? params[:sort] : default_sort_column
     end
 
-    def sort_direction(default: "asc")
-      ["asc", "desc"].include?(params[:direction]) ? params[:direction] : default
+    def sort_direction
+      ["asc", "desc"].include?(params[:direction]) ? params[:direction] : default_sort_direction
+    end
+
+    def default_sort_column
+      resource.try(:default_sort_column) || "created_at"
+    end
+
+    def default_sort_direction
+      resource.try(:default_sort_direction) || "desc"
     end
   end
 end

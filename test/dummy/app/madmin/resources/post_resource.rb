@@ -22,4 +22,12 @@ class PostResource < Madmin::Resource
   # def self.display_name(record)
   #   record.name
   # end
+
+  def self.default_sort_column
+    "title"
+  end
+
+  def self.default_sort_direction
+    "asc"
+  end
 end

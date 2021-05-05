@@ -79,17 +79,5 @@ module Madmin
         raise "Unrecognised param data: #{data.inspect}"
       end
     end
-
-    def sort_column
-      resource.sortable_columns.include?(params[:sort]) ? params[:sort] : default_sort_column
-    end
-
-    def sort_direction(default: "asc")
-      ["asc", "desc"].include?(params[:direction]) ? params[:direction] : default
-    end
-
-    def default_sort_column
-      "created_at"
-    end
   end
 end
