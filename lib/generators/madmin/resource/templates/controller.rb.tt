@@ -1,4 +1,10 @@
 module Madmin
   class <%= class_name.pluralize %>Controller < Madmin::ResourceController
+<% if class_name == "ActiveStorage::Blob" -%>
+    def new
+      super
+      @record.assign_attributes(filename: "")
+    end
+<% end -%>
   end
 end
