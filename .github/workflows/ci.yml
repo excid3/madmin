@@ -36,7 +36,6 @@ jobs:
 
       - name: Run tests
         env:
-          DATABASE_URL: "sqlite3:noticed_test"
           RAILS_ENV: test
         run: |
           bundle exec rails db:test:prepare
