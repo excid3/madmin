@@ -1,3 +1,7 @@
-<h1><%= link_to resource.friendly_name.pluralize, resource.index_path %> / New <%= resource.friendly_name %></h1>
+<h1 class="text-xl mb-4">
+  <%= link_to resource.friendly_name.pluralize, resource.index_path, class: "text-indigo-500" %>
+  /
+  <strong>New <%= resource.friendly_name %></strong>
+</h1>
 
 <%= render partial: "form", locals: { record: @record, resource: resource } %>

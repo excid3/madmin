@@ -6,6 +6,9 @@
   import { Application, Controller } from 'https://cdn.skypack.dev/stimulus'
   const application = Application.start()
 
+  import { Dropdown } from "https://cdn.skypack.dev/tailwindcss-stimulus-components"
+  application.register("dropdown", Dropdown)
+
   import stimulusFlatpickr from 'https://cdn.skypack.dev/stimulus-flatpickr'
   application.register("flatpickr", stimulusFlatpickr)
 
