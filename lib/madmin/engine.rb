@@ -4,9 +4,5 @@ module Madmin
       app.config.paths.add "app/madmin/resources", eager_load: true
       app.config.paths.add "app/madmin/fields", eager_load: true
     end
-
-    config.to_prepare do
-      Madmin.resources = []
-    end
   end
 end

@@ -5,10 +5,6 @@ module Madmin
 
     class << self
       def inherited(base)
-        # Remove any old references
-        Madmin.resources.delete(base)
-        Madmin.resources << base
-
         base.attributes = attributes.dup
         base.scopes = scopes.dup
         super

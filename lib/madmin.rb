@@ -30,14 +30,17 @@ module Madmin
     autoload :Time, "madmin/fields/time"
   end
 
-  mattr_accessor :resources, default: []
-
   class << self
     def resource_for(object)
-      Rails.application.eager_load!
+      "#{object.class.name}Resource".constantize
+    end
 
-      klass_name = object.class.name
-      Madmin.resources.find { |r| r.model_name == klass_name }
+    def resources
+      @resource ||= begin
+        root = Rails.root.join("app/madmin/resources/")
+        files = Dir.glob(root.join("**/*.rb"))
+        files.sort!.map! { |f| f.split(root.to_s).last.delete_suffix(".rb").classify.constantize }
+      end
     end
   end
 end
