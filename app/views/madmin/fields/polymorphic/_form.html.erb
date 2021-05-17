@@ -1,5 +1,5 @@
 <%= form.fields_for field.attribute_name do |pf| %>
-  <%= pf.label field.attribute_name, class: "inline-block w-32 flex-shrink-0" %>
+  <%= pf.label field.attribute_name, class: "block md:inline-block w-32 flex-shrink-0 text-gray-700" %>
   <%= pf.select :value, field.options_for_select(record).map(&:to_global_id), { selected: field.value(record)&.to_global_id, prompt: true }, { class: "form-select", data: { controller: "slimselect" } } %>
   <%= pf.hidden_field :type, value: "polymorphic" %>
 <% end %>
