@@ -8,6 +8,6 @@ test/dummy/log/*.log
 test/dummy/storage/
 test/dummy/tmp/
 .byebug_history
-test/dummy/node_modules
+test/dummy/node_modules/
 .DS_Store
 .idea/
