@@ -1,7 +1,7 @@
 class PostResource < Madmin::Resource
   # Attributes
   attribute :id, form: false
-  attribute :title
+  attribute :title, field: CustomField
   attribute :comments_count, form: false
   attribute :metadata
   attribute :created_at, form: false
