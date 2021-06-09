@@ -1,5 +1,6 @@
 ### Unreleased
 
+* Add custom field support - @excid3
 * Improve support for enums
 
 ### 1.0.0
