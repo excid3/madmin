@@ -1,9 +1,9 @@
-<div class="flex justify-between">
-  <h1><%= resource.friendly_name.pluralize %></h1>
-  <%= link_to "New #{resource.friendly_name}", resource.new_path %>
+<div class="flex justify-between items-center">
+  <h1 class="text-xl font-semibold"><%= resource.friendly_name.pluralize %></h1>
+  <%= link_to "New #{resource.friendly_name}", resource.new_path, class: "bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" %>
 </div>
 
-<div>
+<div class="mb-4">
   <% if resource.scopes.any? %>
     <%= link_to "All", resource.index_path %>
   <% end %>
@@ -13,20 +13,20 @@
   <% end %>
 </div>
 
-<table class="table-auto">
+<table class="min-w-full divide-y divide-gray-200">
   <thead>
-    <tr>
+    <tr class="border-b border-gray-200">
       <% resource.attributes.each do |attribute| %>
         <% next if attribute[:field].nil? %>
         <% next unless attribute[:field].visible?(action_name) %>
 
-        <th><%= attribute[:name].to_s.titleize %></th>
+        <th class="py-2 px-4 text-left text-xs text-gray-500 font-medium uppercase whitespace-nowrap"><%= sortable attribute[:name], attribute[:name].to_s.titleize %></th>
       <% end %>
-      <th>Actions</th>
+      <th class="py-2 px-4 text-left text-xs text-gray-500 font-medium uppercase">Actions</th>
     </tr>
   </thead>
 
-  <tbody>
+  <tbody class="text-sm divide-y">
     <% @records.each do |record| %>
       <tr>
         <% resource.attributes.each do |attribute| %>
@@ -35,10 +35,10 @@
 
           <% field = attribute[:field] %>
 
-          <td><%= render partial: field.to_partial_path("index"), locals: { field: field, record: record } %></td>
+          <td class="px-4 py-2"><%= render partial: field.to_partial_path("index"), locals: { field: field, record: record } %></td>
         <% end %>
 
-        <td><%= link_to "View", resource.show_path(record) %></td>
+        <td class="px-4 py-2 text-center"><%= link_to "View", resource.show_path(record), class: "text-indigo-500" %></td>
       </tr>
     <% end %>
   </tbody>

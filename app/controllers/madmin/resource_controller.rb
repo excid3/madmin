@@ -1,5 +1,7 @@
 module Madmin
   class ResourceController < ApplicationController
+    include SortHelper
+
     before_action :set_record, except: [:index, :new, :create]
 
     def index
@@ -41,7 +43,7 @@ module Madmin
     private
 
     def set_record
-      @record = resource.model.find(params[:id])
+      @record = resource.model_find(params[:id])
     end
 
     def resource
@@ -54,7 +56,7 @@ module Madmin
     end
 
     def scoped_resources
-      resource.model.send(valid_scope)
+      resource.model.send(valid_scope).order(sort_column => sort_direction)
     end
 
     def valid_scope

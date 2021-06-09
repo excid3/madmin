@@ -1,10 +1,13 @@
-<%= stylesheet_link_tag "https://cdn.skypack.dev/flatpickr/dist/flatpickr.min.css", "data-turbo-track": "reload" %>
-<%= stylesheet_link_tag "https://cdn.skypack.dev/slim-select/dist/slimselect.min.css", "data-turbo-track": "reload" %>
-<%= stylesheet_link_tag "https://cdn.skypack.dev/trix/dist/trix.css", "data-turbo-track": "reload" %>
+<%= stylesheet_link_tag "https://unpkg.com/flatpickr/dist/flatpickr.min.css", "data-turbo-track": "reload" %>
+<%= stylesheet_link_tag "https://unpkg.com/trix/dist/trix.css", "data-turbo-track": "reload" %>
+<%= stylesheet_link_tag "https://unpkg.com/slim-select@1.27.0/dist/slimselect.min.css", "data-turbo-track": "reload" %>
 
 <script type="module">
-  import { Application } from 'https://cdn.skypack.dev/stimulus'
+  import { Application, Controller } from 'https://cdn.skypack.dev/stimulus'
   const application = Application.start()
+
+  import { Dropdown } from "https://cdn.skypack.dev/tailwindcss-stimulus-components"
+  application.register("dropdown", Dropdown)
 
   import stimulusFlatpickr from 'https://cdn.skypack.dev/stimulus-flatpickr'
   application.register("flatpickr", stimulusFlatpickr)
@@ -17,8 +20,43 @@
   import 'https://cdn.skypack.dev/trix'
   import 'https://cdn.skypack.dev/@rails/actiontext@<%= npm_rails_version %>'
 
-  Rails.start()
+  if (!window._rails_loaded) { Rails.start() }
   ActiveStorage.start()
 
   import * as Turbo from "https://cdn.skypack.dev/@hotwired/turbo"
+
+  (() => {
+    application.register('nested-form', class extends Controller {
+      static get targets() {
+        return [ "links", "template" ]
+      }
+
+      connect() {
+        this.wrapperClass = this.data.get("wrapperClass") || "nested-fields"
+      }
+
+      add_association(event) {
+        event.preventDefault()
+
+        var content = this.templateTarget.innerHTML.replace(/NEW_RECORD/g, new Date().getTime())
+        this.linksTarget.insertAdjacentHTML('beforebegin', content)
+      }
+
+      remove_association(event) {
+        event.preventDefault()
+
+        let wrapper = event.target.closest("." + this.wrapperClass)
+
+        // New records are simply removed from the page
+        if (wrapper.dataset.newRecord == "true") {
+          wrapper.remove()
+
+        // Existing records are hidden and flagged for deletion
+        } else {
+          wrapper.querySelector("input[name*='_destroy']").value = 1
+          wrapper.style.display = 'none'
+        }
+      }
+    })
+  })()
 </script>

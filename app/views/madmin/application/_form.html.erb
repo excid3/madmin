@@ -16,7 +16,7 @@
 
     <% field = attribute[:field] %>
 
-    <div class="mb-4 flex">
+    <div class="mb-4 md:flex">
       <%= render partial: field.to_partial_path("form"), locals: { field: field, record: record, form: form, resource: resource } %>
     </div>
   <% end %>

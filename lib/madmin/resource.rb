@@ -5,10 +5,6 @@ module Madmin
 
     class << self
       def inherited(base)
-        # Remove any old references
-        Madmin.resources.delete(base)
-        Madmin.resources << base
-
         base.attributes = attributes.dup
         base.scopes = scopes.dup
         super
@@ -16,6 +12,10 @@ module Madmin
 
       def model
         model_name.constantize
+      end
+
+      def model_find(id)
+        friendly_model? ? model.friendly.find(id) : model.find(id)
       end
 
       def model_name
@@ -38,21 +38,27 @@ module Madmin
       end
 
       def index_path(options = {})
-        path = "/madmin/#{model.model_name.collection}"
-        path += "?#{options.to_param}" if options.any?
-        path
+        route_name = "madmin_#{model.table_name}_path"
+
+        url_helpers.send(route_name, options)
       end
 
       def new_path
-        "/madmin/#{model.model_name.collection}/new"
+        route_name = "new_madmin_#{model.model_name.singular}_path"
+
+        url_helpers.send(route_name)
       end
 
       def show_path(record)
-        "/madmin/#{model.model_name.collection}/#{record.id}"
+        route_name = "madmin_#{model.model_name.singular}_path"
+
+        url_helpers.send(route_name, record.to_param)
       end
 
       def edit_path(record)
-        "/madmin/#{model.model_name.collection}/#{record.id}/edit"
+        route_name = "edit_madmin_#{model.model_name.singular}_path"
+
+        url_helpers.send(route_name, record.to_param)
       end
 
       def param_key
@@ -60,11 +66,19 @@ module Madmin
       end
 
       def permitted_params
-        attributes.map { |a| a[:field].to_param }
+        attributes.filter_map { |a| a[:field].to_param if a[:field].visible?(:form) }
       end
 
       def display_name(record)
         "#{record.class} ##{record.id}"
+      end
+
+      def friendly_model?
+        model.respond_to? :friendly
+      end
+
+      def sortable_columns
+        model.column_names
       end
 
       private
@@ -92,6 +106,7 @@ module Madmin
           text: Fields::Text,
           time: Fields::Time,
           timestamp: Fields::Time,
+          password: Fields::Password,
 
           # Postgres specific types
           bit: Fields::String,
@@ -128,7 +143,8 @@ module Madmin
           polymorphic: Fields::Polymorphic,
           has_many: Fields::HasMany,
           has_one: Fields::HasOne,
-          rich_text: Fields::RichText
+          rich_text: Fields::RichText,
+          nested_has_many: Fields::NestedHasMany
         }.fetch(type)
       rescue
         raise ArgumentError, <<~MESSAGE
@@ -159,6 +175,10 @@ module Madmin
           :attachment
         elsif model.reflect_on_association(:"#{name_string}_attachments")
           :attachments
+
+        # has_secure_password
+        elsif model.attribute_types.include?("#{name_string}_digest") || name_string.ends_with?("_confirmation")
+          :password
         end
       end
 
@@ -172,6 +192,10 @@ module Madmin
         else
           :belongs_to
         end
+      end
+
+      def url_helpers
+        @url_helpers ||= Rails.application.routes.url_helpers
       end
     end
   end

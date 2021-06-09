@@ -1,0 +1,5 @@
+<% field.value(record).each do |object| %>
+  <div>
+    <%= link_to Madmin.resource_for(object).display_name(object), Madmin.resource_for(object).show_path(object) %>
+  </div>
+<% end %>

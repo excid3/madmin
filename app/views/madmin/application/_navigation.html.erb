@@ -1,6 +1,28 @@
-<div class="text-sm">
-  <%= link_to "← Back to App", main_app.root_url, class: "block p-1", data: { turbo: false } if main_app.respond_to?(:root_url) %>
-  <% Madmin.resources.each do |resource| %>
-    <%= link_to resource.friendly_name.pluralize, resource.index_path, class: "block p-1" %>
-  <% end %>
+<div class="text-sm" data-controller="dropdown">
+  <div class="flex md:block justify-between items-center">
+    <div class="flex md:block items-center">
+      <h1 class="mr-2 md:p-2 text-xl font-semibold">Madmin</h1>
+      <% if main_app.respond_to?(:root_url) %>
+        <%= link_to main_app.root_url, class: "block p-2 rounded hover:bg-gray-200", data: { turbo: false } do %>
+          ← Back <span class="hidden md:inline">to App</span>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="-mr-2 flex items-center md:hidden">
+      <button data-action="click->dropdown#toggle touch->dropdown#toggle click@window->dropdown#hide touch@window#dropdown->hide" type="button" class="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:bg-gray-200 focus:outline-none focus:ring-2 focus-ring-inset focus:ring-white" id="main-menu" aria-haspopup="true">
+        <span class="sr-only">Open main menu</span>
+        <!-- Heroicon name: outline/menu -->
+        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="hidden md:block" data-dropdown-target="menu">
+    <% Madmin.resources.each do |resource| %>
+      <%= nav_link_to resource.friendly_name.pluralize, resource.index_path, class: "block p-2 rounded hover:bg-gray-100", starts_with: resource.index_path, active_class: "font-bold text-black" %>
+    <% end %>
+  </div>
 </div>

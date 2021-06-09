@@ -1,4 +1,8 @@
 class Post < ApplicationRecord
+  extend FriendlyId
+
+  friendly_id :title
+
   belongs_to :user
   has_many :comments, as: :commentable
   has_rich_text :body

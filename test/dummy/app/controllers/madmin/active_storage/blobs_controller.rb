@@ -2,10 +2,7 @@ module Madmin
   class ActiveStorage::BlobsController < Madmin::ResourceController
     def new
       super
-      @record.assign_attributes(
-        filename: "",
-        byte_size: 0
-      )
+      @record.assign_attributes(filename: "")
     end
   end
 end

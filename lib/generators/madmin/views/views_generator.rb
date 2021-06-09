@@ -4,11 +4,12 @@ module Madmin
   module Generators
     class ViewsGenerator < Madmin::ViewGenerator
       def copy_templates
-        view = "madmin:views:"
-        call_generator("#{view}index", resource_path, "--namespace", namespace)
-        call_generator("#{view}show", resource_path, "--namespace", namespace)
-        call_generator("#{view}new", resource_path, "--namespace", namespace)
-        call_generator("#{view}edit", resource_path, "--namespace", namespace)
+        # Some generators duplicate templates, so not everything is present here
+        call_generator("madmin:views:edit", resource_path, "--namespace", namespace)
+        call_generator("madmin:views:index", resource_path, "--namespace", namespace)
+        call_generator("madmin:views:layout", resource_path, "--namespace", namespace)
+        call_generator("madmin:views:new", resource_path, "--namespace", namespace)
+        call_generator("madmin:views:show", resource_path, "--namespace", namespace)
       end
     end
   end

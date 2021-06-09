@@ -1,0 +1,30 @@
+<%= form.label field.attribute_name, class: "block md:inline-block w-32 flex-shrink-0" %>
+
+<div class="container space-y-8" data-controller="nested-form">
+  <template data-target="nested-form.template">
+
+    <%= form.fields_for field.attribute_name, field.to_model.new, child_index: 'NEW_RECORD' do |nested_form| %>
+      <%= render(
+        partial: field.to_partial_path('fields'),
+        locals: {
+          f: nested_form,
+          field: field
+        }
+      ) %>
+  <% end %>
+  </template>
+
+    <%= form.fields_for field.attribute_name do |nested_form| %>
+      <%= render(
+        partial: field.to_partial_path('fields'),
+        locals: {
+          f: nested_form,
+          field: field
+        }
+      ) %>
+  <% end %>
+
+  <%= content_tag :div, class: '', data: { target:"nested-form.links" } do %>
+    <%= link_to "+ Add new", "#",  data: { action: "click->nested-form#add_association" } %>
+  <% end %>
+</div>

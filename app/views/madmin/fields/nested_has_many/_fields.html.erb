@@ -1,0 +1,18 @@
+<%= content_tag :div, class: "nested-fields bg-gray-100 rounded-t-xl p-5", data: { new_record: f.object.new_record? } do %>
+  <% field.nested_attributes.each do |nested_attribute| %>
+    <% next if nested_attribute[:field].nil? %>
+    <% next unless nested_attribute[:field].visible?(action_name) %>
+    <% next unless nested_attribute[:field].visible?(:form) %>
+
+    <% nested_field = nested_attribute[:field] %>
+
+    <div class="mb-4 flex">
+      <%= render partial: nested_field.to_partial_path("form"), locals: { field: nested_field, record: f.object, form: f, resource: field.resource } %>
+    </div>
+  <% end %>
+
+  <small><%= link_to "Remove", "#", data: { action: "click->nested-form#remove_association" } %></small>
+
+  <%= f.hidden_field :_destroy %>
+
+<% end %>

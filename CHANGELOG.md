@@ -1,7 +1,28 @@
 ### Unreleased
 
 * Add custom field support - @excid3
-* Improve support for enums
+
+### 1.2.0
+
+* Allow users to override default sort column and direction on resources
+* Add sortable columns on the index for resources
+* Don't include `form: false` fields from nested resources in nested resource field params
+
+# 1.1.0
+
+* Add `has_secure_password` support
+* Add `madmin:views:javascript` generator
+* Fix `madmin:views` generator to copy all templates
+
+# 1.0.2
+
+* Use unpkg for assets instead of skypack. Skypack was missing slimselect css
+* Check if Rails UJS is loaded before starting it
+
+# 1.0.1
+
+* Fix belongs_to when nil - @excid3
+* Improve support for enums - @excid3
 
 ### 1.0.0
 

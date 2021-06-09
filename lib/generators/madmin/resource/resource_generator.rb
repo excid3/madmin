@@ -46,6 +46,10 @@ module Madmin
       def virtual_attributes
         virtual = []
 
+        # has_secure_password columns
+        password_attributes = model.attribute_types.keys.select { |k| k.ends_with?("_digest") }.map { |k| k.delete_suffix("_digest") }
+        virtual += password_attributes.map { |attr| [attr, "#{attr}_confirmation"] }.flatten
+
         # Add virtual attributes for ActionText and ActiveStorage
         model.reflections.each do |name, association|
           if name.starts_with?("rich_text")
@@ -62,6 +66,9 @@ module Madmin
 
       def redundant_attributes
         redundant = []
+
+        # has_secure_password columns
+        redundant += model.attribute_types.keys.select { |k| k.ends_with?("_digest") }
 
         model.reflections.each do |name, association|
           if association.has_one?
@@ -98,13 +105,17 @@ module Madmin
         if %w[id created_at updated_at].include?(name)
           {form: false}
 
-        # Attributes without a database column
-        elsif !model.column_names.include?(name)
-          {index: false}
+        # has_secure_passwords should only show on forms
+        elsif name.ends_with?("_confirmation") || virtual_attributes.include?("#{name}_confirmation")
+          {index: false, show: false}
 
         # Counter cache columns are typically not editable
         elsif name.ends_with?("_count")
           {form: false}
+
+        # Attributes without a database column
+        elsif !model.column_names.include?(name)
+          {index: false}
         end
       end
     end

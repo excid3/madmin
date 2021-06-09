@@ -6,7 +6,7 @@ module Madmin
     end
 
     config.to_prepare do
-      Madmin.resources = []
+      Madmin.reset_resources!
     end
   end
 end

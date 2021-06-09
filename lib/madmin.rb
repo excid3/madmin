@@ -8,34 +8,45 @@ module Madmin
   autoload :Resource, "madmin/resource"
 
   module Fields
+    autoload :Attachment, "madmin/fields/attachment"
+    autoload :Attachments, "madmin/fields/attachments"
+    autoload :BelongsTo, "madmin/fields/belongs_to"
     autoload :Boolean, "madmin/fields/boolean"
-    autoload :Integer, "madmin/fields/integer"
-    autoload :String, "madmin/fields/string"
-    autoload :Text, "madmin/fields/text"
     autoload :Date, "madmin/fields/date"
     autoload :DateTime, "madmin/fields/date_time"
     autoload :Decimal, "madmin/fields/decimal"
-    autoload :Json, "madmin/fields/json"
     autoload :Enum, "madmin/fields/enum"
     autoload :Float, "madmin/fields/float"
-    autoload :Time, "madmin/fields/time"
-    autoload :BelongsTo, "madmin/fields/belongs_to"
-    autoload :Polymorphic, "madmin/fields/polymorphic"
     autoload :HasMany, "madmin/fields/has_many"
     autoload :HasOne, "madmin/fields/has_one"
+    autoload :Integer, "madmin/fields/integer"
+    autoload :Json, "madmin/fields/json"
+    autoload :NestedHasMany, "madmin/fields/nested_has_many"
+    autoload :Password, "madmin/fields/password"
+    autoload :Polymorphic, "madmin/fields/polymorphic"
     autoload :RichText, "madmin/fields/rich_text"
-    autoload :Attachment, "madmin/fields/attachment"
-    autoload :Attachments, "madmin/fields/attachments"
+    autoload :String, "madmin/fields/string"
+    autoload :Text, "madmin/fields/text"
+    autoload :Time, "madmin/fields/time"
   end
-
-  mattr_accessor :resources, default: []
 
   class << self
     def resource_for(object)
-      Rails.application.eager_load!
+      "#{object.class.name}Resource".constantize
+    end
 
-      klass_name = object.class.name
-      Madmin.resources.find { |r| r.model_name == klass_name }
+    def resources
+      @resources ||= resource_names.map(&:constantize)
+    end
+
+    def reset_resources!
+      @resources = nil
+    end
+
+    def resource_names
+      root = Rails.root.join("app/madmin/resources/")
+      files = Dir.glob(root.join("**/*.rb"))
+      files.sort!.map! { |f| f.split(root.to_s).last.delete_suffix(".rb").classify }
     end
   end
 end
