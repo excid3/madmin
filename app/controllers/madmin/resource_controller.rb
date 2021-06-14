@@ -5,7 +5,7 @@ module Madmin
     before_action :set_record, except: [:index, :new, :create]
 
     # Assign current_user for paper_trail gem
-    before_action :set_paper_trail_whodunnit, if: ->{ respond_to?(:set_paper_trail_whodunnit, true) }
+    before_action :set_paper_trail_whodunnit, if: -> { respond_to?(:set_paper_trail_whodunnit, true) }
 
     def index
       @pagy, @records = pagy(scoped_resources)
@@ -59,7 +59,9 @@ module Madmin
     end
 
     def scoped_resources
-      resource.model.send(valid_scope).order(sort_column => sort_direction)
+      resources = resource.model.send(valid_scope)
+      resources = Madmin::Search.new(resources, resource, search_term).run
+      resources.order(sort_column => sort_direction)
     end
 
     def valid_scope
@@ -81,6 +83,10 @@ module Madmin
       else
         raise "Unrecognised param data: #{data.inspect}"
       end
+    end
+
+    def search_term
+      @search_term ||= params[:q].to_s.strip
     end
   end
 end

@@ -6,6 +6,7 @@ module Madmin
   autoload :Field, "madmin/field"
   autoload :GeneratorHelpers, "madmin/generator_helpers"
   autoload :Resource, "madmin/resource"
+  autoload :Search, "madmin/search"
 
   module Fields
     autoload :Attachment, "madmin/fields/attachment"

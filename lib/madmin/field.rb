@@ -36,5 +36,9 @@ module Madmin
     def required?
       model.validators_on(attribute_name).any? { |v| v.is_a? ActiveModel::Validations::PresenceValidator }
     end
+
+    def searchable?
+      false
+    end
   end
 end

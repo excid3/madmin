@@ -13,5 +13,9 @@ module Madmin
       version += "-#{Rails::VERSION::PRE}" if Rails::VERSION::PRE
       version
     end
+
+    def clear_search_params
+      params.except(:q, :_page).permit(:page, :sort, :direction)
+    end
   end
 end

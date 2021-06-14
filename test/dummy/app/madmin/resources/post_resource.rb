@@ -5,6 +5,8 @@ class PostResource < Madmin::Resource
   attribute :comments_count, form: false
   attribute :metadata
   attribute :enum
+  attribute :tags
+  attribute :ratings
   attribute :created_at, form: false
   attribute :updated_at, form: false
   attribute :body, index: false
@@ -12,8 +14,9 @@ class PostResource < Madmin::Resource
   attribute :attachments, index: false
 
   # Associations
+  attribute :versions
   attribute :user
-  attribute :comments, form: false
+  attribute :comments
 
   # Scopes
   scope :recent
@@ -23,6 +26,7 @@ class PostResource < Madmin::Resource
   #   record.name
   # end
 
+  # Uncomment this to customize the default sort column and direction.
   def self.default_sort_column
     "title"
   end

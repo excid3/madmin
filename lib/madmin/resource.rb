@@ -81,6 +81,10 @@ module Madmin
         model.column_names
       end
 
+      def searchable_attributes
+        attributes.select { |a| a[:field].searchable? }
+      end
+
       private
 
       def field_for_type(name, type)
