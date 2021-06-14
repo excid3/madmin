@@ -1,4 +1,4 @@
-<div class="text-sm" data-controller="dropdown">
+<div class="flex flex-col h-full text-sm" data-controller="dropdown">
   <div class="flex md:block justify-between items-center">
     <div class="flex md:block items-center">
       <h1 class="mr-2 md:p-2 text-xl font-semibold">Madmin</h1>
@@ -20,9 +20,13 @@
     </div>
   </div>
 
-  <div class="hidden md:block" data-dropdown-target="menu">
+  <div class="hidden md:flex flex-col flex-grow justify-between" data-dropdown-target="menu">
     <% Madmin.resources.each do |resource| %>
       <%= nav_link_to resource.friendly_name.pluralize, resource.index_path, class: "block p-2 rounded hover:bg-gray-100", starts_with: resource.index_path, active_class: "font-bold text-black" %>
     <% end %>
+
+    <div class="mt-auto">
+      <%= link_to "View Madmin on GitHub", "https://github.com/excid3/madmin", target: :_blank, class: "block p-2 rounded text-gray-500 hover:bg-gray-100" %>
+    </div>
   </div>
 </div>
