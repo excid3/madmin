@@ -10,10 +10,10 @@ class Madmin::FieldTest < ActiveSupport::TestCase
   end
 
   test "searchable?" do
-    attribute = PostResource.attributes.find { |a| a[:name] == :title }
+    attribute = UserResource.attributes.find { |a| a[:name] == :first_name}
     assert attribute[:field].searchable?
 
-    attribute = PostResource.attributes.find { |a| a[:name] == :created_at }
+    attribute = UserResource.attributes.find { |a| a[:name] == :created_at }
     refute attribute[:field].searchable?
   end
 end
