@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
   namespace :madmin do
+    namespace :paper_trail do
+      resources :versions
+    end
+    namespace :active_storage do
+      resources :variant_records
+    end
     resources :numericals
     resources :habtms
     resources :teams

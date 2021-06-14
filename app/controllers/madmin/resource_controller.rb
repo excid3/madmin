@@ -4,6 +4,9 @@ module Madmin
 
     before_action :set_record, except: [:index, :new, :create]
 
+    # Assign current_user for paper_trail gem
+    before_action :set_paper_trail_whodunnit, if: ->{ respond_to?(:set_paper_trail_whodunnit, true) }
+
     def index
       @pagy, @records = pagy(scoped_resources)
     end
