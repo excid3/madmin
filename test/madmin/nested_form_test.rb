@@ -20,7 +20,7 @@ class NestedHasManyTest < ActiveSupport::TestCase
 
   test "whitelists unskipped and required params" do
     field = UserResource.attributes.find { |i| i[:name] == :posts }[:field]
-    expected_params = {posts_attributes: [:title, :metadata, :body, :image, {attachments: []}, "user_id", "_destroy", "id"]}
+    expected_params = {:posts_attributes=>[:title, :metadata, :tags, :ratings, :body, :image, {:attachments=>[]}, {:version_ids=>[]}, "user_id", {:comment_ids=>[]}, "_destroy", "id"]}
     assert_equal expected_params, field.to_param
   end
 end
