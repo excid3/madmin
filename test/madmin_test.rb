@@ -32,4 +32,8 @@ class Madmin::Test < ActiveSupport::TestCase
 
     assert_equal CommentResource.send(:infer_type, :commentable), :polymorphic
   end
+
+  test "can set custom field for attribute" do
+    assert_equal CustomField, PostResource.send(:field_for_type, :title, nil, field: CustomField)
+  end
 end

@@ -1,5 +1,7 @@
 ### Unreleased
 
+* Add custom field support - @excid3
+
 ### 1.2.0
 
 * Allow users to override default sort column and direction on resources

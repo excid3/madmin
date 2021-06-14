@@ -29,7 +29,7 @@ module Madmin
       def attribute(name, type = nil, **options)
         attributes << {
           name: name,
-          field: field_for_type(name, type).new(**options.merge(attribute_name: name, model: model))
+          field: field_for_type(name, type, **options).new(**options.merge(attribute_name: name, model: model))
         }
       end
 
@@ -87,7 +87,9 @@ module Madmin
 
       private
 
-      def field_for_type(name, type)
+      def field_for_type(name, type, **options)
+        return options[:field] if options[:field]
+
         type ||= infer_type(name)
 
         {

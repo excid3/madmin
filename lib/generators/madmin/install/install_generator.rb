@@ -16,8 +16,13 @@ module Madmin
       end
 
       def generate_routes
+        if rails6_1_and_up?
+          route "draw :madmin", file: ROUTES_FILE[:default]
+          template("routes.rb.tt", "config/routes/madmin.rb")
+        end
+
         if route_namespace_exists?
-          route "root to: \"dashboard#show\"", indentation: 4, sentinel: /namespace :madmin do\s*\n/m
+          route "root to: \"dashboard#show\"", indentation: separated_routes_file? ? 2 : 4, sentinel: /namespace :madmin do\s*\n/m
         else
           route "root to: \"dashboard#show\"", namespace: [:madmin]
         end
