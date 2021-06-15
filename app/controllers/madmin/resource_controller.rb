@@ -9,6 +9,13 @@ module Madmin
 
     def index
       @pagy, @records = pagy(scoped_resources)
+
+      respond_to do |format|
+        format.html
+        format.json {
+          render json: @records.map{ |r| { name: @resource.display_name(r), id: r.id } }
+        }
+      end
     end
 
     def show

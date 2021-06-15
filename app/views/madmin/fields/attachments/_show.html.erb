@@ -1,7 +1,11 @@
 <% if (attachments = field.value(record)) && attachments.attached? %>
   <% attachments.each do |attachment| %>
-    <div>
-      <%= link_to attachment.filename, attachment, target: :_blank %>
-    </div>
+    <% if attachment.variable? %>
+      <%= link_to attachment, target: :_blank do %>
+        <%= image_tag attachment, class: "max-h-32" %>
+      <% end %>
+    <% else %>
+      <%= link_to attachment.filename, attachment, target: :_blank, class: "text-indigo-500 underline" %>
+    <% end %>
   <% end %>
 <% end %>

@@ -36,6 +36,10 @@ module Madmin
       "#{object.class.name}Resource".constantize
     end
 
+    def resource_by_name(name)
+      "#{name}Resource".constantize
+    end
+
     def resources
       @resources ||= resource_names.map(&:constantize)
     end

@@ -14,7 +14,7 @@ class PostResource < Madmin::Resource
   attribute :attachments, index: false
 
   # Associations
-  attribute :versions
+  attribute :versions, form: false
   attribute :user
   attribute :comments
 

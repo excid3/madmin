@@ -1,6 +1,6 @@
 <%= stylesheet_link_tag "https://unpkg.com/flatpickr/dist/flatpickr.min.css", "data-turbo-track": "reload" %>
 <%= stylesheet_link_tag "https://unpkg.com/trix/dist/trix.css", "data-turbo-track": "reload" %>
-<%= stylesheet_link_tag "https://unpkg.com/slim-select@1.27.0/dist/slimselect.min.css", "data-turbo-track": "reload" %>
+<%= stylesheet_link_tag "https://unpkg.com/tom-select/dist/css/tom-select.min.css", "data-turbo-track": "reload" %>
 
 <script type="module">
   import { Application, Controller } from 'https://cdn.skypack.dev/stimulus'
@@ -12,8 +12,7 @@
   import stimulusFlatpickr from 'https://cdn.skypack.dev/stimulus-flatpickr'
   application.register("flatpickr", stimulusFlatpickr)
 
-  import stimulusSlimselect from 'https://cdn.skypack.dev/stimulus-slimselect'
-  application.register("slimselect", stimulusSlimselect)
+  import TomSelect from 'https://cdn.skypack.dev/tom-select'
 
   import Rails from 'https://cdn.skypack.dev/@rails/ujs@<%= npm_rails_version %>'
   import * as ActiveStorage from 'https://cdn.skypack.dev/@rails/activestorage@<%= npm_rails_version %>'
@@ -26,6 +25,35 @@
   import * as Turbo from "https://cdn.skypack.dev/@hotwired/turbo"
 
   (() => {
+    application.register('select', class extends Controller {
+      static values = {
+        options: Object,
+        url: String
+      }
+
+      connect() {
+        this.select = new TomSelect(this.element, {
+          plugins: ['remove_button'],
+          valueField: 'id',
+          labelField: 'name',
+          searchField: 'name',
+          load: (search, callback) => {
+            fetch(this.urlValue)
+              .then(response => response.json())
+              .then(json => {
+                callback(json);
+              }).catch(() => {
+                callback();
+              });
+          }
+        })
+      }
+
+      disconnect() {
+        this.select.destroy()
+      }
+    })
+
     application.register('nested-form', class extends Controller {
       static get targets() {
         return [ "links", "template" ]
