@@ -13,7 +13,7 @@ module Madmin
       respond_to do |format|
         format.html
         format.json {
-          render json: @records.map{ |r| { name: @resource.display_name(r), id: r.id } }
+          render json: @records.map { |r| {name: @resource.display_name(r), id: r.id} }
         }
       end
     end

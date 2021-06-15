@@ -5,7 +5,7 @@ module Madmin
         if (records = record.send(attribute_name))
           return [] unless records.first
           resource = Madmin.resource_for(records.first)
-          records.map{ |record| [resource.display_name(record), record.id] }
+          records.map { |record| [resource.display_name(record), record.id] }
         else
           []
         end
