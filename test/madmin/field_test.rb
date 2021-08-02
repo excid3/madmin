@@ -16,4 +16,9 @@ class Madmin::FieldTest < ActiveSupport::TestCase
     attribute = UserResource.attributes.find { |a| a[:name] == :created_at }
     refute attribute[:field].searchable?
   end
+
+  test "required?" do
+    attribute = UserResource.attributes.find { |a| a[:name] == :title }
+    refute attribute[:field].required?
+  end
 end
