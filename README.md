@@ -79,6 +79,37 @@ rails generate madmin:views:index Book
  # -> app/views/madmin/books/index.html.erb
 ```
 
+## Setting field types manually
+
+You can set the field type manually with:
+
+For this example we will be using [action_text](https://guides.rubyonrails.org/action_text_overview.html#installation)
+
+```bash
+rails g Page body:string
+rails g madmin:resource Page
+```
+
+```ruby
+class Page < ApplicationRecord
+  has_rich_text :body
+end
+# -> app/models/page.rb
+``` 
+
+```ruby
+class PageResource < Madmin::Resource
+  # Attributes
+  attribute :id, form: false
+  attribute :body, :rich_text
+  attribute :created_at, form: false
+  attribute :updated_at, form: false
+end
+# -> app/madmin/resources/page_resource.rb
+```
+Voilà 🍰
+<img width="1195" alt="image" src="https://user-images.githubusercontent.com/13543612/128542740-bf84a07b-e9ae-4a87-ad85-bd49f6046286.png">
+
 ## Custom Fields
 
 You can generate a custom field with:
