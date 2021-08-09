@@ -26,6 +26,7 @@ class Madmin::Test < ActiveSupport::TestCase
 
     assert_equal UserResource.send(:infer_type, :virtual_attribute), :string
 
+    assert_equal PostResource.send(:infer_type, :body), :rich_text
     assert_equal PostResource.send(:infer_type, :user), :belongs_to
     assert_equal PostResource.send(:infer_type, :image), :attachment
     assert_equal PostResource.send(:infer_type, :attachments), :attachments
@@ -34,6 +35,6 @@ class Madmin::Test < ActiveSupport::TestCase
   end
 
   test "can set custom field for attribute" do
-    assert_equal CustomField, PostResource.send(:field_for_type, :title, nil, field: CustomField)
+    assert_equal CustomField, PostResource.get_attribute(:title).field.class
   end
 end

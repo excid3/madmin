@@ -26,11 +26,19 @@ module Madmin
         scopes << name
       end
 
+      def get_attribute(name)
+        attributes.find{ |a| a[:name] == name }
+      end
+
       def attribute(name, type = nil, **options)
-        attributes << {
+        type ||= infer_type(name)
+        field = options[:field] || field_for_type(type)
+
+        attributes << OpenStruct.new(
           name: name,
-          field: field_for_type(name, type, **options).new(**options.merge(attribute_name: name, model: model))
-        }
+          type: type,
+          field: field.new(**options.merge(attribute_name: name, model: model))
+        )
       end
 
       def friendly_name
@@ -87,11 +95,7 @@ module Madmin
 
       private
 
-      def field_for_type(name, type, **options)
-        return options[:field] if options[:field]
-
-        type ||= infer_type(name)
-
+      def field_for_type(type)
         {
           binary: Fields::String,
           blob: Fields::Text,

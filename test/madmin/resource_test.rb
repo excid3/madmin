@@ -5,4 +5,8 @@ class ResourceTest < ActiveSupport::TestCase
     searchable_attribute_names = UserResource.searchable_attributes.map { |a| a[:name] }
     assert_includes searchable_attribute_names, :first_name
   end
+
+  test "rich_text" do
+    assert_equal :rich_text, PostResource.attributes.find{ |a| a[:name] == :body }.type
+  end
 end
