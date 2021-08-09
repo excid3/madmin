@@ -1,6 +1,6 @@
 module Madmin
   class Resource
-    class_attribute :attributes, default: []
+    class_attribute :attributes, default: ActiveSupport::OrderedHash.new
     class_attribute :scopes, default: []
 
     class << self
@@ -27,14 +27,14 @@ module Madmin
       end
 
       def get_attribute(name)
-        attributes.find{ |a| a[:name] == name }
+        attributes[name]
       end
 
       def attribute(name, type = nil, **options)
         type ||= infer_type(name)
         field = options[:field] || field_for_type(type)
 
-        attributes << OpenStruct.new(
+        attributes[name] = OpenStruct.new(
           name: name,
           type: type,
           field: field.new(**options.merge(attribute_name: name, model: model))
@@ -74,7 +74,7 @@ module Madmin
       end
 
       def permitted_params
-        attributes.filter_map { |a| a[:field].to_param if a[:field].visible?(:form) }
+        attributes.values.filter_map { |a| a.field.to_param if a.field.visible?(:form) }
       end
 
       def display_name(record)
@@ -90,7 +90,7 @@ module Madmin
       end
 
       def searchable_attributes
-        attributes.select { |a| a[:field].searchable? }
+        attributes.values.select { |a| a.field.searchable? }
       end
 
       private

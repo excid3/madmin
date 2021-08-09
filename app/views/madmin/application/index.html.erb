@@ -31,11 +31,11 @@
 <table class="min-w-full divide-y divide-gray-200">
   <thead>
     <tr class="border-b border-gray-200">
-      <% resource.attributes.each do |attribute| %>
-        <% next if attribute[:field].nil? %>
-        <% next unless attribute[:field].visible?(action_name) %>
+      <% resource.attributes.values.each do |attribute| %>
+        <% next if attribute.field.nil? %>
+        <% next unless attribute.field.visible?(action_name) %>
 
-        <th class="py-2 px-4 text-left text-xs text-gray-500 font-medium uppercase whitespace-nowrap"><%= sortable attribute[:name], attribute[:name].to_s.titleize %></th>
+        <th class="py-2 px-4 text-left text-xs text-gray-500 font-medium uppercase whitespace-nowrap"><%= sortable attribute.name, attribute.name.to_s.titleize %></th>
       <% end %>
       <th class="py-2 px-4 text-left text-xs text-gray-500 font-medium uppercase">Actions</th>
     </tr>
@@ -44,13 +44,10 @@
   <tbody class="text-sm divide-y">
     <% @records.each do |record| %>
       <tr>
-        <% resource.attributes.each do |attribute| %>
-          <% next if attribute[:field].nil? %>
-          <% next unless attribute[:field].visible?(action_name) %>
-
-          <% field = attribute[:field] %>
-
-          <td class="px-4 py-2"><%= render partial: field.to_partial_path("index"), locals: { field: field, record: record } %></td>
+        <% resource.attributes.values.each do |attribute| %>
+          <% next if attribute.field.nil? %>
+          <% next unless attribute.field.visible?(action_name) %>
+          <td class="px-4 py-2"><%= render partial: attribute.field.to_partial_path("index"), locals: { field: attribute.field, record: record } %></td>
         <% end %>
 
         <td class="px-4 py-2 text-center"><%= link_to "View", resource.show_path(record), class: "text-indigo-500" %></td>

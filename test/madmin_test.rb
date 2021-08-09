@@ -15,7 +15,8 @@ class Madmin::Test < ActiveSupport::TestCase
   end
 
   test "stores attributes" do
-    assert_equal UserResource.attributes.first[:name], :id
+    assert_instance_of ActiveSupport::OrderedHash, UserResource.attributes
+    assert_equal :id, UserResource.attributes.keys.first
   end
 
   test "can infer attribute type" do

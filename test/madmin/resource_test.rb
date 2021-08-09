@@ -7,6 +7,6 @@ class ResourceTest < ActiveSupport::TestCase
   end
 
   test "rich_text" do
-    assert_equal :rich_text, PostResource.attributes.find{ |a| a[:name] == :body }.type
+    assert_equal :rich_text, PostResource.attributes[:body].type
   end
 end
