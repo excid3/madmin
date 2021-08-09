@@ -1,6 +1,11 @@
 ### Unreleased
 
+### 1.2.1
+
+* Reset page on search submit - @jitingcn
+* Catch Pagy overflow errors - @excid3
 * Add custom field support - @excid3
+* Refactor `Resource.attributes` from an array to hash for faster lookup - @excid3
 
 ### 1.2.0
 
