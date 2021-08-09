@@ -16,6 +16,9 @@ module Madmin
           render json: @records.map { |r| {name: @resource.display_name(r), id: r.id} }
         }
       end
+    rescue Pagy::OverflowError
+      params[:page] = 1
+      retry
     end
 
     def show
