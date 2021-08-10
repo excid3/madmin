@@ -86,5 +86,93 @@
         }
       }
     })
+
+    application.register('bulk-actions', class extends Controller {
+      static get targets() {
+        return ["checkbox", "checkboxAll", "actionLink"]
+      }
+      static values = { resources: String }
+
+      initialize () {
+        this.refresh = this.refresh.bind(this)
+        this.toggle = this.toggle.bind(this)
+        this.disableActionLink();
+      }
+
+      connect() {
+        this.checkboxTargets.forEach(checkbox => checkbox.addEventListener('change', this.refresh))
+        this.checkboxAllTarget.addEventListener('change', this.toggle)
+
+        this.refresh()
+      }
+
+      disconnect() {
+        this.checkboxAllTarget.removeEventListener('change', this.toggle)
+        this.checkboxTargets.forEach(checkbox => checkbox.removeEventListener('change', this.refresh))
+      }
+
+      disableActionLink() {
+        this.actionLinkTarget.disabled = true
+        this.actionLinkTarget.classList.remove("text-indigo-500")
+        this.actionLinkTarget.classList.add("text-gray-400", "cursor-default")
+      }
+
+      enableActionLink() {
+        this.actionLinkTarget.disabled = false
+        this.actionLinkTarget.classList.add("text-indigo-500")
+        this.actionLinkTarget.classList.remove("text-gray-400", "cursor-default")
+      }
+
+      toggle (e) {
+        e.preventDefault()
+
+        this.checkboxTargets.forEach(checkbox => {
+          checkbox.checked = e.target.checked
+          this.triggerInputEvent(checkbox)
+        })
+      }
+
+      triggerInputEvent (checkbox) {
+        const event = new Event('input', { bubbles: false, cancelable: true })
+        checkbox.dispatchEvent(event)
+      }
+
+      refresh() {
+        const checkboxesCount = this.checkboxTargets.length
+        const checkboxesCheckedCount = this.checked.length
+
+        if (checkboxesCheckedCount > 0) {
+          this.checkboxAllTarget.checked = true
+          this.enableActionLink();
+        } else {
+          this.checkboxAllTarget.checked = false
+          this.disableActionLink();
+        }
+        this.checkboxAllTarget.indeterminate = checkboxesCheckedCount > 0 && checkboxesCheckedCount < checkboxesCount
+      }
+
+      get checked () {
+        return this.checkboxTargets.filter(checkbox => checkbox.checked)
+      }
+
+      destroy(event) {
+        event.preventDefault()
+
+        if (!this.checked.length) return;
+
+        let data = new FormData()
+        if (this.checked.length == this.checkboxTargets.length) {
+          data.append("all", true)
+        } else {
+          this.checked.forEach((checkbox) => data.append("ids[]", checkbox.value))
+        }
+
+        Rails.ajax({
+          url: `/madmin/bulk/${this.resourcesValue}`,
+          type: "DELETE",
+          data: data
+        })
+      }
+    })
   })()
 </script>

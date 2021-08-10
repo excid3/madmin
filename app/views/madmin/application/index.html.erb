@@ -28,32 +28,42 @@
   <% end %>
 </div>
 
-<table class="min-w-full divide-y divide-gray-200">
-  <thead>
-    <tr class="border-b border-gray-200">
-      <% resource.attributes.values.each do |attribute| %>
-        <% next if attribute.field.nil? %>
-        <% next unless attribute.field.visible?(action_name) %>
-
-        <th class="py-2 px-4 text-left text-xs text-gray-500 font-medium uppercase whitespace-nowrap"><%= sortable attribute.name, attribute.name.to_s.titleize %></th>
-      <% end %>
-      <th class="py-2 px-4 text-left text-xs text-gray-500 font-medium uppercase">Actions</th>
-    </tr>
-  </thead>
-
-  <tbody class="text-sm divide-y">
-    <% @records.each do |record| %>
-      <tr>
+<div data-controller="bulk-actions" data-bulk-actions-resources-value="<%= resource.model_name.pluralize.downcase %>">
+  <table class="min-w-full divide-y divide-gray-200">
+    <thead>
+      <th class="py-2 text-left text-xs text-gray-500 font-medium uppercase whitespace-nowrap">
+        <%= check_box_tag nil, nil, false, data: { 'bulk-actions-target': "checkboxAll" } %>
+      </th>
+      <tr class="border-b border-gray-200">
         <% resource.attributes.values.each do |attribute| %>
           <% next if attribute.field.nil? %>
           <% next unless attribute.field.visible?(action_name) %>
-          <td class="px-4 py-2"><%= render partial: attribute.field.to_partial_path("index"), locals: { field: attribute.field, record: record } %></td>
-        <% end %>
 
-        <td class="px-4 py-2 text-center"><%= link_to "View", resource.show_path(record), class: "text-indigo-500" %></td>
+          <th class="py-2 px-4 text-left text-xs text-gray-500 font-medium uppercase whitespace-nowrap"><%= sortable attribute.name, attribute.name.to_s.titleize %></th>
+        <% end %>
+        <th class="py-2 px-4 text-left text-xs text-gray-500 font-medium uppercase">Actions</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody class="text-sm divide-y">
+      <% @records.each do |record| %>
+        <tr>
+          <td>
+            <%= check_box_tag "ids[]", record.id, false, data: { 'bulk-actions-target': "checkbox" } %>
+          </td>
+          <% resource.attributes.values.each do |attribute| %>
+            <% next if attribute.field.nil? %>
+            <% next unless attribute.field.visible?(action_name) %>
+            <td class="px-4 py-2"><%= render partial: attribute.field.to_partial_path("index"), locals: { field: attribute.field, record: record } %></td>
+          <% end %>
+
+          <td class="px-4 py-2 text-center"><%= link_to "View", resource.show_path(record), class: "text-indigo-500" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= link_to "Delete selected", "#", class: "mt-5 inline-block text-indigo-500 text-sm", data: { action: "click->bulk-actions#destroy", "bulk-actions-target": "actionLink" } %>
+</div>
 
 <%== pagy_nav(@pagy) if @pagy.pages > 1 %>

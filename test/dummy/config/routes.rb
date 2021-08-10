@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     namespace :active_storage do
       resources :variant_records
     end
+    delete "bulk/:resource", to: "bulk#destroy", as: "bulk_destroy"
     resources :numericals
     resources :habtms
     resources :teams
