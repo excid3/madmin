@@ -71,7 +71,7 @@ module Madmin
     def scoped_resources
       resources = resource.model.send(valid_scope)
       resources = Madmin::Search.new(resources, resource, search_term).run
-      resources.order(sort_column => sort_direction)
+      resources.reorder(sort_column => sort_direction)
     end
 
     def valid_scope
