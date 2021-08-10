@@ -4,11 +4,7 @@ module Madmin
     before_action :set_paper_trail_whodunnit, if: -> { respond_to?(:set_paper_trail_whodunnit, true) }
 
     def destroy
-      if params[:all]
-        @records = resource.model.destroy_all
-      else
-        @records = resource.model.where(id: params[:ids]).destroy_all
-      end
+      @records = resource.model.where(id: params[:ids]).destroy_all
 
       redirect_to resource.index_path
     end

@@ -161,11 +161,7 @@
         if (!this.checked.length) return;
 
         let data = new FormData()
-        if (this.checked.length == this.checkboxTargets.length) {
-          data.append("all", true)
-        } else {
-          this.checked.forEach((checkbox) => data.append("ids[]", checkbox.value))
-        }
+        this.checked.forEach((checkbox) => data.append("ids[]", checkbox.value))
 
         Rails.ajax({
           url: `/madmin/bulk/${this.resourcesValue}`,
