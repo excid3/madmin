@@ -1,7 +1,11 @@
 # Routes
-Routes should be under the namespace of madmin module.Like
+Routes should be under the namespace of madmin module:
+
+```ruby
 namespace :madmin do
-	namespace :user do
-	  resources :connected_accounts
-	end	
-  end
+  resources :posts
+  namespace :user do
+    resources :connected_accounts
+  end	
+end
+```
