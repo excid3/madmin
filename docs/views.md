@@ -5,4 +5,6 @@ You can use the included generator to create the appropriate view files, which c
 
 For example, running the following will copy over all of the views into your application that will be used for every resource:
 
+```bash
 rails generate madmin:views
+```
