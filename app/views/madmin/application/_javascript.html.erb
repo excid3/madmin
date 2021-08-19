@@ -6,6 +6,7 @@
   import { Application, Controller } from 'https://cdn.skypack.dev/stimulus'
   const application = Application.start()
 
+  import { destroy } from "https://cdn.skypack.dev/@rails/request.js"
   import { Dropdown } from "https://cdn.skypack.dev/tailwindcss-stimulus-components"
   application.register("dropdown", Dropdown)
 
@@ -155,7 +156,7 @@
         return this.checkboxTargets.filter(checkbox => checkbox.checked)
       }
 
-      destroy(event) {
+      async destroy(event) {
         event.preventDefault()
 
         if (!this.checked.length) return;
@@ -163,11 +164,7 @@
         let data = new FormData()
         this.checked.forEach((checkbox) => data.append("ids[]", checkbox.value))
 
-        Rails.ajax({
-          url: `/madmin/bulk/${this.resourcesValue}`,
-          type: "DELETE",
-          data: data
-        })
+        destroy(`/madmin/bulk/${this.resourcesValue}`, { body: data });
       }
     })
   })()
