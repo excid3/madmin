@@ -28,7 +28,7 @@
   <% end %>
 </div>
 
-<div data-controller="bulk-actions" data-bulk-actions-resources-value="<%= resource.model_name.pluralize.downcase %>">
+<div data-controller="bulk-actions" data-bulk-actions-index-url-value="<%= request.original_url %>" data-bulk-actions-resource-value="<%= resource.model_name.pluralize.downcase %>">
   <table class="min-w-full divide-y divide-gray-200">
     <thead>
       <th class="py-2 text-left text-xs text-gray-500 font-medium uppercase whitespace-nowrap">

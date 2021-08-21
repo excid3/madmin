@@ -92,7 +92,7 @@
       static get targets() {
         return ["checkbox", "checkboxAll", "actionLink"]
       }
-      static values = { resources: String }
+      static values = { resource: String, indexUrl: String }
 
       initialize () {
         this.refresh = this.refresh.bind(this)
@@ -164,7 +164,11 @@
         let data = new FormData()
         this.checked.forEach((checkbox) => data.append("ids[]", checkbox.value))
 
-        destroy(`/madmin/bulk/${this.resourcesValue}`, { body: data });
+        const response = await destroy(`/madmin/bulk/${this.resourceValue}`, { body: data })
+
+        if (response.ok) {
+          window.location = this.indexUrlValue
+        }
       }
     })
   })()

@@ -6,7 +6,7 @@ module Madmin
     def destroy
       @records = resource.model.where(id: params[:ids]).destroy_all
 
-      redirect_to resource.index_path
+      head :ok
     end
 
     private
