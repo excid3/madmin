@@ -1,9 +1,8 @@
 ### Unreleased
 
-- Handle records not having `created_at` columns when setting the default_sort column - @afomera / @excid3
-
 ### 1.2.1
 
+- Handle records not having `created_at` columns when setting the default_sort column - @afomera / @excid3
 - Reset page on search submit - @jitingcn
 - Catch Pagy overflow errors - @excid3
 - Add custom field support - @excid3
