@@ -50,6 +50,9 @@ module Madmin
         password_attributes = model.attribute_types.keys.select { |k| k.ends_with?("_digest") }.map { |k| k.delete_suffix("_digest") }
         virtual += password_attributes.map { |attr| [attr, "#{attr}_confirmation"] }.flatten
 
+        # ActiveRecord Store columns
+        virtual += model.stored_attributes.values.flatten
+
         # Add virtual attributes for ActionText and ActiveStorage
         model.reflections.each do |name, association|
           if name.starts_with?("rich_text")
@@ -69,6 +72,9 @@ module Madmin
 
         # has_secure_password columns
         redundant += model.attribute_types.keys.select { |k| k.ends_with?("_digest") }
+
+        # ActiveRecord Store columns
+        redundant += model.stored_attributes.keys
 
         model.reflections.each do |name, association|
           if association.has_one?
