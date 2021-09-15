@@ -11,6 +11,9 @@ class User < ApplicationRecord
 
   has_one_attached :avatar
 
+  store :preferences, [:language, :notifications]
+  store_accessor :settings, [:weekly_email, :monthly_newsletter]
+
   has_secure_password
   has_secure_token
 end

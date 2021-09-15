@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_14_192556) do
+ActiveRecord::Schema.define(version: 2021_09_15_141444) do
 
   create_table "action_mailbox_inbound_emails", force: :cascade do |t|
     t.integer "status", default: 0, null: false
@@ -34,8 +34,8 @@ ActiveRecord::Schema.define(version: 2021_06_14_192556) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
-    t.bigint "record_id", null: false
-    t.bigint "blob_id", null: false
+    t.integer "record_id", null: false
+    t.integer "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 2021_06_14_192556) do
   end
 
   create_table "active_storage_variant_records", force: :cascade do |t|
-    t.bigint "blob_id", null: false
+    t.integer "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
@@ -86,9 +86,6 @@ ActiveRecord::Schema.define(version: 2021_06_14_192556) do
     t.string "title"
     t.integer "comments_count"
     t.json "metadata"
-    t.integer "enum"
-    t.string "tags"
-    t.integer "ratings"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_posts_on_user_id"
@@ -103,8 +100,8 @@ ActiveRecord::Schema.define(version: 2021_06_14_192556) do
   end
 
   create_table "user_habtms", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "habtm_id"
+    t.integer "user_id"
+    t.integer "habtm_id"
     t.index ["habtm_id"], name: "index_user_habtms_on_habtm_id"
     t.index ["user_id"], name: "index_user_habtms_on_user_id"
   end
@@ -117,6 +114,8 @@ ActiveRecord::Schema.define(version: 2021_06_14_192556) do
     t.string "token"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.json "settings"
+    t.text "preferences"
   end
 
   create_table "versions", force: :cascade do |t|
