@@ -4,23 +4,29 @@ class UserResource < Madmin::Resource
   attribute :first_name
   attribute :last_name
   attribute :birthday
-  attribute :token, index: false
+  attribute :token
   attribute :created_at, form: false
   attribute :updated_at, form: false
+  attribute :settings
+  attribute :preferences
   attribute :virtual_attribute, index: false
   attribute :password, index: false, show: false
   attribute :password_confirmation, index: false, show: false
+  attribute :language, index: false
+  attribute :notifications, index: false
+  attribute :weekly_email, index: false
+  attribute :monthly_newsletter, index: false
   attribute :avatar, index: false
 
   # Associations
-  attribute :posts, :nested_has_many, skip: %I[enum attachments]
+  attribute :posts
   attribute :comments
   attribute :habtms
 
   # Uncomment this to customize the display name of records in the admin area.
-  def self.display_name(record)
-    "#{record.first_name} #{record.last_name}"
-  end
+  # def self.display_name(record)
+  #   record.name
+  # end
 
   # Uncomment this to customize the default sort column and direction.
   # def self.default_sort_column

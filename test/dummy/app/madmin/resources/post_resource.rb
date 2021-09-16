@@ -1,12 +1,9 @@
 class PostResource < Madmin::Resource
   # Attributes
   attribute :id, form: false
-  attribute :title, field: CustomField
+  attribute :title
   attribute :comments_count, form: false
   attribute :metadata
-  attribute :enum
-  attribute :tags
-  attribute :ratings
   attribute :created_at, form: false
   attribute :updated_at, form: false
   attribute :body, index: false
@@ -14,12 +11,9 @@ class PostResource < Madmin::Resource
   attribute :attachments, index: false
 
   # Associations
-  attribute :versions, form: false
+  attribute :versions
   attribute :user
   attribute :comments
-
-  # Scopes
-  scope :recent
 
   # Uncomment this to customize the display name of records in the admin area.
   # def self.display_name(record)
@@ -27,11 +21,11 @@ class PostResource < Madmin::Resource
   # end
 
   # Uncomment this to customize the default sort column and direction.
-  def self.default_sort_column
-    "title"
-  end
-
-  def self.default_sort_direction
-    "asc"
-  end
+  # def self.default_sort_column
+  #   "created_at"
+  # end
+  #
+  # def self.default_sort_direction
+  #   "desc"
+  # end
 end
