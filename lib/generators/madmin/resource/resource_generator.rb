@@ -43,6 +43,10 @@ module Madmin
         model.attribute_names + virtual_attributes - redundant_attributes
       end
 
+      def store_accessors
+        model.stored_attributes.values.flatten
+      end
+
       def virtual_attributes
         virtual = []
 
@@ -51,7 +55,7 @@ module Madmin
         virtual += password_attributes.map { |attr| [attr, "#{attr}_confirmation"] }.flatten
 
         # ActiveRecord Store columns
-        virtual += model.stored_attributes.values.flatten
+        virtual += store_accessors.map(&:to_s)
 
         # Add virtual attributes for ActionText and ActiveStorage
         model.reflections.each do |name, association|
@@ -74,7 +78,8 @@ module Madmin
         redundant += model.attribute_types.keys.select { |k| k.ends_with?("_digest") }
 
         # ActiveRecord Store columns
-        redundant += model.stored_attributes.keys
+        store_columns = model.stored_attributes.keys
+        redundant += store_columns.map(&:to_s)
 
         model.reflections.each do |name, association|
           if association.has_one?
@@ -120,7 +125,7 @@ module Madmin
           {form: false}
 
         # Attributes without a database column
-        elsif !model.column_names.include?(name)
+        elsif !model.column_names.include?(name) && !(store_accessors.map(&:to_s).include?(name))
           {index: false}
         end
       end

@@ -7,15 +7,13 @@ class UserResource < Madmin::Resource
   attribute :token
   attribute :created_at, form: false
   attribute :updated_at, form: false
-  attribute :settings
-  attribute :preferences
   attribute :virtual_attribute, index: false
   attribute :password, index: false, show: false
   attribute :password_confirmation, index: false, show: false
-  attribute :language, index: false
-  attribute :notifications, index: false
-  attribute :weekly_email, index: false
-  attribute :monthly_newsletter, index: false
+  attribute :language
+  attribute :notifications
+  attribute :weekly_email
+  attribute :monthly_newsletter
   attribute :avatar, index: false
 
   # Associations
