@@ -11,7 +11,7 @@ class User < ApplicationRecord
 
   has_one_attached :avatar
 
-  store :preferences, [:language, :notifications]
+  store :preferences, accessors: [:language, :notifications], coder: JSON
   store_accessor :settings, [:weekly_email, :monthly_newsletter]
 
   has_secure_password
