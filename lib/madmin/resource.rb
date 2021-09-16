@@ -187,7 +187,12 @@ module Madmin
         # has_secure_password
         elsif model.attribute_types.include?("#{name_string}_digest") || name_string.ends_with?("_confirmation")
           :password
+
+          # ActiveRecord Store
+        elsif model_store_accessors.include?(name)
+          :string
         end
+
       end
 
       def type_for_association(association)
@@ -204,6 +209,12 @@ module Madmin
 
       def url_helpers
         @url_helpers ||= Rails.application.routes.url_helpers
+      end
+
+      def model_store_accessors
+        store_accessors = model.stored_attributes.values
+
+        store_accessors.flatten
       end
     end
   end
