@@ -192,7 +192,6 @@ module Madmin
         elsif model_store_accessors.include?(name)
           :string
         end
-
       end
 
       def type_for_association(association)

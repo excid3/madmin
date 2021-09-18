@@ -125,7 +125,7 @@ module Madmin
           {form: false}
 
         # Attributes without a database column
-        elsif !model.column_names.include?(name) && !(store_accessors.map(&:to_s).include?(name))
+        elsif !model.column_names.include?(name) && !store_accessors.map(&:to_s).include?(name)
           {index: false}
         end
       end
