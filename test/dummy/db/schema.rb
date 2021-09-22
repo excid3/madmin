@@ -13,7 +13,7 @@
 ActiveRecord::Schema.define(version: 2021_09_21_230902) do
 
   create_table "action_mailbox_inbound_emails", force: :cascade do |t|
-    t.integer "status", default: 0, null: false
+    t.bigint "status", default: 0, null: false
     t.string "message_id", null: false
     t.string "message_checksum", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 2021_09_21_230902) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
-    t.integer "record_id", null: false
+    t.bigint "record_id", null: false
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
@@ -60,9 +60,9 @@ ActiveRecord::Schema.define(version: 2021_09_21_230902) do
   end
 
   create_table "comments", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.string "commentable_type", null: false
-    t.integer "commentable_id", null: false
+    t.bigint "commentable_id", null: false
     t.text "body"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -84,7 +84,7 @@ ActiveRecord::Schema.define(version: 2021_09_21_230902) do
   create_table "posts", force: :cascade do |t|
     t.bigint "user_id"
     t.string "title"
-    t.integer "comments_count"
+    t.bigint "comments_count"
     t.json "metadata"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -92,7 +92,7 @@ ActiveRecord::Schema.define(version: 2021_09_21_230902) do
   end
 
   create_table "user_connected_accounts", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.string "service"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -100,7 +100,7 @@ ActiveRecord::Schema.define(version: 2021_09_21_230902) do
   end
 
   create_table "user_habtms", force: :cascade do |t|
-    t.integer "user_id"
+    t.bigint "user_id"
     t.bigint "habtm_id"
     t.index ["habtm_id"], name: "index_user_habtms_on_habtm_id"
     t.index ["user_id"], name: "index_user_habtms_on_user_id"
