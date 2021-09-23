@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_21_230902) do
+ActiveRecord::Schema.define(version: 2021_09_15_141444) do
 
   create_table "action_mailbox_inbound_emails", force: :cascade do |t|
     t.bigint "status", default: 0, null: false
@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(version: 2021_09_21_230902) do
     t.string "title"
     t.bigint "comments_count"
     t.json "metadata"
+    t.integer "state"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_posts_on_user_id"

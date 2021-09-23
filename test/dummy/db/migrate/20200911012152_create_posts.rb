@@ -5,6 +5,7 @@ class CreatePosts < ActiveRecord::Migration[6.0]
       t.string :title
       t.integer :comments_count
       t.json :metadata
+      t.integer :state
 
       t.timestamps
     end
