@@ -1,8 +1,8 @@
 module Madmin
   class Engine < ::Rails::Engine
-    initializer "madmin.autoload", before: :set_autoload_paths do |app|
-      app.config.paths.add "app/madmin/resources", eager_load: true
-      app.config.paths.add "app/madmin/fields", eager_load: true
+    config.before_configuration do |app|
+      app.config.autoload_paths << File.expand_path("app/madmin/resources", Rails.root)
+      app.config.autoload_paths << File.expand_path("app/madmin/fields", Rails.root)
     end
 
     config.to_prepare do
