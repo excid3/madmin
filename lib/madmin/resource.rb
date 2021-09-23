@@ -39,6 +39,19 @@ module Madmin
           type: type,
           field: field.new(**options.merge(attribute_name: name, model: model))
         )
+      rescue => e
+        builder = ResourceBuilder.new(model)
+        raise ArgumentError, <<~MESSAGE
+          Madmin couldn't find attribute or association '#{name}' on #{model} model.
+
+          We searched these attributes and associations:
+          #{(builder.attributes + builder.associations).join(", ")}
+
+          This attribute is defined in a Madmin resource at:
+          #{e.backtrace.find { |l| l =~ /_resource.rb/ }}
+
+          Either add the missing attribute or assocation, or remove this line from your Madmin resource.
+        MESSAGE
       end
 
       def friendly_name
@@ -154,15 +167,6 @@ module Madmin
           rich_text: Fields::RichText,
           nested_has_many: Fields::NestedHasMany
         }.fetch(type)
-      rescue
-        raise ArgumentError, <<~MESSAGE
-          Couldn't find attribute or association '#{name}' with type '#{type}' on #{model} model
-
-            To fix this, either:
-
-            1. Remove 'attribute #{name}' from app/madmin/resources/#{model.to_s.underscore}_resource.rb
-            2. Or add the missing attribute or association to the #{model} model
-        MESSAGE
       end
 
       def infer_type(name)
