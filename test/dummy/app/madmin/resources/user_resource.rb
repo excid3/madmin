@@ -10,10 +10,14 @@ class UserResource < Madmin::Resource
   attribute :virtual_attribute, index: false
   attribute :password, index: false, show: false
   attribute :password_confirmation, index: false, show: false
+  attribute :language
+  attribute :notifications
+  attribute :weekly_email
+  attribute :monthly_newsletter
   attribute :avatar, index: false
 
   # Associations
-  attribute :posts, :nested_has_many, skip: %I[enum attachments]
+  attribute :posts, :nested_has_many, skip: %I[attachments]
   attribute :comments
   attribute :habtms
 

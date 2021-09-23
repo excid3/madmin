@@ -4,9 +4,6 @@ class PostResource < Madmin::Resource
   attribute :title, field: CustomField
   attribute :comments_count, form: false
   attribute :metadata
-  attribute :enum
-  attribute :tags
-  attribute :ratings
   attribute :created_at, form: false
   attribute :updated_at, form: false
   attribute :body, index: false

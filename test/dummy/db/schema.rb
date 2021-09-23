@@ -10,10 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_14_192556) do
+ActiveRecord::Schema.define(version: 2021_09_21_230902) do
 
   create_table "action_mailbox_inbound_emails", force: :cascade do |t|
-    t.integer "status", default: 0, null: false
+    t.bigint "status", default: 0, null: false
     t.string "message_id", null: false
     t.string "message_checksum", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -84,11 +84,8 @@ ActiveRecord::Schema.define(version: 2021_06_14_192556) do
   create_table "posts", force: :cascade do |t|
     t.bigint "user_id"
     t.string "title"
-    t.integer "comments_count"
+    t.bigint "comments_count"
     t.json "metadata"
-    t.integer "enum"
-    t.string "tags"
-    t.integer "ratings"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_posts_on_user_id"
@@ -117,6 +114,8 @@ ActiveRecord::Schema.define(version: 2021_06_14_192556) do
     t.string "token"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.json "settings"
+    t.text "preferences"
   end
 
   create_table "versions", force: :cascade do |t|
