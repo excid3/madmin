@@ -9,7 +9,7 @@ class PostResource < Madmin::Resource
   attribute :body, index: false
   attribute :image, index: false
   attribute :attachments, index: false
-  attribute :enum, index: false
+  attribute :state, index: false # Enum example
 
   # Associations
   attribute :versions, form: false
