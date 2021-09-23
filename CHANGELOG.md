@@ -1,5 +1,10 @@
 ### Unreleased
 
+### 1.2.2
+
+- Rails 7 support 🚀 - @excid3
+- Add support for store_accessors - @jacobdaddario
+
 ### 1.2.1
 
 - Handle records not having `created_at` columns when setting the default_sort column - @afomera / @excid3
