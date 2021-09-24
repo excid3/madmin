@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 2021_09_21_230902) do
     t.bigint "user_id"
     t.string "title"
     t.integer "comments_count"
+    t.state
     t.json "metadata"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
