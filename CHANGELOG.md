@@ -1,5 +1,11 @@
 ### Unreleased
 
+### 1.2.3
+
+- Upgraded to Stimulus 3.0 - @excid3
+- Fix nested forms - @excid3
+- Add scrollbar on index for wide tables - @jacobdaddario
+
 ### 1.2.2
 
 - Rails 7 support 🚀 - @excid3
