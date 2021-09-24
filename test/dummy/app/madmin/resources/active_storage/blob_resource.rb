@@ -12,7 +12,7 @@ class ActiveStorage::BlobResource < Madmin::Resource
   attribute :preview_image, index: false
 
   # Associations
-  attribute :variant_records
+  #attribute :variant_records if Rails.gem_version >= Gem::Version.new("6.1")
   attribute :attachments
 
   # Uncomment this to customize the display name of records in the admin area.
