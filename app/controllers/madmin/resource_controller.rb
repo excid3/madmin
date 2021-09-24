@@ -1,5 +1,5 @@
 module Madmin
-  class ResourceController < ApplicationController
+  class ResourceController < Madmin::ApplicationController
     include SortHelper
 
     before_action :set_record, except: [:index, :new, :create]
