@@ -1,5 +1,9 @@
 ### Unreleased
 
+### 1.2.4
+
+- Fix controller inheritance for Rails 6 by making it explicit - @excid3
+
 ### 1.2.3
 
 - Upgraded to Stimulus 3.0 - @excid3
