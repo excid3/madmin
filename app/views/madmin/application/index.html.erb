@@ -27,7 +27,7 @@
     <%= link_to scope.to_s.humanize, resource.index_path(scope: scope), class: class_names("p-2 rounded", {"bg-gray-100" => params[:scope] == scope.to_s}) %>
   <% end %>
 </div>
-<div class="min-w-full max-w-xl overflow-x-scroll pb-4">
+<div class="min-w-full max-w-xl overflow-x-auto pb-4">
   <table class="min-w-full divide-y divide-gray-200">
     <thead>
       <tr class="border-b border-gray-200">
