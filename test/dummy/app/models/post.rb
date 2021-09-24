@@ -4,10 +4,10 @@ class Post < ApplicationRecord
   has_paper_trail
 
   belongs_to :user
-  has_many :comments, as: :commentable
-  has_rich_text :body
-  has_one_attached :image
+  has_many :comments, as: :commentable, dependent: :destroy
   has_many_attached :attachments
+  has_one_attached :image
+  has_rich_text :body
 
   scope :recent, -> { where(created_at: 2.weeks.ago..) }
 

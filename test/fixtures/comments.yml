@@ -3,11 +3,11 @@
 one:
   user: one
   commentable: one
-  commentable_type: Commentable
+  commentable_type: Post
   body: MyText
 
 two:
   user: two
   commentable: two
-  commentable_type: Commentable
+  commentable_type: Post
   body: MyText

@@ -3,7 +3,7 @@ module Madmin
     class NestedHasMany < Field
       DEFAULT_ATTRIBUTES = %w[_destroy id].freeze
       def nested_attributes
-        resource.attributes.reject { |i| skipped_fields.include?(i[:name]) }
+        resource.attributes.reject { |name, attribute| skipped_fields.include?(name) }
       end
 
       def resource
