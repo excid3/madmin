@@ -50,7 +50,10 @@
             <td class="px-4 py-2"><%= render partial: attribute.field.to_partial_path("index"), locals: { field: attribute.field, record: record } %></td>
           <% end %>
 
-          <td class="px-4 py-2 text-center"><%= link_to "View", resource.show_path(record), class: "text-indigo-500" %></td>
+          <td class="px-4 py-2 text-center">
+            <%= link_to "View", resource.show_path(record), class: "text-indigo-500" %>
+            <%= link_to "Edit", resource.edit_path(record), class: "text-indigo-500" %>
+          </td>
         </tr>
       <% end %>
     </tbody>
