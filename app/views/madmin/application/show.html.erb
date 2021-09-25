@@ -24,7 +24,7 @@
       </div>
 
       <div class="md:col-span-3">
-        <%= render partial: attribute.field.to_partial_path("show"), locals: { field: attribute.field, record: @record } %>
+        <%= render partial: attribute.field.to_partial_path("show"), locals: { field: attribute.field, record: @record, resource: resource } %>
       </div>
     </div>
   <% end %>

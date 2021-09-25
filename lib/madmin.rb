@@ -18,6 +18,7 @@ module Madmin
     autoload :DateTime, "madmin/fields/date_time"
     autoload :Decimal, "madmin/fields/decimal"
     autoload :Enum, "madmin/fields/enum"
+    autoload :File, "madmin/fields/file"
     autoload :Float, "madmin/fields/float"
     autoload :HasMany, "madmin/fields/has_many"
     autoload :HasOne, "madmin/fields/has_one"

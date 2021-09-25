@@ -47,7 +47,7 @@
           <% resource.attributes.values.each do |attribute| %>
             <% next if attribute.field.nil? %>
             <% next unless attribute.field.visible?(action_name) %>
-            <td class="px-4 py-2"><%= render partial: attribute.field.to_partial_path("index"), locals: { field: attribute.field, record: record } %></td>
+            <td class="px-4 py-2"><%= render partial: attribute.field.to_partial_path("index"), locals: { field: attribute.field, record: record, resource: resource } %></td>
           <% end %>
 
           <td class="px-4 py-2 text-center">

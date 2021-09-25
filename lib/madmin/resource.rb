@@ -37,7 +37,7 @@ module Madmin
         attributes[name] = OpenStruct.new(
           name: name,
           type: type,
-          field: field.new(**options.merge(attribute_name: name, model: model))
+          field: field.new(**options.merge(attribute_name: name, model: model, resource: self))
         )
       rescue => e
         builder = ResourceBuilder.new(model)

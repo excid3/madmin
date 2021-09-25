@@ -1,14 +1,15 @@
 module Madmin
   class Field
-    attr_reader :attribute_name, :model, :options
+    attr_reader :attribute_name, :model, :options, :resource
 
     def self.field_type
       to_s.split("::").last.underscore
     end
 
-    def initialize(attribute_name:, model:, **options)
+    def initialize(attribute_name:, model:, resource:, **options)
       @attribute_name = attribute_name
       @model = model
+      @resource = resource
       @options = options
     end
 
