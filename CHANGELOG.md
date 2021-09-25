@@ -1,5 +1,12 @@
 ### Unreleased
 
+- Add `Madmin::Fields::File` type for Shrine, Carrierwave, etc - @excid3
+- Support isolated namespace models - @excid3
+- Use `polymorphic_path` for generating URLs - @excid3
+- Automatically link `id` column to show action - @excid3
+- Add `Edit` link to index - @excid3
+- Fix install generator by adding an ApplicationController to the gem - @excid3
+
 ### 1.2.4
 
 - Fix controller inheritance for Rails 6 by making it explicit - @excid3
