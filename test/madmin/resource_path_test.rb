@@ -15,12 +15,12 @@ class ResourcePathTest < ActiveSupport::TestCase
 
   test "resource has a show path" do
     post = posts(:one)
-    assert_equal "/madmin/posts/#{post.id}", PostResource.show_path(post.id)
+    assert_equal "/madmin/posts/#{post.to_param}", PostResource.show_path(post)
   end
 
   test "resource has an edit path" do
     post = posts(:one)
-    assert_equal "/madmin/posts/#{post.id}/edit", PostResource.edit_path(post.id)
+    assert_equal "/madmin/posts/#{post.to_param}/edit", PostResource.edit_path(post)
   end
 
   test "resource has an index path for non-model resource" do

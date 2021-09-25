@@ -59,25 +59,29 @@ module Madmin
       end
 
       def index_path(options = {})
-        url_helpers.polymorphic_url([:madmin, model])
+        # Support for isolated namespaces
+        # Finds parent module class
+        namespace = model.module_parents.detect do |n|
+          n.respond_to?(:use_relative_model_naming?) && n.use_relative_model_naming?
+        end
+
+        if namespace
+          url_helpers.polymorphic_path([:madmin, namespace.name.singularize.underscore.to_sym, model], options)
+        else
+          url_helpers.polymorphic_path([:madmin, model], options)
+        end
       end
 
       def new_path
-        route_name = "new_madmin_#{model.model_name.singular}_path"
-
-        url_helpers.send(route_name)
+        url_helpers.polymorphic_path([:madmin, model], action: :new)
       end
 
       def show_path(record)
-        route_name = "madmin_#{model.model_name.singular}_path"
-
-        url_helpers.send(route_name, record.to_param)
+        url_helpers.polymorphic_path([:madmin, record])
       end
 
       def edit_path(record)
-        route_name = "edit_madmin_#{model.model_name.singular}_path"
-
-        url_helpers.send(route_name, record.to_param)
+        url_helpers.polymorphic_path([:madmin, record], action: :edit)
       end
 
       def param_key
