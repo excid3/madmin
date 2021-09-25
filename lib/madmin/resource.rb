@@ -130,6 +130,7 @@ module Madmin
           time: Fields::Time,
           timestamp: Fields::Time,
           password: Fields::Password,
+          file: Fields::File,
 
           # Postgres specific types
           bit: Fields::String,

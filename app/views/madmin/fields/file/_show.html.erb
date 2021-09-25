@@ -1,1 +1,6 @@
-<%= field.value(record) %>
+<% value = field.value(record) %>
+<% if value.respond_to?(:url) %>
+  <%= link_to value.url, value.url, target: :_blank, class: "text-indigo-500 underline" %>
+<% else %>
+  <%= value %>
+<% end %>
