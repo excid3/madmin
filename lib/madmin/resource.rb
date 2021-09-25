@@ -59,9 +59,7 @@ module Madmin
       end
 
       def index_path(options = {})
-        route_name = "madmin_#{model.model_name.plural}_path"
-
-        url_helpers.send(route_name, options)
+        url_helpers.polymorphic_url([:madmin, model])
       end
 
       def new_path
