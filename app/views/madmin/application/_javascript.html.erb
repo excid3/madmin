@@ -86,5 +86,67 @@
         }
       }
     })
+
+    application.register('checkbox-list', class extends Controller {
+      static targets = ["count", "all"]
+
+      connect() {
+        this.setCount()
+      }
+
+      allAction() {
+        if (this.allTarget.checked == true) {
+          this.setAllCheckboxes(true)
+        } else {
+          this.setAllCheckboxes(false)
+        }
+
+        this.setCount()
+      }
+
+      onChecked() {
+        this.setCount()
+
+        if (this.hasAllTarget) {
+          this.setSelectAllCheckbox()
+        }
+      }
+
+      setAllCheckboxes(checked) {
+        this.checkboxes.forEach((el) => {
+          const checkbox = el
+
+          if (!checkbox.disabled) {
+            checkbox.checked = checked
+          }
+        })
+      }
+
+      setSelectAllCheckbox() {
+        const isAll = this.checkboxes.length == this.selectedCheckboxes.length
+        const isChecked = this.allTarget.checked
+
+        if (!isAll && isChecked) {
+          this.allTarget.checked = false
+        } else if (isAll && !isChecked) {
+          this.allTarget.checked = true
+        }
+      }
+
+      setCount() {
+        if (this.hasCountTarget) {
+          const count = this.selectedCheckboxes.length
+          this.countTarget.innerHTML = `${count} selected`
+        }
+      }
+
+      get selectedCheckboxes() {
+        return this.checkboxes.filter((c) => c.checked)
+      }
+
+      get checkboxes() {
+        return new Array(...this.element.querySelectorAll("input[type=checkbox][data-action='checkbox-list#onChecked']"))
+      }
+    })
   })()
 </script>
