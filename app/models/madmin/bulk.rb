@@ -15,15 +15,16 @@ module Madmin
       @model.destroy(pile_ids)
     end
 
-      private
-      def checked_resources(params)
-        checked = params&.select { |k, v| Boolean.new.cast(v) }
+    private
 
-        checked || Hash.new
-      end
+    def checked_resources(params)
+      checked = params&.select { |k, v| Boolean.new.cast(v) }
 
-      def pile_ids
-        @pile.keys.map { |k| k.delete_prefix("#{@resource_name}_") }
-      end
+      checked || {}
+    end
+
+    def pile_ids
+      @pile.keys.map { |k| k.delete_prefix("#{@resource_name}_") }
+    end
   end
 end
