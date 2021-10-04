@@ -28,8 +28,8 @@
   <% end %>
 </div>
 <div class="min-w-full max-w-xl overflow-x-auto pb-4">
-  <%= form_with scope: :bulk, url: madmin_bulk_destroy_path(resource.model_name.downcase), method: :delete do |f| %>
-    <table data-controller="checkbox-list" class="min-w-full divide-y divide-gray-200">
+  <%= form_with scope: :bulk, url: madmin_bulk_destroy_path(resource.model_name.downcase), method: :delete, data: { controller: "checkbox-list" } do |f| %>
+    <table class="min-w-full divide-y divide-gray-200">
       <thead>
         <tr class="border-b border-gray-200">
           <th class="pl-1 pb-1">
@@ -65,8 +65,10 @@
       </tbody>
     </table>
 
-    <%= f.button nil, class: "bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow disbled:opacity-50 disabled:cursor-not-allowed" do %>
-      Delete Items
+    <% unless @records.empty? %>
+      <%= f.button nil, class: "bg-white hover:bg-gray-100 text-gray-800 font-semibold mt-4 py-2 px-4 border border-gray-400 rounded shadow" do %>
+        Delete <span data-checkbox-list-target="count"></span> <%= resource.model_name.pluralize %>
+      <% end %>
     <% end %>
   <% end %>
 </div>
