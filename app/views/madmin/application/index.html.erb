@@ -1,12 +1,12 @@
-<div class="md:flex justify-between items-center space-y-4 md:space-y-0">
+<div class="items-center justify-between space-y-4 md:flex md:space-y-0">
   <h1 class="text-xl font-semibold"><%= resource.friendly_name.pluralize %></h1>
 
-  <div class="flex-grow flex md:justify-end gap-4">
-    <form class="flex items-center gap-2 relative">
+  <div class="flex flex-grow gap-4 md:justify-end">
+    <form class="relative flex items-center gap-2">
       <%= hidden_field_tag :page, params[:page], value: 1, class: "hidden" %>
       <%= search_field_tag :q, params[:q], placeholder: "Search", class: "rounded-full px-4 focus:bg-white focus:border-indigo-500" %>
       <%= link_to clear_search_params, class: "absolute top-1/2 right-3 text-gray-500 bg-white transform -translate-y-1/2" do %>
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
           <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
         </svg>
       <% end %>
@@ -27,7 +27,7 @@
     <%= link_to scope.to_s.humanize, resource.index_path(scope: scope), class: class_names("p-2 rounded", {"bg-gray-100" => params[:scope] == scope.to_s}) %>
   <% end %>
 </div>
-<div class="min-w-full max-w-xl overflow-x-auto pb-4">
+<div class="max-w-xl min-w-full pb-2 mb-2 overflow-x-auto">
   <table class="min-w-full divide-y divide-gray-200">
     <thead>
       <tr class="border-b border-gray-200">
@@ -35,9 +35,9 @@
           <% next if attribute.field.nil? %>
           <% next unless attribute.field.visible?(action_name) %>
 
-          <th class="py-2 px-4 text-left text-xs text-gray-500 font-medium uppercase whitespace-nowrap"><%= sortable attribute.name, attribute.name.to_s.titleize %></th>
+          <th class="px-4 py-2 text-xs font-medium text-left text-gray-500 uppercase whitespace-nowrap"><%= sortable attribute.name, attribute.name.to_s.titleize %></th>
         <% end %>
-        <th class="py-2 px-4 text-left text-xs text-gray-500 font-medium uppercase">Actions</th>
+        <th class="px-4 py-2 text-xs font-medium text-left text-gray-500 uppercase">Actions</th>
       </tr>
     </thead>
 
