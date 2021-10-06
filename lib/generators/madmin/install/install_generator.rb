@@ -23,8 +23,10 @@ module Madmin
 
         if route_namespace_exists?
           route "root to: \"dashboard#show\"", indentation: separated_routes_file? ? 2 : 4, sentinel: /namespace :madmin do\s*\n/m
+          route "delete \"bulk/:resource\", to: \"bulk#destroy\", as: \"bulk_destroy\"", indentation: separated_routes_file? ? 2 : 4, sentinel: /namespace :madmin do\s*\n/m
         else
           route "root to: \"dashboard#show\"", namespace: [:madmin]
+          route "delete \"bulk/:resource\" to: \"bulk#destroy\", as: \"bulk_destroy\"", namespace: [:madmin]
         end
       end
 
