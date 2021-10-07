@@ -89,7 +89,7 @@ module Madmin
       end
 
       def permitted_params
-        attributes.values.find_all { |a| a.field.visible?(:form) }.map { |a| a.field.to_param }
+        attributes.values.filter { |a| a.field.visible?(:form) }.map { |a| a.field.to_param }
       end
 
       def display_name(record)
