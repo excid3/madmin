@@ -6,9 +6,8 @@ module Madmin
 
     def initialize(params)
       @pile = checked_resources(params[:bulk])
-      @resource_name = params[:resource]
-      @resource = "#{@resource_name}_resource".camelize.constantize
-      @model = @resource_name.camelize.constantize
+      @resource = "#{params[:resource]}Resource".constantize
+      @model = params[:resource].constantize
     end
 
     def destroy_bulk
@@ -24,7 +23,7 @@ module Madmin
     end
 
     def pile_ids
-      @pile.keys.map { |k| k.delete_prefix("#{@resource_name}_") }
+      @pile.keys
     end
   end
 end

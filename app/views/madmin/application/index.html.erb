@@ -28,7 +28,7 @@
   <% end %>
 </div>
 <div class="min-w-full max-w-xl overflow-x-auto pb-4">
-  <%= form_with scope: :bulk, url: madmin_bulk_destroy_path(resource.model_name.downcase), method: :delete, data: { controller: "checkbox-list" } do |f| %>
+  <%= form_with scope: :bulk, url: madmin_bulk_destroy_path(resource.model_name), method: :delete, data: { controller: "checkbox-list" } do |f| %>
     <table class="min-w-full divide-y divide-gray-200">
       <thead>
         <tr class="border-b border-gray-200">
@@ -48,7 +48,7 @@
         <% @records.each do |record| %>
           <tr>
             <td class="pl-1 pb-1">
-              <%= f.check_box dom_id(record), { data: { action: "checkbox-list#onChecked" }, class: "cursor-pointer rounded-sm" }, true, false %>
+              <%= f.check_box record.id, { data: { action: "checkbox-list#onChecked" }, class: "cursor-pointer rounded-sm" }, true, false %>
             </td>
             <% resource.attributes.values.each do |attribute| %>
               <% next if attribute.field.nil? %>
