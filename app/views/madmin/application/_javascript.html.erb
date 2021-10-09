@@ -31,14 +31,19 @@
         url: String
       }
 
+      get options() {
+        return this.optionsValues || []
+      }
+
       connect() {
         this.select = new TomSelect(this.element, {
           plugins: ['remove_button'],
           valueField: 'id',
           labelField: 'name',
           searchField: 'name',
+          options: this.options,
           load: (search, callback) => {
-            fetch(this.urlValue)
+            fetch(`${this.urlValue}?q=${search}`)
               .then(response => response.json())
               .then(json => {
                 callback(json);
