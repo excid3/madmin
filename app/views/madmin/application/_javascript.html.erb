@@ -37,19 +37,55 @@
 
       connect() {
         this.select = new TomSelect(this.element, {
-          plugins: ['remove_button'],
+          plugins: ['caret_position', 'no_backspace_delete', 'remove_button', 'virtual_scroll'],
           valueField: 'id',
           labelField: 'name',
-          searchField: 'name',
-          options: this.options,
-          load: (search, callback) => {
-            fetch(`${this.urlValue}?q=${search}`)
+          searchField: ['name', 'search_value'],
+          maxOptions: 300,
+          firstUrl: (query) => {
+            return `${this.urlValue}?direction=asc&sort=id&q=${encodeURIComponent(query)}`
+          },
+          load: function(query, callback) {
+            const url = this.getUrl(query)
+            fetch(url)
               .then(response => response.json())
               .then(json => {
-                callback(json);
+                const next_url = `${url}&page=${json.next_page}`
+                if (json.next_page !== null) {
+                  this.setNextUrl(query, next_url)
+                }
+
+                let data = json.data
+                for (const index in data) {
+                  data[index].search_value = ""
+                  Object.keys(data[index].details).forEach((key) => {
+                    data[index].search_value = data[index].search_value.concat(`${data[index].details[key]} `)
+                  })
+                }
+                callback(data)
               }).catch(() => {
-                callback();
-              });
+                callback()
+              })
+          },
+          render: {
+            option: function(item, escape) {
+              if (item.details === undefined) return `<div class="text-base">${escape(item.name)}</div>`
+
+              let details = ""
+              Object.keys(item.details).forEach((key) => {
+                details = details.concat(`<div class="px-2 text-sm truncate">${escape(key)}</div><div class="px-2 text-sm truncate">${escape(item.details[key])}</div>`)
+              })
+              return `<div class="grid grid-cols-2 gap-2 px-1 py-2 divide-y">
+                <div class="col-span-2 text-base">${escape(item.name)}</div>
+                ${details}
+              </div>`
+            },
+            loading_more: function(data, escape) {
+              return `<div class="flex flex-row items-center py-2 loading-more-results"><div class="spinner"></div> Loading more results ... </div>`
+            },
+            no_more_results: function(data, escape) {
+              return `<div class="no-more-results">No more results</div>`
+            }
           }
         })
       }

@@ -108,6 +108,10 @@ module Madmin
         attributes.values.select { |a| a.field.searchable? }
       end
 
+      def details(record)
+        searchable_attributes.pluck(:name).map { |a| {"#{a}": record.send(a)} }.reduce(&:merge!)
+      end
+
       private
 
       def field_for_type(type)

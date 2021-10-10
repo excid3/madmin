@@ -13,7 +13,12 @@ module Madmin
       respond_to do |format|
         format.html
         format.json {
-          render json: @records.map { |r| {name: @resource.display_name(r), id: r.id} }
+          render json: {data: @records.map { |r|
+                                {id: r.id,
+                                 name: @resource.display_name(r),
+                                 details: @resource.details(r)}
+                              },
+                        next_page: pagy_metadata(@pagy).fetch(:next)}
         }
       end
     rescue Pagy::OverflowError

@@ -1,6 +1,7 @@
 require "madmin/engine"
 
 require "pagy"
+require "pagy/extras/metadata"
 
 module Madmin
   autoload :Field, "madmin/field"
