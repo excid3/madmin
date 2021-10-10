@@ -1,0 +1,20 @@
+<%#
+  This template is i18n-ready: if you don't use i18n, then you can replace the pagy_t
+  calls with the actual strings ("&lsaquo; Prev", "Next &rsaquo;", "&hellip;").
+  The link variable is set to a proc that returns the link tag.
+  Usage: link.call( page_number [, text [, extra_attributes_string ]])
+-%>
+<% link = pagy_link_proc(pagy) -%>
+<%#                            -%><nav aria-label="pager" class="space-x-1 px-2 py-1" role="navigation">
+<% if pagy.prev                -%>  <span><%== link.call(pagy.prev, pagy_t('pagy.nav.prev'), 'aria-label="previous" class="text-white bg-indigo-500 rounded-2xl px-3 py-1.5"') %></span>
+<% else                        -%>  <span class="text-gray-400 bg-gray-100 rounded-2xl px-3 py-1.5 cursor-not-allowed"><%== pagy_t('pagy.nav.prev') %></span>
+<% end                         -%>
+<% pagy.series.each do |item| # series example: [1, :gap, 7, 8, "9", 10, 11, :gap, 36] -%>
+<%   if    item.is_a?(Integer) -%>  <span><%== link.call(item, item, 'class="text-gray-400 rounded-full px-2.5 py-1.5 hover:bg-indigo-200 hover:text-indigo-500"') %></span>
+<%   elsif item.is_a?(String)  -%>  <span class="text-indigo-500 font-semibold px-2.5 py-1.5"><%= item %></span>
+<%   elsif item == :gap        -%>  <span class="text-gray-400 text-xl px-1.5 py-1.5"><%== pagy_t('pagy.nav.gap') %></span>
+<%   end                       -%>
+<% end                         -%>
+<% if pagy.next                -%>  <span><%== link.call(pagy.next, pagy_t('pagy.nav.next'), 'aria-label="next" class="text-white bg-indigo-500 rounded-2xl px-3 py-1.5"') %></span>
+<% else                        -%>  <span class="text-gray-400 bg-gray-100 rounded-2xl px-3 py-1.5 cursor-not-allowed"><%== pagy_t('pagy.nav.next') %></span>
+<% end                         -%>

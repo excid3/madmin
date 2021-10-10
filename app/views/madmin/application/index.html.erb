@@ -59,4 +59,4 @@
     </tbody>
   </table>
 </div>
-<%== pagy_nav(@pagy) if @pagy.pages > 1 %>
+<%== render(partial: 'madmin/pagy/nav', locals: { pagy: @pagy }) if @pagy.pages > 1 %>
