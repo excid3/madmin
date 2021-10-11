@@ -42,6 +42,10 @@
           labelField: 'name',
           searchField: ['name', 'search_value'],
           maxOptions: 300,
+          onInitialize: () => {
+            this.element.parentElement.querySelector(".ts-wrapper").classList.add("w-full", "max-w-3xl")
+            this.element.parentElement.querySelector(".ts-dropdown-content").style = "max-height: 20rem;"
+          },
           firstUrl: (query) => {
             return `${this.urlValue}?direction=asc&sort=id&q=${encodeURIComponent(query)}`
           },
