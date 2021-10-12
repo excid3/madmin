@@ -8,7 +8,6 @@ namespace :madmin do
   resources :numericals
   resources :habtms
   resources :teams
-  root to: "dashboard#show"
   resources :users
   resources :comments
   resources :posts
@@ -27,4 +26,6 @@ namespace :madmin do
   namespace :action_mailbox do
     resources :inbound_emails
   end
+
+  root to: "dashboard#show"
 end
