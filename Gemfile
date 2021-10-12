@@ -21,9 +21,7 @@ gem "webpacker", "~> 5.2", ">= 5.2.1"
 gem "friendly_id", "~> 5.4.0"
 gem "bcrypt"
 gem "paper_trail", "~> 12.0"
-
-# Use SCSS for stylesheets
-gem "sass-rails", ">= 6"
+gem "puma"
 
 # Databases to test against
 gem "pg"
