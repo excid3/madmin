@@ -1,5 +1,5 @@
 module Madmin
-  class DashboardController < ApplicationController
+  class DashboardController < Madmin::ApplicationController
     def show
     end
   end
