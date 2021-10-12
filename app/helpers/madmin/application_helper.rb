@@ -15,7 +15,7 @@ module Madmin
     end
 
     def clear_search_params
-      params.except(:q, :_page).permit(:page, :sort, :direction)
+      resource.index_path(params.permit(:sort, :direction))
     end
   end
 end
