@@ -28,6 +28,4 @@ namespace :madmin do
   namespace :action_mailbox do
     resources :inbound_emails
   end
-
-  root to: "dashboard#show"
 end

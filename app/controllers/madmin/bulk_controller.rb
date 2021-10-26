@@ -1,10 +1,31 @@
 module Madmin
   class BulkController < ApplicationController
-    def destroy
-      bulk = Madmin::Bulk.new(params)
-      bulk.destroy_bulk
+    before_action :set_bulk
 
-      redirect_to bulk.resource.index_path
+    def destroy
+      model.destroy(bulk_ids)
+
+      redirect_to resource.index_path
+    end
+
+    private
+
+    def set_bulk
+      @bulk = params[:bulk]&.select { |k, v| ActiveModel::Type::Boolean.new.cast(v) }
+
+      @bulk || {}
+    end
+
+    def model
+      params[:resource].constantize
+    end
+
+    def resource
+      "#{params[:resource]}Resource".constantize
+    end
+
+    def bulk_ids
+      @bulk.keys
     end
   end
 end
