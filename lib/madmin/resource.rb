@@ -55,7 +55,7 @@ module Madmin
       end
 
       def friendly_name
-        model_name.gsub("::", " / ")
+        model_name.gsub("::", " / ").split(/(?=[A-Z])/).join(" ")
       end
 
       # Support for isolated namespaces
