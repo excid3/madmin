@@ -1,7 +1,7 @@
 PATH
   remote: ..
   specs:
-    madmin (1.2.5)
+    madmin (1.2.6)
       pagy (>= 3.5, < 6.0)
       rails (>= 6.0.3)
 
@@ -191,8 +191,10 @@ GEM
     zeitwerk (2.5.1)
 
 PLATFORMS
+  ruby
+  x86_64-darwin-19
   x86_64-darwin-20
-  x86_64-darwin-21
+  x86_64-linux
 
 DEPENDENCIES
   appraisal
