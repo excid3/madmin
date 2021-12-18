@@ -7,7 +7,7 @@ appraise "rails-6-1" do
 end
 
 appraise "rails-7" do
-  gem "rails", "~> 7.0.0.alpha2"
+  gem "rails", "~> 7.0.0"
 end
 
 appraise "rails-master" do

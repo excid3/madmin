@@ -11,6 +11,8 @@ class PostResource < Madmin::Resource
   attribute :attachments, index: false
   attribute :state, index: false # Enum example
 
+  attribute :user_id
+
   # Associations
   attribute :versions, form: false
   attribute :user
