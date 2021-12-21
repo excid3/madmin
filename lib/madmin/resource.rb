@@ -129,6 +129,7 @@ module Madmin
           text: Fields::Text,
           time: Fields::Time,
           timestamp: Fields::Time,
+          timestamptz: Fields::Time,
           password: Fields::Password,
           file: Fields::File,
 
