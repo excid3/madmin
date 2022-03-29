@@ -79,6 +79,12 @@ rails generate madmin:views:index Book
  # -> app/views/madmin/books/index.html.erb
 ```
 
+## Styling
+
+Madmin uses the Tailwind CSS "Play CDN" by default. The Tailwind team [does not recommend its usage for production](https://tailwindcss.com/docs/installation/play-cdn). The CDN will use the latest available version of Tailwind, which might cause problems if you've customized Madmin's views.
+
+Consider overriding the default madmin layout in `Madmin::ApplicationController` if you need more control.
+
 ## Custom Fields
 
 You can generate a custom field with:
