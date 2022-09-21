@@ -73,6 +73,23 @@ rails g madmin:views:index
  # -> app/views/madmin/application/index.html.erb
 ```
 
+You might want to make some of your model's attributes visible in some views but invisible in others.
+The `attribute` method in model_resource.rb gives you that flexibility.
+
+```bash
+ # -> app/madmin/resources/book_resource.rb
+```
+```ruby
+class UserResource < Madmin::Resource
+  attribute :id, form: false
+  attribute :tile
+  attribute :subtitle, index: false
+  attribute :author
+  attribute :genre
+  attribute :pages, show: false
+end
+```
+
 You can also scope the copied view(s) to a specific Resource/Model:
 ```bash
 rails generate madmin:views:index Book
