@@ -1,28 +1,28 @@
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
 <%= stylesheet_link_tag "https://unpkg.com/flatpickr/dist/flatpickr.min.css", "data-turbo-track": "reload" %>
 <%= stylesheet_link_tag "https://unpkg.com/trix/dist/trix.css", "data-turbo-track": "reload" %>
 <%= stylesheet_link_tag "https://unpkg.com/tom-select/dist/css/tom-select.min.css", "data-turbo-track": "reload" %>
 
 <script type="module">
-  import { Application, Controller } from 'https://cdn.skypack.dev/@hotwired/stimulus'
+  import { Application, Controller } from 'https://unpkg.com/@hotwired/stimulus/dist/stimulus.js'
   const application = Application.start()
 
-  import { Dropdown } from "https://cdn.skypack.dev/tailwindcss-stimulus-components"
-  application.register("dropdown", Dropdown)
+  //import { Dropdown } from "https://unpkg.com/tailwindcss-stimulus-components"
+  //application.register("dropdown", Dropdown)
 
-  import stimulusFlatpickr from 'https://cdn.skypack.dev/stimulus-flatpickr@3.0.0-0'
+  import stimulusFlatpickr from 'https://unpkg.com/stimulus-flatpickr@3.0.0-0'
   application.register("flatpickr", stimulusFlatpickr)
 
-  import TomSelect from 'https://cdn.skypack.dev/tom-select'
+  import TomSelect from 'https://unpkg.com/tom-select'
 
-  import Rails from 'https://cdn.skypack.dev/@rails/ujs@<%= npm_rails_version %>'
-  import * as ActiveStorage from 'https://cdn.skypack.dev/@rails/activestorage@<%= npm_rails_version %>'
-  import 'https://cdn.skypack.dev/trix'
-  import 'https://cdn.skypack.dev/@rails/actiontext@<%= npm_rails_version %>'
+  import * as ActiveStorage from 'https://unpkg.com/@rails/activestorage@<%= npm_rails_version %>'
+  import 'https://unpkg.com/trix'
+  import 'https://unpkg.com/@rails/actiontext@<%= npm_rails_version %>'
 
   if (!window._rails_loaded) { Rails.start() }
   ActiveStorage.start()
 
-  import * as Turbo from "https://cdn.skypack.dev/@hotwired/turbo"
+  import * as Turbo from "https://unpkg.com/@hotwired/turbo"
 
   (() => {
     application.register('select', class extends Controller {
