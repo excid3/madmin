@@ -1,5 +1,9 @@
 ### Unreleased
 
+### 1.2.7
+
+- Fix importmaps for JS - @excid3
+
 ### 1.2.6
 
 - Use stimulus-flatpickr beta 3
