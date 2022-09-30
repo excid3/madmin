@@ -3,26 +3,42 @@
 <%= stylesheet_link_tag "https://unpkg.com/trix/dist/trix.css", "data-turbo-track": "reload" %>
 <%= stylesheet_link_tag "https://unpkg.com/tom-select/dist/css/tom-select.min.css", "data-turbo-track": "reload" %>
 
+<script type="importmap" data-turbo-track="reload">
+  {
+    "imports": {
+      "@hotwired/stimulus": "https://unpkg.com/@hotwired/stimulus/dist/stimulus.js",
+      "@hotwired/turbo": "https://unpkg.com/@hotwired/turbo",
+      "@hotwired/turbo-rails": "https://unpkg.com/@hotwired/turbo-rails",
+      "@rails/actiontext": "https://unpkg.com/@rails/actiontext@<%= npm_rails_version %>/app/assets/javascripts/actiontext.js",
+      "@rails/activestorage": "https://unpkg.com/@rails/activestorage@<%= npm_rails_version %>/app/assets/javascripts/activestorage.esm.js",
+      "flatpickr": "https://unpkg.com/flatpickr/dist/esm/index.js",
+      "stimulus-flatpickr": "https://unpkg.com/stimulus-flatpickr@3.0.0-0/dist/index.m.js",
+      "tailwindcss-stimulus-components": "https://unpkg.com/tailwindcss-stimulus-components/dist/tailwindcss-stimulus-components.modern.js",
+      "tom-select": "https://unpkg.com/tom-select/dist/esm/tom-select.complete.js",
+      "trix": "https://unpkg.com/trix"
+    }
+  }
+</script>
+<script async src="https://unpkg.com/es-module-shims/dist/es-module-shims.js"></script>
+
 <script type="module">
-  import { Application, Controller } from 'https://unpkg.com/@hotwired/stimulus/dist/stimulus.js'
+  import * as Turbo from "@hotwired/turbo-rails"
+
+  import * as ActiveStorage from "@rails/activestorage"
+  ActiveStorage.start()
+  import "trix"
+  import "@rails/actiontext"
+
+  import { Application, Controller } from '@hotwired/stimulus'
   const application = Application.start()
 
-  //import { Dropdown } from "https://unpkg.com/tailwindcss-stimulus-components"
-  //application.register("dropdown", Dropdown)
+  import { Dropdown } from "tailwindcss-stimulus-components"
+  application.register("dropdown", Dropdown)
 
-  import stimulusFlatpickr from 'https://unpkg.com/stimulus-flatpickr@3.0.0-0'
-  application.register("flatpickr", stimulusFlatpickr)
+  import StimulusFlatpickr from "stimulus-flatpickr"
+  application.register("flatpickr", StimulusFlatpickr)
 
-  import TomSelect from 'https://unpkg.com/tom-select'
-
-  import * as ActiveStorage from 'https://unpkg.com/@rails/activestorage@<%= npm_rails_version %>'
-  import 'https://unpkg.com/trix'
-  import 'https://unpkg.com/@rails/actiontext@<%= npm_rails_version %>'
-
-  if (!window._rails_loaded) { Rails.start() }
-  ActiveStorage.start()
-
-  import * as Turbo from "https://unpkg.com/@hotwired/turbo"
+  import TomSelect from "tom-select"
 
   (() => {
     application.register('select', class extends Controller {
