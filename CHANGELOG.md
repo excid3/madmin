@@ -1,5 +1,7 @@
 ### Unreleased
 
+- Fix unpermitted params on search - @excid3
+
 ### 1.2.7
 
 - Fix importmaps for JS - @excid3
