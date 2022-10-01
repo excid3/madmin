@@ -46,4 +46,8 @@ Rails.application.configure do
 
   # Raises error for missing translations.
   # config.action_view.raise_on_missing_translations = true
+
+  if Rails.gem_version >= Gem::Version.new("7.0.0.alpha")
+    config.active_record.encryption.encrypt_fixtures = true
+  end
 end

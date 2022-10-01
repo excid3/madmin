@@ -9,6 +9,10 @@ class User < ApplicationRecord
   has_secure_password
   has_secure_token
 
+  if Rails.gem_version >= Gem::Version.new("7.0.0.alpha")
+    encrypts :ssn
+  end
+
   store :preferences, accessors: [:language, :notifications], coder: JSON
   store_accessor :settings, [:weekly_email, :monthly_newsletter]
 

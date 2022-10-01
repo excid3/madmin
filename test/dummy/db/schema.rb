@@ -113,6 +113,7 @@ ActiveRecord::Schema.define(version: 2021_09_21_230902) do
     t.date "birthday"
     t.string "password_digest"
     t.string "token"
+    t.string "ssn"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.json "settings"

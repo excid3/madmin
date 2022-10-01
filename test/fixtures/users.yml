@@ -5,9 +5,11 @@ one:
   last_name: Oliver
   birthday: 2020-09-10
   password_digest: <%= BCrypt::Password.create('password', cost: 4) %>
+  ssn: 123-45-6789
 
 two:
   first_name: MyString
   last_name: MyString
   birthday: 2020-09-10
   password_digest: <%= BCrypt::Password.create('password', cost: 4) %>
+  ssn: 123-45-6789

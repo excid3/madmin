@@ -4,6 +4,7 @@ class UserResource < Madmin::Resource
   attribute :first_name
   attribute :last_name
   attribute :birthday
+  attribute :ssn
   attribute :token, index: false
   attribute :created_at, form: false
   attribute :updated_at, form: false
