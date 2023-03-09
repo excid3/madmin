@@ -123,7 +123,7 @@ GEM
     puma (6.0.2)
       nio4r (~> 2.0)
     racc (1.6.0)
-    rack (2.2.6.2)
+    rack (2.2.6.3)
     rack-proxy (0.7.6)
       rack
     rack-test (2.0.2)
