@@ -1,5 +1,6 @@
 ### Unreleased
 
+- Relax pagy version dependency - @excid3
 - Fix unpermitted params on search - @excid3
 
 ### 1.2.7
