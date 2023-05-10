@@ -2,13 +2,13 @@ module Madmin
   module SortHelper
     def sortable(column, title, options = {})
       matching_column = (column.to_s == sort_column)
-      direction = sort_direction == "asc" ? "desc" : "asc"
+      direction = (sort_direction == "asc") ? "desc" : "asc"
 
       link_to resource.index_path(sort: column, direction: direction), options do
         concat title
         if matching_column
           concat " "
-          concat tag.i(sort_direction == "asc" ? "▲" : "▼")
+          concat tag.i((sort_direction == "asc") ? "▲" : "▼")
         end
       end
     end
