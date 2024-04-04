@@ -1,0 +1,7 @@
+<% Madmin.resources.each do |resource| %>
+  <%= nav_link_to resource.friendly_name.pluralize, resource.index_path, class: "block p-2 rounded hover:bg-gray-100", starts_with: resource.index_path, active_class: "font-bold text-black" %>
+<% end %>
+
+<div class="mt-auto">
+  <%= link_to "View Madmin on GitHub", "https://github.com/excid3/madmin", target: :_blank, class: "block p-2 rounded text-gray-500 hover:bg-gray-100" %>
+</div>
