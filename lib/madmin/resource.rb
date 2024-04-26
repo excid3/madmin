@@ -186,7 +186,7 @@ module Madmin
 
         if model.attribute_types.include?(name_string)
           column_type = model.attribute_types[name_string]
-          if column_type.is_a? ActiveRecord::Enum::EnumType
+          if column_type.is_a? ::ActiveRecord::Enum::EnumType
             :enum
           else
             column_type.type || :string
