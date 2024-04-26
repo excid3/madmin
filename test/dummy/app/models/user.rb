@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  enum :phase, [:alpha, :beta, :gamma]
+
   has_many :connected_accounts, dependent: :destroy
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy

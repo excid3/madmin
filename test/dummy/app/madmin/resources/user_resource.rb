@@ -16,6 +16,7 @@ class UserResource < Madmin::Resource
   attribute :weekly_email
   attribute :monthly_newsletter
   attribute :avatar, index: false
+  attribute :phase
 
   # Associations
   attribute :posts, :nested_has_many, skip: %I[attachments]

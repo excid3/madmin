@@ -24,6 +24,7 @@ class Madmin::Test < ActiveSupport::TestCase
     assert_equal UserResource.send(:infer_type, :first_name), :string
     assert_equal UserResource.send(:infer_type, :created_at), :datetime
     assert_equal UserResource.send(:infer_type, :posts), :has_many
+    assert_equal UserResource.send(:infer_type, :phase), :enum
 
     assert_equal UserResource.send(:infer_type, :virtual_attribute), :string
 
