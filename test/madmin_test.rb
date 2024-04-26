@@ -34,6 +34,8 @@ class Madmin::Test < ActiveSupport::TestCase
     assert_equal PostResource.send(:infer_type, :attachments), :attachments
 
     assert_equal CommentResource.send(:infer_type, :commentable), :polymorphic
+
+    assert_equal ActiveRecord::SessionStore::SessionResource.send(:infer_type, :data), :text
   end
 
   test "can set custom field for attribute" do

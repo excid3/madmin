@@ -28,3 +28,6 @@ gem "puma"
 gem "pg"
 gem "mysql2"
 gem "sqlite3"
+
+# ActiveRecord Session Store
+gem 'activerecord-session_store'

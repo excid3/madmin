@@ -53,8 +53,6 @@ module Madmin
           #{e.backtrace.find { |l| l =~ /_resource.rb/ }}
 
           Either add the missing attribute or assocation, or remove this line from your Madmin resource.
-          #{e.message}
-          #{e.backtrace.join("\n")}
         MESSAGE
       end
 

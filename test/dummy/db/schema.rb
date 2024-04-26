@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_19_000928) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_26_225330) do
   create_table "action_mailbox_inbound_emails", force: :cascade do |t|
-    t.bigint "status", default: 0, null: false
+    t.integer "status", default: 0, null: false
     t.string "message_id", null: false
     t.string "message_checksum", null: false
     t.datetime "created_at", null: false
@@ -24,7 +24,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_19_000928) do
     t.string "name", null: false
     t.text "body"
     t.string "record_type", null: false
-    t.bigint "record_id", null: false
+    t.integer "record_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
@@ -35,7 +35,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_19_000928) do
     t.string "record_type", null: false
     t.integer "record_id", null: false
     t.integer "blob_id", null: false
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
@@ -48,7 +48,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_19_000928) do
     t.string "service_name", null: false
     t.bigint "byte_size", null: false
     t.string "checksum", null: false
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
@@ -81,14 +81,23 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_19_000928) do
   end
 
   create_table "posts", force: :cascade do |t|
-    t.bigint "user_id"
+    t.integer "user_id"
     t.string "title"
     t.integer "comments_count"
-    t.integer "state"
     t.json "metadata"
+    t.integer "state"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_posts_on_user_id"
+  end
+
+  create_table "sessions", force: :cascade do |t|
+    t.string "session_id", null: false
+    t.text "data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["session_id"], name: "index_sessions_on_session_id", unique: true
+    t.index ["updated_at"], name: "index_sessions_on_updated_at"
   end
 
   create_table "user_connected_accounts", force: :cascade do |t|
@@ -100,8 +109,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_19_000928) do
   end
 
   create_table "user_habtms", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "habtm_id"
+    t.integer "user_id"
+    t.integer "habtm_id"
     t.index ["habtm_id"], name: "index_user_habtms_on_habtm_id"
     t.index ["user_id"], name: "index_user_habtms_on_user_id"
   end
@@ -126,7 +135,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_19_000928) do
     t.string "event", null: false
     t.string "whodunnit"
     t.text "object", limit: 1073741823
-    t.datetime "created_at"
+    t.datetime "created_at", precision: nil
     t.text "object_changes", limit: 1073741823
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
