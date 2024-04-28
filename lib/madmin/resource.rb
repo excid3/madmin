@@ -1,3 +1,5 @@
+require "ostruct"
+
 module Madmin
   class Resource
     class_attribute :attributes, default: ActiveSupport::OrderedHash.new
@@ -114,8 +116,6 @@ module Madmin
         member_actions << block
       end
 
-      private
-
       def field_for_type(type)
         {
           binary: Fields::String,
@@ -226,7 +226,6 @@ module Madmin
 
       def model_store_accessors
         store_accessors = model.stored_attributes.values
-
         store_accessors.flatten
       end
     end
