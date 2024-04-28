@@ -31,6 +31,7 @@ class Madmin::Test < ActiveSupport::TestCase
     assert_equal PostResource.send(:infer_type, :user), :belongs_to
     assert_equal PostResource.send(:infer_type, :image), :attachment
     assert_equal PostResource.send(:infer_type, :attachments), :attachments
+    assert_equal PostResource.send(:infer_type, :state), :enum
 
     assert_equal CommentResource.send(:infer_type, :commentable), :polymorphic
   end
