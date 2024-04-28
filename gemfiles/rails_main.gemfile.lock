@@ -96,7 +96,7 @@ GIT
 PATH
   remote: ..
   specs:
-    madmin (1.2.8)
+    madmin (1.2.9)
       pagy (>= 3.5)
       rails (>= 6.0.3)
 
@@ -163,10 +163,6 @@ GEM
     nokogiri (1.16.4)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
-    nokogiri (1.16.4-x86_64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.16.4-x86_64-linux)
-      racc (~> 1.4)
     pagy (8.3.0)
     paper_trail (15.1.0)
       activerecord (>= 6.1)
@@ -231,8 +227,6 @@ GEM
     simplecov_json_formatter (0.1.4)
     sqlite3 (1.7.3)
       mini_portile2 (~> 2.8.0)
-    sqlite3 (1.7.3-x86_64-darwin)
-    sqlite3 (1.7.3-x86_64-linux)
     standard (1.35.1)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.0)
@@ -267,6 +261,11 @@ GEM
 
 PLATFORMS
   ruby
+  aarch64-linux
+  arm-linux
+  arm64-darwin
+  x86-linux
+  x86_64-darwin
   x86_64-darwin-19
   x86_64-darwin-20
   x86_64-linux
