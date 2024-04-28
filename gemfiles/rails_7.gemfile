@@ -16,6 +16,6 @@ gem "puma"
 gem "pg"
 gem "mysql2"
 gem "sqlite3", "~> 1.4"
-gem "rails", "~> 7.0.0"
+gem "rails", "~> 7.1.0"
 
 gemspec path: "../"
