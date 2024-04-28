@@ -31,8 +31,8 @@ jobs:
       - name: Update version
         run: |
           sed -i 's/".*"/"${{ inputs.version }}"/' lib/madmin/version.rb
-          bundle --no-deployment
-          bundle exec appraisal
+          bundle config set --local deployment 'false'
+          bundle
           git config user.name 'GitHub Actions'
           git config user.email github-actions@github.com
           git add Gemfile.lock gemfiles lib
