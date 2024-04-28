@@ -2,7 +2,7 @@ require "madmin/generator_helpers"
 
 module Madmin
   module Generators
-    class InstallGenerator < Rails::Generators::Base
+    class InstallGenerator < ::Rails::Generators::Base
       include Madmin::GeneratorHelpers
 
       source_root File.expand_path("../templates", __FILE__)
@@ -43,12 +43,12 @@ module Madmin
       # Skip Abstract classes, ActiveRecord::Base, and auto-generated HABTM models
       def generateable_models
         active_record_models.reject do |model|
-          model.abstract_class? || model == ActiveRecord::Base || model.name.start_with?("HABTM_")
+          model.abstract_class? || model == ::ActiveRecord::Base || model.name.start_with?("HABTM_")
         end
       end
 
       def active_record_models
-        ObjectSpace.each_object(ActiveRecord::Base.singleton_class)
+        ObjectSpace.each_object(::ActiveRecord::Base.singleton_class)
       end
     end
   end

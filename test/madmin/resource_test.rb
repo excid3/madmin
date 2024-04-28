@@ -16,4 +16,8 @@ class ResourceTest < ActiveSupport::TestCase
     assert_equal "User", UserResource.friendly_name
     assert_equal "Foo Bar Baz", FooBarBazResource.friendly_name
   end
+
+  test "enum infer_type" do
+    assert_equal :enum, PostResource.infer_type("state")
+  end
 end
