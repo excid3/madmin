@@ -1,7 +1,7 @@
 <h1 class="text-xl mb-4">
-  <%= link_to resource.friendly_name.pluralize, resource.index_path, class: "text-indigo-500" %>
+  <%= link_to resource.friendly_name.pluralize, resource.index_path, class: "text-blue-500" %>
   /
-  <strong>Edit <%= link_to resource.display_name(@record), resource.show_path(@record), class: "text-indigo-500" %></strong>
+  <strong>Edit <%= link_to resource.display_name(@record), resource.show_path(@record), class: "text-blue-500" %></strong>
 </h1>
 
 <%= render partial: "form", locals: { record: @record, resource: resource } %>
