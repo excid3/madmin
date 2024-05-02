@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    madmin (1.2.9)
+    madmin (1.2.10)
       pagy (>= 3.5)
       rails (>= 6.0.3)
 
