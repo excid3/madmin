@@ -175,7 +175,8 @@ module Madmin
           has_many: Fields::HasMany,
           has_one: Fields::HasOne,
           rich_text: Fields::RichText,
-          nested_has_many: Fields::NestedHasMany
+          nested_has_many: Fields::NestedHasMany,
+          nested_has_one: Fields::NestedHasOne
         }.fetch(type)
       end
 

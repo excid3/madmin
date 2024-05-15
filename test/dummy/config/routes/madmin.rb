@@ -17,6 +17,7 @@ namespace :madmin do
       patch :archive
     end
   end
+  resources :post_stats
   namespace :action_text do
     resources :rich_texts
   end
