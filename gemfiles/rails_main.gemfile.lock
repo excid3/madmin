@@ -96,7 +96,7 @@ GIT
 PATH
   remote: ..
   specs:
-    madmin (1.2.10)
+    madmin (1.2.11)
       pagy (>= 3.5)
       rails (>= 6.0.3)
 
