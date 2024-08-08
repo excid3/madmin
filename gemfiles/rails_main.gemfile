@@ -9,14 +9,13 @@ gem "ffaker", "~> 2.17"
 gem "name_of_person", "~> 1.1", ">= 1.1.1"
 gem "simplecov", group: :test
 gem "web-console", group: :development
-gem "webpacker", "~> 5.2", ">= 5.2.1"
 gem "friendly_id", "~> 5.4"
 gem "bcrypt"
-gem "paper_trail", "~> 12.0"
+gem "paper_trail", "~> 15.0"
 gem "puma"
 gem "pg"
 gem "mysql2"
-gem "sqlite3"
+gem "sqlite3", "~> 2.0"
 gem "rails", git: "https://github.com/rails/rails.git"
 
 gemspec path: "../"

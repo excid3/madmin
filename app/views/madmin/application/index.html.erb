@@ -4,7 +4,7 @@
   <div class="flex-grow flex md:justify-end gap-4">
     <form class="flex items-center gap-2 relative">
       <%= hidden_field_tag :page, params[:page], value: 1, class: "hidden" %>
-      <%= search_field_tag :q, params[:q], placeholder: "Search", class: "rounded-full px-4 focus:bg-white focus:border-indigo-500" %>
+      <%= search_field_tag :q, params[:q], placeholder: "Search", class: "rounded-full px-4 focus:bg-white focus:border-blue-500" %>
       <%= link_to clear_search_params, class: "absolute top-1/2 right-3 text-gray-500 bg-white transform -translate-y-1/2" do %>
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
           <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
@@ -59,4 +59,4 @@
     </tbody>
   </table>
 </div>
-<%== render(partial: 'madmin/pagy/nav', locals: { pagy: @pagy }) if @pagy.pages > 1 %>
+<%== pagy_nav @pagy %>

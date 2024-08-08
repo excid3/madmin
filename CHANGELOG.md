@@ -1,5 +1,15 @@
 ### Unreleased
 
+### 1.2.10
+
+- Fix compatibility with Pagy 8.x
+
+### 1.2.9
+
+- Fix enum and constant lookup
+
+### 1.2.8
+
 - Relax pagy version dependency - @excid3
 - Fix unpermitted params on search - @excid3
 
