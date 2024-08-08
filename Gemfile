@@ -21,7 +21,7 @@ gem "web-console", group: :development
 gem "webpacker", "~> 5.2", ">= 5.2.1"
 gem "friendly_id", "~> 5.4"
 gem "bcrypt"
-gem "paper_trail", "~> 12.0"
+gem "paper_trail", "~> 15.0"
 gem "puma"
 
 # Databases to test against

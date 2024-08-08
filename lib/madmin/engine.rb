@@ -10,5 +10,9 @@ module Madmin
     config.to_prepare do
       Madmin.reset_resources!
     end
+
+    initializer "madmin.assets" do |app|
+      app.config.assets.precompile += %w[madmin_manifest]
+    end
   end
 end

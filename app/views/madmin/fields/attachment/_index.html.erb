@@ -1,3 +1,7 @@
 <% if (attachment = field.value(record)) && attachment.attached? %>
-  <%= link_to attachment.filename, main_app.url_for(attachment), target: :_blank %>
+  <% if attachment.variable? %>
+    <%= image_tag main_app.url_for(attachment), class: "max-h-8" %>
+  <% else %>
+    <%= attachment.filename %>
+  <% end %>
 <% end %>

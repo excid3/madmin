@@ -20,4 +20,6 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "rails", ">= 6.0.3"
   spec.add_dependency "pagy", ">= 3.5"
+
+  spec.add_development_dependency "sprockets-rails"
 end

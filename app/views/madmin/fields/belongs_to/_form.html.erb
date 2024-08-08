@@ -1,4 +1,1 @@
-<div class="block md:inline-block md:w-32 flex-shrink-0 text-gray-700">
-  <%= render "madmin/shared/label", form: form, field: field %>
-</div>
-<%= form.select field.to_param, field.options_for_select(record), { prompt: true }, { class: "form-select", data: { controller: "select", select_url_value: field.index_path } } %>
+<%= form.select field.to_param, field.options_for_select(record), { prompt: true }, { data: { controller: "select", select_url_value: field.index_path } } %>

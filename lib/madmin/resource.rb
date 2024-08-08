@@ -34,13 +34,27 @@ module Madmin
 
       def attribute(name, type = nil, **options)
         type ||= infer_type(name)
-        field = options[:field] || field_for_type(type)
+        field = options.delete(:field) || field_for_type(type)
+
+        config = ActiveSupport::OrderedOptions.new.merge(options)
+        yield config if block_given?
+
+        # Form is an alias for new & edit
+        if config.has_key?(:form)
+          value = config.delete(:form)
+          config.new = value
+          config.edit = value
+        end
 
         attributes[name] = OpenStruct.new(
           name: name,
           type: type,
-          field: field.new(**options.merge(attribute_name: name, model: model, resource: self))
+          field: field.new(attribute_name: name, model: model, resource: self, options: config)
         )
+      rescue KeyError
+        raise ArgumentError, <<~MESSAGE
+          Madmin couldn't find a field type called `:#{type}`
+        MESSAGE
       rescue => e
         builder = ResourceBuilder.new(model)
         raise ArgumentError, <<~MESSAGE
@@ -121,6 +135,7 @@ module Madmin
           binary: Fields::String,
           blob: Fields::Text,
           boolean: Fields::Boolean,
+          currency: Fields::Currency,
           date: Fields::Date,
           datetime: Fields::DateTime,
           decimal: Fields::Decimal,

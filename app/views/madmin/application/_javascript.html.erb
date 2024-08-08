@@ -1,4 +1,5 @@
 <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+<%= stylesheet_link_tag "madmin/application", "data-turbo-track": "reload" %>
 <%= stylesheet_link_tag "https://unpkg.com/flatpickr/dist/flatpickr.min.css", "data-turbo-track": "reload" %>
 <%= stylesheet_link_tag "https://unpkg.com/trix/dist/trix.css", "data-turbo-track": "reload" %>
 <%= stylesheet_link_tag "https://unpkg.com/tom-select/dist/css/tom-select.min.css", "data-turbo-track": "reload" %>
@@ -7,7 +8,6 @@
   {
     "imports": {
       "@hotwired/stimulus": "https://unpkg.com/@hotwired/stimulus/dist/stimulus.js",
-      "@hotwired/turbo": "https://unpkg.com/@hotwired/turbo",
       "@hotwired/turbo-rails": "https://unpkg.com/@hotwired/turbo-rails",
       "@rails/actiontext": "https://unpkg.com/@rails/actiontext@<%= npm_rails_version %>/app/assets/javascripts/actiontext.js",
       "@rails/activestorage": "https://unpkg.com/@rails/activestorage@<%= npm_rails_version %>/app/assets/javascripts/activestorage.esm.js",
@@ -22,7 +22,7 @@
 <script async src="https://unpkg.com/es-module-shims/dist/es-module-shims.js"></script>
 
 <script type="module">
-  import * as Turbo from "@hotwired/turbo-rails"
+  import "@hotwired/turbo-rails"
 
   import * as ActiveStorage from "@rails/activestorage"
   ActiveStorage.start()

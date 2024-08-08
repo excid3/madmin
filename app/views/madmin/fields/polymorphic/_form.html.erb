@@ -1,7 +1,4 @@
 <%= form.fields_for field.attribute_name do |pf| %>
-  <div class="block md:inline-block md:w-32 flex-shrink-0 text-gray-700">
-    <%= render "madmin/shared/label", form: pf, field: field %>
-  </div>
-  <%= pf.select :value, field.options_for_select(record).map(&:to_global_id), { selected: field.value(record)&.to_global_id, prompt: true }, { class: "form-select", data: { controller: "slimselect" } } %>
+  <%= pf.select :value, field.options_for_select(record).map(&:to_global_id), { selected: field.value(record)&.to_global_id, prompt: true }, { data: { controller: "select" } } %>
   <%= pf.hidden_field :type, value: "polymorphic" %>
 <% end %>

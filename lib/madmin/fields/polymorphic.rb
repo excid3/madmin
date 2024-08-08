@@ -5,7 +5,7 @@ module Madmin
         if (collection = options[:collection])
           collection.call
         else
-          []
+          [value(record)].compact
         end
       end
 

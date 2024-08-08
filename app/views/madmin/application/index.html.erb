@@ -37,7 +37,7 @@
 
           <th class="py-2 px-4 text-left text-xs text-gray-500 font-medium uppercase whitespace-nowrap"><%= sortable attribute.name, attribute.name.to_s.titleize %></th>
         <% end %>
-        <th class="py-2 px-4 text-left text-xs text-gray-500 font-medium uppercase">Actions</th>
+        <th class="py-2 px-4 text-right text-xs text-gray-500 font-medium uppercase"></th>
       </tr>
     </thead>
 
@@ -50,9 +50,9 @@
             <td class="px-4 py-2"><%= render partial: attribute.field.to_partial_path("index"), locals: { field: attribute.field, record: record, resource: resource } %></td>
           <% end %>
 
-          <td class="px-4 py-2 text-center">
-            <%= link_to "View", resource.show_path(record), class: "text-indigo-500" %>
-            <%= link_to "Edit", resource.edit_path(record), class: "text-indigo-500" %>
+          <td class="px-4 py-2 text-right">
+            <%= link_to "View", resource.show_path(record), class: "inline-block bg-white hover:bg-gray-100 text-gray-800 font-semibold py-1 px-2 border border-gray-400 rounded shadow" %>
+            <%= link_to "Edit", resource.edit_path(record), class: "inline-block bg-white hover:bg-gray-100 text-gray-800 font-semibold py-1 px-2 border border-gray-400 rounded shadow" %>
           </td>
         </tr>
       <% end %>

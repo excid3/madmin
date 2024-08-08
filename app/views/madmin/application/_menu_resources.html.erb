@@ -1,3 +1,5 @@
+<%= nav_link_to "Dashboard", main_app.madmin_root_path, class: "block p-2 rounded hover:bg-gray-100", active_class: "font-bold text-black" %>
+
 <% Madmin.resources.each do |resource| %>
   <%= nav_link_to resource.friendly_name.pluralize, resource.index_path, class: "block p-2 rounded hover:bg-gray-100", starts_with: resource.index_path, active_class: "font-bold text-black" %>
 <% end %>

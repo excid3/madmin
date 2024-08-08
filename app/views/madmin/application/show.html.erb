@@ -21,7 +21,7 @@
 
     <div class="px-4 py-3 md:grid md:grid-cols-4 md:gap-4 md:px-6">
       <div class="text-sm font-medium text-gray-500">
-        <%= attribute.field.attribute_name.to_s.titleize %>
+        <%= attribute.field.options.label || attribute.name.to_s.titleize %>
       </div>
 
       <div class="md:col-span-3">

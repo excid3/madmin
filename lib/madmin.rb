@@ -14,6 +14,7 @@ module Madmin
     autoload :Attachments, "madmin/fields/attachments"
     autoload :BelongsTo, "madmin/fields/belongs_to"
     autoload :Boolean, "madmin/fields/boolean"
+    autoload :Currency, "madmin/fields/currency"
     autoload :Date, "madmin/fields/date"
     autoload :DateTime, "madmin/fields/date_time"
     autoload :Decimal, "madmin/fields/decimal"
@@ -35,7 +36,11 @@ module Madmin
 
   class << self
     def resource_for(object)
-      "#{object.class.name}Resource".constantize
+      if object.is_a? ::ActiveStorage::Attached
+        "ActiveStorage::AttachmentResource".constantize
+      else
+        "#{object.class.name}Resource".constantize
+      end
     end
 
     def resource_by_name(name)
