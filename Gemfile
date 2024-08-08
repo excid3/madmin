@@ -12,10 +12,10 @@ gemspec
 # your gem to rubygems.org.
 
 gem "appraisal"
-gem "byebug", group: [:development, :test]
-gem "standardrb", group: [:development, :test]
+gem "standardrb"
 gem "ffaker", "~> 2.17"
 gem "name_of_person", "~> 1.1", ">= 1.1.1"
+gem "propshaft"
 gem "simplecov", group: :test
 gem "web-console", group: :development
 gem "friendly_id", "~> 5.4"
