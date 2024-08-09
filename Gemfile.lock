@@ -157,11 +157,6 @@ GEM
       ast (~> 2.4.1)
       racc
     pg (1.5.7)
-    propshaft (0.9.0)
-      actionpack (>= 7.0.0)
-      activesupport (>= 7.0.0)
-      rack
-      railties (>= 7.0.0)
     psych (5.1.2)
       stringio
     puma (6.4.2)
@@ -238,6 +233,13 @@ GEM
       simplecov_json_formatter (~> 0.1)
     simplecov-html (0.12.3)
     simplecov_json_formatter (0.1.4)
+    sprockets (4.2.1)
+      concurrent-ruby (~> 1.0)
+      rack (>= 2.2.4, < 4)
+    sprockets-rails (3.5.2)
+      actionpack (>= 6.1)
+      activesupport (>= 6.1)
+      sprockets (>= 3.0.0)
     sqlite3 (1.7.3)
       mini_portile2 (~> 2.8.0)
     sqlite3 (1.7.3-arm64-darwin)
@@ -295,9 +297,9 @@ DEPENDENCIES
   name_of_person (~> 1.1, >= 1.1.1)
   paper_trail (~> 15.0)
   pg
-  propshaft
   puma
   simplecov
+  sprockets-rails
   sqlite3 (~> 1.4)
   standardrb
   web-console

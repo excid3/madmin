@@ -15,7 +15,7 @@ gem "appraisal"
 gem "standardrb"
 gem "ffaker", "~> 2.17"
 gem "name_of_person", "~> 1.1", ">= 1.1.1"
-gem "propshaft"
+gem "sprockets-rails"
 gem "simplecov", group: :test
 gem "web-console", group: :development
 gem "friendly_id", "~> 5.4"
