@@ -20,7 +20,7 @@ gem "paper_trail", "~> 15.0"
 gem "puma"
 gem "sprockets-rails"
 gem "standardrb"
-gem "web-console"
+gem "web-console", group: :development
 
 # Databases to test against
 gem "pg"

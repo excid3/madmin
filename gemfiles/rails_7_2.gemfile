@@ -11,7 +11,7 @@ gem "paper_trail", "~> 15.0"
 gem "puma"
 gem "sprockets-rails"
 gem "standardrb"
-gem "web-console"
+gem "web-console", group: :development
 gem "pg"
 gem "mysql2"
 gem "sqlite3", "~> 2.0"
