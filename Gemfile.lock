@@ -96,7 +96,6 @@ GEM
     connection_pool (2.4.1)
     crass (1.0.6)
     date (3.3.4)
-    docile (1.4.1)
     drb (2.2.1)
     erubi (1.13.0)
     ffaker (2.23.0)
@@ -227,12 +226,6 @@ GEM
       rubocop (>= 1.48.1, < 2.0)
       rubocop-ast (>= 1.31.1, < 2.0)
     ruby-progressbar (1.13.0)
-    simplecov (0.22.0)
-      docile (~> 1.1)
-      simplecov-html (~> 0.11)
-      simplecov_json_formatter (~> 0.1)
-    simplecov-html (0.12.3)
-    simplecov_json_formatter (0.1.4)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -298,7 +291,6 @@ DEPENDENCIES
   paper_trail (~> 15.0)
   pg
   puma
-  simplecov
   sprockets-rails
   sqlite3 (~> 1.4)
   standardrb

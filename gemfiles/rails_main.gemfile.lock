@@ -118,7 +118,6 @@ GEM
     connection_pool (2.4.1)
     crass (1.0.6)
     date (3.3.4)
-    docile (1.4.0)
     drb (2.2.1)
     erubi (1.12.0)
     ffaker (2.23.0)
@@ -232,12 +231,13 @@ GEM
       rubocop (>= 1.48.1, < 2.0)
       rubocop-ast (>= 1.31.1, < 2.0)
     ruby-progressbar (1.13.0)
-    simplecov (0.22.0)
-      docile (~> 1.1)
-      simplecov-html (~> 0.11)
-      simplecov_json_formatter (~> 0.1)
-    simplecov-html (0.12.3)
-    simplecov_json_formatter (0.1.4)
+    sprockets (4.2.1)
+      concurrent-ruby (~> 1.0)
+      rack (>= 2.2.4, < 4)
+    sprockets-rails (3.5.2)
+      actionpack (>= 6.1)
+      activesupport (>= 6.1)
+      sprockets (>= 3.0.0)
     sqlite3 (2.0.2)
       mini_portile2 (~> 2.8.0)
     sqlite3 (2.0.2-arm64-darwin)
@@ -299,7 +299,7 @@ DEPENDENCIES
   propshaft
   puma
   rails!
-  simplecov
+  sprockets-rails
   sqlite3 (~> 2.0)
   standardrb
   web-console
