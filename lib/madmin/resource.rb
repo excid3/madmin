@@ -14,7 +14,7 @@ module Madmin
         super
       end
 
-      def model(value=nil)
+      def model(value = nil)
         if value
           @model = value
         else
@@ -108,7 +108,7 @@ module Madmin
       end
 
       def becomes(record)
-        record.class == model ? record : record.becomes(model)
+        record.instance_of?(model) ? record : record.becomes(model)
       end
 
       def param_key
