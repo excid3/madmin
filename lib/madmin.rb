@@ -39,7 +39,16 @@ module Madmin
       if object.is_a? ::ActiveStorage::Attached
         "ActiveStorage::AttachmentResource".constantize
       else
-        "#{object.class.name}Resource".constantize
+        begin
+          "#{object.class.name}Resource".constantize
+        rescue
+          # For STI models, see if there's a superclass resource available
+          if object.class.inheritance_column.present?
+            "#{object.class.superclass.name}Resource".constantize
+          else
+            raise
+          end
+        end
       end
     end
 

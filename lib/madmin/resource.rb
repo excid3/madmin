@@ -14,12 +14,17 @@ module Madmin
         super
       end
 
-      def model
-        @model ||= model_name.constantize
+      def model(value=nil)
+        if value
+          @model = value
+        else
+          @model ||= model_name.constantize
+        end
       end
 
       def model_find(id)
-        friendly_model? ? model.friendly.find(id) : model.find(id)
+        record = friendly_model? ? model.friendly.find(id) : model.find(id)
+        becomes(record)
       end
 
       def model_name
@@ -95,11 +100,15 @@ module Madmin
       end
 
       def show_path(record)
-        url_helpers.polymorphic_path([:madmin, route_namespace, record])
+        url_helpers.polymorphic_path([:madmin, route_namespace, becomes(record)])
       end
 
       def edit_path(record)
-        url_helpers.polymorphic_path([:madmin, route_namespace, record], action: :edit)
+        url_helpers.polymorphic_path([:madmin, route_namespace, becomes(record)], action: :edit)
+      end
+
+      def becomes(record)
+        record.class == model ? record : record.becomes(model)
       end
 
       def param_key
