@@ -1,0 +1,33 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+.pagy {
+  @apply isolate inline-flex rounded-md;
+
+  a:first-child {
+    @apply rounded-l-md;
+  }
+  a:last-child {
+    @apply rounded-r-md;
+  }
+
+  a {
+    @apply relative -ml-px inline-flex items-center bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-100 focus:z-10;
+
+    &:not([href]) {
+      @apply text-gray-300 cursor-default;
+    }
+
+    &.current {
+      @apply text-white bg-blue-500 ring-blue-500;
+    }
+  }
+
+  label {
+    @apply inline-block whitespace-nowrap bg-gray-200 rounded-lg px-3 py-0.5;
+    input {
+      @apply bg-gray-100 border-none rounded-md;
+    }
+  }
+}

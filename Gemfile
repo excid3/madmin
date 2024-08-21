@@ -21,6 +21,7 @@ gem "puma"
 gem "sprockets-rails"
 gem "standardrb"
 gem "web-console", group: :development
+gem "tailwindcss-rails"
 
 # Databases to test against
 gem "pg"
