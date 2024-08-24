@@ -1,62 +1,64 @@
-<div class="md:flex justify-between items-center space-y-4 md:space-y-0">
-  <h1 class="text-xl font-semibold"><%= resource.friendly_name.pluralize %></h1>
+<header class="page-header">
+  <h1><%= resource.friendly_name.pluralize %></h1>
 
-  <div class="flex-grow flex md:justify-end gap-4">
-    <form class="flex items-center gap-2 relative">
+  <div class="actions">
+    <form class="search-form">
       <%= hidden_field_tag :page, params[:page], value: 1, class: "hidden" %>
-      <%= search_field_tag :q, params[:q], placeholder: "Search", class: "rounded-full px-4 focus:bg-white focus:border-blue-500" %>
-      <%= link_to clear_search_params, class: "absolute top-1/2 right-3 text-gray-500 bg-white transform -translate-y-1/2" do %>
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+      <%= search_field_tag :q, params[:q], placeholder: "Search", class: "form-input" %>
+      <%= link_to clear_search_params, class: "search-clear" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 20 20" fill="currentColor">
           <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
         </svg>
       <% end %>
     </form>
 
-    <%= link_to resource.new_path, class: "bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" do %>
-      New <span class="hidden md:inline"><%= resource.friendly_name %></span>
+    <%= link_to resource.new_path, class: "btn btn-primary" do %>
+      New <span class="mobile-hidden"><%= resource.friendly_name %></span>
     <% end %>
   </div>
-</div>
+</header>
 
-<div class="mb-4">
-  <% if resource.scopes.any? %>
-    <%= link_to "All", resource.index_path, class: class_names("p-2 rounded", {"bg-gray-100" =>  params[:scope].blank?}) %>
-  <% end %>
+<% if resource.scopes.any? %>
+  <div class="scopes">
+      <%= link_to "All", resource.index_path, class: class_names("nav__link", {"nav__link--active" =>  params[:scope].blank?}) %>
 
-  <% resource.scopes.each do |scope| %>
-    <%= link_to scope.to_s.humanize, resource.index_path(scope: scope), class: class_names("p-2 rounded", {"bg-gray-100" => params[:scope] == scope.to_s}) %>
-  <% end %>
-</div>
-<div class="min-w-full max-w-xl overflow-x-auto pb-4">
-  <table class="min-w-full divide-y divide-gray-200">
+    <% resource.scopes.each do |scope| %>
+      <%= link_to scope.to_s.humanize, resource.index_path(scope: scope), class: class_names("nav__link", {"nav__link--active" => params[:scope] == scope.to_s}) %>
+    <% end %>
+  </div>
+<% end %>
+
+<div class="table-container">
+  <table class="table">
     <thead>
-      <tr class="border-b border-gray-200">
+      <tr>
         <% resource.attributes.values.each do |attribute| %>
           <% next if attribute.field.nil? %>
           <% next unless attribute.field.visible?(action_name) %>
 
-          <th class="py-2 px-4 text-left text-xs text-gray-500 font-medium uppercase whitespace-nowrap"><%= sortable attribute.name, attribute.name.to_s.titleize %></th>
+          <th class="table__header"><%= sortable attribute.name, attribute.name.to_s.titleize %></th>
         <% end %>
-        <th class="py-2 px-4 text-right text-xs text-gray-500 font-medium uppercase"></th>
+        <th class="table__header table__header--actions"></th>
       </tr>
     </thead>
 
-    <tbody class="text-sm divide-y">
+    <tbody>
       <% @records.each do |record| %>
         <tr>
           <% resource.attributes.values.each do |attribute| %>
             <% next if attribute.field.nil? %>
             <% next unless attribute.field.visible?(action_name) %>
-            <td class="px-4 py-2"><%= render partial: attribute.field.to_partial_path("index"), locals: { field: attribute.field, record: record, resource: resource } %></td>
+            <td class="table__cell"><%= render partial: attribute.field.to_partial_path("index"), locals: { field: attribute.field, record: record, resource: resource } %></td>
           <% end %>
 
-          <td class="px-4 py-2 text-right">
-            <%= link_to "View", resource.show_path(record), class: "inline-block bg-white hover:bg-gray-100 text-gray-800 font-semibold py-1 px-2 border border-gray-400 rounded shadow" %>
-            <%= link_to "Edit", resource.edit_path(record), class: "inline-block bg-white hover:bg-gray-100 text-gray-800 font-semibold py-1 px-2 border border-gray-400 rounded shadow" %>
+          <td class="table__cell table__cell--actions">
+            <%= link_to "View", resource.show_path(record), class: "btn btn-small" %>
+            <%= link_to "Edit", resource.edit_path(record), class: "btn btn-small" %>
           </td>
         </tr>
       <% end %>
     </tbody>
   </table>
 </div>
+
 <%== pagy_nav @pagy %>

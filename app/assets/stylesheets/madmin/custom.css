@@ -1,0 +1,24 @@
+[data-theme=light],
+:root:not([data-theme=dark]) {
+  /* add light custom here */
+}
+
+@media only screen and (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --color-primary: #818CF8;
+    --bg-color: #0F172A;
+    --bg-color-dark: #5b6679;
+    --bg-color-darker: #8c96a8;
+    --foreground-color: #f7fafc;
+    color-scheme: dark;
+  }
+}
+
+[data-theme=dark] {
+  --color-primary: #818CF8;
+  --bg-color: #0F172A;
+  --bg-color-dark: #5b6679;
+  --bg-color-darker: #8c96a8;
+  --foreground-color: #f7fafc;
+  color-scheme: dark;
+}

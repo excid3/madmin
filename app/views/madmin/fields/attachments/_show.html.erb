@@ -2,10 +2,10 @@
   <% attachments.each do |attachment| %>
     <% if attachment.variable? %>
       <%= link_to main_app.url_for(attachment), target: :_blank do %>
-        <%= image_tag main_app.url_for(attachment), class: "max-h-32" %>
+        <%= image_tag main_app.url_for(attachment) %>
       <% end %>
     <% else %>
-      <%= link_to attachment.filename, main_app.url_for(attachment), target: :_blank, class: "text-blue-500 underline" %>
+      <%= link_to attachment.filename, main_app.url_for(attachment), target: :_blank %>
     <% end %>
   <% end %>
 <% end %>

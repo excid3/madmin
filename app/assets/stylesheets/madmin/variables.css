@@ -1,0 +1,30 @@
+:root {
+  --color-primary  : #63a6e6;
+  --color-secondary: #5e8cb9;
+  --color-success  : #96b57b;
+  --color-danger   : #b75f68;
+  --color-warning  : #e0c184;
+  --color-info     : #6e73ac;
+
+  --bg-color        : #fdfeff;
+  --bg-color-dark   : #d7dbe0;
+  --bg-color-darker : #959aa2;
+  --foreground-color: #1a202c;
+
+  --font-sans : system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-serif: Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono : Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-5: 1.5rem;
+
+  --border-radius     : 0.25rem;
+  --border-radius-lg  : 0.5rem;
+  --border-radius-xl  : 1.25rem;
+  --border-radius-full: 9999px;
+
+  --sidebar-width: 17rem;
+}

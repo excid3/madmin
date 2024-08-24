@@ -1,0 +1,40 @@
+body {
+  background-color: var(--bg-color);
+  min-height      : 100vh;
+  color           : var(--foreground-color);
+  font-family     : var(--font-sans);
+  font-size       : 1rem;
+  line-height     : 1.5;
+}
+
+#container {
+  width: 100%;
+}
+
+#sidebar {
+  padding         : var(--spacing-4);
+  border-right    : 1px solid var(--bg-color-dark);
+  background-color: var(--bg-color);
+  width           : 100%;
+  height          : auto;
+  overflow        : auto;
+  overflow-y      : auto;
+  flex-shrink     : 0;
+}
+
+main {
+  padding   : var(--spacing-4);
+  overflow-x: scroll;
+  flex-grow : 1;
+}
+
+@media (min-width: 768px) {
+  #container {
+    display   : flex;
+    min-height: 100vh;
+  }
+
+  #sidebar {
+    width: var(--sidebar-width);
+  }
+}
