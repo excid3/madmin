@@ -1,0 +1,118 @@
+.nav {
+  padding  : var(--spacing-1);
+  font-size: 0.875rem;
+}
+
+.nav__header {
+  display        : flex;
+  justify-content: space-between;
+  align-items    : center;
+  margin-bottom  : var(--spacing-4);
+  padding        : var(--spacing-1);
+}
+
+.nav__header h1 {
+  margin-bottom: 0;
+  font-size    : 1.25rem;
+}
+
+.nav__link {
+  display        : block;
+  padding        : var(--spacing-1) var(--spacing-2);
+  border-radius  : var(--border-radius-lg);
+  color          : var(--foreground-color);
+  text-decoration: none;
+  transition     : background-color 0.2s ease;
+}
+
+.nav__link:hover {
+  background-color: var(--color-primary);
+}
+
+.nav__link--active,
+.nav__link--active:hover {
+  background-color: var(--color-primary);
+  color           : var(--foreground-color);
+  font-weight     : 600;
+}
+
+#main-menu.nav__link {
+  border          : 0;
+  background-color: transparent;
+}
+
+#main-menu .icon {
+  width : var(--spacing-5);
+  height: var(--spacing-5);
+}
+
+.nav__back-link {
+  padding        : var(--spacing-1);
+  color          : var(--bg-color-darker);
+  text-decoration: none;
+  order          : 1;
+}
+
+.nav__back-link:hover {
+  text-decoration: underline;
+}
+
+.nav__title {
+  order: 2;
+}
+
+.nav__mobile-menu {
+  order: 3;
+}
+
+.nav__mobile-dropdown {
+  position        : absolute;
+  top             : 4rem;
+  right           : 0;
+  z-index         : 1000;
+  padding         : var(--spacing-4);
+  border          : 1px solid var(--bg-color-dark);
+  border-radius   : var(--border-radius-xl);
+  background-color: var(--bg-color);
+  min-width       : 16rem;
+  box-shadow      : 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
+.nav__main {
+  display: none;
+}
+
+.nav__footer {
+  display        : flex;
+  justify-content: end;
+  align-items    : center;
+  margin-top     : var(--spacing-4);
+}
+
+.nav__footer a {
+  padding        : var(--spacing-1);
+  color          : var(--bg-color-darker);
+  text-decoration: none;
+}
+
+.nav__footer a:hover {
+  text-decoration: underline;
+}
+
+@media (min-width: 768px) {
+  .nav__title {
+    order: 1;
+  }
+
+  .nav__back-link {
+    order: 2;
+  }
+
+  .nav__mobile-menu {
+    display: none;
+  }
+
+  .nav__main {
+    display: initial;
+  }
+}

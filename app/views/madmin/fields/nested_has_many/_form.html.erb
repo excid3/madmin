@@ -1,8 +1,8 @@
-<div class="block md:inline-block w-32 flex-shrink-0">
+<div class="form-group__label-container">
   <%= render "madmin/shared/label", form: form, field: field %>
 </div>
 
-<div class="container space-y-8" data-controller="nested-form">
+<div class="form-group__nested-form" data-controller="nested-form">
   <template data-target="nested-form.template">
 
     <%= form.fields_for field.attribute_name, field.to_model.new, child_index: 'NEW_RECORD' do |nested_form| %>

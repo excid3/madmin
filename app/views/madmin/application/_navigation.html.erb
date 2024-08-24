@@ -1,29 +1,27 @@
-<div class="flex flex-col h-full text-sm">
-  <div class="flex md:block justify-between items-center">
-    <div class="flex md:block items-center">
-      <h1 class="mr-2 md:p-2 text-xl font-semibold">Madmin</h1>
+<div class="nav">
+    <div class="nav__header">
+      <h1 class="nav__title">Madmin</h1>
       <% if main_app.respond_to?(:root_url) %>
-        <%= link_to main_app.root_url, class: "block p-2 rounded hover:bg-gray-200", data: { turbo: false } do %>
-          ← Back <span class="hidden md:inline">to App</span>
+        <%= link_to main_app.root_url, class: "nav__back-link", data: { turbo: false } do %>
+          ← Back <span class="mobile-hidden">to App</span>
         <% end %>
       <% end %>
+
+        <div class="nav__mobile-menu" data-controller="dropdown">
+          <button data-action="click->dropdown#toggle touch->dropdown#toggle click@window->dropdown#hide touch@window#dropdown->hide" type="button" class="nav__link" id="main-menu" aria-haspopup="true">
+            <span class="sr-only">Open main menu</span>
+            <!-- Heroicon name: outline/menu -->
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+          <div class="nav__mobile-dropdown" data-dropdown-target="menu">
+            <%= render "menu_resources" %>
+          </div>
+        </div>
     </div>
 
-    <div class="-mr-2 flex items-center md:hidden relative" data-controller="dropdown">
-      <button data-action="click->dropdown#toggle touch->dropdown#toggle click@window->dropdown#hide touch@window#dropdown->hide" type="button" class="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:bg-gray-200 focus:outline-none focus:ring-2 focus-ring-inset focus:ring-white" id="main-menu" aria-haspopup="true">
-        <span class="sr-only">Open main menu</span>
-        <!-- Heroicon name: outline/menu -->
-        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
-      </button>
-
-      <div class="absolute top-12 right-0 bg-white rounded-lg min-w-64 shadow-lg hidden md:flex flex-col flex-grow justify-between" data-dropdown-target="menu">
-        <%= render "menu_resources" %>
-      </div>
-    </div>
-    <div class="hidden md:block">
+    <div class="nav__main">
       <%= render "menu_resources" %>
     </div>
-  </div>
 </div>

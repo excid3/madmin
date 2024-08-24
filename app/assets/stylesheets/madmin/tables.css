@@ -1,0 +1,37 @@
+.table {
+  border-spacing: 0;
+  width         : 100%;
+}
+
+.table-container {
+  margin-bottom: var(--spacing-4);
+  overflow-x   : auto;
+}
+
+.table__header {
+  padding       : var(--spacing-2) var(--spacing-4);
+  border-bottom : 1px solid var(--bg-color-darker);
+  color         : var(--bg-color-darker);
+  font-size     : 1rem;
+  text-transform: uppercase;
+  text-align    : left;
+}
+
+.table__header a {
+  color          : var(--bg-color-darker);
+  text-decoration: none;
+}
+
+.table__header--actions,
+.table__cell--actions {
+  text-align: right;
+}
+
+.table__cell {
+  padding      : var(--spacing-2) var(--spacing-4);
+  border-bottom: 1px solid var(--bg-color-dark);
+}
+
+.table__cell img {
+  max-height: 4rem;
+}

@@ -1,0 +1,113 @@
+/* Buttons */
+
+.btn {
+  display         : inline-block;
+  padding         : var(--spacing-2) var(--spacing-4);
+  border          : 1px solid var(--bg-color-dark);
+  border-radius   : var(--border-radius);
+  background-color: var(--bg-color);
+  color           : var(--bg-color-darker);
+  font-weight     : 600;
+  text-decoration : none;
+  box-shadow      : 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  line-height     : 1;
+  cursor          : pointer;
+}
+
+.btn-small {
+  padding: var(--spacing-1) var(--spacing-2);
+}
+
+.btn:focus,
+.btn:hover {
+  transform: scale(0.98);
+  filter   : brightness(0.95);
+}
+
+.btn-danger {
+  background-color: var(--color-danger) !important;
+  border-color: var(--color-danger) !important;
+  color       : var(--foreground-color) !important;
+}
+
+.btn-primary {
+  background-color: var(--color-primary) !important;
+  color           : var(--foreground-color) !important;
+}
+
+/* Utilities */
+
+.icon {
+  width : 1.25rem;
+  height: 1.25rem;
+}
+
+.hidden {
+  display: none;
+}
+
+.sr-only {
+  position   : absolute;
+  margin     : -1px;
+  padding    : 0;
+  border     : 0;
+  width      : 1px;
+  height     : 1px;
+  white-space: nowrap;
+  overflow   : hidden;
+  clip       : rect(0, 0, 0, 0);
+}
+
+.mobile-hidden {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .mobile-hidden {
+    display: initial;
+  }
+}
+
+/* Transitions for Tailwind dropdown (should be removed when Tailwind is completely removed) */
+
+.opacity-0 {
+  opacity: 0;
+}
+
+.opacity-100 {
+  opacity: 1;
+}
+
+.duration-100 {
+  transition-duration: 100ms;
+}
+
+.duration-75 {
+  transition-duration: 75ms;
+}
+
+.ease-out {
+  transition-timing-function: ease-out;
+}
+
+.ease-in {
+  transition-timing-function: ease-in;
+}
+
+.ease-in-out {
+  transition-timing-function: ease-in-out;
+}
+
+.scale-95 {
+  transform: scale(0.95);
+}
+
+.scale-100 {
+  transform: scale(1);
+}
+
+.transition {
+  transition-property       : color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration       : 150ms;
+}

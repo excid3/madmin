@@ -10,6 +10,23 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
- *= require_self
+ *
  */
+
+ @import 'normalize.css';
+ @import 'variables.css';
+ @import 'typography.css';
+ @import 'layout.css';
+ @import 'navigation.css';
+ @import 'forms.css';
+ @import 'tables.css';
+ @import 'utilities.css';
+ @import 'pagy.css';
+ @import 'pages.css';
+
+ /* TODO: dark mode is ready, uncomment custom.css and check */
+ /*       but there is no toggle-theme feature yet */
+
+ /* @import 'custom.css'; */
+
+ /* TODO: transitions classes */

@@ -23,20 +23,20 @@ class PostResource < Madmin::Resource
 
   member_action do
     unless @record.published?
-      button_to "Publish", main_app.publish_madmin_post_path(@record), method: :patch, data: { turbo_confirm: "Are you sure?" }, class: "block bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+      button_to "Publish", main_app.publish_madmin_post_path(@record), method: :patch, data: { turbo_confirm: "Are you sure?" }, class: "btn"
     end
   end
 
 
   member_action do
     unless @record.draft?
-      button_to "Draft", main_app.draft_madmin_post_path(@record), method: :patch, data: { turbo_confirm: "Are you sure?" }, class: "block bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+      button_to "Draft", main_app.draft_madmin_post_path(@record), method: :patch, data: { turbo_confirm: "Are you sure?" }, class: "btn"
     end
   end
 
   member_action do
     unless @record.archived?
-      button_to "Archive", main_app.archive_madmin_post_path(@record), method: :patch, data: { turbo_confirm: "Are you sure?" }, class: "block bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+      button_to "Archive", main_app.archive_madmin_post_path(@record), method: :patch, data: { turbo_confirm: "Are you sure?" }, class: "btn"
     end
   end
 
