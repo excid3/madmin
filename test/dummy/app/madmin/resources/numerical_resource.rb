@@ -3,6 +3,7 @@ class NumericalResource < Madmin::Resource
   attribute :id, form: false
   attribute :decimal
   attribute :float
+  attribute :user, :belongs_to
   attribute :created_at, form: false
   attribute :updated_at, form: false
 
