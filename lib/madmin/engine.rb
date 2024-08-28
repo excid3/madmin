@@ -1,5 +1,4 @@
 require "importmap-rails"
-require "propshaft"
 
 module Madmin
   class Engine < ::Rails::Engine
@@ -15,9 +14,11 @@ module Madmin
     end
 
     initializer "madmin.assets" do |app|
-      app.config.assets.paths << root.join("app/assets/stylesheets")
-      app.config.assets.paths << root.join("app/javascript")
-      app.config.assets.precompile += %w[madmin_manifest]
+      if app.config.respond_to?(:assets)
+        app.config.assets.paths << root.join("app/assets/stylesheets")
+        app.config.assets.paths << root.join("app/javascript")
+        app.config.assets.precompile += %w[madmin_manifest]
+      end
     end
 
     initializer "madmin.importmap", before: "importmap" do |app|

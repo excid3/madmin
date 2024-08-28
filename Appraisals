@@ -19,3 +19,7 @@ appraise "rails-main" do
   gem "sqlite3", "~> 2.0"
   gem "propshaft"
 end
+
+appraise "sprockets" do
+  gem "sprockets-rails"
+end
