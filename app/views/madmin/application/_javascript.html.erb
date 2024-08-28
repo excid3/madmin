@@ -1,8 +1,10 @@
-<script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+<%= javascript_importmap_tags "application-madmin" %>
+
 <%= stylesheet_link_tag "madmin/application", "data-turbo-track": "reload" %>
 <%= stylesheet_link_tag "https://unpkg.com/flatpickr/dist/flatpickr.min.css", "data-turbo-track": "reload" %>
-<%= stylesheet_link_tag "https://unpkg.com/trix/dist/trix.css", "data-turbo-track": "reload" %>
 <%= stylesheet_link_tag "https://unpkg.com/tom-select/dist/css/tom-select.min.css", "data-turbo-track": "reload" %>
+
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
 <style type="text/tailwindcss">
 .pagy {
   @apply isolate inline-flex rounded-md;
@@ -34,105 +36,3 @@
   }
 }
 </style>
-
-<script type="importmap" data-turbo-track="reload">
-  {
-    "imports": {
-      "@hotwired/stimulus": "https://unpkg.com/@hotwired/stimulus/dist/stimulus.js",
-      "@hotwired/turbo-rails": "https://unpkg.com/@hotwired/turbo-rails",
-      "@rails/actiontext": "https://unpkg.com/@rails/actiontext@<%= npm_rails_version %>/app/assets/javascripts/actiontext.js",
-      "@rails/activestorage": "https://unpkg.com/@rails/activestorage@<%= npm_rails_version %>/app/assets/javascripts/activestorage.esm.js",
-      "flatpickr": "https://unpkg.com/flatpickr/dist/esm/index.js",
-      "stimulus-flatpickr": "https://unpkg.com/stimulus-flatpickr@3.0.0-0/dist/index.m.js",
-      "tailwindcss-stimulus-components": "https://unpkg.com/tailwindcss-stimulus-components/dist/tailwindcss-stimulus-components.module.js",
-      "tom-select": "https://unpkg.com/tom-select/dist/esm/tom-select.complete.js",
-      "trix": "https://unpkg.com/trix"
-    }
-  }
-</script>
-<script async src="https://unpkg.com/es-module-shims/dist/es-module-shims.js"></script>
-
-<script type="module">
-  import "@hotwired/turbo-rails"
-
-  import * as ActiveStorage from "@rails/activestorage"
-  ActiveStorage.start()
-  import "trix"
-  import "@rails/actiontext"
-
-  import { Application, Controller } from '@hotwired/stimulus'
-  const application = Application.start()
-
-  import { Dropdown } from "tailwindcss-stimulus-components"
-  application.register("dropdown", Dropdown)
-
-  import StimulusFlatpickr from "stimulus-flatpickr"
-  application.register("flatpickr", StimulusFlatpickr)
-
-  import TomSelect from "tom-select"
-
-  (() => {
-    application.register('select', class extends Controller {
-      static values = {
-        options: Object,
-        url: String
-      }
-
-      connect() {
-        this.select = new TomSelect(this.element, {
-          plugins: ['remove_button'],
-          valueField: 'id',
-          labelField: 'name',
-          searchField: 'name',
-          load: (search, callback) => {
-            let url = search ? `${this.urlValue}?q=${search}` : this.urlValue;
-            fetch(url)
-              .then(response => response.json())
-              .then(json => {
-                callback(json);
-              }).catch(() => {
-                callback();
-              });
-          }
-        })
-      }
-
-      disconnect() {
-        this.select.destroy()
-      }
-    })
-
-    application.register('nested-form', class extends Controller {
-      static get targets() {
-        return [ "links", "template" ]
-      }
-
-      connect() {
-        this.wrapperClass = this.data.get("wrapperClass") || "nested-fields"
-      }
-
-      add_association(event) {
-        event.preventDefault()
-
-        var content = this.templateTarget.innerHTML.replace(/NEW_RECORD/g, new Date().getTime())
-        this.linksTarget.insertAdjacentHTML('beforebegin', content)
-      }
-
-      remove_association(event) {
-        event.preventDefault()
-
-        let wrapper = event.target.closest("." + this.wrapperClass)
-
-        // New records are simply removed from the page
-        if (wrapper.dataset.newRecord == "true") {
-          wrapper.remove()
-
-        // Existing records are hidden and flagged for deletion
-        } else {
-          wrapper.querySelector("input[name*='_destroy']").value = 1
-          wrapper.style.display = 'none'
-        }
-      }
-    })
-  })()
-</script>
