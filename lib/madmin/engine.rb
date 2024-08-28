@@ -1,4 +1,5 @@
 require "importmap-rails"
+require "propshaft"
 
 module Madmin
   class Engine < ::Rails::Engine
