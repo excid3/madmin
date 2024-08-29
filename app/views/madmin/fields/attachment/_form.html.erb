@@ -1,8 +1,11 @@
 <%= form.file_field field.to_param %>
-<div class="mt-2">
-  <%= render partial: field.to_partial_path("show"), locals: {field: field, record: record} %>
 
-  <% if (value = field.value(record) && value&.attached?) %>
-    <%= link_to "Remove", Madmin.resource_for(value).show_path(value), data: { turbo_method: :delete, turbo_confirm: "Are you sure? You will lose any other changes."} %>
-  <% end %>
-</div>
+<% if form.object.persisted? %>
+  <div class="mt-2">
+    <%= render partial: field.to_partial_path("show"), locals: {field: field, record: record} %>
+
+    <% if (value = field.value(record) && value&.attached?) %>
+      <%= link_to "Remove", Madmin.resource_for(value).show_path(value), data: { turbo_method: :delete, turbo_confirm: "Are you sure? You will lose any other changes."} %>
+    <% end %>
+  </div>
+<% end %>
