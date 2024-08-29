@@ -50,7 +50,9 @@ module Madmin
         if config.has_key?(:form)
           value = config.delete(:form)
           config.new = value
+          config.create = value
           config.edit = value
+          config.update = value
         end
 
         attributes[name] = OpenStruct.new(
