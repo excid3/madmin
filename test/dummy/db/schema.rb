@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_21_230902) do
-
+ActiveRecord::Schema.define(version: 2024_08_24_221908) do
   create_table "action_mailbox_inbound_emails", force: :cascade do |t|
     t.bigint "status", default: 0, null: false
     t.string "message_id", null: false
@@ -79,6 +78,8 @@ ActiveRecord::Schema.define(version: 2021_09_21_230902) do
     t.float "float"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_numericals_on_user_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -118,6 +119,9 @@ ActiveRecord::Schema.define(version: 2021_09_21_230902) do
     t.datetime "updated_at", precision: 6, null: false
     t.json "settings"
     t.text "preferences"
+    t.boolean "active", default: true
+    t.decimal "balance", precision: 10, scale: 2
+    t.time "last_login_time"
   end
 
   create_table "versions", force: :cascade do |t|
@@ -134,5 +138,6 @@ ActiveRecord::Schema.define(version: 2021_09_21_230902) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "users"
+  add_foreign_key "numericals", "users"
   add_foreign_key "user_connected_accounts", "users"
 end

@@ -16,6 +16,10 @@ class UserResource < Madmin::Resource
   attribute :weekly_email
   attribute :monthly_newsletter
   attribute :avatar, index: false
+  attribute :active
+  attribute :balance, field: Madmin::Fields::Currency
+  attribute :last_login_time
+  attribute :numerical
 
   # Associations
   attribute :posts, :nested_has_many, skip: %I[attachments]
