@@ -44,7 +44,7 @@ module Madmin
         rescue
           # For STI models, see if there's a superclass resource available
           if (column = object.class.inheritance_column) && object.class.column_names.include?(column)
-            "#{object.class.base_class.name}Resource".constantize
+            "#{object.class.superclass.base_class.name}Resource".constantize
           else
             raise
           end
