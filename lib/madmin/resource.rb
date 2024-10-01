@@ -1,7 +1,7 @@
-require "ostruct"
-
 module Madmin
   class Resource
+    Attribute = Data.define(:name, :type, :field)
+
     class_attribute :attributes, default: ActiveSupport::OrderedHash.new
     class_attribute :member_actions, default: []
     class_attribute :scopes, default: []
@@ -55,7 +55,7 @@ module Madmin
           config.update = value
         end
 
-        attributes[name] = OpenStruct.new(
+        attributes[name] = Attribute.new(
           name: name,
           type: type,
           field: field.new(attribute_name: name, model: model, resource: self, options: config)
