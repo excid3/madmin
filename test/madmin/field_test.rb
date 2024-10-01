@@ -10,4 +10,8 @@ class Madmin::FieldTest < ActiveSupport::TestCase
     assert UserResource.attributes[:first_name].field.searchable?
     refute UserResource.attributes[:created_at].field.searchable?
   end
+
+  test "visible?" do
+    assert UserResource.attributes[:name].field.visible?(:index)
+  end
 end

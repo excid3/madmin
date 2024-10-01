@@ -1,15 +1,80 @@
 /*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
+ * Provides a drop-in pointer for the default Trix stylesheet that will format the toolbar and
+ * the trix-editor content (whether displayed or under editing). Feel free to incorporate this
+ * inclusion directly in any other asset bundle and remove this file.
  *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- */
+ *= require trix
+*/
+
+@import url("../trix.css");
+@import url("./actiontext.css");
+
+.form-input {
+  width: 100%;
+}
+
+.pagy {
+  display: inline-flex;
+  isolation: isolate;
+  border-radius: 0.375rem;
+
+  a {
+    display: inline-flex;
+    position: relative;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    margin-left: -1px;
+    align-items: center;
+    box-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+    --tw-ring-inset: inset;
+    --tw-ring-color: #D1D5DB;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 600;
+    color: #111827;
+    background-color: #ffffff;
+  }
+
+  a:hover {
+    background-color: #F3F4F6;
+  }
+
+  a:not([href]) {
+    color: #D1D5DB;
+    cursor: default;
+  }
+
+  a.current {
+    --tw-ring-color: #3B82F6;
+    color: #ffffff;
+    background-color: #3B82F6;
+  }
+
+  a:first-child {
+    border-top-left-radius: 0.375rem;
+    border-bottom-left-radius: 0.375rem;
+  }
+  a:last-child {
+    border-top-right-radius: 0.375rem;
+    border-bottom-right-radius: 0.375rem;
+  }
+
+  label {
+    display: inline-block;
+    padding-top: 0.125rem;
+    padding-bottom: 0.125rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    border-radius: 0.5rem;
+    white-space: nowrap;
+    background-color: #E5E7EB;
+  }
+
+  label input {
+    border-radius: 0.375rem;
+    border-style: none;
+    background-color: #F3F4F6;
+  }
+}

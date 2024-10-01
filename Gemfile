@@ -18,7 +18,6 @@ gem "friendly_id", "~> 5.4"
 gem "name_of_person", "~> 1.1", ">= 1.1.1"
 gem "paper_trail", "~> 15.0"
 gem "puma"
-gem "sprockets-rails"
 gem "standardrb"
 gem "web-console", group: :development
 
@@ -26,3 +25,7 @@ gem "web-console", group: :development
 gem "pg"
 gem "mysql2"
 gem "sqlite3", "~> 1.4"
+
+gem "propshaft"
+gem "turbo-rails"
+gem "stimulus-rails"

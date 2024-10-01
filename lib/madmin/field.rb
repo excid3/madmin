@@ -36,7 +36,7 @@ module Madmin
         case action
         when :index
           default_index_attributes.include?(attribute_name)
-        when :new, :edit
+        when :new, :create, :edit, :update
           # Hidden attributes for forms
           [:id, :created_at, :updated_at].exclude?(attribute_name)
         else
