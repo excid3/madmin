@@ -1,0 +1,36 @@
+<div class="block md:inline-block md:w-32 flex-shrink-0 text-gray-700">
+  <%= render "madmin/shared/label", form: form, field: field %>
+</div>
+<%= content_tag :div, class: "border border-gray-200 rounded-lg p-5" do %>
+  <%= form.fields_for(
+    field.attribute_name,
+    form.object.public_send(field.attribute_name) || field.to_model.new,
+    {}
+  ) do |nested_form| %>
+    <% field.nested_attributes.each do |name, nested_attribute| %>
+      <% next if nested_attribute[:field].nil? %>
+      <% next unless nested_attribute[:field].visible?(action_name) %>
+      <% next unless nested_attribute[:field].visible?(:form) %>
+
+      <% nested_field = nested_attribute[:field] %>
+
+      <div class="mb-4 flex">
+        <%= render(
+          partial: nested_field.to_partial_path("form"),
+          locals: {
+            field: nested_field,
+            record: nested_form.object,
+            form: nested_form,
+            resource: field.resource
+          }
+        )%>
+      </div>
+    <% end %>
+    <div class="mb-4 flex">
+      <div class="block md:inline-block md:w-32 flex-shrink-0 text-red-500">
+        <%= nested_form.label :_destroy %>
+      </div>
+      <%= nested_form.check_box :_destroy, class: "form-checkbox text-red-600 checked:ring-red-600 focus:ring-red-600" %>
+    </div>
+  <% end %>
+<% end %>

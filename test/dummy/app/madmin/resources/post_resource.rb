@@ -17,6 +17,7 @@ class PostResource < Madmin::Resource
   attribute :versions, form: false
   attribute :user
   attribute :comments
+  attribute :post_stat, :nested_has_one, skip: %I[shared]
 
   # Scopes
   scope :recent
