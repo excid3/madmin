@@ -14,7 +14,6 @@ class PostResource < Madmin::Resource
   attribute :user_id
 
   # Associations
-  attribute :versions, form: false
   attribute :user
   attribute :comments
 
