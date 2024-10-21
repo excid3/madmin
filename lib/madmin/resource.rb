@@ -157,6 +157,7 @@ module Madmin
           json: Fields::Json,
           jsonb: Fields::Json,
           primary_key: Fields::String,
+          select: Fields::Select,
           string: Fields::String,
           text: Fields::Text,
           time: Fields::Time,

@@ -29,6 +29,7 @@ module Madmin
     autoload :Password, "madmin/fields/password"
     autoload :Polymorphic, "madmin/fields/polymorphic"
     autoload :RichText, "madmin/fields/rich_text"
+    autoload :Select, "madmin/fields/select"
     autoload :String, "madmin/fields/string"
     autoload :Text, "madmin/fields/text"
     autoload :Time, "madmin/fields/time"
