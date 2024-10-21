@@ -18,11 +18,11 @@
         </svg>
       </button>
 
-      <div class="absolute top-12 right-0 bg-white rounded-lg min-w-64 shadow-lg hidden md:flex flex-col flex-grow justify-between" data-dropdown-target="menu">
+      <div class="absolute top-12 right-0 z-10 bg-white rounded-lg min-w-64 shadow-lg hidden md:flex flex-col flex-grow justify-between" data-dropdown-target="menu">
         <%= render "menu_resources" %>
       </div>
     </div>
-    <div class="hidden md:block">
+    <div class="hidden md:block md:mt-4">
       <%= render "menu_resources" %>
     </div>
   </div>

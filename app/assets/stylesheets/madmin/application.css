@@ -3,15 +3,58 @@
  * the trix-editor content (whether displayed or under editing). Feel free to incorporate this
  * inclusion directly in any other asset bundle and remove this file.
  *
- *= require trix
 */
 
 @import url("../trix.css");
 @import url("./actiontext.css");
 
+#sidebar {
+  background-color: rgb(249 250 251);
+}
+
 .form-input {
   width: 100%;
 }
+
+.btn {
+  border-radius: 0.25rem;
+  border-width: 1px;
+  display: inline-block;
+  font-weight: 600;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.5rem;
+
+  &.btn-small {
+    padding-bottom: 0.25rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-top: 0.25rem;
+  }
+
+  &.btn-secondary {
+    background-color: white;
+    color: rgb(31 41 55);
+    border-color: rgb(156 163 175);
+
+    &:hover {
+      background-color: rgb(243 244 246);
+    }
+  }
+
+  &.btn-danger {
+    background-color: white;
+    color: rgb(239 68 68);
+    border-color: rgb(239 68 68);
+
+    &:hover {
+      background-color: rgb(243 244 246);
+    }
+  }
+}
+
+
 
 .pagy {
   display: inline-flex;

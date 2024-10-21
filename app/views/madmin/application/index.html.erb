@@ -12,7 +12,7 @@
       <% end %>
     </form>
 
-    <%= link_to resource.new_path, class: "bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" do %>
+    <%= link_to resource.new_path, class: "btn btn-secondary" do %>
       New <span class="hidden md:inline"><%= resource.friendly_name %></span>
     <% end %>
   </div>
@@ -51,8 +51,8 @@
           <% end %>
 
           <td class="px-4 py-2 text-right">
-            <%= link_to "View", resource.show_path(record), class: "inline-block bg-white hover:bg-gray-100 text-gray-800 font-semibold py-1 px-2 border border-gray-400 rounded shadow" %>
-            <%= link_to "Edit", resource.edit_path(record), class: "inline-block bg-white hover:bg-gray-100 text-gray-800 font-semibold py-1 px-2 border border-gray-400 rounded shadow" %>
+            <%= link_to "View", resource.show_path(record), class: "btn btn-secondary btn-small" %>
+            <%= link_to "Edit", resource.edit_path(record), class: "btn btn-secondary btn-small" %>
           </td>
         </tr>
       <% end %>
