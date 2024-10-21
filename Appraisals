@@ -21,5 +21,6 @@ appraise "rails-main" do
 end
 
 appraise "sprockets" do
+  gem "sqlite3", "~> 2.0"
   gem "sprockets-rails"
 end
