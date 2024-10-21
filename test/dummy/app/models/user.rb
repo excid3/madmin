@@ -19,4 +19,8 @@ class User < ApplicationRecord
   attribute :virtual_attribute, default: "virtual"
 
   accepts_nested_attributes_for :posts, allow_destroy: true
+
+  def something
+    "Something"
+  end
 end
