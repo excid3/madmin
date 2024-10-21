@@ -34,6 +34,8 @@ module Madmin
     autoload :Time, "madmin/fields/time"
   end
 
+  mattr_accessor :importmap, default: Importmap::Map.new
+
   class << self
     def resource_for(object)
       if object.is_a? ::ActiveStorage::Attached
