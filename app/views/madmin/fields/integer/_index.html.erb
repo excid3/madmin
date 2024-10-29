@@ -1,1 +1,1 @@
-<%= field.value(record) %>
+<%= link_to_if field.attribute_name.to_s == resource.model.primary_key, field.value(record), resource.show_path(record) %>
