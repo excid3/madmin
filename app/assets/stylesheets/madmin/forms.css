@@ -1,0 +1,79 @@
+.alert {
+  border-radius: 0.25rem;
+  font-weight: 500;
+  padding: 1rem;
+  margin-bottom: 1rem;
+
+  ul {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+    padding-left: 2rem;
+  }
+
+  &.alert-danger {
+    background-color: rgb(254 226 226);
+    color: rgb(153 27 27);
+  }
+}
+
+.form-hint {
+  &.error {
+    color: rgb(239 68 68);
+  }
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-input {
+  width: 100%;
+}
+
+.form-description {
+  color: var(--light-text-color);
+}
+
+label {
+  color: rgb(17 24 39);
+  line-height: 1.5rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+button, input, optgroup, select, textarea {
+  font-family: inherit;
+  font-feature-settings: inherit;
+  font-variation-settings: inherit;
+  font-size: 100%;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+[type='text'], input:where(:not([type])), [type='email'], [type='url'], [type='password'], [type='number'], [type='date'], [type='datetime-local'], [type='month'], [type='search'], [type='tel'], [type='time'], [type='week'], [multiple], textarea, select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #fff;
+
+  border-radius: 0.375rem;
+  box-shadow: inset 0 0 0 1px rgb(156 163 175);
+  line-height: 1.5rem;
+  padding-bottom: 0.375rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 0.375rem;
+
+  &:focus {
+    box-shadow: inset 0 0 0 1px rgb(var(--primary-color));
+  }
+}
+
+.required {
+  color: rgb(239 68 68);
+  font-weight: 600;
+}

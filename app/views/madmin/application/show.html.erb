@@ -1,32 +1,38 @@
-<div class="md:flex items-center justify-between mb-4">
-  <h1 class="text-xl">
-    <%= link_to resource.friendly_name.pluralize, resource.index_path, class: "text-blue-500" %>
+<%= content_for :title, resource.display_name(@record) %>
+
+<header class="header">
+  <h1>
+    <%= link_to resource.friendly_name.pluralize, resource.index_path %>
     /
-    <%= link_to resource.display_name(@record), resource.show_path(@record), class: "text-blue-500 font-bold" %>
+    <%= resource.display_name(@record) %>
   </h1>
 
-  <div class="flex gap-2 items-center px-4">
+  <div class="actions">
     <% resource.member_actions.each do |action| %>
       <%= instance_eval(&action)  %>
     <% end %>
     <%= link_to "Edit", resource.edit_path(@record), class: "btn btn-secondary" %>
     <%= button_to "Delete", resource.show_path(@record), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-danger" %>
   </div>
-</div>
+</header>
 
-<div class="divide-y">
-  <% resource.attributes.values.each do |attribute| %>
-    <% next if attribute.field.nil? %>
-    <% next unless attribute.field.visible?(action_name) %>
+<div class="table-scroll">
+  <table>
+    <tbody>
+    <% resource.attributes.values.each do |attribute| %>
+      <% next if attribute.field.nil? %>
+      <% next unless attribute.field.visible?(action_name) %>
 
-    <div class="px-4 py-3 md:grid md:grid-cols-4 md:gap-4 md:px-6">
-      <div class="text-sm font-medium text-gray-500">
-        <%= attribute.field.options.label || attribute.name.to_s.titleize %>
-      </div>
+      <tr>
+        <th class="label">
+          <%= attribute.field.options.label || attribute.name.to_s.titleize %>
+        </th>
 
-      <div class="md:col-span-3">
-        <%= render partial: attribute.field.to_partial_path("show"), locals: { field: attribute.field, record: @record, resource: resource } %>
-      </div>
-    </div>
-  <% end %>
+        <td>
+          <%= render partial: attribute.field.to_partial_path("show"), locals: { field: attribute.field, record: @record, resource: resource } %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
 </div>

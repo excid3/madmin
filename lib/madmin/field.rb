@@ -46,7 +46,7 @@ module Madmin
     end
 
     def default_index_attributes
-      [model.primary_key.to_sym, :avatar, :title, :name, :user]
+      [model.primary_key.to_sym, :avatar, :title, :name, :user, :created_at]
     end
 
     def required?

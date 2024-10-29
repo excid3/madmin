@@ -5,22 +5,20 @@
     <meta name="ROBOTS" content="NOODP">
     <meta name="viewport" content="initial-scale=1">
     <title>
-      Madmin: <%= Rails.application.class %>
+      <% if content_for? :title %>
+        <%= yield(:title) %> -
+      <% end %>
+      <%= Madmin.site_name %> Admin
     </title>
-
     <%= csrf_meta_tags %>
-
     <%= render "javascript" %>
   </head>
-  <body class="min-h-screen">
-    <div class="md:flex w-full min-h-screen">
-      <div id="sidebar" class="md:w-64 p-4 flex-shrink-0 shadow">
-        <%= render "navigation" -%>
-      </div>
-      <main class="flex-grow p-4 overflow-x-scroll" role="main">
-        <%#= render "flashes" -%>
-        <%= yield %>
-      </main>
-    </div>
+  <body>
+    <aside id="sidebar">
+      <%= render "navigation" %>
+    </aside>
+    <main>
+      <%= yield %>
+    </main>
   </body>
 </html>

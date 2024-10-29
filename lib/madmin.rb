@@ -35,6 +35,7 @@ module Madmin
     autoload :Time, "madmin/fields/time"
   end
 
+  mattr_accessor :site_name
   mattr_accessor :importmap, default: Importmap::Map.new
 
   class << self
@@ -60,7 +61,7 @@ module Madmin
     end
 
     def resources
-      @resources ||= resource_names.map(&:constantize)
+      @resources ||= resource_names.map(&:constantize).sort_by(&:nav_position)
     end
 
     def reset_resources!

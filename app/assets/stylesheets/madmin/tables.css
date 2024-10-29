@@ -1,0 +1,56 @@
+.table-scroll {
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  overflow-x: auto;
+  position: relative;
+}
+
+table {
+  border-collapse: collapse;
+  min-width: 100%;
+
+  th {
+    background-color: var(--background-color);
+    border-bottom: 1px solid var(--border-color);
+    text-align: left;
+    padding-bottom: 0.75rem;
+    padding-top: 0.75rem;
+    padding-right: 0.875rem;
+    padding-left: 0.875rem;
+
+    a {
+      color: rgb(17 24 39);
+      text-decoration: none;
+    }
+
+    svg {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    &.label {
+      background-color: var(--background-color);
+      border-right: 1px solid var(--border-color);
+      width: 16rem;
+    }
+  }
+
+  td {
+    padding-bottom: 0.75rem;
+    padding-top: 0.75rem;
+    padding-right: 0.875rem;
+    padding-left: 0.875rem;
+
+    a {
+      font-weight: 500;
+    }
+  }
+
+  tr {
+    border-bottom: 1px solid var(--border-color);
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}

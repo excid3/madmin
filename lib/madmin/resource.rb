@@ -5,6 +5,8 @@ module Madmin
     class_attribute :attributes, default: ActiveSupport::OrderedHash.new
     class_attribute :member_actions, default: []
     class_attribute :scopes, default: []
+    class_attribute :nav_position, default: 999
+    class_attribute :show_in_nav, default: true
 
     class << self
       def inherited(base)

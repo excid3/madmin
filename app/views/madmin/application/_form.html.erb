@@ -1,25 +1,24 @@
 <%= form_with model: [:madmin, record], url: (record.persisted? ? resource.show_path(record) : resource.index_path), local: true do |form| %>
   <% if form.object.errors.any? %>
-    <div class="mb-4 rounded-md text-sm text-red-700 bg-red-100 p-4">
-      <div class="mb-2 font-medium leading-5 text-red-800">There was <%= pluralize form.object.errors.full_messages.count, "error" %> with your submission</div>
+    <div class="alert alert-danger">
+      <div class="">There was <%= pluralize form.object.errors.full_messages.count, "error" %> with your submission:</div>
 
-      <% form.object.errors.full_messages.each do |message| %>
-        <div class="ml-4"><%= message %></div>
-      <% end %>
+      <ul>
+        <% form.object.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
     </div>
   <% end %>
 
   <% resource.attributes.values.select{ _1.field.present? && _1.field.visible?(action_name) }.each do |attribute| %>
-    <div class="mb-4 md:flex">
-      <div class="block md:inline-block md:w-32 flex-shrink-0 text-gray-700">
-        <%= render "madmin/shared/label", form: form, field: attribute.field %>
-      </div>
-      <div class="flex-1">
-        <%= render partial: attribute.field.to_partial_path("form"), locals: { field: attribute.field, record: record, form: form, resource: resource } %>
-        <%= tag.div attribute.field.options.description, class: "text-sm text-gray-700" %>
-      </div>
+    <div class="form-group">
+      <%= render "madmin/shared/label", form: form, field: attribute.field %>
+      <%= render partial: attribute.field.to_partial_path("form"), locals: { field: attribute.field, record: record, form: form, resource: resource } %>
+      <%= tag.div attribute.field.options.description, class: "form-description" %>
     </div>
   <% end %>
 
-  <%= form.submit class: "btn btn-secondary" %>
+  <%= form.submit class: "btn btn-primary" %>
+  <%= link_to "Cancel", (record.persisted? ? resource.show_path(record) : resource.index_path), class: "btn" %>
 <% end %>
