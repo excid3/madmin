@@ -1,5 +1,11 @@
 ### Unreleased
 
+### 2.0.0
+
+- Remove Tailwind CDN
+- Add styles through asset pipeline
+- Refactor JavaScript into an Import map (separate from the Rails app)
+
 ### 1.2.10
 
 - Fix compatibility with Pagy 8.x
