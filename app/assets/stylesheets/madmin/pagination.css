@@ -20,23 +20,23 @@
     --tw-ring-color: #D1D5DB;
     font-size: 0.875rem;
     line-height: 1.25rem;
-    color: #111827;
-    background-color: #ffffff;
+    color: var(--text-color);
+    background-color: var(--background-color);
     border-radius: 0.25rem;
     text-decoration: none;
   }
 
   a:hover {
-    background-color: #F3F4F6;
+    background-color: color-mix(in srgb, var(--background-color) 95%, var(--mix-color));
   }
 
   a:not([href]) {
-    color: #D1D5DB;
+    color: var(--light-text-color);
     cursor: default;
   }
 
   a.current {
-    color: #ffffff;
+    color: var(--background-color);
     background-color: var(--primary-color);
   }
 
@@ -48,12 +48,12 @@
     padding-right: 0.75rem;
     border-radius: 0.5rem;
     white-space: nowrap;
-    background-color: #E5E7EB;
+    background-color: color-mix(in srgb, var(--background-color) 90%, var(--mix-color));
   }
 
   label input {
     border-radius: 0.375rem;
     border-style: none;
-    background-color: #F3F4F6;
+    background-color: color-mix(in srgb, var(--background-color) 95%, var(--mix-color));
   }
 }

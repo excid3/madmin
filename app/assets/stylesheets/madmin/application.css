@@ -8,13 +8,42 @@
 @import url("./pagination.css");
 
 :root {
+  /* common variables */
+  --sidebar-width: 16rem;
+}
+
+:root, [data-theme="light"] {
   --primary-color: rgb(37 99 235);
+  --secondary-color: rgb(249 250 251);
   --border-color: rgb(229 231 235);
   --background-color: rgb(249 250 251);
   --text-color: rgb(2 6 23);
   --light-text-color: rgb(71 85 105);
+    --mix-color: black;
+}
 
-  --sidebar-width: 16rem;
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --primary-color: rgb(129, 140, 248);
+    --secondary-color: rgb(255, 80, 217);
+    --border-color: rgb(91, 102, 121);
+    --background-color: rgb(15, 23, 42);
+    --text-color: rgb(247, 250, 252);
+    --light-text-color: rgb(140, 150, 168);
+    --mix-color: white;
+    color-scheme: dark;
+  }
+}
+
+[data-theme="dark"] {
+  --primary-color: rgb(129, 140, 248);
+  --secondary-color: rgb(255, 80, 217);
+  --border-color: rgb(91, 102, 121);
+  --background-color: rgb(15, 23, 42);
+  --text-color: rgb(247, 250, 252);
+  --light-text-color: rgb(140, 150, 168);
+  --mix-color: white;
+  color-scheme: dark;
 }
 
 body {
@@ -85,4 +114,12 @@ a {
 
 .scopes {
   margin-bottom: 1rem;
+}
+
+.theme-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  fill: none;
 }

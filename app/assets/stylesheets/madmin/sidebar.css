@@ -45,11 +45,11 @@ main {
       margin-bottom: 0.1rem;
 
       &:hover {
-        background-color: rgb(243 244 246);
+        background-color: color-mix(in srgb, var(--primary-color) 50%, transparent);
       }
 
       &.active {
-        background-color: rgb(243 244 246);
+        background-color: var(--primary-color);
         font-weight: 600;
       }
     }
@@ -70,6 +70,10 @@ main {
 
       svg {
         display: inline-block;
+      }
+
+      &.hidden {
+        display: none;
       }
     }
 
