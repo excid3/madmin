@@ -3,6 +3,8 @@ class Post < ApplicationRecord
   friendly_id :title
 
   belongs_to :user
+  has_one :post_stat
+  accepts_nested_attributes_for :post_stat, allow_destroy: true
   has_many :comments, as: :commentable, dependent: :destroy
   has_many_attached :attachments
   has_one_attached :image

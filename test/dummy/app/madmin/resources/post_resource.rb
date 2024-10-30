@@ -16,6 +16,7 @@ class PostResource < Madmin::Resource
   # Associations
   attribute :user
   attribute :comments
+  attribute :post_stat, :nested_has_one, skip: %I[shared]
 
   # Scopes
   scope :recent

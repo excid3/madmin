@@ -27,6 +27,7 @@ module Madmin
     autoload :Integer, "madmin/fields/integer"
     autoload :Json, "madmin/fields/json"
     autoload :NestedHasMany, "madmin/fields/nested_has_many"
+    autoload :NestedHasOne, "madmin/fields/nested_has_one"
     autoload :Password, "madmin/fields/password"
     autoload :Polymorphic, "madmin/fields/polymorphic"
     autoload :RichText, "madmin/fields/rich_text"
