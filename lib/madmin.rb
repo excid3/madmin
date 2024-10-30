@@ -5,6 +5,7 @@ require "pagy"
 module Madmin
   autoload :Field, "madmin/field"
   autoload :GeneratorHelpers, "madmin/generator_helpers"
+  autoload :Menu, "madmin/menu"
   autoload :Resource, "madmin/resource"
   autoload :ResourceBuilder, "madmin/resource_builder"
   autoload :Search, "madmin/search"
@@ -35,8 +36,9 @@ module Madmin
     autoload :Time, "madmin/fields/time"
   end
 
-  mattr_accessor :site_name
   mattr_accessor :importmap, default: Importmap::Map.new
+  mattr_accessor :menu, default: Menu.new
+  mattr_accessor :site_name
 
   class << self
     def resource_for(object)
@@ -61,11 +63,12 @@ module Madmin
     end
 
     def resources
-      @resources ||= resource_names.map(&:constantize).sort_by(&:nav_position)
+      @resources ||= resource_names.map(&:constantize)
     end
 
     def reset_resources!
       @resources = nil
+      menu.reset
     end
 
     def resource_names

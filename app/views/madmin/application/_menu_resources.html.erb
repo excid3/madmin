@@ -1,5 +1,0 @@
-<%= nav_link_to "Dashboard", main_app.madmin_root_path %>
-
-<% Madmin.resources.select(&:show_in_nav).each do |resource| %>
-  <%= nav_link_to resource.friendly_name.pluralize, resource.index_path, starts_with: resource.index_path %>
-<% end %>

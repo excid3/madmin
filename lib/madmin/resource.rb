@@ -5,8 +5,7 @@ module Madmin
     class_attribute :attributes, default: ActiveSupport::OrderedHash.new
     class_attribute :member_actions, default: []
     class_attribute :scopes, default: []
-    class_attribute :nav_position, default: 999
-    class_attribute :show_in_nav, default: true
+    class_attribute :menu_options, instance_reader: false
 
     class << self
       def inherited(base)
@@ -256,6 +255,16 @@ module Madmin
       def model_store_accessors
         store_accessors = model.stored_attributes.values
         store_accessors.flatten
+      end
+
+      def menu(options)
+        @menu_options = options
+      end
+
+      def menu_options
+        return false if @menu_options == false
+        @menu_options ||= {}
+        @menu_options.with_defaults(label: friendly_name.pluralize, url: index_path)
       end
     end
   end

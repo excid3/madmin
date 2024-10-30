@@ -1,8 +1,19 @@
-<h1><%= Madmin.site_name %></h1>
+<h1><%= link_to_if respond_to?(:root_url), Madmin.site_name, root_url, data: {turbo: false}  %></h1>
 
 <nav>
-  <%= link_to "← Back to App", main_app.root_url, data: { turbo: false } if main_app.respond_to?(:root_url) %>
-  <%= render "menu_resources" %>
+  <%= nav_link_to "Dashboard", madmin_root_path %>
+
+  <% Madmin.menu.render do |item| %>
+    <% if item.url %>
+      <%= nav_link_to item.label, item.url, starts_with: item.url %>
+    <% else %>
+      <h4><%= item.label %></h4>
+    <% end %>
+
+    <% item.items.each do |item| %>
+      <%= nav_link_to item.label, item.url, starts_with: item.url %>
+    <% end %>
+  <% end %>
 </nav>
 
 <footer>

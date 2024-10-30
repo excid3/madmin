@@ -5,6 +5,32 @@
 - Remove Tailwind CDN
 - Add styles through asset pipeline
 - Refactor JavaScript into an Import map (separate from the Rails app)
+- Include Rails route helpers in Madmin controllers and views for better integration with the main app
+- Add `menu` to resources to allow customizing navigation sort order and add headers for grouping
+
+```ruby
+# config/initializers/madmin.rb
+
+# Add a Payments header at the first position in the menu
+Madmin.menu.add label: "Payments", position: 0
+```
+
+```ruby
+class SubscriptionResource < Madmin::Resource
+  # Add Subscriptions under the Payments header
+  menu parent: "Payments"
+end
+```
+
+- `member_action` now yields the record to the block
+
+```ruby
+class UserResource < Madmin::Resource
+  member_action do |user|
+    button_to "Impersonate", impersonate_user_path(user)
+  end
+end
+```
 
 ### 1.2.10
 
