@@ -79,4 +79,16 @@
     width: 1.25rem;
     height: 1.25rem;
   }
+
+  .hidden {
+    display: none;
+  }
+
+  & .flatpickr-calendar {
+    /* this is ugly, kinda works for now */
+    transform: translate(-420px, -50px) !important;
+    @media (min-width: 768px) {
+      transform: translate(-978px, -59px) !important;
+    }
+  }
 }

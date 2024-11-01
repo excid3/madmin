@@ -38,9 +38,10 @@
 <template id="condition-template" data-filter-target="conditionTemplate">
   <div id="condition-GROUP_ID-CONDITION_ID" class="filter-condition">
     <select name="filters[groups][GROUP_ID][conditions][CONDITION_ID][column]"
-            class="select-column">
-      <% resource.sortable_columns.each do |column| %>
-        <option value="<%= column %>"><%= column.titleize %></option>
+            class="select-column"
+            data-action="filter#handleColumnChange">
+      <% resource.sortable_columns.map do |column| %>
+        <option value="<%= column %>" data-filter-type="<%= resource.infer_type(column) %>"><%= column.titleize %></option>
       <% end %>
     </select>
 
@@ -70,11 +71,36 @@
       </optgroup>
     </select>
 
-    <input type="text"
-           name="filters[groups][GROUP_ID][conditions][CONDITION_ID][value]"
-           class="condition-value"
-           placeholder="Enter value..."
-           data-filter-target="value">
+    <div class="value-container">
+      <%# Text input (default) %>
+      <input type="text"
+            name="filters[groups][GROUP_ID][conditions][CONDITION_ID][value]"
+            class="select-value input-type-text"
+            placeholder="Enter value...">
+
+      <%# DateTime input %>
+      <input type="text"
+            name="filters[groups][GROUP_ID][conditions][CONDITION_ID][value]"
+            class="select-value input-type-datetime hidden"
+            data-controller="flatpickr"
+            data-flatpickr-enable-time="true"
+            data-flatpickr-append-to=".dropdown-content"
+            disabled>
+
+      <%# Date input %>
+      <input type="text"
+            name="filters[groups][GROUP_ID][conditions][CONDITION_ID][value]"
+            class="select-value input-type-date hidden"
+            data-controller="flatpickr"
+            data-flatpickr-append-to=".dropdown-content"
+            disabled>
+
+      <%# Boolean input %>
+      <input type="checkbox"
+             name="filters[groups][GROUP_ID][conditions][CONDITION_ID][value]"
+             class="select-value input-type-boolean hidden"
+             disabled>
+    </div>
 
     <button type="button"
             class="btn btn-ghost remove-condition"

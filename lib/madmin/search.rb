@@ -23,7 +23,7 @@ module Madmin
       "is_null" => "IS NULL",
       "is_not_null" => "IS NOT NULL",
       "in" => "IN",
-      "not_in" => "NOT IN",
+      "not_in" => "NOT IN"
     }.freeze
 
     attr_reader :query, :filters
@@ -93,12 +93,12 @@ module Madmin
 
         next if group_conditions.empty?
 
-        if match_type == "all"
+        group_scope = if match_type == "all"
           # AND all conditions together
-          group_scope = group_conditions.reduce { |result, condition| result.merge(condition) }
+          group_conditions.reduce { |result, condition| result.merge(condition) }
         else
           # OR all conditions together
-          group_scope = group_conditions.reduce { |result, condition| result.or(condition) }
+          group_conditions.reduce { |result, condition| result.or(condition) }
         end
 
         scope = scope.merge(group_scope)

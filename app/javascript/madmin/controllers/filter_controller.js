@@ -20,14 +20,21 @@ export default class extends Controller {
     // Reconstruct filters from params
     const filters = JSON.parse(this.initialFiltersValue)
     if (!filters.groups) return
+
     Object.entries(filters.groups).forEach(([groupId, group]) => {
       let groupElement = this.addConditionGroup(groupId)
       groupElement.querySelector('.select-match-type').value = group.match_type
+
       Object.entries(group.conditions).forEach(([conditionId, condition]) => {
         let el = this.addCondition({ params: { groupId } })
-        el.querySelector('.select-column').value = condition.column
+        const columnSelect = el.querySelector('.select-column')
+        columnSelect.value = condition.column
+
+        // Trigger the column change to show the correct input
+        this.handleColumnChange({ target: columnSelect })
+
         el.querySelector('.select-operator').value = condition.operator
-        el.querySelector('input[type="text"]').value = condition.value
+        el.querySelector('.select-value:not(.hidden)').value = condition.value
       })
     })
   }
@@ -67,6 +74,27 @@ export default class extends Controller {
     const group = document.getElementById(`group-${groupId}`)
     group?.remove()
     this.filterButtonTarget.focus()
+  }
+
+  handleColumnChange(event) {
+    const column = event.target
+    const conditionElement = column.closest('.filter-condition')
+    const filterType = column.selectedOptions[0].dataset.filterType
+    const inputTypeClass = `input-type-${filterType || 'text'}`
+    const input = conditionElement.querySelector(`.${inputTypeClass}`) || conditionElement.querySelector('.input-type-text')
+
+    conditionElement.querySelectorAll('.select-value').forEach(input => {
+      input.classList.add('hidden')
+      input.disabled = true
+      input.value = ''
+      if (input.type === 'checkbox') {
+        input.checked = false
+      }
+    })
+
+    // Enable the correct input
+    input.classList.remove('hidden')
+    input.disabled = false
   }
 
   // Private Methods

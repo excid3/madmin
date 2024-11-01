@@ -8,8 +8,10 @@ window.Stimulus   = application
 
 export { application }
 
-import { Dropdown } from "tailwindcss-stimulus-components"
-application.register("dropdown", Dropdown)
+// *** I dont think we need these anymore ************
 
-import StimulusFlatpickr from "stimulus-flatpickr"
-application.register("flatpickr", StimulusFlatpickr)
+// import { Dropdown } from "tailwindcss-stimulus-components"
+// application.register("dropdown", Dropdown)
+
+// import StimulusFlatpickr from "flatpickr_controller"
+// application.register("flatpickr", StimulusFlatpickr)

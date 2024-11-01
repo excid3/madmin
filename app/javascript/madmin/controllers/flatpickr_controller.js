@@ -1,18 +1,15 @@
-import { Controller } from "@hotwired/stimulus"
-import flatpickr from "flatpickr"
+import Flatpickr from 'stimulus-flatpickr'
 
-export default class extends Controller {
-  static values = {
-    enableTime: false
-  }
+export default class extends Flatpickr  {
 
   connect() {
-    this.flatpickr = flatpickr(this.element, {
-      enableTime: this.enableTimeValue
-    })
-  }
+    const appendTo = this.element.dataset.flatpickrAppendTo
+      ? document.querySelector(this.element.dataset.flatpickrAppendTo)
+      : null
 
-  disconnect() {
-    this.flatpickr.destroy()
+    this.config = {
+      appendTo
+    }
+    super.connect()
   }
 }
