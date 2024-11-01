@@ -86,9 +86,10 @@ module Madmin
           column = condition["column"]
           operator = condition["operator"]
           value = condition["value"]
+          type = condition["type"]
           next unless column.in?(filterable_columns) && FILTER_OPERATORS.key?(operator)
 
-          apply_single_filter(scope, column, operator, value)
+          apply_single_filter(scope, column, operator, value, type)
         end.compact
 
         next if group_conditions.empty?
@@ -107,9 +108,14 @@ module Madmin
       scope
     end
 
-    def apply_single_filter(scope, column, operator, value)
+    def apply_single_filter(scope, column, operator, value, type)
       sql_operator = FILTER_OPERATORS[operator]
       table_name = query_table_name
+
+      # Cast types if necessary
+      if type == "boolean"
+        value = value == "true"
+      end
 
       case operator
       when "like", "not_like"

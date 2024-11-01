@@ -84,17 +84,34 @@ export default class extends Controller {
     const input = conditionElement.querySelector(`.${inputTypeClass}`) || conditionElement.querySelector('.input-type-text')
 
     conditionElement.querySelectorAll('.select-value').forEach(input => {
+      // Skip datetime inputs on mobile devices
+      if (input.type === 'datetime-local') {
+        input.value = ''
+        return
+      }
+
       input.classList.add('hidden')
       input.disabled = true
       input.value = ''
-      if (input.type === 'checkbox') {
-        input.checked = false
+      if (filterType === 'boolean') {
+        input.value = 'true'
       }
     })
+
+    // Update hidden input to store the type
+    const typeInput = conditionElement.querySelector('.select-type')
+    typeInput.value = filterType
 
     // Enable the correct input
     input.classList.remove('hidden')
     input.disabled = false
+
+    // Handle Flatpickr inputs differently on mobile
+    if (input.type === 'hidden' && input.nextElementSibling?.type === 'datetime-local') {
+      input.nextElementSibling.classList.remove('hidden')
+      input.nextElementSibling.disabled = false
+      return
+    }
   }
 
   // Private Methods

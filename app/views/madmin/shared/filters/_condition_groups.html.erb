@@ -44,6 +44,7 @@
         <option value="<%= column %>" data-filter-type="<%= resource.infer_type(column) %>"><%= column.titleize %></option>
       <% end %>
     </select>
+    <input class="select-type" type="hidden" name="filters[groups][GROUP_ID][conditions][CONDITION_ID][type]">
 
     <select name="filters[groups][GROUP_ID][conditions][CONDITION_ID][operator]"
             class="select-operator">
@@ -82,6 +83,7 @@
       <input type="text"
             name="filters[groups][GROUP_ID][conditions][CONDITION_ID][value]"
             class="select-value input-type-datetime hidden"
+            placeholder="Select date..."
             data-controller="flatpickr"
             data-flatpickr-enable-time="true"
             data-flatpickr-append-to=".dropdown-content"
@@ -91,15 +93,18 @@
       <input type="text"
             name="filters[groups][GROUP_ID][conditions][CONDITION_ID][value]"
             class="select-value input-type-date hidden"
+            placeholder="Select date..."
             data-controller="flatpickr"
             data-flatpickr-append-to=".dropdown-content"
             disabled>
 
       <%# Boolean input %>
-      <input type="checkbox"
-             name="filters[groups][GROUP_ID][conditions][CONDITION_ID][value]"
-             class="select-value input-type-boolean hidden"
-             disabled>
+      <select name="filters[groups][GROUP_ID][conditions][CONDITION_ID][value]"
+              class="select-value input-type-boolean hidden"
+              disabled>
+        <option value="true">True</option>
+        <option value="false">False</option>
+      </select>
     </div>
 
     <button type="button"

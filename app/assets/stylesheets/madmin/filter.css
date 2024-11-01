@@ -91,4 +91,8 @@
       transform: translate(-978px, -59px) !important;
     }
   }
+
+  .select-value {
+    width: 180px;
+  }
 }
