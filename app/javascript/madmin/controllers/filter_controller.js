@@ -93,9 +93,6 @@ export default class extends Controller {
       input.classList.add('hidden')
       input.disabled = true
       input.value = ''
-      if (filterType === 'boolean') {
-        input.value = 'true'
-      }
     })
 
     // Update hidden input to store the type
@@ -105,6 +102,11 @@ export default class extends Controller {
     // Enable the correct input
     input.classList.remove('hidden')
     input.disabled = false
+
+    // Set default value for boolean type
+    if (filterType === 'boolean') {
+      input.value = 'true'
+    }
 
     // Handle Flatpickr inputs differently on mobile
     if (input.type === 'hidden' && input.nextElementSibling?.type === 'datetime-local') {
