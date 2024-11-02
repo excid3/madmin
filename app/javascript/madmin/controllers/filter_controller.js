@@ -3,8 +3,6 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = ["conditionGroups", "filterButton"]
   static values = {
-    groupTemplate: String,
-    conditionTemplate: String,
     initialFilters: String
   }
 
@@ -25,6 +23,7 @@ export default class extends Controller {
       let groupElement = this.addConditionGroup(groupId)
       groupElement.querySelector('.select-match-type').value = group.match_type
 
+      if (!group.conditions) return
       Object.entries(group.conditions).forEach(([conditionId, condition]) => {
         let el = this.addCondition({ params: { groupId } })
         const columnSelect = el.querySelector('.select-column')

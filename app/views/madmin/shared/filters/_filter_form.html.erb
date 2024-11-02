@@ -1,6 +1,11 @@
 <form id="filter-form">
   <div class="dropdown" data-controller="filter" data-filter-initial-filters-value="<%= @filters_params.to_json %>">
-    <label role="button" tabindex="0" class="btn btn-ghost" data-filter-target="filterButton">Filters</label>
+    <% has_active_filters = @filters_params&.dig("groups")&.any? %>
+
+    <label role="button" tabindex="0" class="btn <%= has_active_filters ? 'btn-primary' : 'btn-ghost' %>" data-filter-target="filterButton">
+      Filters
+      <span data-filter-target="activeIndicator" class="<%= has_active_filters ? '' : 'hidden' %>">Active</span>
+    </label>
     <div tabindex="0" class="dropdown-content">
         <div id="filter-groups" data-filter-target="conditionGroups">
           <%# Groups will be dynamically inserted here %>
