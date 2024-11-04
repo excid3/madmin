@@ -19,8 +19,6 @@ class UserResource < Madmin::Resource
   attribute :avatar, index: false
   attribute :something, :string, index: false, form: false
 
-  attribute :missing
-
   # Associations
   attribute :posts, :nested_has_many, skip: %I[attachments]
   attribute :comments
