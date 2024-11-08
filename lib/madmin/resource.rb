@@ -44,6 +44,16 @@ module Madmin
         type ||= infer_type(name)
         field = options.delete(:field) || field_for_type(type)
 
+        if field.nil?
+          Rails.logger.warn <<~MESSAGE
+            WARNING: Madmin could not infer a field type for `#{name}` attribute. Defaulting to a String type.
+            You can set the type by specifying the type on the attribute:
+
+                attribute :#{name}, :boolean
+          MESSAGE
+          field = Fields::String
+        end
+
         config = ActiveSupport::OrderedOptions.new.merge(options)
         yield config if block_given?
 
@@ -61,23 +71,6 @@ module Madmin
           type: type,
           field: field.new(attribute_name: name, model: model, resource: self, options: config)
         )
-      rescue KeyError
-        raise ArgumentError, <<~MESSAGE
-          Madmin couldn't find a field type called `:#{type}`
-        MESSAGE
-      rescue => e
-        builder = ResourceBuilder.new(model)
-        raise ArgumentError, <<~MESSAGE
-          Madmin couldn't find attribute or association '#{name}' on #{model} model.
-
-          We searched these attributes and associations:
-          #{(builder.attributes + builder.associations).join(", ")}
-
-          This attribute is defined in a Madmin resource at:
-          #{e.backtrace.find { |l| l =~ /_resource.rb/ }}
-
-          Either add the missing attribute or assocation, or remove this line from your Madmin resource.
-        MESSAGE
       end
 
       def friendly_name
@@ -204,7 +197,7 @@ module Madmin
           has_one: Fields::HasOne,
           rich_text: Fields::RichText,
           nested_has_many: Fields::NestedHasMany
-        }.fetch(type)
+        }[type]
       end
 
       def infer_type(name)

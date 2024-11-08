@@ -1,5 +1,7 @@
 ### Unreleased
 
+- Replace flatpickr with date and datetime fields for better accessibility
+
 ### 2.0.0
 
 - Remove Tailwind CDN

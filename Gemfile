@@ -23,7 +23,7 @@ gem "web-console", group: :development
 # Databases to test against
 gem "pg"
 gem "mysql2"
-gem "sqlite3", "~> 1.4"
+gem "sqlite3"
 
 gem "propshaft"
 gem "turbo-rails"
