@@ -80,22 +80,17 @@
             placeholder="Enter value...">
 
       <%# DateTime input %>
-      <input type="text"
+      <input type="datetime-local"
             name="filters[groups][GROUP_ID][conditions][CONDITION_ID][value]"
             class="select-value input-type-datetime hidden"
             placeholder="Select date..."
-            data-controller="flatpickr"
-            data-flatpickr-enable-time="true"
-            data-flatpickr-append-to=".dropdown-content"
             disabled>
 
       <%# Date input %>
-      <input type="text"
+      <input type="date"
             name="filters[groups][GROUP_ID][conditions][CONDITION_ID][value]"
             class="select-value input-type-date hidden"
             placeholder="Select date..."
-            data-controller="flatpickr"
-            data-flatpickr-append-to=".dropdown-content"
             disabled>
 
       <%# Boolean input %>
