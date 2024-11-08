@@ -14,6 +14,11 @@ export default class extends Controller {
     }
   }
 
+  disconnect() {
+    // clear filters to prevent caching
+    this.conditionGroupsTarget.innerHTML = ''
+  }
+
   constructForm() {
     // Reconstruct filters from params
     const filters = JSON.parse(this.initialFiltersValue)
