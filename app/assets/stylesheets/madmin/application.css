@@ -6,6 +6,8 @@
 @import url("./forms.css");
 @import url("./tables.css");
 @import url("./pagination.css");
+@import url("./dropdown.css");
+@import url("./filter.css");
 
 :root {
   --primary-color: rgb(37 99 235);

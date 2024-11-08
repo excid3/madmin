@@ -70,7 +70,7 @@ module Madmin
 
     def scoped_resources
       resources = resource.model.send(valid_scope)
-      resources = Madmin::Search.new(resources, resource, search_term).run
+      resources = Madmin::Search.new(resources, resource, search_term, filters_params).run
       resources.reorder(sort_column => sort_direction)
     end
 
@@ -97,6 +97,10 @@ module Madmin
 
     def search_term
       @search_term ||= params[:q].to_s.strip
+    end
+
+    def filters_params
+      @filters_params ||= params.fetch(:filters, {}).permit!.to_h
     end
   end
 end
