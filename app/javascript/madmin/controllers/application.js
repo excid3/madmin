@@ -10,6 +10,3 @@ export { application }
 
 import { Dropdown } from "tailwindcss-stimulus-components"
 application.register("dropdown", Dropdown)
-
-import StimulusFlatpickr from "stimulus-flatpickr"
-application.register("flatpickr", StimulusFlatpickr)
