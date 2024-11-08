@@ -12,6 +12,9 @@
     </title>
     <%= csrf_meta_tags %>
     <%= render "javascript" %>
+
+    <%= turbo_refresh_method_tag :morph %>
+    <%= turbo_refresh_scroll_tag :preserve %>
   </head>
   <body>
     <aside id="sidebar">
