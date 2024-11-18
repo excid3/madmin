@@ -59,12 +59,13 @@ module Madmin
 
         # Form is an alias for new & edit
         if config.has_key?(:form)
-          value = config.delete(:form)
-          config.new = value
-          config.create = value
-          config.edit = value
-          config.update = value
+          config.new = config[:form]
+          config.edit = config[:form]
         end
+
+        # New/create and edit/update need to match
+        config.create = config[:create] if config.has_key?(:new)
+        config.update = config[:update] if config.has_key?(:edit)
 
         attributes[name] = Attribute.new(
           name: name,
