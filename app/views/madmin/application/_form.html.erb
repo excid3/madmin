@@ -15,7 +15,7 @@
     <div class="form-group">
       <%= render "madmin/shared/label", form: form, field: attribute.field %>
       <%= render partial: attribute.field.to_partial_path("form"), locals: { field: attribute.field, record: record, form: form, resource: resource } %>
-      <%= tag.div attribute.field.options.description, class: "form-description" %>
+      <%= tag.div attribute.field.options.description, class: "form-description" if attribute.field.options.description.present? %>
     </div>
   <% end %>
 
