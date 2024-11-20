@@ -8,4 +8,4 @@ pin_all_from Madmin::Engine.root.join("app/javascript/madmin/controllers"), unde
                                                                             to: "madmin/controllers"
 
 pin "tom-select", to: "https://ga.jspm.io/npm:tom-select@2.4.1/dist/js/tom-select.complete.js"
-pin "tailwindcss-stimulus-components", to: "https://unpkg.com/tailwindcss-stimulus-components@5/dist/tailwindcss-stimulus-components.module.js"
+pin "tailwindcss-stimulus-components", to: "https://ga.jspm.io/npm:tailwindcss-stimulus-components@6.1.2/dist/tailwindcss-stimulus-components.module.js"
