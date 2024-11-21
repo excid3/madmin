@@ -19,7 +19,7 @@ table {
     padding-left: 0.875rem;
 
     a {
-      color: rgb(17 24 39);
+      color: var(--light-text-color);
       text-decoration: none;
     }
 
