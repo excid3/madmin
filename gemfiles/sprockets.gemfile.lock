@@ -284,10 +284,9 @@ DEPENDENCIES
   mysql2
   name_of_person (~> 1.1, >= 1.1.1)
   pg
-  propshaft
   puma
   sprockets-rails
-  sqlite3 (~> 2.0)
+  sqlite3
   standardrb
   stimulus-rails
   turbo-rails

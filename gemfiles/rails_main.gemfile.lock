@@ -296,7 +296,7 @@ DEPENDENCIES
   propshaft
   puma
   rails!
-  sqlite3 (~> 2.0)
+  sqlite3
   standardrb
   stimulus-rails
   turbo-rails
