@@ -7,7 +7,9 @@ module Madmin
     end
 
     def route_namespace_exists?
-      File.readlines(Rails.root.join(default_routes_file)).grep(/namespace :madmin/).size > 0
+      file = Rails.root.join(default_routes_file)
+
+      File.exist?(file) && File.readlines(file).grep(/namespace :madmin/).size > 0
     end
 
     def rails6_1_and_up?
