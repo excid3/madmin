@@ -96,6 +96,15 @@ rails generate madmin:views:index Book
  # -> app/views/madmin/books/index.html.erb
 ```
 
+You can also set `has_many` attributes to paginate on the show view. This is useful if you have models with a high number of associated records, and you do not want to load them all when loading the parent model.
+
+```ruby
+class UserResource < Madmin::Resource
+  attribute :id, form: false
+  attribute :posts, paginate: true
+end
+```
+
 ## Custom Fields
 
 You can generate a custom field with:

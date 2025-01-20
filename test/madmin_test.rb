@@ -39,4 +39,8 @@ class Madmin::Test < ActiveSupport::TestCase
   test "can set custom field for attribute" do
     assert_equal CustomField, PostResource.get_attribute(:title).field.class
   end
+
+  test "can set a field to paginate" do
+    assert UserResource.get_attribute(:posts).field.options.fetch(:paginate)
+  end
 end

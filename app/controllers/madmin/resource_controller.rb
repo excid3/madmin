@@ -1,6 +1,7 @@
 module Madmin
   class ResourceController < Madmin::ApplicationController
     include SortHelper
+    include Pagy::Backend
 
     before_action :set_record, except: [:index, :new, :create]
 
@@ -22,6 +23,12 @@ module Madmin
     end
 
     def show
+      resource.attributes.values.each do |attribute|
+        if attribute.field.instance_variable_get(:@options)[:paginate]
+          records = @record.send(attribute.name)
+          attribute.field.pagy, attribute.field.pagy_records = pagy records, page_param: attribute.name
+        end
+      end
     end
 
     def new
