@@ -40,7 +40,9 @@ class Madmin::Test < ActiveSupport::TestCase
     assert_equal CustomField, PostResource.get_attribute(:title).field.class
   end
 
-  test "can set a field to paginate" do
-    assert UserResource.get_attribute(:posts).field.options.fetch(:paginate)
+  test "has many and nested has many are set to paginateable, others are not" do
+    assert UserResource.get_attribute(:posts).field.paginateable?
+    assert UserResource.get_attribute(:comments).field.paginateable?
+    refute UserResource.get_attribute(:id).field.paginateable?
   end
 end

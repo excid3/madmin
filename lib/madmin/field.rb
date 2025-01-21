@@ -56,5 +56,9 @@ module Madmin
     def searchable?
       false
     end
+
+    def paginateable?
+      false
+    end
   end
 end

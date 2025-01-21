@@ -26,6 +26,10 @@ module Madmin
         attribute_name.to_s.singularize.classify.constantize
       end
 
+      def paginateable?
+        true
+      end
+
       private
 
       def permitted_fields

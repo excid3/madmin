@@ -20,7 +20,7 @@ class UserResource < Madmin::Resource
   attribute :something, :string, index: false, form: false
 
   # Associations
-  attribute :posts, :nested_has_many, skip: %I[attachments], paginate: true
+  attribute :posts, :nested_has_many, skip: %I[attachments]
   attribute :comments
   attribute :habtms
 
