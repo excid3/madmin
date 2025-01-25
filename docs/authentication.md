@@ -1,5 +1,15 @@
 # Authenticating Madmin
 
+The first place to look to secure your madmin panel after installation is inside of app/controllers/madmin/application_controller.rb
+Inside of there you can add something along the lines of:
+
+def authenticate_admin_user
+  # other stuff
+  redirect_to "/", alert: "Not authorized." unless current_user&.admin?
+end  
+
+That may likely be sufficient to keep non-admin Users out of your madmin panels. Testing access to the /madmin route an pane in an ingognito window is a great way to test this change.
+
 ### Devise Routes
 
 Wrap the madmin routes in an `authenticated` or `authenticate` block:
