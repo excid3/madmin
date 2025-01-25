@@ -10,7 +10,7 @@ def authenticate_admin_user
 end
 ```
 
-That may likely be sufficient to keep non-admin Users out of your madmin panels. Testing access to the /madmin route an pane in an ingognito window is a great way to test this change.
+That may likely be sufficient to keep non-admin Users out of your madmin panels. Testing access to the /madmin route in an ingognito window (and not logged in as an admin) is an easy way to test this change.
 
 ### Devise Routes
 
