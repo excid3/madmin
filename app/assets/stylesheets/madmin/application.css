@@ -1,88 +1,10 @@
 @import url("../trix.css");
 @import url("./actiontext.css");
 @import url("./reset.css");
+@import url("./base.css");
 @import url("./sidebar.css");
 @import url("./buttons.css");
 @import url("./forms.css");
 @import url("./tables.css");
 @import url("./pagination.css");
 
-:root {
-  --primary-color: rgb(37 99 235);
-  --border-color: rgb(229 231 235);
-  --background-color: rgb(249 250 251);
-  --text-color: rgb(2 6 23);
-  --light-text-color: rgb(71 85 105);
-
-  --sidebar-width: 16rem;
-}
-
-body {
-  color: var(--text-color);
-  font-size: 14px;
-}
-
-a {
-  color: var(--primary-color);
-}
-
-.search {
-  display: flex;
-  align-items: center;
-}
-
-.header {
-  border-bottom: 1px solid rgb(229 231 235);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 1rem;
-  margin-bottom: 1rem;
-
-  h1 {
-    margin: 0;
-  }
-
-  a {
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-
-  .actions {
-    align-items: center;
-    display: flex;
-    gap: 0.5rem;
-  }
-}
-
-.metrics {
-  display: flex;
-
-  .metric {
-    border: 1px solid rgb(229 231 235);
-    border-radius: 0.25rem;
-    padding: 1rem;
-    margin: 1rem;
-    flex: 1 1 0%;
-
-    h4 {
-      color: rgb(75 85 99);
-      font-weight: 600;
-      margin-top: 0;
-      margin-bottom: 0.5rem;
-    }
-
-    p {
-      font-size: 2rem;
-      font-weight: 600;
-      margin: 0;
-    }
-  }
-}
-
-.scopes {
-  margin-bottom: 1rem;
-}
