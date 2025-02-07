@@ -1,16 +1,30 @@
 # Authenticating Madmin
 
-The first place to look to secure your madmin panel after installation is inside of app/controllers/madmin/application_controller.rb
-Inside of there you can add something along the lines of:
+There are a few different ways of adding authentication to Madmin.
 
-```
-def authenticate_admin_user
-  # other stuff
-  redirect_to "/", alert: "Not authorized." unless current_user&.admin?
+### before_action
+
+In `app/controllers/madmin/application_controller.rb`, there is a placeholder `before_action` that can be used for authenticating requests.
+
+```ruby
+module Madmin
+  class ApplicationController < Madmin::BaseController
+    include Rails.application.routes.url_helpers
+
+    before_action :authenticate_admin_user
+
+    def authenticate_admin_user
+      # TODO: Add your authentication logic here
+
+      # For example, with Rails 8 authentication
+      # redirect_to "/", alert: "Not authorized." unless authenticated? && Current.user.admin?
+
+      # Or with Devise
+      # redirect_to "/", alert: "Not authorized." unless current_user&.admin?
+    end
+  end
 end
 ```
-
-That may likely be sufficient to keep non-admin Users out of your madmin panels. Testing access to the /madmin route in an ingognito window (and not logged in as an admin) is an easy way to test this change.
 
 ### Devise Routes
 
@@ -42,3 +56,30 @@ end
 ```
 
 This will use ENV vars (if defined) or fallback to the Rails credentials for admin username and password.
+
+## Testing Authentication
+
+We recommend writing an integration test to ensure only admins have access to Madmin. Something like this (assuming you have fixtures for regular users and admins).
+
+```ruby
+require "test_helper"
+
+class MadminTest < ActionDispatch::IntegrationTest
+  test "guests cannot access madmin" do
+    get madmin_path
+    assert_response :unauthorized
+  end
+
+  test "regular users cannot access madmin" do
+    sign_in users(:regular)
+    get madmin_path
+    assert_response :unauthorized
+  end
+
+  test "admins can access madmin" do
+    sign_in users(:admin)
+    get madmin_path
+    assert_response :success
+  end
+end
+```
