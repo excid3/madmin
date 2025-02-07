@@ -20,10 +20,10 @@ module Madmin
         app.config.assets.paths << root.join("app/javascript")
         app.config.assets.precompile += %w[madmin_manifest]
 
-        if defined?(::Sprockets)
-          Madmin.stylesheets << "madmin/application-sprockets"
+        Madmin.stylesheets << if defined?(::Sprockets)
+          "madmin/application-sprockets"
         else
-          Madmin.stylesheets << "madmin/application"
+          "madmin/application"
         end
       end
     end
