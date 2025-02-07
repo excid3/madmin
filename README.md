@@ -126,6 +126,10 @@ end
 You can use a couple of strategies to authenticate users who are trying to
 access your madmin panel: [Authentication Docs](docs/authentication.md)
 
+## Assets
+You can customize the JavaScript and CSS assets used by Madmin for your application. To learn how
+see the [Assets Doc](docs/assets.md)
+
 ## 🙏 Contributing
 
 This project uses Standard for formatting Ruby code. Please make sure to run standardrb before submitting pull requests.
