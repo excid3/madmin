@@ -4,7 +4,6 @@
   --background-color: rgb(249 250 251);
   --text-color: rgb(2 6 23);
   --light-text-color: rgb(71 85 105);
-
   --sidebar-width: 16rem;
 }
 
@@ -15,6 +14,45 @@ body {
 
 a {
   color: var(--primary-color);
+}
+
+.alert {
+  border-radius: 0.5rem;
+  font-weight: 500;
+  padding: 1rem;
+  margin-bottom: 1rem;
+
+  ul {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+    padding-left: 2rem;
+  }
+
+  svg {
+    display: inline-block;
+    height: 1rem;
+    margin-right: 0.25rem;
+    width: 1rem;
+    vertical-align: text-bottom;
+  }
+
+  &.alert-danger {
+    background-color: oklch(.936 .032 17.717);
+    color: oklch(.444 .177 26.899);
+
+    svg {
+      color: oklch(.637 .237 25.331);
+    }
+  }
+
+  &.alert-notice {
+    background-color: oklch(.962 .044 156.743);
+    color: oklch(.448 .119 151.328);
+
+    svg {
+      color: oklch(.723 .219 149.579);
+    }
+  }
 }
 
 .search {
