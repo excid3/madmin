@@ -18,6 +18,10 @@ module Madmin
       def index_path
         Madmin.resource_by_name(model.reflect_on_association(attribute_name).klass).index_path(format: :json)
       end
+
+      def paginateable?
+        true
+      end
     end
   end
 end

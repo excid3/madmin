@@ -1,16 +1,19 @@
 module Madmin
   class Field
     attr_reader :attribute_name, :model, :options, :resource
+    attr_accessor :pagy, :pagy_records
 
     def self.field_type
       to_s.split("::").last.underscore
     end
 
-    def initialize(attribute_name:, model:, resource:, options:)
+    def initialize(attribute_name:, model:, resource:, options:, pagy: nil, pagy_records: nil)
       @attribute_name = attribute_name.to_sym
       @model = model
       @resource = resource
       @options = options
+      @pagy = pagy
+      @pagy_records = pagy_records
     end
 
     def value(record)
@@ -51,6 +54,10 @@ module Madmin
     end
 
     def searchable?
+      false
+    end
+
+    def paginateable?
       false
     end
   end
