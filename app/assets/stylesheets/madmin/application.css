@@ -1,10 +1,10 @@
-@import url("../trix.css");
-@import url("./actiontext.css");
-@import url("./reset.css");
-@import url("./base.css");
-@import url("./sidebar.css");
-@import url("./buttons.css");
-@import url("./forms.css");
-@import url("./tables.css");
-@import url("./pagination.css");
+@import url("/trix.css");
+@import url("/madmin/actiontext.css");
+@import url("/madmin/reset.css");
+@import url("/madmin/base.css");
+@import url("/madmin/sidebar.css");
+@import url("/madmin/buttons.css");
+@import url("/madmin/forms.css");
+@import url("/madmin/tables.css");
+@import url("/madmin/pagination.css");
 
