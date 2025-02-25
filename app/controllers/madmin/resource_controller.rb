@@ -1,7 +1,6 @@
 module Madmin
   class ResourceController < Madmin::ApplicationController
     include SortHelper
-    include Pagy::Backend
 
     before_action :set_record, except: [:index, :new, :create]
 
