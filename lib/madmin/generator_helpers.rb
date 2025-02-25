@@ -41,11 +41,15 @@ module Madmin
     end
 
     def default_sentinel(file)
-      file.eql?(ROUTES_FILE[:default]) ? /\.routes\.draw do\s*\n/m : /namespace :madmin do\s*\n/m
+      file.eql?(ROUTES_FILE[:default]) ? /\.routes\.draw do\s*\n/m : /namespace :madmin[^\n]*do\s*\n/m
     end
 
     def default_routes_file
-      rails6_1_and_up? ? ROUTES_FILE[:separated] : ROUTES_FILE[:default]
+      if rails6_1_and_up? && File.exist?(ROUTES_FILE[:separated])
+        ROUTES_FILE[:separated]
+      else
+        ROUTES_FILE[:default]
+      end
     end
 
     def generator_options
