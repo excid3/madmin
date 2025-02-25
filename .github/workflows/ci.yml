@@ -10,6 +10,23 @@ on:
   workflow_call:
 
 jobs:
+  lint:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+          ruby-version: "3.4"
+
+      - name: StandardRb check
+        run: bundle exec standardrb
+
   sqlite:
     runs-on: ubuntu-latest
     strategy:
@@ -36,9 +53,6 @@ jobs:
           ruby-version: ${{ matrix.ruby }}
           bundler: default
           bundler-cache: true
-
-      - name: StandardRb check
-        run: bundle exec standardrb
 
       - name: Run tests
         env:
@@ -84,9 +98,6 @@ jobs:
           bundler: default
           bundler-cache: true
 
-      - name: StandardRb check
-        run: bundle exec standardrb
-
       - name: Run tests
         env:
           DATABASE_URL: mysql2://root:password@127.0.0.1:3306/test
@@ -130,9 +141,6 @@ jobs:
           ruby-version: ${{ matrix.ruby }}
           bundler: default
           bundler-cache: true
-
-      - name: StandardRb check
-        run: bundle exec standardrb
 
       - name: Run tests
         env:
