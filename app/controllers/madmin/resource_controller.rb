@@ -22,6 +22,12 @@ module Madmin
     end
 
     def show
+      resource.attributes.values.each do |attribute|
+        if attribute.field.paginateable?
+          records = @record.send(attribute.name)
+          attribute.field.pagy, attribute.field.pagy_records = pagy records, page_param: attribute.name
+        end
+      end
     end
 
     def new
