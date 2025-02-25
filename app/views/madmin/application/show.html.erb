@@ -29,24 +29,7 @@
         </th>
 
         <td>
-          <% if attribute.field.pagy != nil %>
-            <% pagy = attribute.field.pagy %>
-            <% pagy_records = attribute.field.pagy_records %>
-
-            <% pagy_records.each do |object| %>
-              <div>
-                <%= link_to Madmin.resource_for(object).display_name(object), Madmin.resource_for(object).show_path(object), class: "text-blue-500 underline" %>
-              </div>
-            <% end %>
-
-            <div class="pagination">
-              <%== pagy_nav pagy if pagy.pages > 1 %>
-              <span>Showing <%= tag.strong pagy.in %> of <%= tag.strong pagy.count %></span>
-            </div>
-
-          <% else %>
-            <%= render partial: attribute.field.to_partial_path("show"), locals: { field: attribute.field, record: @record, resource: resource } %>
-          <% end %>
+          <%= render partial: attribute.field.to_partial_path("show"), locals: { field: attribute.field, record: @record, resource: resource } %>
         </td>
       </tr>
     <% end %>
