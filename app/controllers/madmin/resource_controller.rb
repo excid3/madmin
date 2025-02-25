@@ -25,7 +25,7 @@ module Madmin
     end
 
     def new
-      @record = resource.model.new
+      @record = resource.model.new(resource_params)
     end
 
     def create
