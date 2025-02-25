@@ -1,7 +1,7 @@
 PATH
   remote: ..
   specs:
-    madmin (2.0.0)
+    madmin (2.0.1)
       importmap-rails
       pagy (>= 3.5)
       propshaft
@@ -130,12 +130,6 @@ GEM
     nokogiri (1.16.7)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
-    nokogiri (1.16.7-arm64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.16.7-x86_64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.16.7-x86_64-linux)
-      racc (~> 1.4)
     pagy (9.3.1)
     parallel (1.26.3)
     parser (3.3.6.0)
@@ -202,9 +196,6 @@ GEM
     ruby-progressbar (1.13.0)
     sqlite3 (1.7.3)
       mini_portile2 (~> 2.8.0)
-    sqlite3 (1.7.3-arm64-darwin)
-    sqlite3 (1.7.3-x86_64-darwin)
-    sqlite3 (1.7.3-x86_64-linux)
     standard (1.42.1)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.0)
