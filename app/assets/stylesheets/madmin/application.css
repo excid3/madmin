@@ -7,4 +7,5 @@
 @import url("/madmin/forms.css");
 @import url("/madmin/tables.css");
 @import url("/madmin/pagination.css");
-
+@import url("/madmin/dropdown.css");
+@import url("/madmin/filter.css");
