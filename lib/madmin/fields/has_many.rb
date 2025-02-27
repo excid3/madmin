@@ -1,6 +1,8 @@
 module Madmin
   module Fields
     class HasMany < Field
+      include Pagy::Backend
+
       def options_for_select(record)
         if (records = record.send(attribute_name))
           return [] unless records.first
@@ -17,6 +19,17 @@ module Madmin
 
       def index_path
         Madmin.resource_by_name(model.reflect_on_association(attribute_name).klass).index_path(format: :json)
+      end
+
+      def paginateable?
+        true
+      end
+
+      def paginated_value(record, params)
+        param_name = "#{attribute_name}_page"
+        pagy value(record), page: params[param_name].to_i, page_param: param_name
+      rescue Pagy::OverflowError, Pagy::VariableError
+        pagy value(record), page: 1, page_param: param_name
       end
     end
   end

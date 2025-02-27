@@ -39,6 +39,7 @@ module Madmin
   mattr_accessor :importmap, default: Importmap::Map.new
   mattr_accessor :menu, default: Menu.new
   mattr_accessor :site_name
+  mattr_accessor :stylesheets, default: []
 
   class << self
     def resource_for(object)

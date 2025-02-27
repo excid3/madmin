@@ -36,9 +36,6 @@ module Madmin
         case action
         when :index
           default_index_attributes.include?(attribute_name)
-        when :new, :create, :edit, :update
-          # Hidden attributes for forms
-          [:id, :created_at, :updated_at].exclude?(attribute_name)
         else
           true
         end
@@ -54,6 +51,10 @@ module Madmin
     end
 
     def searchable?
+      false
+    end
+
+    def paginateable?
       false
     end
   end

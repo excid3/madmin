@@ -1,5 +1,14 @@
 ### Unreleased
 
+### 2.0.1
+
+- Add pagination to has_many and nested_has_many fields
+- Resource generator now matches the madmin namespace with customizations
+  For example: `namespace :madmin, path: :admin do`
+- Safely handle missing `config/routes/madmin.rb` for Rails 6.1+
+  If this file does not exist, `config/routes.rb` will be used
+- Replace flatpickr with date and datetime fields for better accessibility
+
 ### 2.0.0
 
 - Remove Tailwind CDN

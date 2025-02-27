@@ -1,3 +1,3 @@
 module Madmin
-  VERSION = "1.2.11"
+  VERSION = "2.0.1"
 end

@@ -25,7 +25,7 @@ module Madmin
     end
 
     def new
-      @record = resource.model.new
+      @record = resource.model.new(new_resource_params)
     end
 
     def create
@@ -81,6 +81,12 @@ module Madmin
 
     def resource_params
       params.require(resource.param_key)
+        .permit(*resource.permitted_params)
+        .transform_values { |v| change_polymorphic(v) }
+    end
+
+    def new_resource_params
+      params.fetch(resource.param_key, {}).permit!
         .permit(*resource.permitted_params)
         .transform_values { |v| change_polymorphic(v) }
     end

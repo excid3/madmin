@@ -1,0 +1,1 @@
+Madmin.stylesheets << "dummy"

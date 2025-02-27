@@ -10,17 +10,39 @@ on:
   workflow_call:
 
 jobs:
+  lint:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+          ruby-version: "3.4"
+
+      - name: StandardRb check
+        run: bundle exec standardrb
+
   sqlite:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby: ['3.2', '3.3']
+        ruby: ['3.2', '3.3', '3.4']
         gemfile:
           - sprockets
           - rails_7
           - rails_7_1
           - rails_7_2
+          - rails_8_0
           - rails_main
+        exclude:
+          # sqlite3 ~> 1.7 is not compatible with Ruby 3.4+
+          - gemfile: rails_7
+            ruby: '3.4'
 
     env:
       BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/${{ matrix.gemfile }}.gemfile
@@ -36,9 +58,6 @@ jobs:
           bundler: default
           bundler-cache: true
 
-      - name: StandardRb check
-        run: bundle exec standardrb
-
       - name: Run tests
         env:
           DATABASE_URL: "sqlite3:noticed_test"
@@ -51,13 +70,18 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby: ['3.2', '3.3']
+        ruby: ['3.2', '3.3', '3.4']
         gemfile:
           - sprockets
           - rails_7
           - rails_7_1
           - rails_7_2
+          - rails_8_0
           - rails_main
+        exclude:
+          # sqlite3 ~> 1.7 is not compatible with Ruby 3.4+
+          - gemfile: rails_7
+            ruby: '3.4'
 
     env:
       BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/${{ matrix.gemfile }}.gemfile
@@ -82,9 +106,6 @@ jobs:
           bundler: default
           bundler-cache: true
 
-      - name: StandardRb check
-        run: bundle exec standardrb
-
       - name: Run tests
         env:
           DATABASE_URL: mysql2://root:password@127.0.0.1:3306/test
@@ -97,13 +118,18 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby: ['3.2', '3.3']
+        ruby: ['3.2', '3.3', '3.4']
         gemfile:
           - sprockets
           - rails_7
           - rails_7_1
           - rails_7_2
+          - rails_8_0
           - rails_main
+        exclude:
+          # sqlite3 ~> 1.7 is not compatible with Ruby 3.4+
+          - gemfile: rails_7
+            ruby: '3.4'
 
     env:
       BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/${{ matrix.gemfile }}.gemfile
@@ -127,9 +153,6 @@ jobs:
           ruby-version: ${{ matrix.ruby }}
           bundler: default
           bundler-cache: true
-
-      - name: StandardRb check
-        run: bundle exec standardrb
 
       - name: Run tests
         env:

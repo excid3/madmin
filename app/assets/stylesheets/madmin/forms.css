@@ -1,22 +1,7 @@
-.alert {
-  border-radius: 0.25rem;
-  font-weight: 500;
-  padding: 1rem;
-  margin-bottom: 1rem;
-
-  ul {
-    margin-top: 0.5rem;
-    margin-bottom: 0;
-    padding-left: 2rem;
-  }
-
-  &.alert-danger {
-    background-color: rgb(254 226 226);
-    color: rgb(153 27 27);
-  }
-}
-
 .form-hint {
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+
   &.error {
     color: rgb(239 68 68);
   }
