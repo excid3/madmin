@@ -26,7 +26,10 @@ module Madmin
       end
 
       def paginated_value(record, params)
-        pagy value(record), page: params.fetch("#{attribute_name}_page", 1), page_param: "#{attribute_name}_page"
+        param_name = "#{attribute_name}_page"
+        pagy value(record), page: params[param_name].to_i, page_param: param_name
+      rescue Pagy::OverflowError, Pagy::VariableError
+        pagy value(record), page: 1, page_param: param_name
       end
     end
   end
