@@ -88,12 +88,6 @@ export default class extends Controller {
     const input = conditionElement.querySelector(`.${inputTypeClass}`) || conditionElement.querySelector('.input-type-text')
 
     conditionElement.querySelectorAll('.select-value').forEach(input => {
-      // Skip datetime inputs on mobile devices
-      if (input.type === 'datetime-local') {
-        input.value = ''
-        return
-      }
-
       input.classList.add('hidden')
       input.disabled = true
       input.value = ''
@@ -110,13 +104,6 @@ export default class extends Controller {
     // Set default value for boolean type
     if (filterType === 'boolean') {
       input.value = 'true'
-    }
-
-    // Handle Flatpickr inputs differently on mobile
-    if (input.type === 'hidden' && input.nextElementSibling?.type === 'datetime-local') {
-      input.nextElementSibling.classList.remove('hidden')
-      input.nextElementSibling.disabled = false
-      return
     }
   }
 
