@@ -26,14 +26,7 @@ module Madmin
       end
 
       def paginated_value(record, params)
-        pagy value(record), params: params, page_param: "#{attribute_name}_page"
-      end
-
-      # Override to access params from vars since we're not in a controller/view
-      def pagy_get_page(vars, force_integer: true)
-        params = vars[:params]
-        page = params[vars[:page_param] || DEFAULT[:page_param]]
-        force_integer ? (page || 1).to_i : page
+        pagy value(record), page: params.fetch("#{attribute_name}_page", 1), page_param: "#{attribute_name}_page"
       end
     end
   end
