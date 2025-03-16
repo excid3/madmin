@@ -9,9 +9,9 @@ Why another Ruby on Rails admin? We wanted an admin that was:
 - Familiar and customizable like Rails scaffolds (less DSL)
 - Supports all the Rails features out of the box (ActionText, ActionMailbox, has_secure_password, etc)
 - Stimulus / Turbolinks / Hotwire ready
+- Works with Import maps and Sprockets
 
 ![Madmin Screenshot](docs/images/screenshot.png)
-_We're still working on the design!_
 
 ## Installation
 
