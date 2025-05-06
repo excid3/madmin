@@ -24,8 +24,7 @@ module Madmin
       end
 
       def model_find(id)
-        record = friendly_model? ? model.friendly.find(id) : model.find(id)
-        becomes(record)
+        friendly_model? ? model.friendly.find(id) : model.find(id)
       end
 
       def model_name
