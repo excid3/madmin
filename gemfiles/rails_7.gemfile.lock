@@ -82,11 +82,13 @@ GEM
     ast (2.4.3)
     base64 (0.2.0)
     bcrypt (3.1.20)
+    benchmark (0.4.0)
     bindex (0.8.1)
     builder (3.3.0)
-    concurrent-ruby (1.3.5)
+    concurrent-ruby (1.3.4)
     crass (1.0.6)
     date (3.4.1)
+    drb (2.2.1)
     erubi (1.13.1)
     ffaker (2.24.0)
     friendly_id (5.5.1)
@@ -115,6 +117,7 @@ GEM
     mini_mime (1.1.5)
     mini_portile2 (2.8.8)
     minitest (5.25.5)
+    mutex_m (0.3.0)
     mysql2 (0.5.6)
     name_of_person (1.1.3)
       activesupport (>= 5.2.0)
@@ -257,9 +260,13 @@ PLATFORMS
 DEPENDENCIES
   appraisal
   bcrypt
+  benchmark
+  concurrent-ruby (< 1.3.5)
+  drb
   ffaker (~> 2.17)
   friendly_id (~> 5.4)
   madmin!
+  mutex_m
   mysql2
   name_of_person (~> 1.1, >= 1.1.1)
   pg

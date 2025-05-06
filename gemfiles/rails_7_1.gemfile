@@ -12,7 +12,7 @@ gem "standardrb"
 gem "web-console", group: :development
 gem "pg"
 gem "mysql2"
-gem "sqlite3"
+gem "sqlite3", "~> 1.4"
 gem "propshaft"
 gem "turbo-rails"
 gem "stimulus-rails"
