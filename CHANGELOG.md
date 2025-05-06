@@ -1,5 +1,10 @@
 ### Unreleased
 
+### 2.0.2
+
+- Use `try` so field doesn't raise error when retrieving invalid values
+- Don't cast model on find. Let ActiveRecord handle STI.
+
 ### 2.0.1
 
 - Add pagination to has_many and nested_has_many fields
