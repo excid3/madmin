@@ -64,7 +64,8 @@ button, input, optgroup, select, textarea {
 }
 
 .nested-fields {
-  border: 1px solid #e5e7eb; /* Equivalent to Tailwind's border-gray-200 */
-  border-radius: 0.5rem; /* Equivalent to Tailwind's rounded-lg */
-  padding: 1.25rem; /* Equivalent to Tailwind's p-5 */
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
 }
