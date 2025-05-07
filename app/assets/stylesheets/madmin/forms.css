@@ -62,3 +62,9 @@ button, input, optgroup, select, textarea {
   color: rgb(239 68 68);
   font-weight: 600;
 }
+
+.nested-fields {
+  border: 1px solid #e5e7eb; /* Equivalent to Tailwind's border-gray-200 */
+  border-radius: 0.5rem; /* Equivalent to Tailwind's rounded-lg */
+  padding: 1.25rem; /* Equivalent to Tailwind's p-5 */
+}
