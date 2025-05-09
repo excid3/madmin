@@ -1,10 +1,11 @@
-require "ostruct"
-
 module Madmin
   class Resource
+    Attribute = Data.define(:name, :type, :field)
+
     class_attribute :attributes, default: ActiveSupport::OrderedHash.new
     class_attribute :member_actions, default: []
     class_attribute :scopes, default: []
+    class_attribute :menu_options, instance_reader: false
 
     class << self
       def inherited(base)
@@ -23,8 +24,7 @@ module Madmin
       end
 
       def model_find(id)
-        record = friendly_model? ? model.friendly.find(id) : model.find(id)
-        becomes(record)
+        friendly_model? ? model.friendly.find(id) : model.find(id)
       end
 
       def model_name
@@ -43,38 +43,34 @@ module Madmin
         type ||= infer_type(name)
         field = options.delete(:field) || field_for_type(type)
 
+        if field.nil?
+          Rails.logger.warn <<~MESSAGE
+            WARNING: Madmin could not infer a field type for `#{name}` attribute. Defaulting to a String type.
+            You can set the type by specifying the type on the attribute:
+
+                attribute :#{name}, :boolean
+          MESSAGE
+          field = Fields::String
+        end
+
         config = ActiveSupport::OrderedOptions.new.merge(options)
         yield config if block_given?
 
         # Form is an alias for new & edit
         if config.has_key?(:form)
-          value = config.delete(:form)
-          config.new = value
-          config.edit = value
+          config.new = config[:form]
+          config.edit = config[:form]
         end
 
-        attributes[name] = OpenStruct.new(
+        # New/create and edit/update need to match
+        config.create = config[:create] if config.has_key?(:new)
+        config.update = config[:update] if config.has_key?(:edit)
+
+        attributes[name] = Attribute.new(
           name: name,
           type: type,
           field: field.new(attribute_name: name, model: model, resource: self, options: config)
         )
-      rescue KeyError
-        raise ArgumentError, <<~MESSAGE
-          Madmin couldn't find a field type called `:#{type}`
-        MESSAGE
-      rescue => e
-        builder = ResourceBuilder.new(model)
-        raise ArgumentError, <<~MESSAGE
-          Madmin couldn't find attribute or association '#{name}' on #{model} model.
-
-          We searched these attributes and associations:
-          #{(builder.attributes + builder.associations).join(", ")}
-
-          This attribute is defined in a Madmin resource at:
-          #{e.backtrace.find { |l| l =~ /_resource.rb/ }}
-
-          Either add the missing attribute or assocation, or remove this line from your Madmin resource.
-        MESSAGE
       end
 
       def friendly_name
@@ -155,6 +151,7 @@ module Madmin
           json: Fields::Json,
           jsonb: Fields::Json,
           primary_key: Fields::String,
+          select: Fields::Select,
           string: Fields::String,
           text: Fields::Text,
           time: Fields::Time,
@@ -200,7 +197,7 @@ module Madmin
           has_one: Fields::HasOne,
           rich_text: Fields::RichText,
           nested_has_many: Fields::NestedHasMany
-        }.fetch(type)
+        }[type]
       end
 
       def infer_type(name)
@@ -251,6 +248,16 @@ module Madmin
       def model_store_accessors
         store_accessors = model.stored_attributes.values
         store_accessors.flatten
+      end
+
+      def menu(options)
+        @menu_options = options
+      end
+
+      def menu_options
+        return false if @menu_options == false
+        @menu_options ||= {}
+        @menu_options.with_defaults(label: friendly_name.pluralize, url: index_path)
       end
     end
   end

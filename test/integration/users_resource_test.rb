@@ -11,6 +11,11 @@ class UsersResourceTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "can visit new with query params to prefill values" do
+    get new_madmin_user_path(user: {first_name: "Chris"})
+    assert_select "input[name='user[first_name]'][value=?]", "Chris"
+  end
+
   test "can create user" do
     assert_difference "User.count" do
       post madmin_users_path, params: {user: {first_name: "Updated", password: "password", password_confirmation: "password"}}

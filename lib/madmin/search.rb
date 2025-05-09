@@ -35,7 +35,7 @@ module Madmin
     end
 
     def searchable_fields(attr)
-      [attr[:name]]
+      [attr.name]
     end
 
     def query_values

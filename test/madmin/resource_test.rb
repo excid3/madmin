@@ -4,7 +4,7 @@ class FooBarBazResource < Madmin::Resource; end
 
 class ResourceTest < ActiveSupport::TestCase
   test "searchable_attributes" do
-    searchable_attribute_names = UserResource.searchable_attributes.map { |a| a[:name] }
+    searchable_attribute_names = UserResource.searchable_attributes.map(&:name)
     assert_includes searchable_attribute_names, :first_name
   end
 

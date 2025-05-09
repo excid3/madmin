@@ -9,7 +9,7 @@ include ActionMailbox::TestHelper
 end
 
 100.times do
-  User.create!(
+  user = User.create!(
     first_name: FFaker::Name.first_name,
     last_name: FFaker::Name.last_name,
     birthday: FFaker::Time.between(80.years.ago, 18.years.ago).to_date,
@@ -42,7 +42,8 @@ User.all.last(20).each do |user|
     service: ['facebook', 'google', 'twitter'].sample
   )
 
-  3.times do
+  # to test pagination
+  100.times do
     post = user.posts.create!(
       title: FFaker::Music.song,
       state: Post.states.keys.sample,

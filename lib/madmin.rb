@@ -5,6 +5,7 @@ require "pagy"
 module Madmin
   autoload :Field, "madmin/field"
   autoload :GeneratorHelpers, "madmin/generator_helpers"
+  autoload :Menu, "madmin/menu"
   autoload :Resource, "madmin/resource"
   autoload :ResourceBuilder, "madmin/resource_builder"
   autoload :Search, "madmin/search"
@@ -29,10 +30,16 @@ module Madmin
     autoload :Password, "madmin/fields/password"
     autoload :Polymorphic, "madmin/fields/polymorphic"
     autoload :RichText, "madmin/fields/rich_text"
+    autoload :Select, "madmin/fields/select"
     autoload :String, "madmin/fields/string"
     autoload :Text, "madmin/fields/text"
     autoload :Time, "madmin/fields/time"
   end
+
+  mattr_accessor :importmap, default: Importmap::Map.new
+  mattr_accessor :menu, default: Menu.new
+  mattr_accessor :site_name
+  mattr_accessor :stylesheets, default: []
 
   class << self
     def resource_for(object)
@@ -43,8 +50,8 @@ module Madmin
           "#{object.class.name}Resource".constantize
         rescue
           # For STI models, see if there's a superclass resource available
-          if object.class.inheritance_column.present?
-            "#{object.class.superclass.name}Resource".constantize
+          if (column = object.class.inheritance_column) && object.class.column_names.include?(column)
+            "#{object.class.superclass.base_class.name}Resource".constantize
           else
             raise
           end
@@ -62,6 +69,7 @@ module Madmin
 
     def reset_resources!
       @resources = nil
+      menu.reset
     end
 
     def resource_names

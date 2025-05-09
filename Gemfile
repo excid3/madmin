@@ -16,13 +16,15 @@ gem "bcrypt"
 gem "ffaker", "~> 2.17"
 gem "friendly_id", "~> 5.4"
 gem "name_of_person", "~> 1.1", ">= 1.1.1"
-gem "paper_trail", "~> 15.0"
 gem "puma"
-gem "sprockets-rails"
 gem "standardrb"
 gem "web-console", group: :development
 
 # Databases to test against
 gem "pg"
 gem "mysql2"
-gem "sqlite3", "~> 1.4"
+gem "sqlite3"
+
+gem "propshaft"
+gem "turbo-rails"
+gem "stimulus-rails"

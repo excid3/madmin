@@ -1,5 +1,11 @@
-<% field.value(record).each do |object| %>
+<% pagy, records = field.paginated_value(record, params) %>
+<% records.each do |object| %>
   <div>
     <%= link_to Madmin.resource_for(object).display_name(object), Madmin.resource_for(object).show_path(object), class: "text-blue-500 underline" %>
   </div>
 <% end %>
+
+<div class="pagination">
+  <%== pagy_nav pagy if pagy.pages > 1 %>
+  <span>Showing <%= tag.strong pagy.in %> of <%= tag.strong pagy.count %></span>
+</div>

@@ -1,6 +1,6 @@
 module Madmin
   module Fields
-    class NestedHasMany < Field
+    class NestedHasMany < HasMany
       DEFAULT_ATTRIBUTES = %w[_destroy id].freeze
       def nested_attributes
         resource.attributes.except(*skipped_fields)
@@ -24,6 +24,10 @@ module Madmin
 
       def to_model
         attribute_name.to_s.singularize.classify.constantize
+      end
+
+      def paginateable?
+        true
       end
 
       private

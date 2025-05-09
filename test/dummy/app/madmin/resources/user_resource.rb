@@ -1,6 +1,7 @@
 class UserResource < Madmin::Resource
   # Attributes
   attribute :id, form: false
+  attribute :name, :string, form: :false
   attribute :first_name
   attribute :last_name
   attribute :birthday
@@ -16,6 +17,7 @@ class UserResource < Madmin::Resource
   attribute :weekly_email
   attribute :monthly_newsletter
   attribute :avatar, index: false
+  attribute :something, :string, index: false, form: false
   attribute :active
   attribute :balance, field: Madmin::Fields::Currency
   attribute :last_login_time

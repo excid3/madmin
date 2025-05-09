@@ -3,7 +3,7 @@ module Madmin
     class Currency < Field
       def value(record)
         value = record.public_send(attribute_name)
-        value /= 100.0 if options.minor_units
+        value /= 100.0 if value && options.minor_units
         value
       end
 

@@ -20,7 +20,7 @@ module Madmin
 
       def generate_route
         if route_namespace_exists?
-          route "resources :#{plural_name}", namespace: class_path, indentation: separated_routes_file? ? 2 : 4, sentinel: /namespace :madmin do\s*\n/m
+          route "resources :#{plural_name}", namespace: class_path, indentation: separated_routes_file? ? 2 : 4, sentinel: /namespace :madmin[^\n]*do\s*\n/m
         else
           route "resources :#{plural_name}", namespace: [:madmin] + class_path
         end

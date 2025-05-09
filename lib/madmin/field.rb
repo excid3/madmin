@@ -14,7 +14,7 @@ module Madmin
     end
 
     def value(record)
-      record.public_send(attribute_name)
+      record.try(attribute_name)
     end
 
     def to_partial_path(name)
@@ -36,9 +36,6 @@ module Madmin
         case action
         when :index
           default_index_attributes.include?(attribute_name)
-        when :new, :edit
-          # Hidden attributes for forms
-          [:id, :created_at, :updated_at].exclude?(attribute_name)
         else
           true
         end
@@ -46,7 +43,7 @@ module Madmin
     end
 
     def default_index_attributes
-      [model.primary_key.to_sym, :avatar, :title, :name, :user]
+      [model.primary_key.to_sym, :avatar, :title, :name, :user, :created_at]
     end
 
     def required?
@@ -54,6 +51,10 @@ module Madmin
     end
 
     def searchable?
+      false
+    end
+
+    def paginateable?
       false
     end
   end

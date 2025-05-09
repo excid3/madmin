@@ -1,5 +1,51 @@
 ### Unreleased
 
+### 2.0.2
+
+- Use `try` so field doesn't raise error when retrieving invalid values
+- Don't cast model on find. Let ActiveRecord handle STI.
+
+### 2.0.1
+
+- Add pagination to has_many and nested_has_many fields
+- Resource generator now matches the madmin namespace with customizations
+  For example: `namespace :madmin, path: :admin do`
+- Safely handle missing `config/routes/madmin.rb` for Rails 6.1+
+  If this file does not exist, `config/routes.rb` will be used
+- Replace flatpickr with date and datetime fields for better accessibility
+
+### 2.0.0
+
+- Remove Tailwind CDN
+- Add styles through asset pipeline
+- Refactor JavaScript into an Import map (separate from the Rails app)
+- Include Rails route helpers in Madmin controllers and views for better integration with the main app
+- Add `menu` to resources to allow customizing navigation sort order and add headers for grouping
+
+```ruby
+# config/initializers/madmin.rb
+
+# Add a Payments header at the first position in the menu
+Madmin.menu.add label: "Payments", position: 0
+```
+
+```ruby
+class SubscriptionResource < Madmin::Resource
+  # Add Subscriptions under the Payments header
+  menu parent: "Payments"
+end
+```
+
+- `member_action` now yields the record to the block
+
+```ruby
+class UserResource < Madmin::Resource
+  member_action do |user|
+    button_to "Impersonate", impersonate_user_path(user)
+  end
+end
+```
+
 ### 1.2.10
 
 - Fix compatibility with Pagy 8.x
