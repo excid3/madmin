@@ -4,6 +4,7 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_and_belongs_to_many :habtms, join_table: :user_habtms, dependent: :destroy
 
+  has_one :numerical
   has_one_attached :avatar
   has_person_name
   has_secure_password
