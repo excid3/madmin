@@ -42,8 +42,7 @@ User.all.last(20).each do |user|
     service: ['facebook', 'google', 'twitter'].sample
   )
 
-  # to test pagination
-  100.times do
+  3.times do
     post = user.posts.create!(
       title: FFaker::Music.song,
       state: Post.states.keys.sample,
