@@ -8,4 +8,5 @@
  *= require madmin/forms
  *= require madmin/tables
  *= require madmin/pagination
+ *= require madmin/index_page
 */

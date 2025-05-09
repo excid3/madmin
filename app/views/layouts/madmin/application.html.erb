@@ -13,13 +13,15 @@
     <%= csrf_meta_tags %>
     <%= render "javascript" %>
   </head>
-  <body>
-    <aside id="sidebar">
+  <body class="<%= controller_name %> <%= action_name %>" data-controller="mobile-nav">
+    <button id="hamburger-menu" type="button" data-action="click->mobile-nav#toggle" aria-label="Open menu" aria-expanded="false" aria-controls="sidebar">☰</button>
+    <aside id="sidebar" data-mobile-nav-target="menu">
       <%= render "navigation" %>
     </aside>
     <main>
       <%= render "flash" %>
       <%= yield %>
     </main>
+    <div data-mobile-nav-target="overlay" data-action="click->mobile-nav#close" class="mobile-nav-overlay"></div>
   </body>
 </html>
