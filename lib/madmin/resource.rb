@@ -45,10 +45,8 @@ module Madmin
 
         if field.nil?
           Rails.logger.warn <<~MESSAGE
-            WARNING: Madmin could not infer a field type for `#{name}` attribute. Defaulting to a String type.
-            You can set the type by specifying the type on the attribute:
-
-                attribute :#{name}, :boolean
+            WARNING: Madmin could not infer a field type for `#{name}` attribute in `#{self.name}`. Defaulting to a String type.
+            #{caller.select { it.start_with? Rails.root.to_s }.first}
           MESSAGE
           field = Fields::String
         end
