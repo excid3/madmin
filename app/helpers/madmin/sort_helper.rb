@@ -3,8 +3,9 @@ module Madmin
     def sortable(column, title, options = {})
       matching_column = (column.to_s == sort_column)
       direction = (sort_direction == "asc") ? "desc" : "asc"
-
-      link_to resource.index_path(sort: column, direction: direction, q: params[:q]), options do
+      q = params[:q]
+      
+      link_to resource.index_path(sort: column, direction: direction, q: q), options do
         concat title
         if matching_column
           concat " "
