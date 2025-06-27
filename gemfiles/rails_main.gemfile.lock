@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/rails/rails.git
-  revision: 2994a6cd4a4c0bc017ec39d23a58be7fc52c9f79
+  revision: b51b272b9b110c9d1678fef1caba6e392c667018
   specs:
     actioncable (8.1.0.alpha)
       actionpack (= 8.1.0.alpha)
@@ -100,7 +100,7 @@ GIT
 PATH
   remote: ..
   specs:
-    madmin (2.0.3)
+    madmin (2.0.4)
       importmap-rails
       pagy (>= 3.5)
       propshaft
