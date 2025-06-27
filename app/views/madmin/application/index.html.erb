@@ -25,7 +25,7 @@
   <% end %>
 
   <% resource.scopes.each do |scope| %>
-    <%= link_to scope.to_s.humanize, resource.index_path(scope: scope), class: class_names("btn btn-secondary", {"active" => params[:scope] == scope.to_s}) %>
+    <%= link_to scope.to_s.humanize, resource.index_path(scope: scope, q: params[:q], sort: params[:sort], direction: params[:direction]), class: class_names("btn btn-secondary", {"active" => params[:scope] == scope.to_s}) %>
   <% end %>
 </nav>
 
