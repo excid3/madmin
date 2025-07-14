@@ -64,5 +64,5 @@
 
 <div class="pagination">
   <%== pagy_nav @pagy if @pagy.pages > 1 %>
-  <span>Showing <%= tag.strong @pagy.in %> of <%= tag.strong @pagy.count %></span>
+  <span>Showing <%= tag.strong "#{@pagy.from}-#{@pagy.to}" %> of <%= tag.strong @pagy.count %></span>
 </div>
