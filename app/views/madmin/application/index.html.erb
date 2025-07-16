@@ -15,7 +15,9 @@
       </svg>
       <% end if params[:q].present? %>
 
-    <%= link_to "New #{resource.friendly_name}", resource.new_path, class: "btn btn-secondary" %>
+    <%= link_to resource.new_path, class: "btn btn-secondary" do %>
+      New <%= tag.span resource.friendly_name, class: "hidden md:inline-block" %>
+    <% end %>
   </div>
 </header>
 
