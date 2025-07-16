@@ -1,7 +1,0 @@
-.index {
-  .trix-content {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 300px;
-  }
-}

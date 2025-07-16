@@ -8,15 +8,15 @@ export default class extends Controller {
   }
 
   toggle() {
-    const isOpen = this.menuTarget.classList.toggle("is-open")
-    this.element.setAttribute("aria-expanded", isOpen)
-    this.toggleOverlay(isOpen)
-    this.toggleBodyScroll(isOpen)
-    this.toggleEscapeListener(isOpen)
+    const open = this.menuTarget.classList.toggle("open")
+    this.element.setAttribute("aria-expanded", open)
+    this.toggleOverlay(open)
+    this.toggleBodyScroll(open)
+    this.toggleEscapeListener(open)
   }
 
   close() {
-    if (this.menuTarget.classList.contains("is-open")) {
+    if (this.menuTarget.classList.contains("open")) {
       this.toggle()
     }
   }
@@ -30,20 +30,21 @@ export default class extends Controller {
   disconnect() {
     this.toggleEscapeListener(false)
     this.toggleBodyScroll(false)
+    this.close()
   }
 
-  toggleOverlay(isOpen) {
+  toggleOverlay(open) {
     if (this.hasOverlayTarget) {
-      this.overlayTarget.classList.toggle("is-active", isOpen)
+      this.overlayTarget.classList.toggle("is-active", open)
     }
   }
 
-  toggleBodyScroll(isOpen) {
-    document.body.style.overflow = isOpen ? 'hidden' : ''
+  toggleBodyScroll(open) {
+    document.body.style.overflow = open ? 'hidden' : ''
   }
 
-  toggleEscapeListener(isOpen) {
-    const method = isOpen ? 'addEventListener' : 'removeEventListener'
+  toggleEscapeListener(open) {
+    const method = open ? 'addEventListener' : 'removeEventListener'
     document[method]("keydown", this.handleEscape)
   }
 }
