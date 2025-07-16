@@ -42,15 +42,18 @@ main {
   padding-right: 1rem;
   padding-bottom: 1rem;
   padding-left: calc(1rem + var(--sidebar-width));
+  position: relative;
 }
 
 #sidebar {
+  position: absolute;
+  inset: 0;
+
   border-right: 1px solid var(--border-color);
   height: 100%;
   margin: 0;
   overflow: auto;
   padding: 1rem;
-  position: fixed;
   width: var(--sidebar-width);
 
   h1 {

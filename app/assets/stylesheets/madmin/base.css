@@ -10,6 +10,12 @@
 body {
   color: var(--text-color);
   font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  display: grid;
+  min-height: 100dvh;
+  grid-template-rows: auto 1fr auto;
 }
 
 a {
@@ -95,7 +101,9 @@ a {
 }
 
 .metrics {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
 
   .metric {
     border: 1px solid rgb(229 231 235);
