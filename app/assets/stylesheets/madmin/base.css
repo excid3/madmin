@@ -63,10 +63,12 @@ a {
 .header {
   border-bottom: 1px solid rgb(229 231 235);
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   padding-bottom: 1rem;
   margin-bottom: 1rem;
+  gap: 0.5rem;
 
   h1 {
     margin: 0;
@@ -83,6 +85,7 @@ a {
   .actions {
     align-items: center;
     display: flex;
+    flex-wrap: wrap;
     gap: 0.5rem;
   }
 }
