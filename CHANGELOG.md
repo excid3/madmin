@@ -1,5 +1,13 @@
 ### Unreleased
 
+### 2.0.4
+
+- Fix sorting with search queries #277
+
+### 2.0.3
+
+- Improve warning when an attribute type can't be inferred
+
 ### 2.0.2
 
 - Use `try` so field doesn't raise error when retrieving invalid values

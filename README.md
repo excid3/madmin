@@ -103,9 +103,9 @@ The `attribute` method in model_resource.rb gives you that flexibility.
 ```
 
 ```ruby
-class UserResource < Madmin::Resource
+class BookResource < Madmin::Resource
   attribute :id, form: false
-  attribute :tile
+  attribute :title
   attribute :subtitle, index: false
   attribute :author
   attribute :genre
@@ -119,6 +119,18 @@ You can also scope the copied view(s) to a specific Resource/Model:
 rails generate madmin:views:index Book
  # -> app/views/madmin/books/index.html.erb
 ```
+
+### Specifying Field Types
+
+You can set a field type as the second argument. Field types may have additional options to render the field UI.
+
+
+For example, we can use a select for the genre attribute and specify the collection of options to choose from.
+
+```ruby
+class BookResource < Madmin::Resource
+  attribute :genre, :select, collection: ["Fiction", "Mystery", "Thriller"]
+end
 
 ## Custom Fields
 

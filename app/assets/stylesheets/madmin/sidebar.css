@@ -1,17 +1,59 @@
+#navbar {
+  border-bottom: 1px solid var(--border-color);
+
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .nav-group {
+    display: flex;
+    gap: 0.5em;
+    align-items: center;
+  }
+
+  a {
+    border-radius: .375rem;
+    color: var(--text-color);
+    display: block;
+    font-weight: 500;
+    padding: 0.5rem;
+    text-decoration: none;
+
+    margin-top: 0.1rem;
+    margin-bottom: 0.1rem;
+
+    &:hover {
+      background-color: rgb(243 244 246);
+    }
+
+    &.active {
+      background-color: rgb(243 244 246);
+      font-weight: 600;
+    }
+  }
+}
+
 main {
-  padding-top: 1rem;
   padding-right: 1rem;
   padding-bottom: 1rem;
   padding-left: calc(1rem + var(--sidebar-width));
+  position: relative;
 }
 
 #sidebar {
+  position: absolute;
+  inset: 0;
+
   border-right: 1px solid var(--border-color);
   height: 100%;
   margin: 0;
   overflow: auto;
   padding: 1rem;
-  position: fixed;
   width: var(--sidebar-width);
 
   h1 {
@@ -76,5 +118,59 @@ main {
     &:hover {
       color: var(--primary-color);
     }
+  }
+}
+
+/* Mobile Navigation Styles */
+#hamburger-menu {
+  display: none;
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  color: var(--text-color);
+}
+
+.mobile-nav-overlay {
+  opacity: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 40;
+  transition: 0.2s ease-in-out;
+  pointer-events: none;
+}
+
+.mobile-nav-overlay.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (max-width: 768px) {
+  #hamburger-menu {
+    display: block;
+  }
+
+  main {
+    /* reset padding */
+    padding-left: 1rem;
+  }
+
+  #sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    transform: translateX(-100%);
+    transition: transform 0.2s ease-in-out;
+    background-color: var(--background-color, #fff);
+    z-index: 50;
+  }
+
+  #sidebar.open {
+    transform: translateX(0);
   }
 }

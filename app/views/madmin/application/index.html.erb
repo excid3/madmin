@@ -15,7 +15,9 @@
       </svg>
       <% end if params[:q].present? %>
 
-    <%= link_to "New #{resource.friendly_name}", resource.new_path, class: "btn btn-secondary" %>
+    <%= link_to resource.new_path, class: "btn btn-secondary" do %>
+      New <%= tag.span resource.friendly_name, class: "hidden md:inline-block" %>
+    <% end %>
   </div>
 </header>
 
@@ -25,7 +27,7 @@
   <% end %>
 
   <% resource.scopes.each do |scope| %>
-    <%= link_to scope.to_s.humanize, resource.index_path(scope: scope), class: class_names("btn btn-secondary", {"active" => params[:scope] == scope.to_s}) %>
+    <%= link_to scope.to_s.humanize, resource.index_path(scope: scope, q: params[:q], sort: params[:sort], direction: params[:direction]), class: class_names("btn btn-secondary", {"active" => params[:scope] == scope.to_s}) %>
   <% end %>
 </nav>
 
@@ -64,5 +66,5 @@
 
 <div class="pagination">
   <%== pagy_nav @pagy if @pagy.pages > 1 %>
-  <span>Showing <%= tag.strong @pagy.in %> of <%= tag.strong @pagy.count %></span>
+  <%== pagy_info @pagy %>
 </div>
