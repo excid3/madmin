@@ -11,7 +11,7 @@ module Madmin
 
     config.to_prepare do
       Madmin.reset_resources!
-      Madmin.site_name ||= Rails.application.class.module_parent_name
+      Madmin.site_name ||= Rails.application.class.module_parent_name.gsub(/([a-z])([A-Z])/, '\1 \2')
     end
 
     initializer "madmin.assets" do |app|
