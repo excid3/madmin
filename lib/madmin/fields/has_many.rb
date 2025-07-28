@@ -17,8 +17,13 @@ module Madmin
         {"#{attribute_name.to_s.singularize}_ids": []}
       end
 
-      def index_path
-        Madmin.resource_by_name(model.reflect_on_association(attribute_name).klass).index_path(format: :json)
+      def index_path(format: :json)
+        associated_resource.index_path(format: format)
+      rescue NameError
+      end
+
+      def associated_resource
+        Madmin.resource_by_name(model.reflect_on_association(attribute_name).klass)
       end
 
       def paginateable?
