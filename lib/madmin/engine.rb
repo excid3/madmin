@@ -11,7 +11,7 @@ module Madmin
 
     config.to_prepare do
       Madmin.reset_resources!
-      Madmin.site_name ||= Rails.application.class.module_parent_name
+      Madmin.site_name ||= Rails.application.class.module_parent_name.titleize
     end
 
     initializer "madmin.assets" do |app|
