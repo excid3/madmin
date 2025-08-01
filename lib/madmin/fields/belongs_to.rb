@@ -15,8 +15,9 @@ module Madmin
         "#{attribute_name}_id"
       end
 
-      def index_path
-        associated_resource.index_path(format: :json)
+      def index_path(format: :json)
+        associated_resource.index_path(format: format)
+      rescue NameError
       end
 
       def associated_resource

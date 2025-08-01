@@ -1,3 +1,8 @@
 <% if (object = field.value(record)) %>
-  <%= link_to Madmin.resource_for(object).display_name(object), Madmin.resource_for(object).show_path(object), class: "text-blue-500 underline" %>
+  <% begin %>
+    <% associated_resource = Madmin.resource_for(object) %>
+    <%= link_to associated_resource.display_name(object), associated_resource.show_path(object), class: "text-blue-500 underline" %>
+  <% rescue Madmin::MissingResource => error %>
+    <%= tag.div error, class: "error" %>
+  <% end %>
 <% end %>
