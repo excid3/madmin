@@ -1,9 +1,10 @@
 <% pagy, records = field.paginated_value(record, params) %>
 <% records.each do |object| %>
-  <% associated_resource = Madmin.resource_for(object) %>
-  <div><%= link_to associated_resource.display_name(object), associated_resource.show_path(object) %></div>
-<% rescue Madmin::MissingResource => error %>
-  <%= tag.div error, class: "error" %>
+  <% if (associated_resource = field.associated_resource_for(object)) %>
+    <div><%= link_to associated_resource.display_name(object), associated_resource.show_path(object) %></div>
+  <% else %>
+    <%= render partial: "missing_resource", locals: { resource_name: Madmin.resource_name_for(object) } %>
+  <% end %>
 <% end %>
 
 <div class="pagination">

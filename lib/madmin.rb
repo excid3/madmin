@@ -74,6 +74,12 @@ module Madmin
 
     def resource_by_name(name)
       "#{name}Resource".constantize
+    rescue NameError
+      raise MissingResource, <<~MESSAGE
+        #{name}Resource is missing. Create it by running:
+
+            bin/rails generate madmin:resource #{resource_name.split("Resource").first}
+      MESSAGE
     end
 
     def resources
