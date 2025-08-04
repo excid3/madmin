@@ -1,3 +1,7 @@
 <% if (object = field.value(record)) %>
-  <%= link_to Madmin.resource_for(object).display_name(object), Madmin.resource_for(object).show_path(object), class: "text-blue-500 underline" %>
+  <% if (associated_resource = field.associated_resource_for(object)) %>
+    <%= link_to associated_resource.display_name(object), associated_resource.show_path(object) %>
+  <% else %>
+    <%= render partial: "missing_resource", locals: { resource_name: Madmin.resource_name_for(object) } %>
+  <% end %>
 <% end %>

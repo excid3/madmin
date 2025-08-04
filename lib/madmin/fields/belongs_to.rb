@@ -15,12 +15,18 @@ module Madmin
         "#{attribute_name}_id"
       end
 
-      def index_path
-        associated_resource.index_path(format: :json)
+      def index_path(format: :json)
+        associated_resource&.index_path(format: format)
       end
 
       def associated_resource
         Madmin.resource_by_name(model.reflect_on_association(attribute_name).klass)
+      rescue MissingResource
+      end
+
+      def associated_resource_for(object)
+        Madmin.resource_for(object)
+      rescue MissingResource
       end
     end
   end

@@ -12,6 +12,11 @@ module Madmin
       def to_param
         {attribute_name => %i[type value]}
       end
+
+      def associated_resource_for(object)
+        Madmin.resource_for(object)
+      rescue MissingResource
+      end
     end
   end
 end

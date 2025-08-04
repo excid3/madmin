@@ -41,19 +41,32 @@ module Madmin
   mattr_accessor :site_name
   mattr_accessor :stylesheets, default: []
 
+  class MissingResource < StandardError
+  end
+
   class << self
     def resource_for(object)
+      if (resource_name = resource_name_for(object))
+        resource_name.constantize
+      end
+    rescue NameError
+      raise MissingResource, <<~MESSAGE
+        #{resource_name} is missing. Create it by running:
+
+            bin/rails generate madmin:resource #{resource_name.split("Resource").first}
+      MESSAGE
+    end
+
+    def resource_name_for(object)
       if object.is_a? ::ActiveStorage::Attached
-        "ActiveStorage::AttachmentResource".constantize
+        "ActiveStorage::AttachmentResource"
       else
         begin
-          "#{object.class.name}Resource".constantize
+          "#{object.class.name}Resource"
         rescue
           # For STI models, see if there's a superclass resource available
           if (column = object.class.inheritance_column) && object.class.column_names.include?(column)
-            "#{object.class.superclass.base_class.name}Resource".constantize
-          else
-            raise
+            "#{object.class.superclass.base_class.name}Resource"
           end
         end
       end
@@ -61,6 +74,12 @@ module Madmin
 
     def resource_by_name(name)
       "#{name}Resource".constantize
+    rescue NameError
+      raise MissingResource, <<~MESSAGE
+        #{name}Resource is missing. Create it by running:
+
+            bin/rails generate madmin:resource #{resource_name.split("Resource").first}
+      MESSAGE
     end
 
     def resources
