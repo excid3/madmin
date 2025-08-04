@@ -1,5 +1,10 @@
 ### Unreleased
 
+### 2.0.5
+
+- Safely handle missing resources and provide instructions on how to fix them.
+- Fix flash messages with layout
+
 ### 2.0.4
 
 - Fix sorting with search queries #277
