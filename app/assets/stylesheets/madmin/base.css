@@ -15,7 +15,7 @@ body {
 
   display: grid;
   min-height: 100dvh;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto auto 1fr auto;
 }
 
 a {
@@ -28,10 +28,8 @@ a {
 }
 
 .alert {
-  border-radius: 0.5rem;
   font-weight: 500;
   padding: 1rem;
-  margin-bottom: 1rem;
 
   ul {
     margin-top: 0.5rem;
