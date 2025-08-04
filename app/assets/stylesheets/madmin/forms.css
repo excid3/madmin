@@ -81,3 +81,10 @@ select {
   color: rgb(239 68 68);
   font-weight: 600;
 }
+
+.nested-fields {
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+}
