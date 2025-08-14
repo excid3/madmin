@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/rails/rails.git
-  revision: 9a64857d7002554b0af94158de386def5bfef9d3
+  revision: 2ca26346a563a375277e97a09d879df33682df55
   specs:
     actioncable (8.1.0.alpha)
       actionpack (= 8.1.0.alpha)
@@ -184,7 +184,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.18.9-x86_64-linux-gnu)
       racc (~> 1.4)
-    pagy (9.3.5)
+    pagy (9.4.0)
     parallel (1.27.0)
     parser (3.3.9.0)
       ast (~> 2.4.1)
@@ -227,7 +227,7 @@ GEM
     rdoc (6.14.2)
       erb
       psych (>= 4.0.0)
-    regexp_parser (2.11.0)
+    regexp_parser (2.11.2)
     reline (0.6.2)
       io-console (~> 0.5)
     rubocop (1.75.8)
