@@ -35,7 +35,7 @@
     cursor: default;
   }
 
-  a.current {
+  a[aria-current="page"] {
     color: #ffffff;
     background-color: var(--primary-color);
   }

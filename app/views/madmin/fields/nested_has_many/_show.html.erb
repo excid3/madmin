@@ -1,4 +1,4 @@
-<% pagy, records = field.paginated_value(record, params, request) %>
+<% pagy, records = field.paginated_value(record, params) %>
 <% records.each do |object| %>
   <% if (associated_resource = field.associated_resource_for(object)) %>
     <div><%= link_to associated_resource.display_name(object), associated_resource.show_path(object) %></div>
