@@ -42,9 +42,7 @@ module Madmin
         include Pagy::Method
 
         def paginate(value, page:, page_key:, request:)
-          pagy value, page: [page, 1].max, page_key: page_key, request: request
-          # rescue Pagy::RangeError
-          #  pagy :series_nav, value, page: 1, page_param: page_param
+          pagy value, page: page, page_key: page_key, request: request
         end
       else
         # Pagy 9 or earlier
