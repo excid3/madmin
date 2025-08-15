@@ -32,3 +32,7 @@ appraise "sprockets" do
   remove_gem "propshaft"
   gem "sprockets-rails"
 end
+
+appraise "pagy-43" do
+  gem "pagy", "~> 43.0.0.rc"
+end

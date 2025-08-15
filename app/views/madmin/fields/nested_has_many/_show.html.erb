@@ -8,6 +8,11 @@
 <% end %>
 
 <div class="pagination">
-  <%== pagy_nav pagy if pagy.pages > 1 %>
-  <%== pagy_info pagy %>
+  <% if pagy.respond_to?(:series_nav) %>
+    <%== pagy.series_nav if pagy.last > 1 %>
+    <%== pagy.info_tag %>
+  <% else %>
+    <%== pagy_nav pagy if pagy.last > 1 %>
+    <%== pagy_info pagy %>
+  <% end %>
 </div>
