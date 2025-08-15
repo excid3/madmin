@@ -1,5 +1,9 @@
 ### Unreleased
 
+### 2.1.0
+
+- Add support for Pagy `~> 43.0.0.rc1`
+
 ### 2.0.5
 
 - Safely handle missing resources and provide instructions on how to fix them.
