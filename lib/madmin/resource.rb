@@ -72,7 +72,7 @@ module Madmin
       end
 
       def friendly_name
-        model_name.split("::").map { |part| part.underscore.humanize }.join(" / ").titlecase.pluralize
+        model_name.split("::").map { |part| part.underscore.humanize }.join(" / ").titlecase
       end
 
       # Support for isolated namespaces

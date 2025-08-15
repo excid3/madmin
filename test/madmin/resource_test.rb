@@ -13,7 +13,7 @@ class ResourceTest < ActiveSupport::TestCase
   end
 
   test "friendly_name" do
-    assert_equal "Users", UserResource.friendly_name
-    assert_equal "Foo Bar Bahs", FooBarBahResource.friendly_name
+    assert_equal "User", UserResource.friendly_name
+    assert_equal "Foo Bar Bah", FooBarBahResource.friendly_name
   end
 end
