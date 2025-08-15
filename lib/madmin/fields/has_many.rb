@@ -1,8 +1,6 @@
 module Madmin
   module Fields
     class HasMany < Field
-      include Pagy::Backend
-
       def options_for_select(record)
         if (records = record.send(attribute_name))
           return [] unless records.first
@@ -35,11 +33,28 @@ module Madmin
         true
       end
 
-      def paginated_value(record, params)
-        param_name = "#{attribute_name}_page"
-        pagy value(record), page: params[param_name].to_i, page_param: param_name
-      rescue Pagy::OverflowError, Pagy::VariableError
-        pagy value(record), page: 1, page_param: param_name
+      def paginated_value(record, params, request)
+        page_key = "#{attribute_name}_page"
+        paginate value(record), page: params[page_key].to_i, page_key: page_key, request: request
+      end
+
+      if Gem::Version.new(Pagy::VERSION) >= Gem::Version.new("43.0.0.rc")
+        include Pagy::Method
+
+        def paginate(value, page:, page_key:, request:)
+          pagy value, page: [page, 1].max, page_key: page_key, request: request
+          # rescue Pagy::RangeError
+          #  pagy :series_nav, value, page: 1, page_param: page_param
+        end
+      else
+        # Pagy 9 or earlier
+        include Pagy::Backend
+
+        def paginate(value, page:, page_key:, request: nil)
+          pagy value, page: page, page_param: page_key
+        rescue Pagy::OverflowError, Pagy::VariableError
+          pagy value, page: 1, page_param: page_key
+        end
       end
     end
   end
