@@ -9,10 +9,10 @@
 
 <div class="pagination">
   <% if pagy.respond_to?(:series_nav) %>
-    <%== pagy.series_nav %>
+    <%== pagy.series_nav if pagy.last > 1 %>
     <%== pagy.info_tag %>
   <% else %>
-    <%== pagy_nav pagy %>
+    <%== pagy_nav pagy if pagy.last > 1 %>
     <%== pagy_info pagy %>
   <% end %>
 </div>
