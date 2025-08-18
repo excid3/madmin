@@ -2,12 +2,7 @@ module Madmin
   module Fields
     class BelongsTo < Field
       def options_for_select(record)
-        records = if (record = record.send(attribute_name))
-          [record]
-        else
-          associated_resource.model.first(25)
-        end
-
+        records = associated_resource.model.all
         records.map { [Madmin.resource_for(_1).display_name(_1), _1.id] }
       end
 
