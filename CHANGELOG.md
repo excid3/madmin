@@ -1,5 +1,12 @@
 ### Unreleased
 
+### 2.1.1
+
+- Fix STI fallback resource lookup #295
+- Fix overflow scroll on main element
+- Preload more than the currently selected value #296
+- Singularlize resource names for buttons #294
+
 ### 2.1.0
 
 - Add support for Pagy `~> 43.0.0.rc1`

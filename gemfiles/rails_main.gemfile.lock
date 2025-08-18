@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/rails/rails.git
-  revision: 2ca26346a563a375277e97a09d879df33682df55
+  revision: 9a21e6c3b92eab108c85e2bc9f47ad19a40ad88a
   specs:
     actioncable (8.1.0.alpha)
       actionpack (= 8.1.0.alpha)
@@ -101,7 +101,7 @@ GIT
 PATH
   remote: ..
   specs:
-    madmin (2.1.0)
+    madmin (2.1.1)
       importmap-rails
       pagy (>= 3.5)
       propshaft
@@ -280,7 +280,7 @@ GEM
       railties (>= 7.1.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    unicode-display_width (3.1.4)
+    unicode-display_width (3.1.5)
       unicode-emoji (~> 4.0, >= 4.0.4)
     unicode-emoji (4.0.4)
     uri (1.0.3)

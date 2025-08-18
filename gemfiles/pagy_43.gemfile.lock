@@ -1,7 +1,7 @@
 PATH
   remote: ..
   specs:
-    madmin (2.1.0)
+    madmin (2.1.1)
       importmap-rails
       pagy (>= 3.5)
       propshaft
@@ -159,7 +159,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.18.9-x86_64-linux-musl)
       racc (~> 1.4)
-    pagy (43.0.0.rc2)
+    pagy (43.0.0.rc3)
       json
       yaml
     parallel (1.27.0)
