@@ -71,8 +71,8 @@ module Madmin
         )
       end
 
-       # Returns singular name
-       # For example: "Forum::Post" -> "Forum / Post"
+      # Returns singular name
+      # For example: "Forum::Post" -> "Forum / Post"
       def friendly_name
         model_name.split("::").map { |part| part.underscore.humanize }.join(" / ").titlecase
       end
