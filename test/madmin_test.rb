@@ -45,4 +45,8 @@ class Madmin::Test < ActiveSupport::TestCase
     assert UserResource.get_attribute(:comments).field.paginateable?
     refute UserResource.get_attribute(:id).field.paginateable?
   end
+
+  test "resource_for with STI fallback" do
+    assert_equal EventResource, Madmin.resource_for(CommentEvent.new)
+  end
 end

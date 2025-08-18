@@ -45,30 +45,37 @@ module Madmin
   end
 
   class << self
+    # Returns a Madmin::Resource class for the given object
     def resource_for(object)
-      if (resource_name = resource_name_for(object))
+      if (resource_name = resource_name_for(object)) && Object.const_defined?(resource_name)
         resource_name.constantize
-      end
-    rescue NameError
-      raise MissingResource, <<~MESSAGE
-        #{resource_name} is missing. Create it by running:
 
-            bin/rails generate madmin:resource #{resource_name.split("Resource").first}
-      MESSAGE
+      # STI models should look at the parent
+      elsif (resource_name = sti_resource_name_for(object)) && Object.const_defined?(resource_name)
+        resource_name.constantize
+
+      else
+        raise MissingResource, <<~MESSAGE
+          `#{object.class.name}Resource` is missing.
+
+          Create the Madmin resource by running:
+
+              bin/rails generate madmin:resource #{object.class.name}
+        MESSAGE
+      end
     end
 
     def resource_name_for(object)
       if object.is_a? ::ActiveStorage::Attached
         "ActiveStorage::AttachmentResource"
       else
-        begin
-          "#{object.class.name}Resource"
-        rescue
-          # For STI models, see if there's a superclass resource available
-          if (column = object.class.inheritance_column) && object.class.column_names.include?(column)
-            "#{object.class.superclass.base_class.name}Resource"
-          end
-        end
+        "#{object.class.name}Resource"
+      end
+    end
+
+    def sti_resource_name_for(object)
+      if (column = object.class.inheritance_column) && object.class.column_names.include?(column)
+        "#{object.class.superclass.base_class.name}Resource"
       end
     end
 
