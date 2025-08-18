@@ -19,6 +19,6 @@
     </div>
   <% end %>
 
-  <%= form.submit class: "btn btn-primary", title: resource.friendly_name %>
+  <%= form.submit class: "btn btn-primary" %>
   <%= link_to "Cancel", (record.persisted? ? resource.show_path(record) : resource.index_path), class: "btn" %>
 <% end %>
