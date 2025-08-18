@@ -2,7 +2,8 @@ module Madmin
   module Fields
     class BelongsTo < Field
       def options_for_select(record)
-        records = [record.send(attribute_name)].compact + associated_resource.model.limit(25)
+        current_value = record.send(attribute_name)
+        records = [current_value].compact + associated_resource.model.excluding(current_value).limit(25)
         records.map { [Madmin.resource_for(_1).display_name(_1), _1.id] }
       end
 
