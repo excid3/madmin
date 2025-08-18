@@ -39,6 +39,7 @@
 }
 
 main {
+  overflow: auto;
   padding-right: 1rem;
   padding-bottom: 1rem;
   padding-left: calc(1rem + var(--sidebar-width));
@@ -48,7 +49,8 @@ main {
 #sidebar {
   position: absolute;
   inset: 0;
-  z-index: 10; /* Ensure sidebar is above main content */
+  /* Ensure sidebar is above main content */
+  z-index: 10;
 
   border-right: 1px solid var(--border-color);
   height: 100%;
