@@ -1,5 +1,7 @@
 ### Unreleased
 
+- Fix `root_url` link in navbar if app doesn't have a root
+
 ### 2.1.1
 
 - Fix STI fallback resource lookup #295
