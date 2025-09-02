@@ -1,5 +1,7 @@
 ### Unreleased
 
+### 2.1.2
+
 - Fix `root_url` link in navbar if app doesn't have a root
 
 ### 2.1.1
