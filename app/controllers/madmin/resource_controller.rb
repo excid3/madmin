@@ -2,7 +2,7 @@ module Madmin
   class ResourceController < Madmin::ApplicationController
     include SortHelper
 
-    before_action :set_record, except: [:index, :new, :create]
+    before_action :set_record, except: %i[index new create]
 
     # Assign current_user for paper_trail gem
     before_action :set_paper_trail_whodunnit, if: -> { respond_to?(:set_paper_trail_whodunnit, true) }
@@ -12,9 +12,9 @@ module Madmin
 
       respond_to do |format|
         format.html
-        format.json {
+        format.json do
           render json: @records.map { |r| {name: @resource.display_name(r), id: r.id} }
-        }
+        end
       end
     end
 
@@ -77,9 +77,16 @@ module Madmin
     end
 
     def resource_params
-      params.require(resource.param_key)
+      permitted_params = params.require(resource.param_key)
         .permit(*resource.permitted_params)
         .transform_values { |v| change_polymorphic(v) }
+
+      # Transform JSON fields
+      permitted_params.each do |key, value|
+        permitted_params[key] = parse_json_attribute(key, value)
+      end
+
+      permitted_params
     end
 
     def new_resource_params
@@ -91,11 +98,20 @@ module Madmin
     def change_polymorphic(data)
       return data unless data.is_a?(ActionController::Parameters) && data[:type]
 
-      if data[:type] == "polymorphic"
-        GlobalID::Locator.locate(data[:value])
-      else
-        raise "Unrecognised param data: #{data.inspect}"
-      end
+      raise "Unrecognised param data: #{data.inspect}" unless data[:type] == "polymorphic"
+
+      GlobalID::Locator.locate(data[:value])
+    end
+
+    def parse_json_attribute(key, value)
+      return value unless json_attribute?(key)
+
+      JSON.parse(value)
+    end
+
+    def json_attribute?(key)
+      attribute = resource.get_attribute(key.to_sym)
+      attribute&.type == :json
     end
 
     def search_term
