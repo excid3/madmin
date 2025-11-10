@@ -5,7 +5,7 @@ module Madmin
       direction = (sort_direction == "asc") ? "desc" : "asc"
       filters = params.fetch(:filters, {}).permit!.to_h
 
-      link_to resource.index_path(sort: column, direction: direction, filters: filters), options do
+      link_to resource.index_path(sort: column, direction: direction, scope: params[:scope], q: params[:q], filters: filters), options do
         concat title
         if matching_column
           concat " "

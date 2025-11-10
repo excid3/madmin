@@ -1,5 +1,40 @@
 ### Unreleased
 
+- Improve button affordances by updating cursor behavior (pointer on hover, not-allowed when disabled) [@anthony0030]
+
+### 2.1.2
+
+- Fix `root_url` link in navbar if app doesn't have a root
+
+### 2.1.1
+
+- Fix STI fallback resource lookup #295
+- Fix overflow scroll on main element
+- Preload more than the currently selected value #296
+- Singularlize resource names for buttons #294
+
+### 2.1.0
+
+- Add support for Pagy `~> 43.0.0.rc1`
+
+### 2.0.5
+
+- Safely handle missing resources and provide instructions on how to fix them.
+- Fix flash messages with layout
+
+### 2.0.4
+
+- Fix sorting with search queries #277
+
+### 2.0.3
+
+- Improve warning when an attribute type can't be inferred
+
+### 2.0.2
+
+- Use `try` so field doesn't raise error when retrieving invalid values
+- Don't cast model on find. Let ActiveRecord handle STI.
+
 ### 2.0.1
 
 - Add pagination to has_many and nested_has_many fields

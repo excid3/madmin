@@ -1,4 +1,5 @@
 namespace :madmin do
+  resources :events
   namespace :paper_trail do
     resources :versions
   end

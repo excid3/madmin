@@ -3,6 +3,8 @@
   border: 1px solid var(--border-color);
   overflow-x: auto;
   position: relative;
+  min-width: 0;
+  width: 100%;
 }
 
 table {
@@ -13,10 +15,6 @@ table {
     background-color: var(--background-color);
     border-bottom: 1px solid var(--border-color);
     text-align: left;
-    padding-bottom: 0.75rem;
-    padding-top: 0.75rem;
-    padding-right: 0.875rem;
-    padding-left: 0.875rem;
 
     a {
       color: rgb(17 24 39);
@@ -36,11 +34,6 @@ table {
   }
 
   td {
-    padding-bottom: 0.75rem;
-    padding-top: 0.75rem;
-    padding-right: 0.875rem;
-    padding-left: 0.875rem;
-
     a {
       font-weight: 500;
     }
@@ -52,5 +45,17 @@ table {
     &:last-child {
       border-bottom: none;
     }
+  }
+
+  th, td {
+    /* force scroll */
+    min-width: 60px;
+    white-space: nowrap;
+
+    /* responsive padding */
+    padding-top: clamp(0.5rem, 0.25rem + 1.25vw, 0.75rem);
+    padding-bottom: clamp(0.5rem, 0.25rem + 1.25vw, 0.75rem);
+    padding-left: clamp(0.5rem, 0.125rem + 1.875vw, 0.875rem);
+    padding-right: clamp(0.5rem, 0.125rem + 1.875vw, 0.875rem);
   }
 }

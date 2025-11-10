@@ -41,26 +41,52 @@ module Madmin
   mattr_accessor :site_name
   mattr_accessor :stylesheets, default: []
 
+  class MissingResource < StandardError
+  end
+
   class << self
+    # Returns a Madmin::Resource class for the given object
     def resource_for(object)
-      if object.is_a? ::ActiveStorage::Attached
-        "ActiveStorage::AttachmentResource".constantize
+      if (resource_name = resource_name_for(object)) && Object.const_defined?(resource_name)
+        resource_name.constantize
+
+      # STI models should look at the parent
+      elsif (resource_name = sti_resource_name_for(object)) && Object.const_defined?(resource_name)
+        resource_name.constantize
+
       else
-        begin
-          "#{object.class.name}Resource".constantize
-        rescue
-          # For STI models, see if there's a superclass resource available
-          if (column = object.class.inheritance_column) && object.class.column_names.include?(column)
-            "#{object.class.superclass.base_class.name}Resource".constantize
-          else
-            raise
-          end
-        end
+        raise MissingResource, <<~MESSAGE
+          `#{object.class.name}Resource` is missing.
+
+          Create the Madmin resource by running:
+
+              bin/rails generate madmin:resource #{object.class.name}
+        MESSAGE
+      end
+    end
+
+    def resource_name_for(object)
+      if object.is_a? ::ActiveStorage::Attached
+        "ActiveStorage::AttachmentResource"
+      else
+        "#{object.class.name}Resource"
+      end
+    end
+
+    def sti_resource_name_for(object)
+      if (column = object.class.inheritance_column) && object.class.column_names.include?(column)
+        "#{object.class.superclass.base_class.name}Resource"
       end
     end
 
     def resource_by_name(name)
       "#{name}Resource".constantize
+    rescue NameError
+      raise MissingResource, <<~MESSAGE
+        #{name}Resource is missing. Create it by running:
+
+            bin/rails generate madmin:resource #{resource_name.split("Resource").first}
+      MESSAGE
     end
 
     def resources

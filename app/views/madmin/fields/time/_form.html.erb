@@ -1,4 +1,5 @@
-<div class="block md:inline-block md:w-32 flex-shrink-0 text-gray-700">
-  <%= render "madmin/shared/label", form: form, field: field %>
+<div>
+  <%= form.time_select field.attribute_name,
+                       {},
+                       class: "form-select inline-block" %>
 </div>
-<%= form.time_select field.attribute_name, {}, { class: "form-select" } %>

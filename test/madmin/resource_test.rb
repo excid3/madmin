@@ -1,6 +1,6 @@
 require "test_helper"
 
-class FooBarBazResource < Madmin::Resource; end
+class FooBarBahResource < Madmin::Resource; end
 
 class ResourceTest < ActiveSupport::TestCase
   test "searchable_attributes" do
@@ -14,6 +14,6 @@ class ResourceTest < ActiveSupport::TestCase
 
   test "friendly_name" do
     assert_equal "User", UserResource.friendly_name
-    assert_equal "Foo Bar Baz", FooBarBazResource.friendly_name
+    assert_equal "Foo Bar Bah", FooBarBahResource.friendly_name
   end
 end

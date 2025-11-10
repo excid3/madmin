@@ -34,6 +34,7 @@ jobs:
         ruby: ['3.2', '3.3', '3.4']
         gemfile:
           - sprockets
+          - pagy_43
           - rails_7
           - rails_7_1
           - rails_7_2
@@ -42,6 +43,10 @@ jobs:
         exclude:
           # sqlite3 ~> 1.7 is not compatible with Ruby 3.4+
           - gemfile: rails_7
+            ruby: '3.4'
+          - gemfile: rails_7_1
+            ruby: '3.4'
+          - gemfile: rails_7_2
             ruby: '3.4'
 
     env:
@@ -73,6 +78,7 @@ jobs:
         ruby: ['3.2', '3.3', '3.4']
         gemfile:
           - sprockets
+          - pagy_43
           - rails_7
           - rails_7_1
           - rails_7_2
@@ -81,6 +87,10 @@ jobs:
         exclude:
           # sqlite3 ~> 1.7 is not compatible with Ruby 3.4+
           - gemfile: rails_7
+            ruby: '3.4'
+          - gemfile: rails_7_1
+            ruby: '3.4'
+          - gemfile: rails_7_2
             ruby: '3.4'
 
     env:
@@ -121,6 +131,7 @@ jobs:
         ruby: ['3.2', '3.3', '3.4']
         gemfile:
           - sprockets
+          - pagy_43
           - rails_7
           - rails_7_1
           - rails_7_2
@@ -129,6 +140,10 @@ jobs:
         exclude:
           # sqlite3 ~> 1.7 is not compatible with Ruby 3.4+
           - gemfile: rails_7
+            ruby: '3.4'
+          - gemfile: rails_7_1
+            ruby: '3.4'
+          - gemfile: rails_7_2
             ruby: '3.4'
 
     env:

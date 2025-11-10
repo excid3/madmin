@@ -12,8 +12,15 @@
   padding-left: 0.75rem;
   padding-right: 0.75rem;
 
-  &:hover {
+  &:hover,
+  &:focus {
+    cursor: pointer;
     text-decoration: none !important;
+  }
+
+  &:disabled {
+    opacity: 60%;
+    cursor: not-allowed;
   }
 
   &.btn-primary {

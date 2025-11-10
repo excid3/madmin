@@ -24,8 +24,7 @@ module Madmin
       end
 
       def model_find(id)
-        record = friendly_model? ? model.friendly.find(id) : model.find(id)
-        becomes(record)
+        friendly_model? ? model.friendly.find(id) : model.find(id)
       end
 
       def model_name
@@ -46,10 +45,8 @@ module Madmin
 
         if field.nil?
           Rails.logger.warn <<~MESSAGE
-            WARNING: Madmin could not infer a field type for `#{name}` attribute. Defaulting to a String type.
-            You can set the type by specifying the type on the attribute:
-
-                attribute :#{name}, :boolean
+            WARNING: Madmin could not infer a field type for `#{name}` attribute in `#{self.name}`. Defaulting to a String type.
+            #{caller.find { _1.start_with? Rails.root.to_s }}
           MESSAGE
           field = Fields::String
         end
@@ -74,8 +71,10 @@ module Madmin
         )
       end
 
+      # Returns singular name
+      # For example: "Forum::Post" -> "Forum / Post"
       def friendly_name
-        model_name.gsub("::", " / ").split(/(?=[A-Z])/).join(" ")
+        model_name.split("::").map { |part| part.underscore.humanize }.join(" / ").titlecase
       end
 
       # Support for isolated namespaces

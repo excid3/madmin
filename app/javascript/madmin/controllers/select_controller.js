@@ -8,12 +8,15 @@ export default class extends Controller {
   }
 
   connect() {
-    this.select = new TomSelect(this.element, {
+    let options = {
       plugins: ['remove_button'],
       valueField: 'id',
       labelField: 'name',
       searchField: 'name',
-      load: (search, callback) => {
+    }
+
+    if (this.hasUrlValue) {
+      options["load"] = (search, callback) => {
         let url = search ? `${this.urlValue}?q=${search}` : this.urlValue;
         fetch(url)
           .then(response => response.json())
@@ -23,7 +26,9 @@ export default class extends Controller {
             callback();
           });
       }
-    })
+    }
+
+    this.select = new TomSelect(this.element, options)
   }
 
   disconnect() {

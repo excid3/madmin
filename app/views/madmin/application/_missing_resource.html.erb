@@ -1,0 +1,8 @@
+<div class="error"><%= resource_name %> is missing.</div>
+<% if Rails.env.development? %>
+<div>Create it by running:
+  <code>
+    bin/rails generate madmin:resource <%= resource_name.split("Resource").first %>
+  </code>
+</div>
+<% end %>
