@@ -2,7 +2,7 @@
   <div class="dropdown" data-controller="filter" data-filter-initial-filters-value="<%= @filters_params.to_json %>">
     <% has_active_filters = @filters_params&.dig("groups")&.any? %>
 
-    <label role="button" tabindex="0" class="btn <%= has_active_filters ? 'btn-primary' : 'btn-ghost' %>" data-filter-target="filterButton">
+    <label role="button" tabindex="0" class="btn <%= has_active_filters ? 'btn-primary' : 'btn-secondary' %>" data-filter-target="filterButton">
       Filters
       <span data-filter-target="activeIndicator" class="<%= has_active_filters ? '' : 'hidden' %>">Active</span>
     </label>
@@ -18,7 +18,7 @@
           </button>
           <div class="flex gap-2">
             <button type="submit" class="btn btn-primary">Apply</button>
-            <%= link_to "Clear", resource.index_path, class: "btn btn-ghost" %>
+            <%= link_to "Clear", resource.index_path, class: "btn btn-secondary" %>
           </div>
         </div>
     </div>
