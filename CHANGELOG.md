@@ -1,13 +1,10 @@
 ### Unreleased
 
-### 2.1.3
+### 2.1.2
 
 - Fix pagy v43.0.2 compatibility
 - Remove deprecated `mb_chars` usage in search
 - Improve button affordances by updating cursor behavior (pointer on hover, not-allowed when disabled) [@anthony0030]
-
-### 2.1.2
-
 - Fix `root_url` link in navbar if app doesn't have a root
 
 ### 2.1.1
