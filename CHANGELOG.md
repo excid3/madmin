@@ -1,5 +1,10 @@
 ### Unreleased
 
+### 2.1.3
+
+* Fix pagy v43.0.2 compatibility
+* Remove deprecated `mb_chars` usage in search
+
 ### 2.1.2
 
 - Fix `root_url` link in navbar if app doesn't have a root

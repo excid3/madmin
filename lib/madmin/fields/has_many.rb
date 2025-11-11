@@ -41,7 +41,8 @@ module Madmin
           request = {
             query: {
               "#{attribute_name}_page" => [params[page_key].to_i, 1].max
-            }
+            },
+            params: params
           }
           pagy value(record), page_key: page_key, request: request
         rescue Pagy::OptionError
