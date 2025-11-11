@@ -1,7 +1,7 @@
 PATH
   remote: ..
   specs:
-    madmin (2.1.2)
+    madmin (2.1.3)
       importmap-rails
       pagy (>= 3.5)
       propshaft
