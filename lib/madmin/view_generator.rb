@@ -5,6 +5,7 @@ require "madmin/namespace"
 module Madmin
   class ViewGenerator < Rails::Generators::Base
     include Madmin::GeneratorHelpers
+
     class_option :namespace, type: :string, default: "madmin"
 
     def self.template_source_path
