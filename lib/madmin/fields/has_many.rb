@@ -39,10 +39,9 @@ module Madmin
         def paginated_value(record, params)
           page_key = "#{attribute_name}_page"
           request = {
-            query: {
+            params: {
               "#{attribute_name}_page" => [params[page_key].to_i, 1].max
-            },
-            params: params
+            }
           }
           pagy value(record), page_key: page_key, request: request
         rescue Pagy::OptionError
