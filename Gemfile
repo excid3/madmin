@@ -21,10 +21,10 @@ gem "standardrb"
 gem "web-console", group: :development
 
 # Databases to test against
-gem "pg"
 gem "mysql2"
+gem "pg"
 gem "sqlite3"
 
 gem "propshaft"
-gem "turbo-rails"
 gem "stimulus-rails"
+gem "turbo-rails"
