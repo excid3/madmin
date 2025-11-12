@@ -1,0 +1,23 @@
+.dropdown {
+  position: relative;
+  display: inline-block;
+
+  & .dropdown-content {
+    background-color: var(--background-color);
+    border-radius: 0.375rem;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 20px 25px -5px var(--border-color), 0 8px 10px -6px var(--border-color);
+    padding: 0.75rem;
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    z-index: 10;
+    right: 0;
+  }
+
+  &:focus .dropdown-content,
+  &:focus-within .dropdown-content {
+    visibility: visible;
+    opacity: 1;
+  }
+}

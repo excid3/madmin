@@ -1,0 +1,115 @@
+<template id="condition-group-template">
+  <div id="group-GROUP_ID" class="filter-group">
+    <div class="filter-group-header">
+      <h2>Filter Group</h2>
+
+      <select name="filters[groups][GROUP_ID][match_type]"
+              class="select-match-type">
+        <option value="all">Match All Conditions</option>
+        <option value="any">Match Any Condition</option>
+      </select>
+
+      <button type="button"
+              class="btn btn-secondary remove-group"
+              data-action="filter#removeConditionGroup"
+              data-filter-group-id-param="GROUP_ID">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <div id="conditions-GROUP_ID" class="conditions-container">
+      <%# Conditions will be dynamically inserted here %>
+    </div>
+
+    <button type="button"
+            class="btn btn-secondary add-condition"
+            data-action="filter#addCondition"
+            data-filter-group-id-param="GROUP_ID">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+      </svg>
+      Add Condition
+    </button>
+  </div>
+</template>
+
+<template id="condition-template">
+  <div id="condition-GROUP_ID-CONDITION_ID" class="filter-condition">
+    <select name="filters[groups][GROUP_ID][conditions][CONDITION_ID][column]"
+            class="select-column"
+            data-action="filter#handleColumnChange">
+      <% resource.sortable_columns.map do |column| %>
+        <option value="<%= column %>" data-filter-type="<%= resource.infer_type(column) %>"><%= column.titleize %></option>
+      <% end %>
+    </select>
+    <input class="select-type" type="hidden" name="filters[groups][GROUP_ID][conditions][CONDITION_ID][type]">
+
+    <select name="filters[groups][GROUP_ID][conditions][CONDITION_ID][operator]"
+            class="select-operator">
+      <optgroup label="Basic">
+        <option value="eq">Equals</option>
+        <option value="not_eq">Not Equals</option>
+      </optgroup>
+      <optgroup label="Comparison">
+        <option value="lt">Less Than</option>
+        <option value="lte">Less Than or Equal</option>
+        <option value="gt">Greater Than</option>
+        <option value="gte">Greater Than or Equal</option>
+      </optgroup>
+      <optgroup label="Text">
+        <option value="contains">Contains</option>
+        <option value="not_contains">Does Not Contain</option>
+        <option value="starts_with">Starts With</option>
+        <option value="ends_with">Ends With</option>
+      </optgroup>
+      <optgroup label="Special">
+        <option value="is_null">Is Empty</option>
+        <option value="is_not_null">Is Not Empty</option>
+        <option value="in">In List</option>
+        <option value="not_in">Not In List</option>
+      </optgroup>
+    </select>
+
+    <div class="value-container">
+      <%# Text input (default) %>
+      <input type="text"
+            name="filters[groups][GROUP_ID][conditions][CONDITION_ID][value]"
+            class="select-value input-type-text"
+            placeholder="Enter value...">
+
+      <%# DateTime input %>
+      <input type="datetime-local"
+            name="filters[groups][GROUP_ID][conditions][CONDITION_ID][value]"
+            class="select-value input-type-datetime hidden"
+            placeholder="Select date..."
+            disabled>
+
+      <%# Date input %>
+      <input type="date"
+            name="filters[groups][GROUP_ID][conditions][CONDITION_ID][value]"
+            class="select-value input-type-date hidden"
+            placeholder="Select date..."
+            disabled>
+
+      <%# Boolean input %>
+      <select name="filters[groups][GROUP_ID][conditions][CONDITION_ID][value]"
+              class="select-value input-type-boolean hidden"
+              disabled>
+        <option value="true">True</option>
+        <option value="false">False</option>
+      </select>
+    </div>
+
+    <button type="button"
+            class="btn btn-secondary remove-condition"
+            data-action="filter#removeCondition"
+            data-filter-group-id-param="GROUP_ID"
+            data-filter-condition-id-param="CONDITION_ID">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+</template>

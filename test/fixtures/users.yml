@@ -13,3 +13,11 @@ two:
   birthday: 2020-09-10
   password_digest: <%= BCrypt::Password.create('password', cost: 4) %>
   ssn: 123-45-6789
+
+three:
+  first_name: Jamie
+  last_name: Oliver
+  birthday: 2021-01-01
+  password_digest: <%= BCrypt::Password.create('password', cost: 4) %>
+  token: sample-token
+  ssn: 222-33-4444
