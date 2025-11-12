@@ -1,5 +1,9 @@
 ### Unreleased
 
+### 2.1.3
+
+- Pass `params` instead of `query` to Pagy v43 for has_many fields
+
 ### 2.1.2
 
 - Fix pagy v43.0.2 compatibility
