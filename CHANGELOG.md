@@ -1,5 +1,10 @@
 ### Unreleased
 
+### 2.2.1
+
+- Automatically add engines to resource locations and load path
+- Quote table name correctly in search. Fixes #308
+
 ### 2.2.0
 
 - Add `Madmin.resource_locations` configuration
