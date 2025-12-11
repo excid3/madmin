@@ -40,6 +40,7 @@ module Madmin
   mattr_accessor :menu, default: Menu.new
   mattr_accessor :site_name
   mattr_accessor :stylesheets, default: []
+  mattr_accessor :resource_locations, default: []
 
   class MissingResource < StandardError
   end
@@ -99,9 +100,10 @@ module Madmin
     end
 
     def resource_names
-      root = Rails.root.join("app/madmin/resources/")
-      files = Dir.glob(root.join("**/*.rb"))
-      files.sort!.map! { |f| f.split(root.to_s).last.delete_suffix(".rb").classify }
+      resource_locations.flat_map do |root|
+        files = Dir.glob(root.join("**/*.rb"))
+        files.sort!.map! { |f| f.split(root.to_s).last.delete_suffix(".rb").classify }
+      end
     end
   end
 end
