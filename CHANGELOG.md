@@ -1,5 +1,10 @@
 ### Unreleased
 
+### 2.2.0
+
+- Add `Madmin.resource_locations` configuration
+  This allows you to specify other directories for finding resources in your application.
+
 ### 2.1.3
 
 - Pass `params` instead of `query` to Pagy v43 for has_many fields
