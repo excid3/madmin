@@ -5,8 +5,8 @@ module Madmin
     isolate_namespace Madmin
 
     config.before_configuration do |app|
-      app.config.eager_load_paths << File.expand_path("app/madmin/resources", Rails.root)
-      app.config.eager_load_paths << File.expand_path("app/madmin/fields", Rails.root)
+      app.config.eager_load_paths << app.root.join("app/madmin/resources")
+      app.config.eager_load_paths << app.root.join("app/madmin/fields")
       Madmin.resource_locations << Rails.root.join("app/madmin/resources/")
     end
 
