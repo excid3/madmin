@@ -8,6 +8,12 @@ module Madmin
       app.config.eager_load_paths << app.root.join("app/madmin/resources")
       app.config.eager_load_paths << app.root.join("app/madmin/fields")
       Madmin.resource_locations << Rails.root.join("app/madmin/resources/")
+
+      Rails::Engine.subclasses.each do |engine|
+        app.config.eager_load_paths << engine.root.join("app/madmin/resources")
+        app.config.eager_load_paths << engine.root.join("app/madmin/fields")
+        Madmin.resource_locations << engine.root.join("app/madmin/resources/")
+      end
     end
 
     config.to_prepare do
