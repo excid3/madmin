@@ -50,7 +50,7 @@ module Madmin
     end
 
     def query_table_name(attr)
-      ::ActiveRecord::Base.connection.quote_column_name(@scoped_resource.table_name)
+      ::ActiveRecord::Base.connection.quote_table_name(@scoped_resource.table_name)
     end
 
     def column_to_query(attr)
