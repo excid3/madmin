@@ -32,6 +32,8 @@ module Madmin
         else
           "madmin/application"
         end
+
+        Madmin.stylesheets << "lexxy" if defined?(::Lexxy)
       end
     end
 
