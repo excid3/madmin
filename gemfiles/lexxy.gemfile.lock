@@ -6,6 +6,8 @@ PATH
       pagy (>= 3.5)
       propshaft
       rails (>= 7.0.0)
+      stimulus-rails
+      turbo-rails
 
 GEM
   remote: https://rubygems.org/
@@ -333,12 +335,9 @@ DEPENDENCIES
   mysql2
   name_of_person (~> 1.1, >= 1.1.1)
   pg
-  propshaft
   puma
   sqlite3
   standardrb
-  stimulus-rails
-  turbo-rails
   web-console
 
 CHECKSUMS

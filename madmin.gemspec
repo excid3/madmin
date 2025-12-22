@@ -20,6 +20,8 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "rails", ">= 7.0.0"
   spec.add_dependency "pagy", ">= 3.5"
-  spec.add_dependency "importmap-rails"
   spec.add_dependency "propshaft"
+  spec.add_dependency "importmap-rails"
+  spec.add_dependency "stimulus-rails"
+  spec.add_dependency "turbo-rails"
 end

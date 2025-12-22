@@ -25,8 +25,4 @@ gem "pg"
 gem "mysql2"
 gem "sqlite3"
 
-gem "propshaft"
-gem "turbo-rails"
-gem "stimulus-rails"
-
 gem "minitest", "< 6.0.0"
