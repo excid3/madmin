@@ -1,5 +1,10 @@
 ### Unreleased
 
+### 2.3.1
+
+- Fix Trix import for apps not using `action_text-trix`
+- Add and require `stimulus-rails`  and `turbo-rails` dependencies
+
 ### 2.3.0
 
 - Add support for Lexxy
