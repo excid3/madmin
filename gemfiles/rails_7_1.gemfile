@@ -16,6 +16,7 @@ gem "sqlite3", "~> 1.4"
 gem "propshaft"
 gem "turbo-rails"
 gem "stimulus-rails"
+gem "minitest", "< 6.0.0"
 gem "rails", "~> 7.1.0"
 
 gemspec path: "../"

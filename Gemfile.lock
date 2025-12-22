@@ -133,8 +133,7 @@ GEM
     marcel (1.1.0)
     mini_mime (1.1.5)
     mini_portile2 (2.8.9)
-    minitest (6.0.0)
-      prism (~> 1.5)
+    minitest (5.27.0)
     mysql2 (0.5.7)
       bigdecimal
     name_of_person (1.1.3)
@@ -313,6 +312,7 @@ DEPENDENCIES
   ffaker (~> 2.17)
   friendly_id (~> 5.4)
   madmin!
+  minitest (< 6.0.0)
   mysql2
   name_of_person (~> 1.1, >= 1.1.1)
   pg
