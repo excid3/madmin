@@ -1,6 +1,6 @@
 <%= javascript_importmap_tags "application", importmap: Madmin.importmap %>
 
-<%= tag.script 'import "trix"'.html_safe, type: "module" if defined?(::Trix) %>
+<%= tag.script 'import "trix"'.html_safe, type: "module" if defined?(::Trix) || Rails.gem_version < Gem::Version.new("8.1.0.beta1") %>
 <%= tag.script 'import "lexxy"'.html_safe, type: "module" if defined?(::Lexxy) %>
 
 <%= stylesheet_link_tag *Madmin.stylesheets, "data-turbo-track": "reload" %>
