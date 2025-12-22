@@ -1,5 +1,12 @@
 ### Unreleased
 
+### 2.3.0
+
+- Add support for Lexxy
+- Refactor Trix to be detected and included if found
+- Import activestorage JavaScript by default
+- Automatically add main Rails app's madmin Stimulus controllers
+
 ### 2.2.1
 
 - Automatically add engines to resource locations and load path
