@@ -131,6 +131,7 @@ For example, we can use a select for the genre attribute and specify the collect
 class BookResource < Madmin::Resource
   attribute :genre, :select, collection: ["Fiction", "Mystery", "Thriller"]
 end
+```
 
 ## Custom Fields
 
