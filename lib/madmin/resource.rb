@@ -84,7 +84,7 @@ module Madmin
         namespace = model.module_parents.detect do |n|
           n.respond_to?(:use_relative_model_naming?) && n.use_relative_model_naming?
         end
-        @route_namespace = (namespace ? namespace.name.singularize.underscore.to_sym : nil)
+        @route_namespace = (namespace ? namespace.name.underscore.to_sym : nil)
       end
 
       def index_path(options = {})
