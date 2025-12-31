@@ -1,5 +1,9 @@
 ### Unreleased
 
+### 2.3.2
+
+- Support plural module names #313
+
 ### 2.3.1
 
 - Fix Trix import for apps not using `action_text-trix`
