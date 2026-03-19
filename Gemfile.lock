@@ -92,7 +92,7 @@ GEM
       thor (>= 0.14.0)
     ast (2.4.3)
     base64 (0.3.0)
-    bcrypt (3.1.20)
+    bcrypt (3.1.22)
     bigdecimal (4.0.1)
     bindex (0.8.1)
     builder (3.3.0)
