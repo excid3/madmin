@@ -39,7 +39,7 @@
           <% next if attribute.field.nil? %>
           <% next unless attribute.field.visible?(action_name) %>
 
-          <th><%= sortable attribute.name, attribute.name.to_s.titleize %></th>
+          <th><%= sortable attribute.name, attribute.field.label %></th>
         <% end %>
         <th></th>
       </tr>

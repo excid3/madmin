@@ -29,6 +29,10 @@ module Madmin
       attribute_name
     end
 
+    def label
+      options[:label].presence || attribute_name.to_s.titleize
+    end
+
     # Used for checking visibility of attribute on an view
     def visible?(action)
       action = action.to_sym
