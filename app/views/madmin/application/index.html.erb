@@ -15,6 +15,10 @@
       </svg>
       <% end if params[:q].present? %>
 
+    <% resource.collection_actions.each do |action| %>
+      <%= instance_exec(&action) %>
+    <% end %>
+
     <%= link_to resource.new_path, class: "btn btn-secondary" do %>
       New <%= tag.span resource.friendly_name, class: "hidden md:inline-block" %>
     <% end %>

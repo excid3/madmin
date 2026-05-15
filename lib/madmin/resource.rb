@@ -4,6 +4,7 @@ module Madmin
 
     class_attribute :attributes, default: ActiveSupport::OrderedHash.new
     class_attribute :member_actions, default: []
+    class_attribute :collection_actions, default: []
     class_attribute :scopes, default: []
     class_attribute :menu_options, instance_reader: false
 
@@ -11,6 +12,7 @@ module Madmin
       def inherited(base)
         base.attributes = attributes.dup
         base.member_actions = scopes.dup
+        base.collection_actions = collection_actions.dup
         base.scopes = scopes.dup
         super
       end
@@ -133,6 +135,10 @@ module Madmin
 
       def member_action(&block)
         member_actions << block
+      end
+
+      def collection_action(&block)
+        collection_actions << block
       end
 
       def field_for_type(type)

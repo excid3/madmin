@@ -39,6 +39,10 @@ class PostResource < Madmin::Resource
     end
   end
 
+  collection_action do
+    link_to "Export CSV", main_app.madmin_posts_path(format: :csv), class: "btn btn-secondary"
+  end
+
   # Uncomment this to customize the display name of records in the admin area.
   # def self.display_name(record)
   #   record.name
