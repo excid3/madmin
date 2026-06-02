@@ -54,10 +54,16 @@ module Madmin
         config = ActiveSupport::OrderedOptions.new.merge(options)
         yield config if block_given?
 
-        # Form is an alias for new & edit but shouldn't override their values if explicitly set
+        # Form is an alias for new & edit but shouldn't override their values if explicitly set (true/false)
+        config.new = config[:form] if config[:new].nil?
+        config.edit = config[:form] if config[:edit].nil?
+
         # New/create and edit/update need to match
-        config.new = config.create = config[:form] || config[:new]
-        config.edit = config.update = config[:form] || config[:edit]
+        config.create = config.new
+        config.update = config.edit
+
+        # Remove any nil values to use the defaults
+        config.compact!
 
         attributes[name] = Attribute.new(
           name: name,
