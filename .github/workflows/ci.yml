@@ -22,7 +22,7 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
-          ruby-version: "3.4"
+          ruby-version: "4.0"
 
       - name: StandardRb check
         run: bundle exec standardrb
@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby: ['3.2', '3.3', '3.4']
+        ruby: ['3.3', '3.4', '4.0']
         gemfile:
           - sprockets
           - pagy_43
@@ -50,6 +50,12 @@ jobs:
             ruby: '3.4'
           - gemfile: rails_7_2
             ruby: '3.4'
+          - gemfile: rails_7
+            ruby: '4.0'
+          - gemfile: rails_7_1
+            ruby: '4.0'
+          - gemfile: rails_7_2
+            ruby: '4.0'
 
     env:
       BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/${{ matrix.gemfile }}.gemfile
@@ -77,7 +83,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby: ['3.2', '3.3', '3.4']
+        ruby: ['3.3', '3.4', '4.0']
         gemfile:
           - sprockets
           - pagy_43
@@ -96,6 +102,12 @@ jobs:
             ruby: '3.4'
           - gemfile: rails_7_2
             ruby: '3.4'
+          - gemfile: rails_7
+            ruby: '4.0'
+          - gemfile: rails_7_1
+            ruby: '4.0'
+          - gemfile: rails_7_2
+            ruby: '4.0'
 
     env:
       BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/${{ matrix.gemfile }}.gemfile
@@ -132,7 +144,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby: ['3.2', '3.3', '3.4']
+        ruby: ['3.3', '3.4', '4.0']
         gemfile:
           - sprockets
           - pagy_43
@@ -151,6 +163,12 @@ jobs:
             ruby: '3.4'
           - gemfile: rails_7_2
             ruby: '3.4'
+          - gemfile: rails_7
+            ruby: '4.0'
+          - gemfile: rails_7_1
+            ruby: '4.0'
+          - gemfile: rails_7_2
+            ruby: '4.0'
 
     env:
       BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/${{ matrix.gemfile }}.gemfile
