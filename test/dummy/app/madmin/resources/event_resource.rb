@@ -1,7 +1,7 @@
 class EventResource < Madmin::Resource
   # Attributes
   attribute :id, form: false
-  attribute :type
+  attribute :type, form: true
   attribute :created_at, form: false
   attribute :updated_at, form: false
 
