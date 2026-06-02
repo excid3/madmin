@@ -1,5 +1,7 @@
 ### Unreleased
 
+* Fix `new:` and `edit:` options setting. Fixes #332
+
 ### 2.3.2
 
 - Support plural module names #313
