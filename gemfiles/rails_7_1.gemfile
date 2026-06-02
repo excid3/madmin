@@ -13,7 +13,7 @@ gem "web-console", group: :development
 gem "pg"
 gem "mysql2"
 gem "sqlite3", "~> 1.4"
-gem "minitest", "< 6.0.0"
 gem "rails", "~> 7.1.0"
+gem "minitest", "< 6.0.0"
 
 gemspec path: "../"

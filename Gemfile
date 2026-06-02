@@ -24,5 +24,3 @@ gem "web-console", group: :development
 gem "pg"
 gem "mysql2"
 gem "sqlite3"
-
-gem "minitest", "< 6.0.0"
