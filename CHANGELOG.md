@@ -1,5 +1,7 @@
 ### Unreleased
 
+### 2.3.3
+
 * Fix `new:` and `edit:` options setting. Fixes #332
 
 ### 2.3.2
