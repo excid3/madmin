@@ -6,7 +6,7 @@
   <div class="actions">
     <form class="search">
       <%= hidden_field_tag :page, params[:page], value: 1 %>
-      <%= search_field_tag :q, params[:q], placeholder: "Search" %>
+      <%= search_field_tag :q, params[:q], placeholder: t("madmin.search.placeholder") %>
     </form>
 
     <%= link_to clear_search_params, class: "btn btn-secondary" do %>
@@ -16,14 +16,14 @@
       <% end if params[:q].present? %>
 
     <%= link_to resource.new_path, class: "btn btn-secondary" do %>
-      New <%= tag.span resource.friendly_name, class: "hidden md:inline-block" %>
+      <%= t("madmin.actions.new") %> <%= tag.span resource.friendly_name, class: "hidden md:inline-block" %>
     <% end %>
   </div>
 </header>
 
 <nav class="scopes">
   <% if resource.scopes.any? %>
-    <%= link_to "All", resource.index_path, class: class_names("btn btn-secondary", {"active" => params[:scope].blank?}) %>
+    <%= link_to t("madmin.actions.all"), resource.index_path, class: class_names("btn btn-secondary", {"active" => params[:scope].blank?}) %>
   <% end %>
 
   <% resource.scopes.each do |scope| %>
@@ -55,8 +55,8 @@
           <% end %>
 
           <td>
-            <%= link_to "View", resource.show_path(record) %>
-            <%= link_to "Edit", resource.edit_path(record) %>
+            <%= link_to t("madmin.actions.view"), resource.show_path(record) %>
+            <%= link_to t("madmin.actions.edit"), resource.edit_path(record) %>
           </td>
         </tr>
       <% end %>

@@ -1,6 +1,6 @@
-<div class="error"><%= resource_name %> is missing.</div>
+<div class="error"><%= t("madmin.missing_resource.message", resource: resource_name) %></div>
 <% if Rails.env.development? %>
-<div>Create it by running:
+<div><%= t("madmin.missing_resource.create_hint") %>
   <code>
     bin/rails generate madmin:resource <%= resource_name.split("Resource").first %>
   </code>
