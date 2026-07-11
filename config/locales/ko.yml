@@ -1,0 +1,40 @@
+ko:
+  madmin:
+    layout:
+      open_menu: 메뉴 열기
+      admin_suffix: 관리자
+    navigation:
+      dashboard: 대시보드
+      github: GitHub에서 Madmin 보기
+    dashboard:
+      title: Madmin 대시보드
+      hint_html: 대시보드를 원하는 대로 꾸미려면 <code>app/views/madmin/dashboard/show.html.erb</code> 파일을 생성하세요.
+    actions:
+      all: 전체
+      view: 보기
+      edit: 수정
+      delete: 삭제
+      new: 새로 만들기
+      remove: 제거
+      cancel: 취소
+    search:
+      placeholder: 검색
+    titles:
+      new: 새 %{name}
+      edit: "%{name} 수정"
+    form:
+      errors:
+        one: 제출한 내용에 오류가 1개 있습니다
+        other: 제출한 내용에 오류가 %{count}개 있습니다
+    confirmations:
+      delete: 정말 삭제하시겠습니까?
+      remove_with_changes: 정말 삭제하시겠습니까? 다른 변경 사항도 함께 사라집니다.
+    nested_form:
+      add_new: "+ 새로 추가"
+    fields:
+      attachment:
+        one: "첨부파일 %{count}개"
+        other: "첨부파일 %{count}개"
+    missing_resource:
+      message: "%{resource}이(가) 존재하지 않습니다."
+      create_hint: "다음 명령어를 실행하여 생성하세요:"
