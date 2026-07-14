@@ -11,6 +11,10 @@ gemspec
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
 
+# The default Rails asset pipeline
+# Sprockets is tested in an Appraisal
+gem "propshaft"
+
 gem "appraisal"
 gem "bcrypt"
 gem "ffaker", "~> 2.17"
