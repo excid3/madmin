@@ -1,9 +1,9 @@
-require "madmin/engine"
-
+require "propshaft"
 require "importmap-rails"
 require "stimulus-rails"
 require "turbo-rails"
 require "pagy"
+require "madmin/engine"
 
 module Madmin
   autoload :Field, "madmin/field"
