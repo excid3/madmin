@@ -1,5 +1,7 @@
 ### Unreleased
 
+* Remove unused `propshaft` dependency. Madmin uses the Rails app's asset pipeline which could be propshaft or sprockets.
+
 ### 2.3.3
 
 * Fix `new:` and `edit:` options setting. Fixes #332
