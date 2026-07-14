@@ -1,10 +1,10 @@
-<%= content_for :title, "New #{resource.friendly_name}" %>
+<%= content_for :title, t("madmin.titles.new", name: resource.friendly_name) %>
 
 <header class="header">
   <h1>
     <%= link_to resource.friendly_name.pluralize, resource.index_path %>
     /
-    <strong>New <%= resource.friendly_name %></strong>
+    <strong><%= t("madmin.titles.new", name: resource.friendly_name) %></strong>
   </h1>
 </header>
 

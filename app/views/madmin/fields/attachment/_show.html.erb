@@ -5,5 +5,5 @@
     <%= link_to attachment.filename, main_app.url_for(attachment), target: :_blank, class: "text-blue-500 underline" %>
   <% end %>
 
-  <%= link_to "Remove", Madmin.resource_for(attachment).show_path(attachment), data: { turbo_method: :delete, turbo_confirm: "Are you sure? You will lose any other changes."} %>
+  <%= link_to t("madmin.actions.remove"), Madmin.resource_for(attachment).show_path(attachment), data: { turbo_method: :delete, turbo_confirm: t("madmin.confirmations.remove_with_changes")} %>
 <% end %>

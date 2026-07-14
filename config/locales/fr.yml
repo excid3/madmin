@@ -1,0 +1,40 @@
+fr:
+  madmin:
+    layout:
+      open_menu: Ouvrir le menu
+      admin_suffix: Administration
+    navigation:
+      dashboard: Tableau de bord
+      github: Madmin sur GitHub
+    dashboard:
+      title: Tableau de bord Madmin
+      hint_html: Créez <code>app/views/madmin/dashboard/show.html.erb</code> pour personnaliser votre tableau de bord.
+    actions:
+      all: Tous
+      view: Voir
+      edit: Modifier
+      delete: Supprimer
+      new: Nouveau
+      remove: Retirer
+      cancel: Annuler
+    search:
+      placeholder: Rechercher
+    titles:
+      new: Nouveau %{name}
+      edit: Modifier %{name}
+    form:
+      errors:
+        one: Il y a eu 1 erreur dans votre soumission
+        other: Il y a eu %{count} erreurs dans votre soumission
+    confirmations:
+      delete: Êtes-vous sûr ?
+      remove_with_changes: Êtes-vous sûr ? Vous perdrez toutes les autres modifications.
+    nested_form:
+      add_new: "+ Ajouter"
+    fields:
+      attachment:
+        one: "%{count} pièce jointe"
+        other: "%{count} pièces jointes"
+    missing_resource:
+      message: "%{resource} est introuvable."
+      create_hint: "Pour le créer, exécutez :"

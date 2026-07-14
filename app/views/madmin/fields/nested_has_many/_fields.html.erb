@@ -11,7 +11,7 @@
     </div>
   <% end %>
 
-  <small><%= link_to "Remove", "#", data: { action: "click->nested-form#remove_association" } %></small>
+  <small><%= link_to t("madmin.actions.remove"), "#", data: { action: "click->nested-form#remove_association" } %></small>
 
   <%= f.hidden_field :_destroy %>
 <% end %>

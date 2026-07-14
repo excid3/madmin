@@ -1,10 +1,10 @@
-<%= content_for :title, "Edit #{resource.display_name(@record)}" %>
+<%= content_for :title, t("madmin.titles.edit", name: resource.display_name(@record)) %>
 
 <header class="header">
   <h1>
     <%= link_to resource.friendly_name.pluralize, resource.index_path %>
     /
-    <strong>Edit <%= link_to resource.display_name(@record), resource.show_path(@record) %></strong>
+    <strong><%= t("madmin.actions.edit") %> <%= link_to resource.display_name(@record), resource.show_path(@record) %></strong>
   </h1>
 </header>
 
