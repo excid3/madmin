@@ -1,4 +1,4 @@
-require "propshaft"
+require "madmin/engine"
 require "importmap-rails"
 require "stimulus-rails"
 require "turbo-rails"
