@@ -1,5 +1,8 @@
 ### Unreleased
 
+### 2.4.0
+
+* Add `collection_action` for resources
 * Remove unused `propshaft` dependency. Madmin uses the Rails app's asset pipeline which could be propshaft or sprockets.
 
 ### 2.3.3
