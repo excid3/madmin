@@ -158,6 +158,40 @@ class PostResource < Madmin::Resource
 end
 ```
 
+## Actions
+
+### Member Actions
+
+`member_action` lets you add custom buttons to a resource's **show** page. Each block receives the current `record` and is rendered in the header's `.actions` div:
+
+```ruby
+class PostResource < Madmin::Resource
+  member_action do |record|
+    link_to "Publish", publish_admin_post_path(record), class: "btn btn-secondary"
+  end
+end
+```
+
+### Collection Actions
+
+`collection_action` is the index-page counterpart to `member_action`. Blocks are rendered in the index header's `.actions` div, immediately before the built-in "New \<Resource\>" link.
+
+Unlike `member_action`, blocks receive **no** arguments. Each block is `instance_exec`-ed on the index view context, so `link_to`, route helpers, `policy`, `current_user`, `params`, `resource`, and `@records` are all available. Multiple blocks render in registration order.
+
+Each block is responsible for its own authorization gating — if a button should be hidden for some users, guard it inside the block.
+
+```ruby
+class PostResource < Madmin::Resource
+  collection_action do
+    link_to "Bulk Import", bulk_import_admin_posts_path, class: "btn btn-secondary"
+  end
+
+  collection_action do
+    link_to "Export CSV", export_admin_posts_path(format: :csv), class: "btn btn-secondary"
+  end
+end
+```
+
 ## Authentication
 
 You can use a couple of strategies to authenticate users who are trying to
