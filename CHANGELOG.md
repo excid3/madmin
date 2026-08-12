@@ -1,5 +1,8 @@
 ### Unreleased
 
+* Add `collection: true` option to `member_action` to also render the action in each row on the index page
+* Fix `member_actions` being overwritten with `scopes` on subclassed resources
+
 ### 2.4.0
 
 * Add `collection_action` for resources

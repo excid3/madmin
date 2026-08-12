@@ -11,7 +11,7 @@ module Madmin
     class << self
       def inherited(base)
         base.attributes = attributes.dup
-        base.member_actions = scopes.dup
+        base.member_actions = member_actions.dup
         base.collection_actions = collection_actions.dup
         base.scopes = scopes.dup
         super
@@ -134,8 +134,13 @@ module Madmin
         attributes.values.select { |a| a.field.searchable? }
       end
 
-      def member_action(&block)
-        member_actions << block
+      def member_action(collection: false, &block)
+        member_actions << MemberAction.new(collection: collection, &block)
+      end
+
+      # Member actions that should also render in each row on the index page
+      def collection_member_actions
+        member_actions.select { |action| action.respond_to?(:collection?) && action.collection? }
       end
 
       def collection_action(&block)

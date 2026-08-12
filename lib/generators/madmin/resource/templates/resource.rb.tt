@@ -13,6 +13,7 @@ class <%= class_name %>Resource < Madmin::Resource
   # scope :published
 
   # Add actions to the resource's show page
+  # Pass collection: true to also render it in each row on the index page
   # member_action do |record|
   #   link_to "Do Something", some_path
   # end
