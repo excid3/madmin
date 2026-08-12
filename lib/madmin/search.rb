@@ -56,5 +56,7 @@ module Madmin
     def column_to_query(attr)
       ::ActiveRecord::Base.connection.quote_column_name(attr)
     end
+
+    ActiveSupport.run_load_hooks(:madmin_search, self)
   end
 end
