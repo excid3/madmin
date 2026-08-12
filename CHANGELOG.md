@@ -1,5 +1,7 @@
 ### Unreleased
 
+### 2.5.0
+
 * Add `collection: true` option to `member_action` to also render the action in each row on the index page
 * Fix `member_actions` being overwritten with `scopes` on subclassed resources
 * Add `ActiveSupport` load hooks for extending Madmin: `:madmin_resource`, `:madmin_field`, `:madmin_search`, `:madmin_base_controller`, and `:madmin_resource_controller`

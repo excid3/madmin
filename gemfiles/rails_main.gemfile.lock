@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/rails/rails.git
-  revision: cf6d592c55b443ea2aabf31052ac424a204cd9f2
+  revision: c2488b7cffb2e72f40316c7195410f13746d4adf
   specs:
     actioncable (8.2.0.alpha)
       actionpack (= 8.2.0.alpha)
@@ -103,7 +103,7 @@ GIT
 PATH
   remote: ..
   specs:
-    madmin (2.4.0)
+    madmin (2.5.0)
       importmap-rails
       pagy (>= 3.5)
       rails (>= 7.0.0)
@@ -263,9 +263,9 @@ GEM
       rubocop-ast (>= 1.47.1, < 2.0)
     ruby-progressbar (1.13.0)
     securerandom (0.4.1)
-    sqlite3 (2.9.5-arm64-darwin)
-    sqlite3 (2.9.5-x86_64-darwin)
-    sqlite3 (2.9.5-x86_64-linux-gnu)
+    sqlite3 (2.9.6-arm64-darwin)
+    sqlite3 (2.9.6-x86_64-darwin)
+    sqlite3 (2.9.6-x86_64-linux-gnu)
     standard (1.56.0)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.0)
