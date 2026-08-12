@@ -58,9 +58,9 @@
             <td><%= render partial: attribute.field.to_partial_path("index"), locals: { field: attribute.field, record: record, resource: resource } %></td>
           <% end %>
 
-          <td>
-            <%= link_to t("madmin.actions.view"), resource.show_path(record) %>
-            <%= link_to t("madmin.actions.edit"), resource.edit_path(record) %>
+          <td class="actions">
+            <%= link_to t("madmin.actions.view"), resource.show_path(record), class: "btn btn-secondary" %>
+            <%= link_to t("madmin.actions.edit"), resource.edit_path(record), class: "btn btn-secondary" %>
 
             <% resource.collection_member_actions.each do |action| %>
               <%= instance_exec(record, &action) %>

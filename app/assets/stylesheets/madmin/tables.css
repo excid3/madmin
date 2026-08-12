@@ -37,6 +37,12 @@ table {
     a {
       font-weight: 500;
     }
+
+    &.actions {
+      align-items: center;
+      display: flex;
+      gap: 0.5rem;
+    }
   }
 
   tr {
