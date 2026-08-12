@@ -10,16 +10,10 @@ module Madmin
       @block = block
     end
 
-    def collection?
-      @collection
-    end
+    def collection? = @collection
 
-    def call(*args, &blk)
-      block.call(*args, &blk)
-    end
+    def call(*args, &blk) = block.call(*args, &blk)
 
-    def to_proc
-      block
-    end
+    def to_proc = block
   end
 end
