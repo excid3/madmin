@@ -5,9 +5,9 @@ require "turbo-rails"
 require "pagy"
 
 module Madmin
-  autoload :Action, "madmin/action"
   autoload :Field, "madmin/field"
   autoload :GeneratorHelpers, "madmin/generator_helpers"
+  autoload :MemberAction, "madmin/member_action"
   autoload :Menu, "madmin/menu"
   autoload :Resource, "madmin/resource"
   autoload :ResourceBuilder, "madmin/resource_builder"

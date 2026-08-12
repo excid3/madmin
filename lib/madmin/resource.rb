@@ -135,7 +135,7 @@ module Madmin
       end
 
       def member_action(collection: false, &block)
-        member_actions << Action.new(collection: collection, &block)
+        member_actions << MemberAction.new(collection: collection, &block)
       end
 
       # Member actions that should also render in each row on the index page
