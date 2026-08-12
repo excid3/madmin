@@ -10,6 +10,15 @@ class CollectionActionChildResource < CollectionActionParentResource
   collection_action { "child_action" }
 end
 
+class MemberActionParentResource < Madmin::Resource
+  member_action { "parent_action" }
+  member_action(collection: true) { "parent_collection_action" }
+end
+
+class MemberActionChildResource < MemberActionParentResource
+  member_action { "child_action" }
+end
+
 class ResourceTest < ActiveSupport::TestCase
   test "searchable_attributes" do
     searchable_attribute_names = UserResource.searchable_attributes.map(&:name)
@@ -42,5 +51,32 @@ class ResourceTest < ActiveSupport::TestCase
 
   test "child collection_actions do not leak to parent" do
     assert_equal 1, CollectionActionParentResource.collection_actions.size
+  end
+
+  test "member_actions defaults to empty array" do
+    assert_equal [], Madmin::Resource.member_actions
+  end
+
+  test "member_action defaults to collection: false" do
+    action = MemberActionParentResource.member_actions.first
+    refute_predicate action, :collection?
+    assert_equal "parent_action", action.call
+  end
+
+  test "collection_member_actions only includes actions with collection: true" do
+    actions = MemberActionParentResource.collection_member_actions
+    assert_equal 1, actions.size
+    assert_equal "parent_collection_action", actions.first.call
+  end
+
+  test "member actions can be converted to a block" do
+    assert_equal "parent_action", instance_exec(&MemberActionParentResource.member_actions.first)
+  end
+
+  test "subclass inherits parent member_actions and can add its own" do
+    assert_equal 3, MemberActionChildResource.member_actions.size
+    assert_equal 2, MemberActionParentResource.member_actions.size
+    assert_equal "child_action", MemberActionChildResource.member_actions.last.call
+    assert_equal 1, MemberActionChildResource.collection_member_actions.size
   end
 end

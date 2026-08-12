@@ -39,6 +39,11 @@ class PostResource < Madmin::Resource
     end
   end
 
+  # Rendered on the show page and in each row on the index page
+  member_action collection: true do |record|
+    link_to "Preview", main_app.madmin_post_path(record), class: "btn btn-secondary"
+  end
+
   collection_action do
     link_to "Export CSV", main_app.madmin_posts_path(format: :csv), class: "btn btn-secondary"
   end

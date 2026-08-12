@@ -61,6 +61,10 @@
           <td>
             <%= link_to t("madmin.actions.view"), resource.show_path(record) %>
             <%= link_to t("madmin.actions.edit"), resource.edit_path(record) %>
+
+            <% resource.collection_member_actions.each do |action| %>
+              <%= instance_exec(record, &action) %>
+            <% end %>
           </td>
         </tr>
       <% end %>

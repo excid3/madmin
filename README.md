@@ -172,6 +172,16 @@ class PostResource < Madmin::Resource
 end
 ```
 
+Pass `collection: true` to also render the action on the **index** page, in each row next to the built-in "View" and "Edit" links:
+
+```ruby
+class PostResource < Madmin::Resource
+  member_action collection: true do |record|
+    link_to "Publish", publish_admin_post_path(record), class: "btn btn-secondary"
+  end
+end
+```
+
 ### Collection Actions
 
 `collection_action` is the index-page counterpart to `member_action`. Blocks are rendered in the index header's `.actions` div, immediately before the built-in "New \<Resource\>" link.
