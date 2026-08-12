@@ -9,5 +9,7 @@ module Madmin
     end
 
     protect_from_forgery with: :exception
+
+    ActiveSupport.run_load_hooks(:madmin_base_controller, self)
   end
 end

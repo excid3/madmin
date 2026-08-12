@@ -61,5 +61,7 @@ module Madmin
     def paginateable?
       false
     end
+
+    ActiveSupport.run_load_hooks(:madmin_field, self)
   end
 end

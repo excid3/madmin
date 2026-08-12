@@ -101,5 +101,7 @@ module Madmin
     def search_term
       @search_term ||= params[:q].to_s.strip
     end
+
+    ActiveSupport.run_load_hooks(:madmin_resource_controller, self)
   end
 end

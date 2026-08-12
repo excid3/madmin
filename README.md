@@ -202,6 +202,35 @@ class PostResource < Madmin::Resource
 end
 ```
 
+## Extending Madmin
+
+Madmin runs `ActiveSupport` load hooks on its core classes so you can extend them from an initializer without reopening or monkey patching them. This is the recommended way for engines and gems to add behavior to Madmin.
+
+| Hook | Base | Use it for |
+| --- | --- | --- |
+| `:madmin_resource` | `Madmin::Resource` | Adding to the resource DSL |
+| `:madmin_field` | `Madmin::Field` | Shared behavior across every field type |
+| `:madmin_search` | `Madmin::Search` | Customizing how the search query is built |
+| `:madmin_base_controller` | `Madmin::BaseController` | Layouts, helpers, `rescue_from`, authentication |
+| `:madmin_resource_controller` | `Madmin::ResourceController` | CRUD callbacks, scoping records, audit logging |
+
+Blocks are `class_eval`-ed on the base class, so `self` is the class itself:
+
+```ruby
+# config/initializers/madmin.rb
+ActiveSupport.on_load(:madmin_resource) do
+  # self == Madmin::Resource, so `extend` adds class-level DSL to every resource
+  extend MyAdmin::ResourceExtensions
+end
+
+ActiveSupport.on_load(:madmin_base_controller) do
+  # self == Madmin::BaseController
+  rescue_from Pundit::NotAuthorizedError, with: :admin_not_authorized
+end
+```
+
+Hooks registered after a class has already loaded run immediately, so ordering in your initializers doesn't matter. The controllers live in the engine's `app/` directory and are reloadable, which means their hooks re-run on every reload in development — keep the blocks idempotent.
+
 ## Authentication
 
 You can use a couple of strategies to authenticate users who are trying to

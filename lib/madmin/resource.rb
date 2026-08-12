@@ -272,5 +272,7 @@ module Madmin
         @menu_options.with_defaults(label: friendly_name.pluralize, url: index_path)
       end
     end
+
+    ActiveSupport.run_load_hooks(:madmin_resource, self)
   end
 end
