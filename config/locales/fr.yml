@@ -26,6 +26,8 @@ fr:
       errors:
         one: Il y a eu 1 erreur dans votre soumission
         other: Il y a eu %{count} erreurs dans votre soumission
+    flash:
+      readonly: "%{name} est en lecture seule"
     confirmations:
       delete: Êtes-vous sûr ?
       remove_with_changes: Êtes-vous sûr ? Vous perdrez toutes les autres modifications.

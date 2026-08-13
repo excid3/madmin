@@ -11,8 +11,10 @@
     <% resource.member_actions.each do |action| %>
       <%= instance_exec(@record, &action) %>
     <% end %>
-    <%= link_to t("madmin.actions.edit"), resource.edit_path(@record), class: "btn btn-secondary" %>
-    <%= button_to t("madmin.actions.delete"), resource.show_path(@record), method: :delete, data: { turbo_confirm: t("madmin.confirmations.delete") }, class: "btn btn-danger" %>
+    <% unless resource.readonly? %>
+      <%= link_to t("madmin.actions.edit"), resource.edit_path(@record), class: "btn btn-secondary" %>
+      <%= button_to t("madmin.actions.delete"), resource.show_path(@record), method: :delete, data: { turbo_confirm: t("madmin.confirmations.delete") }, class: "btn btn-danger" %>
+    <% end %>
   </div>
 </header>
 

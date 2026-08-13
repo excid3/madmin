@@ -19,8 +19,10 @@
       <%= instance_exec(&action) %>
     <% end %>
 
-    <%= link_to resource.new_path, class: "btn btn-secondary" do %>
-      <%= t("madmin.actions.new") %> <%= tag.span resource.friendly_name, class: "hidden md:inline-block" %>
+    <% unless resource.readonly? %>
+      <%= link_to resource.new_path, class: "btn btn-secondary" do %>
+        <%= t("madmin.actions.new") %> <%= tag.span resource.friendly_name, class: "hidden md:inline-block" %>
+      <% end %>
     <% end %>
   </div>
 </header>
@@ -60,7 +62,7 @@
 
           <td class="actions">
             <%= link_to t("madmin.actions.view"), resource.show_path(record), class: "btn btn-secondary" %>
-            <%= link_to t("madmin.actions.edit"), resource.edit_path(record), class: "btn btn-secondary" %>
+            <%= link_to t("madmin.actions.edit"), resource.edit_path(record), class: "btn btn-secondary" unless resource.readonly? %>
 
             <% resource.collection_member_actions.each do |action| %>
               <%= instance_exec(record, &action) %>

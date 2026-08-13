@@ -126,6 +126,10 @@ module Madmin
         model.respond_to? :friendly
       end
 
+      def readonly?
+        false
+      end
+
       def sortable_columns
         model.column_names
       end
