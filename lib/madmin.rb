@@ -78,6 +78,8 @@ module Madmin
     end
 
     def sti_resource_name_for(object)
+      return unless object.class.respond_to?(:inheritance_column) && object.class.respond_to?(:column_names)
+
       if (column = object.class.inheritance_column) && object.class.column_names.include?(column)
         "#{object.class.superclass.base_class.name}Resource"
       end
