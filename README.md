@@ -58,6 +58,20 @@ end
 
 ```
 
+### Read-only Resources
+
+To expose a resource in the admin without allowing writes, override `readonly?` in the resource:
+
+```ruby
+class AuditLogResource < Madmin::Resource
+  def self.readonly?
+    true
+  end
+end
+```
+
+The new, edit, and delete links are hidden for read-only resources, and any write actions redirect back to the index.
+
 ## Configuring Views
 
 The views packaged within the gem are a great starting point, but inevitably people will need to be able to customize those views.

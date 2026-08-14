@@ -26,6 +26,8 @@ en:
       errors:
         one: There was 1 error with your submission
         other: There were %{count} errors with your submission
+    flash:
+      readonly: "%{name} is read-only"
     confirmations:
       delete: Are you sure?
       remove_with_changes: Are you sure? You will lose any other changes.

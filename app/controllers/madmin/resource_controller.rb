@@ -3,6 +3,7 @@ module Madmin
     include SortHelper
 
     before_action :set_record, except: [:index, :new, :create]
+    before_action :enforce_readonly, only: [:new, :create, :edit, :update, :destroy]
 
     # Assign current_user for paper_trail gem
     before_action :set_paper_trail_whodunnit, if: -> { respond_to?(:set_paper_trail_whodunnit, true) }
@@ -107,6 +108,10 @@ module Madmin
 
     def search_term
       @search_term ||= params[:q].to_s.strip
+    end
+
+    def enforce_readonly
+      redirect_to resource.index_path, alert: t("madmin.flash.readonly", name: resource.friendly_name) if resource.readonly?
     end
 
     ActiveSupport.run_load_hooks(:madmin_resource_controller, self)
