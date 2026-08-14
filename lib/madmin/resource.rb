@@ -127,6 +127,10 @@ module Madmin
       end
 
       def sortable_columns
+        model_column_names
+      end
+
+      def model_column_names
         model.column_names
       end
 
@@ -258,6 +262,8 @@ module Madmin
       end
 
       def model_store_accessors
+        return [] unless model.respond_to?(:stored_attributes)
+
         store_accessors = model.stored_attributes.values
         store_accessors.flatten
       end

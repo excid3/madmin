@@ -22,7 +22,7 @@ module Madmin
     end
 
     def default_sort_column
-      resource.try(:default_sort_column) || (["created_at", "id", "uuid"] & resource.model.column_names).first
+      resource.try(:default_sort_column) || (["created_at", "id", "uuid"] & resource.sortable_columns).first || resource.sortable_columns.first
     end
 
     def default_sort_direction

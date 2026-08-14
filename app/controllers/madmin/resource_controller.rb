@@ -8,7 +8,7 @@ module Madmin
     before_action :set_paper_trail_whodunnit, if: -> { respond_to?(:set_paper_trail_whodunnit, true) }
 
     def index
-      @pagy, @records = pagy(scoped_resources)
+      @pagy, @records = paginate_collection(scoped_resources)
 
       respond_to do |format|
         format.html
@@ -68,7 +68,14 @@ module Madmin
     def scoped_resources
       resources = resource.model.send(valid_scope)
       resources = Madmin::Search.new(resources, resource, search_term).run
+
+      return resources if sort_column.blank?
+
       resources.reorder(sort_column => sort_direction)
+    end
+
+    def paginate_collection(collection)
+      pagy(collection)
     end
 
     def valid_scope

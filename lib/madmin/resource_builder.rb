@@ -7,6 +7,8 @@ module Madmin
     end
 
     def associations
+      return [] unless model.respond_to?(:reflections)
+
       model.reflections.reject { |name, association|
         # Hide these special associations
         name.starts_with?("rich_text") ||
@@ -22,10 +24,14 @@ module Madmin
     end
 
     def store_accessors
+      return [] unless model.respond_to?(:stored_attributes)
+
       model.stored_attributes.values.flatten
     end
 
     def virtual_attributes
+      return [] unless model.respond_to?(:attribute_types)
+
       virtual = []
 
       # has_secure_password columns
@@ -50,6 +56,8 @@ module Madmin
     end
 
     def redundant_attributes
+      return [] unless model.respond_to?(:attribute_types)
+
       redundant = []
 
       # has_secure_password columns
