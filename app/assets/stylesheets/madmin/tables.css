@@ -5,6 +5,10 @@
   position: relative;
   min-width: 0;
   width: 100%;
+
+  &:not(:has(tbody tr)) th {
+    border-bottom: none;
+  }
 }
 
 table {
