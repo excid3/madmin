@@ -37,7 +37,7 @@
   <% end %>
 </nav>
 
-<div class="table-scroll">
+<div class="<%= class_names("table-scroll", {"table-scroll-empty" => @records.empty?}) %>">
   <table>
     <thead>
       <tr>

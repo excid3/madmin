@@ -7,6 +7,14 @@ class PostsResourceTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", madmin_posts_path(format: :csv), text: "Export CSV"
   end
 
+  test "index marks table scroll as empty when there are no records" do
+    Post.delete_all
+
+    get madmin_posts_path
+    assert_response :success
+    assert_select ".table-scroll.table-scroll-empty"
+  end
+
   test "collection_action blocks render before the New link" do
     get madmin_posts_path
     assert_response :success

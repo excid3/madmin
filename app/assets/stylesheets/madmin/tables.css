@@ -65,3 +65,7 @@ table {
     padding-right: clamp(0.5rem, 0.125rem + 1.875vw, 0.875rem);
   }
 }
+
+.table-scroll-empty th {
+  border-bottom: none;
+}
