@@ -5,6 +5,10 @@
   position: relative;
   min-width: 0;
   width: 100%;
+
+  &:not(:has(tbody tr)) th {
+    border-bottom: none;
+  }
 }
 
 table {
@@ -64,8 +68,4 @@ table {
     padding-left: clamp(0.5rem, 0.125rem + 1.875vw, 0.875rem);
     padding-right: clamp(0.5rem, 0.125rem + 1.875vw, 0.875rem);
   }
-}
-
-.table-scroll-empty th {
-  border-bottom: none;
 }
