@@ -1,0 +1,42 @@
+el:
+  madmin:
+    layout:
+      open_menu: Άνοιγμα μενού
+      admin_suffix: Διαχείριση
+    navigation:
+      dashboard: Πίνακας ελέγχου
+      github: Το Madmin στο GitHub
+    dashboard:
+      title: Πίνακας ελέγχου Madmin
+      hint_html: Δημιουργήστε το <code>app/views/madmin/dashboard/show.html.erb</code> για να προσαρμόσετε τον πίνακα ελέγχου σας.
+    actions:
+      all: Όλα
+      view: Προβολή
+      edit: Επεξεργασία
+      delete: Διαγραφή
+      new: Νέο
+      remove: Αφαίρεση
+      cancel: Ακύρωση
+    search:
+      placeholder: Αναζήτηση
+    titles:
+      new: Νέο %{name}
+      edit: Επεξεργασία %{name}
+    form:
+      errors:
+        one: Υπήρξε 1 σφάλμα με την υποβολή σας
+        other: Υπήρξαν %{count} σφάλματα με την υποβολή σας
+    flash:
+      readonly: "%{name}: μόνο για ανάγνωση"
+    confirmations:
+      delete: Είστε σίγουροι;
+      remove_with_changes: Είστε σίγουροι; Θα χάσετε όλες τις άλλες αλλαγές.
+    nested_form:
+      add_new: "+ Προσθήκη νέου"
+    fields:
+      attachment:
+        one: "%{count} συνημμένο"
+        other: "%{count} συνημμένα"
+    missing_resource:
+      message: "Λείπει: %{resource}"
+      create_hint: "Δημιουργήστε το εκτελώντας:"
