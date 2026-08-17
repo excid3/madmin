@@ -1,5 +1,7 @@
 ### Unreleased
 
+### 2.6.0
+
 * Add read-only resource support. Override `readonly?` on a resource to redirect write actions back to the index and hide the New/Edit/Delete links #348
 * Add extension seams and guards for non-ActiveRecord models: `Resource.model_column_names`, a `paginate_collection` seam in `ResourceController`, skip reorder when there's no sort column, and `respond_to?` guards around `reflections`, `stored_attributes`, `attribute_types`, and `inheritance_column` #352
 * Add Greek (el) locale #354
