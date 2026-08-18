@@ -79,4 +79,32 @@ class ResourceTest < ActiveSupport::TestCase
     assert_equal "child_action", MemberActionChildResource.member_actions.last.call
     assert_equal 1, MemberActionChildResource.collection_member_actions.size
   end
+
+  test "scope_label humanizes the scope name by default" do
+    assert_equal "Recently updated", PostResource.scope_label(:recently_updated)
+  end
+
+  test "scope_label uses a resource-specific translation when defined" do
+    I18n.backend.store_translations(:en, madmin: {scopes: {post: {recent: "Fresh"}}})
+    assert_equal "Fresh", PostResource.scope_label(:recent)
+  ensure
+    I18n.reload!
+  end
+
+  test "scope_label falls back to a shared scope translation" do
+    I18n.backend.store_translations(:en, madmin: {scopes: {recent: "Latest"}})
+    assert_equal "Latest", PostResource.scope_label(:recent)
+  ensure
+    I18n.reload!
+  end
+
+  test "scope_label can be overridden per resource" do
+    resource = Class.new(PostResource) do
+      def self.scope_label(name)
+        name.to_s.upcase
+      end
+    end
+
+    assert_equal "RECENT", resource.scope_label(:recent)
+  end
 end

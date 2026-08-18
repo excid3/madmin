@@ -37,6 +37,13 @@ module Madmin
         scopes << name
       end
 
+      # Label for a scope button on the index. Looks up
+      # madmin.scopes.<param_key>.<name>, then madmin.scopes.<name> in I18n,
+      # falling back to the humanized scope name. Override for custom labels.
+      def scope_label(name)
+        I18n.t("madmin.scopes.#{param_key}.#{name}", default: [:"madmin.scopes.#{name}", name.to_s.humanize])
+      end
+
       def get_attribute(name)
         attributes[name]
       end

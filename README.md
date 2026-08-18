@@ -72,6 +72,37 @@ end
 
 The new, edit, and delete links are hidden for read-only resources, and any write actions redirect back to the index.
 
+### Scopes
+
+Declare scopes on a resource to render filter buttons on the index page. Each scope must be a scope or class method on the model:
+
+```ruby
+class PostResource < Madmin::Resource
+  scope :published
+  scope :draft
+end
+```
+
+Button labels default to the humanized scope name. To customize or translate them, define an I18n key — `madmin.scopes.<param_key>.<scope>` for one resource, or `madmin.scopes.<scope>` shared across resources:
+
+```yaml
+en:
+  madmin:
+    scopes:
+      post:
+        published: Live
+```
+
+For labels that need logic (e.g. looking up a record name), override `scope_label`:
+
+```ruby
+class PostResource < Madmin::Resource
+  def self.scope_label(name)
+    name.to_s.titleize
+  end
+end
+```
+
 ## Configuring Views
 
 The views packaged within the gem are a great starting point, but inevitably people will need to be able to customize those views.
