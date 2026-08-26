@@ -30,7 +30,7 @@ module Madmin
     end
 
     def label
-      options[:label].presence || attribute_name.to_s.titleize
+      options[:label].presence || model.human_attribute_name(attribute_name) || attribute_name.to_s.titleize
     end
 
     # Used for checking visibility of attribute on an view
