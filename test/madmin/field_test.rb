@@ -40,6 +40,9 @@ class Madmin::FieldTest < ActiveSupport::TestCase
   end
 
   test "label with localize setting" do
+    original_locales = I18n.available_locales
+    I18n.available_locales = original_locales | [:"zh-CN"]
+
     I18n.backend.store_translations :en, activerecord: {
       attributes: {
         post: {
@@ -61,5 +64,7 @@ class Madmin::FieldTest < ActiveSupport::TestCase
     I18n.with_locale(:"zh-CN") do
       assert_equal "标题", PostResource.attributes[:title].field.label
     end
+  ensure
+    I18n.available_locales = original_locales
   end
 end
