@@ -61,6 +61,5 @@ class Madmin::FieldTest < ActiveSupport::TestCase
     I18n.with_locale(:"zh-CN") do
       assert_equal "标题", PostResource.attributes[:title].field.label
     end
-
   end
 end
