@@ -84,7 +84,7 @@ module Madmin
       # Returns singular name
       # For example: "Forum::Post" -> "Forum / Post"
       def friendly_name
-        model_name.split("::").map { |part| part.underscore.humanize }.join(" / ").titlecase
+        model.model_name.human
       end
 
       # Support for isolated namespaces
@@ -126,7 +126,7 @@ module Madmin
       end
 
       def display_name(record)
-        "#{record.class} ##{record.id}"
+        "#{record.model_name.human} ##{record.id}"
       end
 
       def friendly_model?
@@ -286,7 +286,7 @@ module Madmin
       def menu_options
         return false if @menu_options == false
         @menu_options ||= {}
-        @menu_options.with_defaults(label: friendly_name.pluralize, url: index_path)
+        @menu_options.with_defaults(label: friendly_name, url: index_path)
       end
     end
 

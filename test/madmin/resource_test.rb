@@ -1,5 +1,6 @@
 require "test_helper"
 
+class FooBarBah < ApplicationRecord; end
 class FooBarBahResource < Madmin::Resource; end
 
 class CollectionActionParentResource < Madmin::Resource
@@ -31,8 +32,74 @@ class ResourceTest < ActiveSupport::TestCase
 
   test "friendly_name" do
     assert_equal "User", UserResource.friendly_name
-    assert_equal "Foo Bar Bah", FooBarBahResource.friendly_name
+    assert_equal "Foo bar bah", FooBarBahResource.friendly_name
   end
+
+  test "friendly_name with localize setting" do
+    original_locales = I18n.available_locales
+    I18n.available_locales = original_locales | [:"zh-CN"]
+
+    I18n.backend.store_translations :en, activerecord: {
+      models: {
+        post: {
+          one: "Post",
+          other: "Posts"
+        }
+      }
+    }
+    I18n.backend.store_translations :"zh-CN", activerecord: {
+      models: {
+        post: {
+          one: "文章",
+          other: "文章",
+        },
+        "active_storage/attachment": "附件"
+      }
+    }
+
+    I18n.with_locale(:en) do
+      assert_equal "Post", PostResource.friendly_name
+    end
+    I18n.with_locale(:"zh-CN") do
+      assert_equal "文章", PostResource.friendly_name
+      assert_equal "附件", ActiveStorage::AttachmentResource.friendly_name
+    end
+  ensure
+    I18n.available_locales = original_locales
+  end
+
+  test "default menu label with localize setting" do
+    original_locales = I18n.available_locales
+    I18n.available_locales = original_locales | [:"zh-CN"]
+
+    I18n.backend.store_translations :en, activerecord: {
+      models: {
+        post: {
+          one: "Post",
+          other: "Posts"
+        }
+      }
+    }
+    I18n.backend.store_translations :"zh-CN", activerecord: {
+      models: {
+        post: {
+          one: "文章",
+          other: "文章",
+        }
+      }
+    }
+
+    I18n.with_locale(:en) do
+      assert_equal "Post", PostResource.menu_options.dig(:label)
+    end
+    I18n.with_locale(:"zh-CN") do
+      assert_equal "文章", PostResource.menu_options.dig(:label)
+    end
+  ensure
+    I18n.available_locales = original_locales
+
+  end
+
 
   test "collection_actions defaults to empty array" do
     assert_equal [], Madmin::Resource.collection_actions

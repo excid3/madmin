@@ -10,4 +10,36 @@ class ResourceDisplayNameTest < ActiveSupport::TestCase
     resource = posts(:one)
     assert_equal "Post ##{resource.id}", PostResource.display_name(resource)
   end
+
+  test "resource use default display name with localize setting" do
+    original_locales = I18n.available_locales
+    I18n.available_locales = original_locales | [:"zh-CN"]
+
+    I18n.backend.store_translations :en, activerecord: {
+      models: {
+        post: {
+          one: "Post",
+          other: "Posts"
+        }
+      }
+    }
+    I18n.backend.store_translations :"zh-CN", activerecord: {
+      models: {
+        post: {
+          one: "文章",
+          other: "文章",
+        }
+      }
+    }
+    resource = posts(:one)
+    I18n.with_locale(:en) do
+      assert_equal "Post ##{resource.id}", PostResource.display_name(resource)
+    end
+    I18n.with_locale(:"zh-CN") do
+      assert_equal "文章 ##{resource.id}", PostResource.display_name(resource)
+    end
+  ensure
+    I18n.available_locales = original_locales
+
+  end
 end

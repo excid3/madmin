@@ -44,4 +44,31 @@ class PostsResourceTest < ActionDispatch::IntegrationTest
       assert_select "a", text: "Preview"
     end
   end
+
+  test "erb pages with friendly_name.pluralize and localize setting" do
+    original_locales = I18n.available_locales
+    I18n.available_locales = original_locales | [:"zh-CN"]
+    I18n.with_locale(:en) do
+      get madmin_post_path(posts(:one))
+      assert_response :success
+      assert_select ".header>h1>a", text: "Posts"
+
+      get madmin_user_path(users(:one))
+      assert_response :success
+      assert_select ".header>h1>a", text: "Users"
+    end
+
+    I18n.with_locale(:'zh-CN') do
+      get madmin_post_path(posts(:one))
+      assert_response :success
+      assert_select ".header>h1>a", text: "文章"
+
+      get madmin_user_path(users(:one))
+      assert_response :success
+      assert_select ".header>h1>a", text: "User"
+    end
+  ensure
+    I18n.available_locales = original_locales
+  end
+
 end
