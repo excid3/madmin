@@ -12,8 +12,7 @@ class ResourceDisplayNameTest < ActiveSupport::TestCase
   end
 
   test "resource use default display name with localize setting" do
-    original_locales = I18n.available_locales
-    I18n.available_locales = original_locales | [:"zh-CN"]
+    I18n.enforce_available_locales = false
 
     I18n.backend.store_translations :en, activerecord: {
       models: {
@@ -39,7 +38,7 @@ class ResourceDisplayNameTest < ActiveSupport::TestCase
       assert_equal "文章 ##{resource.id}", PostResource.display_name(resource)
     end
   ensure
-    I18n.available_locales = original_locales
+    I18n.enforce_available_locales = true
 
   end
 end

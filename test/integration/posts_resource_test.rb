@@ -46,8 +46,12 @@ class PostsResourceTest < ActionDispatch::IntegrationTest
   end
 
   test "erb pages with friendly_name.pluralize and localize setting" do
-    original_locales = I18n.available_locales
-    I18n.available_locales = original_locales | [:"zh-CN"]
+    I18n.enforce_available_locales = false
+    I18n.backend.store_translations :"zh-CN", activerecord: {
+      models: {
+        post: "文章"
+      }
+    }
     I18n.with_locale(:en) do
       get madmin_post_path(posts(:one))
       assert_response :success
@@ -68,7 +72,7 @@ class PostsResourceTest < ActionDispatch::IntegrationTest
       assert_select ".header>h1>a", text: "User"
     end
   ensure
-    I18n.available_locales = original_locales
+    I18n.enforce_available_locales = true
   end
 
 end

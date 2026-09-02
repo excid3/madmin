@@ -36,8 +36,7 @@ class ResourceTest < ActiveSupport::TestCase
   end
 
   test "friendly_name with localize setting" do
-    original_locales = I18n.available_locales
-    I18n.available_locales = original_locales | [:"zh-CN"]
+    I18n.enforce_available_locales = false
 
     I18n.backend.store_translations :en, activerecord: {
       models: {
@@ -65,12 +64,11 @@ class ResourceTest < ActiveSupport::TestCase
       assert_equal "附件", ActiveStorage::AttachmentResource.friendly_name
     end
   ensure
-    I18n.available_locales = original_locales
+    I18n.enforce_available_locales = true
   end
 
   test "default menu label with localize setting" do
-    original_locales = I18n.available_locales
-    I18n.available_locales = original_locales | [:"zh-CN"]
+    I18n.enforce_available_locales = false
 
     I18n.backend.store_translations :en, activerecord: {
       models: {
@@ -93,7 +91,7 @@ class ResourceTest < ActiveSupport::TestCase
       assert_equal "文章", PostResource.menu_options.dig(:label)
     end
   ensure
-    I18n.available_locales = original_locales
+    I18n.enforce_available_locales = true
   end
 
 
