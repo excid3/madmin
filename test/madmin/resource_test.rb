@@ -48,10 +48,7 @@ class ResourceTest < ActiveSupport::TestCase
     }
     I18n.backend.store_translations :"zh-CN", activerecord: {
       models: {
-        post: {
-          one: "文章",
-          other: "文章",
-        },
+        post: "文章",
         "active_storage/attachment": "附件"
       }
     }
@@ -93,7 +90,6 @@ class ResourceTest < ActiveSupport::TestCase
   ensure
     I18n.enforce_available_locales = true
   end
-
 
   test "collection_actions defaults to empty array" do
     assert_equal [], Madmin::Resource.collection_actions

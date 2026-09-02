@@ -24,10 +24,7 @@ class ResourceDisplayNameTest < ActiveSupport::TestCase
     }
     I18n.backend.store_translations :"zh-CN", activerecord: {
       models: {
-        post: {
-          one: "文章",
-          other: "文章",
-        }
+        post: "文章"
       }
     }
     resource = posts(:one)
@@ -39,6 +36,5 @@ class ResourceDisplayNameTest < ActiveSupport::TestCase
     end
   ensure
     I18n.enforce_available_locales = true
-
   end
 end

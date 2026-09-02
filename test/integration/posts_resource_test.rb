@@ -62,7 +62,7 @@ class PostsResourceTest < ActionDispatch::IntegrationTest
       assert_select ".header>h1>a", text: "Users"
     end
 
-    I18n.with_locale(:'zh-CN') do
+    I18n.with_locale(:"zh-CN") do
       get madmin_post_path(posts(:one))
       assert_response :success
       assert_select ".header>h1>a", text: "文章"
@@ -74,5 +74,4 @@ class PostsResourceTest < ActionDispatch::IntegrationTest
   ensure
     I18n.enforce_available_locales = true
   end
-
 end
