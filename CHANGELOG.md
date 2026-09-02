@@ -1,5 +1,7 @@
 ### Unreleased
 
+### 2.6.1
+
 ### 2.6.0
 
 * Add read-only resource support. Override `readonly?` on a resource to redirect write actions back to the index and hide the New/Edit/Delete links #348
