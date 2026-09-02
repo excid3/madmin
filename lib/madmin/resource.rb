@@ -286,7 +286,7 @@ module Madmin
       def menu_options
         return false if @menu_options == false
         @menu_options ||= {}
-        @menu_options.with_defaults(label: friendly_name, url: index_path)
+        @menu_options.with_defaults(label: friendly_name.pluralize(I18n.locale), url: index_path)
       end
     end
 
