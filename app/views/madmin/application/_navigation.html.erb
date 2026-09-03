@@ -3,13 +3,13 @@
 
   <% Madmin.menu.render do |item| %>
     <% if item.url %>
-      <%= nav_link_to item.label, item.url, starts_with: item.url %>
+      <%= nav_link_to menu_label(item.label), item.url, starts_with: item.url %>
     <% else %>
-      <h4><%= item.label %></h4>
+      <h4><%= menu_label(item.label) %></h4>
     <% end %>
 
     <% item.items.each do |item| %>
-      <%= nav_link_to item.label, item.url, starts_with: item.url %>
+      <%= nav_link_to menu_label(item.label), item.url, starts_with: item.url %>
     <% end %>
   <% end %>
 </nav>

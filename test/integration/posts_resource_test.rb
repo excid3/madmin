@@ -46,6 +46,7 @@ class PostsResourceTest < ActionDispatch::IntegrationTest
   end
 
   test "erb pages with friendly_name.pluralize and localize setting" do
+    I18n.reload!
     I18n.enforce_available_locales = false
     I18n.backend.store_translations :"zh-CN", activerecord: {
       models: {
@@ -70,6 +71,37 @@ class PostsResourceTest < ActionDispatch::IntegrationTest
       get madmin_user_path(users(:one))
       assert_response :success
       assert_select ".header>h1>a", text: "User"
+    end
+  ensure
+    I18n.enforce_available_locales = true
+  end
+
+  test "menu with localize setting" do
+    I18n.reload!
+    I18n.enforce_available_locales = false
+    I18n.backend.store_translations :"zh-CN", {activerecord: {
+                                                 models: {
+                                                   post: "文章"
+                                                 }
+                                               },
+    madmin: {
+      navigation: {
+        user: "用户"
+      }
+    }}
+
+    I18n.with_locale(:en) do
+      get madmin_post_path(posts(:one))
+      assert_response :success
+      assert_select "nav a[href=?]", madmin_posts_path, text: "Post"
+      assert_select "nav a[href=?]", madmin_users_path, text: "User"
+    end
+
+    I18n.with_locale(:"zh-CN") do
+      get madmin_post_path(posts(:one))
+      assert_response :success
+      assert_select "nav a[href=?]", madmin_posts_path, text: "文章"
+      assert_select "nav a[href=?]", madmin_users_path, text: "用户"
     end
   ensure
     I18n.enforce_available_locales = true

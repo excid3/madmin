@@ -27,4 +27,8 @@ module Madmin::NavHelper
 
     link_to name, url, html_options
   end
+
+  def menu_label(label)
+    I18n.t("activerecord.models.#{label}", default: [:"madmin.navigation.#{label}", label.titleize])
+  end
 end
