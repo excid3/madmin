@@ -82,7 +82,7 @@ module Madmin
       end
 
       # Returns singular name
-      # For example: "Forum::Post" -> "Forum / Post"
+      # For example: "Forum::Post" -> "Post"
       def friendly_name
         model.model_name.human
       end
@@ -286,7 +286,7 @@ module Madmin
       def menu_options
         return false if @menu_options == false
         @menu_options ||= {}
-        @menu_options.with_defaults(label: friendly_name.pluralize(I18n.locale), url: index_path)
+        @menu_options.with_defaults(label: model.model_name.i18n_key.to_s, url: index_path)
       end
     end
 

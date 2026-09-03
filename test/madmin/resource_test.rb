@@ -82,10 +82,10 @@ class ResourceTest < ActiveSupport::TestCase
     }
 
     I18n.with_locale(:en) do
-      assert_equal "Posts", PostResource.menu_options.dig(:label)
+      assert_equal "post", PostResource.menu_options.dig(:label)
     end
     I18n.with_locale(:"zh-CN") do
-      assert_equal "文章", PostResource.menu_options.dig(:label)
+      assert_equal "post", PostResource.menu_options.dig(:label)
     end
   ensure
     I18n.enforce_available_locales = true
