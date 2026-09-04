@@ -44,7 +44,7 @@ module Madmin
       def items
         @children.values.sort do |a, b|
           result = a.position <=> b.position
-          result = a.label <=> b.label if result == 0 # sort alphabetically for the same position
+          result = a.label.to_s <=> b.label.to_s if result == 0 # sort alphabetically for the same position
           result
         end
       end

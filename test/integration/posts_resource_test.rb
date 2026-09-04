@@ -44,4 +44,74 @@ class PostsResourceTest < ActionDispatch::IntegrationTest
       assert_select "a", text: "Preview"
     end
   end
+
+  test "erb pages with friendly_name.pluralize and localize setting" do
+    I18n.reload!
+    I18n.enforce_available_locales = false
+    I18n.backend.store_translations :"zh-CN", activerecord: {
+      models: {
+        post: "文章"
+      }
+    }
+    I18n.with_locale(:en) do
+      get madmin_post_path(posts(:one))
+      assert_response :success
+      assert_select ".header>h1>a", text: "Posts"
+
+      get madmin_user_path(users(:one))
+      assert_response :success
+      assert_select ".header>h1>a", text: "Users"
+    end
+
+    I18n.with_locale(:"zh-CN") do
+      get madmin_post_path(posts(:one))
+      assert_response :success
+      assert_select ".header>h1>a", text: "文章"
+
+      get madmin_user_path(users(:one))
+      assert_response :success
+      assert_select ".header>h1>a", text: "User"
+    end
+  ensure
+    I18n.enforce_available_locales = true
+  end
+
+  test "menu with localize setting" do
+    I18n.reload!
+    I18n.enforce_available_locales = false
+    I18n.backend.store_translations :en, {activerecord: {
+      models: {
+        post: {
+          one: "Post",
+          other: "Posts"
+        }
+      }
+    }}
+    I18n.backend.store_translations :"zh-CN", {activerecord: {
+                                                 models: {
+                                                   post: "文章"
+                                                 }
+                                               },
+    madmin: {
+      navigation: {
+        user: "用户"
+      }
+    }}
+
+    I18n.with_locale(:en) do
+      get madmin_post_path(posts(:one))
+      assert_response :success
+      assert_select "nav a[href=?]", madmin_posts_path, text: "Posts"
+      assert_select "nav a[href=?]", madmin_users_path, text: "Users"
+    end
+
+    I18n.with_locale(:"zh-CN") do
+      get madmin_post_path(posts(:one))
+      assert_response :success
+      assert_select "nav a[href=?]", madmin_posts_path, text: "文章"
+      assert_select "nav a[href=?]", madmin_users_path, text: "用户"
+    end
+  ensure
+    I18n.enforce_available_locales = true
+  end
 end
