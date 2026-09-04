@@ -79,6 +79,14 @@ class PostsResourceTest < ActionDispatch::IntegrationTest
   test "menu with localize setting" do
     I18n.reload!
     I18n.enforce_available_locales = false
+    I18n.backend.store_translations :en, {activerecord: {
+      models: {
+        post: {
+          one: "Post",
+          other: "Posts"
+        }
+      }
+    }}
     I18n.backend.store_translations :"zh-CN", {activerecord: {
                                                  models: {
                                                    post: "文章"
