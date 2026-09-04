@@ -55,40 +55,29 @@ class ResourceTest < ActiveSupport::TestCase
 
     I18n.with_locale(:en) do
       assert_equal "Post", PostResource.friendly_name
+      assert_equal "Posts", PostResource.friendly_name(count: 2)
     end
     I18n.with_locale(:"zh-CN") do
       assert_equal "文章", PostResource.friendly_name
+      assert_equal "文章", PostResource.friendly_name(count: 2)
+      assert_equal "User", UserResource.friendly_name
+      assert_equal "User", UserResource.friendly_name(count: 2)
       assert_equal "附件", ActiveStorage::AttachmentResource.friendly_name
     end
   ensure
     I18n.enforce_available_locales = true
   end
 
-  test "default menu label with localize setting" do
-    I18n.enforce_available_locales = false
+  test "default menu label" do
+    assert_equal :'active_storage/blob', ActiveStorage::BlobResource.menu_options.dig(:label)
+    assert_equal :post, PostResource.menu_options.dig(:label)
+  end
 
-    I18n.backend.store_translations :en, activerecord: {
-      models: {
-        post: {
-          one: "Post",
-          other: "Posts"
-        }
-      }
-    }
-    I18n.backend.store_translations :"zh-CN", activerecord: {
-      models: {
-        post: "文章"
-      }
-    }
-
-    I18n.with_locale(:en) do
-      assert_equal "post", PostResource.menu_options.dig(:label)
-    end
-    I18n.with_locale(:"zh-CN") do
-      assert_equal "post", PostResource.menu_options.dig(:label)
-    end
+  test "customize menu labal" do
+    UserResource.menu label: "Custom label"
+    assert_equal "Custom label", UserResource.menu_options.dig(:label)
   ensure
-    I18n.enforce_available_locales = true
+    Madmin.menu.reset
   end
 
   test "collection_actions defaults to empty array" do

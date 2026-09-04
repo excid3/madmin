@@ -2,7 +2,7 @@
 
 <header class="header">
   <h1>
-    <%= link_to resource.friendly_name.pluralize(I18n.locale), resource.index_path %>
+    <%= link_to resource.friendly_name(count: 2, default: resource.model_name.pluralize(I18n.locale)), resource.index_path %>
     /
     <%= resource.display_name(@record) %>
   </h1>

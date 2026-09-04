@@ -1,7 +1,7 @@
-<%= content_for :title, resource.friendly_name.pluralize(I18n.locale) %>
+<%= content_for :title, resource.friendly_name(count: 2, default: resource.model_name.pluralize(I18n.locale)) %>
 
 <header class="header">
-  <h1><%= resource.friendly_name.pluralize(I18n.locale) %></h1>
+  <h1><%= resource.friendly_name(count: 2, default: resource.model_name.pluralize(I18n.locale)) %></h1>
 
   <div class="actions">
     <form class="search">

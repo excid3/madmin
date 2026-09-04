@@ -28,7 +28,12 @@ module Madmin::NavHelper
     link_to name, url, html_options
   end
 
+  # label default is model i18n_key, is a Symbol
   def menu_label(label)
-    I18n.t("activerecord.models.#{label}", default: [:"madmin.navigation.#{label}", label.titleize])
+    if label.is_a?(Symbol)
+      I18n.t("activerecord.models.#{label}", default: [:"madmin.navigation.#{label}", label.to_s.pluralize(I18n.locale).titleize ])
+    else
+      label
+    end
   end
 end

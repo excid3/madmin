@@ -93,8 +93,8 @@ class PostsResourceTest < ActionDispatch::IntegrationTest
     I18n.with_locale(:en) do
       get madmin_post_path(posts(:one))
       assert_response :success
-      assert_select "nav a[href=?]", madmin_posts_path, text: "Post"
-      assert_select "nav a[href=?]", madmin_users_path, text: "User"
+      assert_select "nav a[href=?]", madmin_posts_path, text: "Posts"
+      assert_select "nav a[href=?]", madmin_users_path, text: "Users"
     end
 
     I18n.with_locale(:"zh-CN") do
