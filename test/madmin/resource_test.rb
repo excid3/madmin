@@ -77,6 +77,7 @@ class ResourceTest < ActiveSupport::TestCase
     UserResource.menu label: "Custom label"
     assert_equal "Custom label", UserResource.menu_options.dig(:label)
   ensure
+    UserResource.menu nil
     Madmin.menu.reset
   end
 
