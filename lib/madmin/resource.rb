@@ -84,7 +84,7 @@ module Madmin
       # Returns singular name
       # For example: "Forum::Post" -> "Post"
       def friendly_name(count: 1, default: nil)
-        model.model_name.human(count:, default: )
+        model.model_name.human(count: count, default: default)
       end
 
       # Support for isolated namespaces

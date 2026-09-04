@@ -69,7 +69,7 @@ class ResourceTest < ActiveSupport::TestCase
   end
 
   test "default menu label" do
-    assert_equal :'active_storage/blob', ActiveStorage::BlobResource.menu_options.dig(:label)
+    assert_equal :"active_storage/blob", ActiveStorage::BlobResource.menu_options.dig(:label)
     assert_equal :post, PostResource.menu_options.dig(:label)
   end
 
