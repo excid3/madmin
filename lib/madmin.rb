@@ -50,6 +50,9 @@ module Madmin
   class MissingResource < StandardError
   end
 
+  class MissingRoute < StandardError
+  end
+
   class << self
     # Returns a Madmin::Resource class for the given object
     def resource_for(object)
@@ -93,7 +96,7 @@ module Madmin
       raise MissingResource, <<~MESSAGE
         #{name}Resource is missing. Create it by running:
 
-            bin/rails generate madmin:resource #{resource_name.split("Resource").first}
+            bin/rails generate madmin:resource #{name}
       MESSAGE
     end
 
