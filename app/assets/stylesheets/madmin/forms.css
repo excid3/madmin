@@ -89,23 +89,99 @@ select {
   margin-bottom: 1rem;
 }
 
-/* Tom Select */
-.ts-control,
-.full .ts-control,
-.ts-wrapper.single.input-active .ts-control,
-.ts-dropdown,
-.ts-dropdown .optgroup-header {
-  background: var(--surface-color);
-  border-color: var(--input-border-color);
-  color: var(--text-color);
+/* Native selects lose their arrow with `appearance: none` */
+select:not([multiple]) {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%239ca3af' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.5rem center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+  padding-right: 2.5rem;
 }
 
-.ts-control input {
-  color: var(--text-color);
+/* Combobox (select_controller.js) */
+.combobox {
+  position: relative;
 }
 
-.ts-dropdown .active,
-.ts-wrapper.multi .ts-control > div {
-  background: var(--hover-color);
-  color: var(--text-color);
+.combobox-control {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem;
+  background-color: var(--surface-color);
+  border-radius: 0.375rem;
+  box-shadow: inset 0 0 0 1px var(--input-border-color);
+  padding: 0.375rem 0.75rem;
+  cursor: text;
+
+  &:focus-within {
+    box-shadow: inset 0 0 0 1px var(--primary-color);
+  }
+}
+
+.combobox .combobox-input,
+.combobox .combobox-input:focus {
+  flex: 1;
+  min-width: 8rem;
+  background: transparent;
+  box-shadow: none;
+  outline: none;
+  padding: 0;
+}
+
+.combobox-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  background-color: var(--hover-color);
+  border-radius: 0.25rem;
+  padding-left: 0.5rem;
+  font-size: 0.875rem;
+
+  button {
+    background: none;
+    border: none;
+    color: var(--light-text-color);
+    cursor: pointer;
+    padding: 0 0.5rem;
+
+    &:hover {
+      color: var(--text-color);
+    }
+  }
+}
+
+.combobox-listbox {
+  position: absolute;
+  z-index: 10;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 0.25rem;
+  max-height: 16rem;
+  overflow-y: auto;
+  list-style: none;
+  padding: 0.25rem 0;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 0.375rem;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+
+  &[hidden] {
+    display: none;
+  }
+
+  li {
+    padding: 0.375rem 0.75rem;
+    cursor: pointer;
+  }
+
+  [aria-selected="true"] {
+    background-color: var(--hover-color);
+  }
+
+  .combobox-empty {
+    color: var(--light-text-color);
+    cursor: default;
+  }
 }

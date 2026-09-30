@@ -63,4 +63,14 @@ class PostsResourceTest < ActionDispatch::IntegrationTest
     I18n.reload!
     Madmin.menu.reset
   end
+
+  test "association selects search the associated resource and fixed options use native selects" do
+    get edit_madmin_post_path(posts(:one))
+    assert_response :success
+
+    assert_select "select[name='post[user_id]'][data-controller=select][data-select-url-value=?]", "/madmin/users.json"
+    assert_select "select[name='post[comment_ids][]'][multiple][data-controller=select][data-select-url-value=?]", "/madmin/comments.json"
+    assert_select "select[name='post[state]']:not([data-controller])"
+    assert_select "link[href*='tom-select']", count: 0
+  end
 end

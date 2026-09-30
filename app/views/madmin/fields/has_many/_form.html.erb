@@ -1,1 +1,1 @@
-<%= form.select "#{field.attribute_name.to_s.singularize}_ids", field.options_for_select(record), { prompt: true }, { multiple: true, data: { controller: "select", select_url_value: field.index_path } } %>
+<%= form.select "#{field.attribute_name.to_s.singularize}_ids", field.options_for_select(record), { prompt: true }, { multiple: true, class: "form-input", data: { controller: "select", select_url_value: field.index_path } } %>

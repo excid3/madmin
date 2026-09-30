@@ -1,3 +1,3 @@
 <%= form.fields_for field.attribute_name do |pf| %>
-  <%= pf.select :value, field.options_for_select(record).map(&:to_global_id), { selected: field.value(record)&.to_global_id, prompt: true }, { data: { controller: "select" } } %>
+  <%= pf.select :value, field.options_for_select(record).map(&:to_global_id), { selected: field.value(record)&.to_global_id, prompt: true }, { class: "form-input" } %>
 <% end %>
