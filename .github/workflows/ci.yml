@@ -34,7 +34,6 @@ jobs:
         ruby: ['3.3', '3.4', '4.0']
         gemfile:
           - sprockets
-          - pagy_43
           - lexxy
           - rails_7
           - rails_7_1
@@ -86,7 +85,6 @@ jobs:
         ruby: ['3.3', '3.4', '4.0']
         gemfile:
           - sprockets
-          - pagy_43
           - lexxy
           - rails_7
           - rails_7_1
@@ -147,7 +145,6 @@ jobs:
         ruby: ['3.3', '3.4', '4.0']
         gemfile:
           - sprockets
-          - pagy_43
           - lexxy
           - rails_7
           - rails_7_1

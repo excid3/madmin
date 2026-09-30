@@ -1,0 +1,32 @@
+<div class="pagination">
+  <% if page.last > 1 %>
+    <% page_url = ->(number) { "#{request.path}?#{request.query_parameters.merge(page.param => number).to_query}" } %>
+    <nav class="pages" aria-label="<%= t("madmin.pagination.label") %>">
+      <%= link_to_if page.prev, "<", page.prev && page_url.call(page.prev), aria: { label: t("madmin.pagination.previous") } do %>
+        <a role="link" aria-disabled="true" aria-label="<%= t("madmin.pagination.previous") %>">&lt;</a>
+      <% end %>
+
+      <% page.series.each do |number| %>
+        <% if number == :gap %>
+          <a role="separator" aria-disabled="true">&hellip;</a>
+        <% elsif number == page.page %>
+          <a role="link" aria-disabled="true" aria-current="page"><%= number %></a>
+        <% else %>
+          <%= link_to number, page_url.call(number) %>
+        <% end %>
+      <% end %>
+
+      <%= link_to_if page.next, ">", page.next && page_url.call(page.next), aria: { label: t("madmin.pagination.next") } do %>
+        <a role="link" aria-disabled="true" aria-label="<%= t("madmin.pagination.next") %>">&gt;</a>
+      <% end %>
+    </nav>
+  <% end %>
+
+  <span class="pagination-info">
+    <% if page.to.zero? %>
+      <%= t("madmin.pagination.empty") %>
+    <% else %>
+      <%= t("madmin.pagination.info", from: page.from, to: page.to, count: page.count) %>
+    <% end %>
+  </span>
+</div>

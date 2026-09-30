@@ -2,13 +2,14 @@ require "madmin/engine"
 require "importmap-rails"
 require "stimulus-rails"
 require "turbo-rails"
-require "pagy"
 
 module Madmin
   autoload :Field, "madmin/field"
   autoload :GeneratorHelpers, "madmin/generator_helpers"
   autoload :MemberAction, "madmin/member_action"
   autoload :Menu, "madmin/menu"
+  autoload :Page, "madmin/page"
+  autoload :Pagination, "madmin/pagination"
   autoload :Resource, "madmin/resource"
   autoload :ResourceBuilder, "madmin/resource_builder"
   autoload :Search, "madmin/search"
@@ -41,6 +42,7 @@ module Madmin
 
   mattr_accessor :importmap, default: Importmap::Map.new
   mattr_accessor :menu, default: Menu.new
+  mattr_accessor :per_page, default: 20
   mattr_accessor :site_name
   mattr_accessor :stylesheets, default: []
   mattr_accessor :resource_locations, default: []
