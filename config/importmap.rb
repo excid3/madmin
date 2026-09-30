@@ -11,4 +11,3 @@ pin "lexxy", to: "lexxy.js" if defined?(::Lexxy)
 pin_all_from Madmin::Engine.root.join("app/javascript/madmin/controllers"), under: "controllers", to: "madmin/controllers"
 pin_all_from Rails.root.join("app/javascript/madmin/controllers"), under: "controllers", to: "madmin/controllers"
 
-pin "tailwindcss-stimulus-components", to: "https://ga.jspm.io/npm:tailwindcss-stimulus-components@6.1.2/dist/tailwindcss-stimulus-components.module.js"
