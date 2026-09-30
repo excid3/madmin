@@ -193,6 +193,25 @@ class BookResource < Madmin::Resource
 end
 ```
 
+### Nested Forms
+
+Use `:nested_has_many` or `:nested_has_one` to edit associated records inside the parent's form. The model needs `accepts_nested_attributes_for`, with `allow_destroy: true` for the Remove link to work, and the associated model needs a resource. Use `skip` to leave out attributes of the associated resource:
+
+```ruby
+class User < ApplicationRecord
+  has_many :posts
+  has_one :profile
+  accepts_nested_attributes_for :posts, :profile, allow_destroy: true
+end
+
+class UserResource < Madmin::Resource
+  attribute :posts, :nested_has_many, skip: %I[user]
+  attribute :profile, :nested_has_one, skip: %I[user]
+end
+```
+
+A nested has one shows its fields when the record exists, or an "Add" link when it doesn't, so saving the parent doesn't create an empty record.
+
 ## Custom Fields
 
 You can generate a custom field with:

@@ -1,5 +1,7 @@
 ### Unreleased
 
+* Add a `:nested_has_one` field for editing a has one association inside the parent's form. It shows an "Add" link until the record exists, so saving the parent doesn't create an empty one #207
+* Fix `:nested_has_many` looking up the associated class and resource from the attribute name, which broke for associations with `class_name` or in a namespace. It now uses the association's class
 * Replace Tom Select with a small Stimulus combobox, removing the `tom-select` importmap pin and its stylesheet. Belongs to and has many fields keep the same `data-controller="select"` and `data-select-url-value` attributes, loading `[{id, name}]` JSON from the URL when focused and as you type. Search terms are now URL encoded. Enum, select and polymorphic fields use native selects. Custom views that used Tom Select options or its CSS classes (`.ts-control`, `.ts-dropdown`) need updating; apps that use Tom Select directly should pin it themselves
 * Add dark mode, following the system's light or dark setting. Colors are CSS variables on `:root` defined with `light-dark()`; set `color-scheme: light` on `:root` to opt out. Adds `--link-color` for links, while `--primary-color` stays the button background. Trix and Lexxy editors get dark colors too. Custom styles with hard-coded light colors may need a dark variant
 * Remove the unused flatpickr stylesheet. Madmin replaced flatpickr with native date inputs in 2.0.1; apps that still use flatpickr in custom fields should include its stylesheet themselves

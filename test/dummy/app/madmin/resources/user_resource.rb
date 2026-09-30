@@ -25,6 +25,7 @@ class UserResource < Madmin::Resource
   # Associations
   attribute :posts, :nested_has_many, skip: %I[attachments]
   attribute :latest_post, form: false
+  attribute :profile, :nested_has_one, skip: %I[user]
   attribute :comments
   attribute :habtms
 

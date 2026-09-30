@@ -1,7 +1,8 @@
 module Madmin
   module Fields
-    class NestedHasMany < HasMany
+    class NestedHasOne < HasOne
       DEFAULT_ATTRIBUTES = %w[_destroy id].freeze
+
       def nested_attributes
         resource.attributes.except(*skipped_fields)
       end
@@ -14,20 +15,23 @@ module Madmin
         {"#{attribute_name}_attributes": permitted_fields}
       end
 
+      # Index and show link to the record like a has_one, and the form shares
+      # its fields with nested_has_many
       def to_partial_path(name)
-        unless %w[index show form fields].include? name
+        case name.to_s
+        when "index", "show"
+          "/madmin/fields/has_one/#{name}"
+        when "form"
+          "/madmin/fields/nested_has_one/form"
+        when "fields"
+          "/madmin/fields/nested_has_many/fields"
+        else
           raise ArgumentError, "`partial` must be 'index', 'show', 'form' or 'fields'"
         end
-
-        "/madmin/fields/#{self.class.field_type}/#{name}"
       end
 
       def to_model
         model.reflect_on_association(attribute_name).klass
-      end
-
-      def paginateable?
-        true
       end
 
       private

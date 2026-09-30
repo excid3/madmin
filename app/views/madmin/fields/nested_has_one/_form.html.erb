@@ -1,0 +1,18 @@
+<div data-controller="nested-form" data-nested-form-single="true">
+  <template data-nested-form-target="template">
+    <%= form.fields_for field.attribute_name, field.to_model.new do |nested_form| %>
+      <%= render partial: field.to_partial_path("fields"), locals: { f: nested_form, field: field } %>
+    <% end %>
+  </template>
+
+  <% if (object = field.value(record)) %>
+    <%= form.fields_for field.attribute_name, object do |nested_form| %>
+      <%= render partial: field.to_partial_path("fields"), locals: { f: nested_form, field: field } %>
+    <% end %>
+  <% end %>
+
+  <%# Nothing is created until "Add" is clicked, since the template isn't submitted %>
+  <%= tag.div data: { nested_form_target: "links" }, hidden: object.present? do %>
+    <%= link_to t("madmin.nested_form.add_new"), "#", data: { action: "click->nested-form#add_association" } %>
+  <% end %>
+</div>
