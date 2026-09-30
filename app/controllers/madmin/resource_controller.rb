@@ -27,8 +27,8 @@ module Madmin
     end
 
     def create
-      @record = resource.model.new(resource_params)
-      if @record.save
+      @record = resource.model.new
+      if save_record(resource_params)
         redirect_to resource.show_path(@record)
       else
         render :new, status: :unprocessable_entity
@@ -39,7 +39,7 @@ module Madmin
     end
 
     def update
-      if @record.update(resource_params)
+      if save_record(resource_params)
         redirect_to resource.show_path(@record)
       else
         render :edit, status: :unprocessable_entity
@@ -87,25 +87,38 @@ module Madmin
     end
 
     def resource_params
-      params.require(resource.param_key)
-        .permit(*resource.permitted_params)
-        .transform_values { |v| change_polymorphic(v) }
+      cast_fields params.require(resource.param_key).permit(*resource.permitted_params)
     end
 
     def new_resource_params
-      params.fetch(resource.param_key, {}).permit!
-        .permit(*resource.permitted_params)
-        .transform_values { |v| change_polymorphic(v) }
+      cast_fields params.fetch(resource.param_key, {}).permit!.permit(*resource.permitted_params)
     end
 
-    def change_polymorphic(data)
-      return data unless data.is_a?(ActionController::Parameters) && data[:type]
-
-      if data[:type] == "polymorphic"
-        GlobalID::Locator.locate(data[:value])
-      else
-        raise "Unrecognised param data: #{data.inspect}"
+    # Lets each field convert its submitted value, such as parsing JSON
+    def cast_fields(attributes)
+      attributes.to_h.to_h do |name, value|
+        field = field_for(name)
+        [name, field ? field.cast(value) : value]
       end
+    end
+
+    # Assigns the attributes and saves, unless a field doesn't accept its value
+    def save_record(attributes)
+      @record.assign_attributes(attributes)
+
+      rejected = attributes.select { |name, value| field_for(name)&.accepts?(value) == false }.keys
+
+      if rejected.any?
+        @record.validate
+        rejected.each { |name| @record.errors.add(name, :invalid) }
+        false
+      else
+        @record.save
+      end
+    end
+
+    def field_for(name)
+      resource.get_attribute(name.to_sym)&.field
     end
 
     def search_term

@@ -29,6 +29,16 @@ module Madmin
       attribute_name
     end
 
+    # Converts the submitted form value into the value assigned to the record
+    def cast(value)
+      value
+    end
+
+    # Whether the value returned by `cast` can be saved. The form is shown again with an error when it can't.
+    def accepts?(value)
+      true
+    end
+
     def label
       options[:label].presence || model.human_attribute_name(attribute_name)
     end

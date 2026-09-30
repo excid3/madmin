@@ -9,8 +9,13 @@ module Madmin
         end
       end
 
+      # `type` is no longer used, but customized form partials may still submit it
       def to_param
         {attribute_name => %i[type value]}
+      end
+
+      def cast(value)
+        GlobalID::Locator.locate(value[:value])
       end
 
       def associated_resource_for(object)
