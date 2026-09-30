@@ -113,6 +113,15 @@ module Madmin
         url_helpers.polymorphic_path([:madmin, route_namespace, becomes(record)], action: :edit)
       end
 
+      # Whether a route is drawn for the given action on this resource's controller
+      # For example: PostResource.route?(:destroy)
+      def route?(action)
+        controller = "madmin/#{model.model_name.collection}"
+        Rails.application.routes.routes.any? do |route|
+          route.defaults[:controller] == controller && route.defaults[:action] == action.to_s
+        end
+      end
+
       def becomes(record)
         record.instance_of?(model) ? record : record.becomes(model)
       end
