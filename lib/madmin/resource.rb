@@ -95,9 +95,9 @@ module Madmin
         singular = translated_name
         return friendly_name.pluralize unless singular
 
-        # A translation without `one` / `other` keys is the same for every count
-        plural = translated_name(count: 2)
-        (plural == singular && locale_inflections?) ? plural.pluralize(I18n.locale) : plural
+        # A translation without `one` / `other` forms is the same for every count
+        return translated_name(count: 2) if plural_translation? || !locale_inflections?
+        singular.pluralize(I18n.locale)
       end
 
       # Support for isolated namespaces
@@ -336,6 +336,15 @@ module Madmin
 
       def translated_name(count: 1)
         model.model_name.human(count: count, default: "").presence
+      end
+
+      # Whether the model's translation spells out its own `one` / `other` forms
+      def plural_translation?
+        model.lookup_ancestors.each do |klass|
+          translation = I18n.t(klass.model_name.i18n_key, scope: [klass.i18n_scope, :models], default: "")
+          return translation.is_a?(Hash) if translation.present?
+        end
+        false
       end
 
       # Locales without inflection rules of their own (most non-English ones) are left unpluralized

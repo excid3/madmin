@@ -45,7 +45,7 @@ class ResourceTest < ActiveSupport::TestCase
 
   test "friendly names use the model's translation" do
     with_translations(
-      en: {activerecord: {models: {post: {one: "Article", other: "Articles"}, user: "Person"}}},
+      en: {activerecord: {models: {post: {one: "Article", other: "Articles"}, user: "Person", comment: {one: "Staff", other: "Staff"}}}},
       "zh-CN": {activerecord: {models: {post: "文章", "active_storage/blob": "文件"}}}
     ) do
       assert_equal "Article", PostResource.friendly_name
@@ -54,6 +54,9 @@ class ResourceTest < ActiveSupport::TestCase
       # A translation with no plural forms is pluralized by the locale's inflections
       assert_equal "Person", UserResource.friendly_name
       assert_equal "People", UserResource.friendly_plural_name
+
+      # Explicit plural forms are used as written, even when they match the singular
+      assert_equal "Staff", CommentResource.friendly_plural_name
 
       I18n.with_locale(:"zh-CN") do
         assert_equal "文章", PostResource.friendly_name
