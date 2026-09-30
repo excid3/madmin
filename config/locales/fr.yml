@@ -40,3 +40,9 @@ fr:
     missing_resource:
       message: "%{resource} est introuvable."
       create_hint: "Pour le créer, exécutez :"
+    pagination:
+      label: Pagination
+      previous: Précédent
+      next: Suivant
+      info: "Affichage de %{from} à %{to} sur %{count}"
+      empty: Aucun enregistrement trouvé

@@ -42,10 +42,6 @@ appraise "sprockets" do
   gem "sprockets-rails"
 end
 
-appraise "pagy-43" do
-  gem "pagy", "~> 43.0.0.rc"
-end
-
 appraise "lexxy" do
   gem "lexxy"
 end

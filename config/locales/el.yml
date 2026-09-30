@@ -40,3 +40,9 @@ el:
     missing_resource:
       message: "Λείπει: %{resource}"
       create_hint: "Δημιουργήστε το εκτελώντας:"
+    pagination:
+      label: Σελιδοποίηση
+      previous: Προηγούμενη
+      next: Επόμενη
+      info: "Εμφάνιση %{from}-%{to} από %{count}"
+      empty: Δεν βρέθηκαν εγγραφές
