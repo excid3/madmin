@@ -16,11 +16,7 @@ module Madmin
     # Skips conditions for unknown columns or operators, and values that don't
     # cast to the column's type
     def self.from_params(resource, params)
-      params.filter_map do |param|
-        attribute = resource.attributes[param[:column].to_s.to_sym]
-        filter = new(attribute.field, param[:operator].to_s, param[:value].to_s) if attribute&.field&.filter_type
-        filter if filter&.valid?
-      end
+      params.map { |param| new(resource.get_attribute(param[:column].to_s.to_sym)&.field, param[:operator].to_s, param[:value].to_s) }.select(&:valid?)
     end
 
     # A new row in the filters form, for the first filterable column
@@ -48,7 +44,7 @@ module Madmin
     end
 
     def valid?
-      OPERATORS.fetch(type, []).include?(operator) && (!value? || !cast_value.nil?)
+      field&.filter_type.present? && OPERATORS[type].include?(operator) && (typed_value.present? || !value?)
     end
 
     def apply(scope)
@@ -57,11 +53,11 @@ module Madmin
       case operator
       when "contains" then scope.where(attribute.matches("%#{escaped_value}%"))
       when "starts_with" then scope.where(attribute.matches("#{escaped_value}%"))
-      when "eq" then scope.where(column => cast_value)
-      when "gt" then scope.where(attribute.gt(cast_value))
-      when "gte" then scope.where(attribute.gteq(cast_value))
-      when "lt" then scope.where(attribute.lt(cast_value))
-      when "lte" then scope.where(attribute.lteq(cast_value))
+      when "eq" then scope.where(column => typed_value)
+      when "gt" then scope.where(attribute.gt(typed_value))
+      when "gte" then scope.where(attribute.gteq(typed_value))
+      when "lt" then scope.where(attribute.lt(typed_value))
+      when "lte" then scope.where(attribute.lteq(typed_value))
       when "blank" then scope.where(column => blank_values)
       when "present" then scope.where.not(column => blank_values)
       when "true" then scope.where(column => true)
@@ -75,8 +71,8 @@ module Madmin
     end
 
     # The value in the column's type. Datetimes are parsed in Time.zone, like form input
-    def cast_value
-      @cast_value ||= value.presence && field.model.type_for_attribute(column).cast(value)
+    def typed_value
+      @typed_value ||= value.presence && field.model.type_for_attribute(column).cast(value)
     end
 
     private

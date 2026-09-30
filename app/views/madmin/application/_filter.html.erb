@@ -6,7 +6,7 @@
         id: nil, aria: {label: t("madmin.filters.operator")}, data: {action: "filters#changeOperator"} %>
 
   <%= tag.input name: "filters[][value]", value: filter.value, id: nil,
-        type: Madmin::FiltersHelper::FILTER_INPUT_TYPES[filter.type], step: ("any" if filter.type == :number),
+        type: filter_input_type(filter.type), step: ("any" if filter.type == :number),
         hidden: !filter.value?, aria: {label: t("madmin.filters.value")} %>
 
   <button type="button" class="filter-remove" aria-label="<%= t("madmin.filters.remove") %>" data-action="filters#remove">&times;</button>

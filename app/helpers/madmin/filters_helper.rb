@@ -12,17 +12,15 @@ module Madmin
 
     def filter_column_options(resource)
       resource.filterable_attributes.map do |attribute|
-        [attribute.field.label, attribute.name, {data: {input_type: FILTER_INPUT_TYPES[attribute.field.filter_type], filter_type: attribute.field.filter_type}}]
+        type = attribute.field.filter_type
+        [attribute.field.label, attribute.name, {data: {input_type: filter_input_type(type), filter_type: type}}]
       end
     end
 
-    # The active filters as params for links, leaving out `except`
-    def filter_params(except: nil)
-      (filters - [except]).map(&:to_h).presence
-    end
+    def filter_input_type(type) = FILTER_INPUT_TYPES.fetch(type)
 
     def filter_value_label(filter)
-      filter.type.in?([:date, :datetime]) ? l(filter.cast_value, format: :long) : filter.value
+      filter.type.in?([:date, :datetime]) ? l(filter.typed_value, format: :long) : filter.value
     end
   end
 end

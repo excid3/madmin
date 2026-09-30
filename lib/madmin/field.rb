@@ -8,8 +8,7 @@ module Madmin
 
     # The kind of index filter a field offers (:string, :number, :date,
     # :datetime or :boolean), or nil for none
-    def self.filter_type
-    end
+    def self.filter_type = nil
 
     def initialize(attribute_name:, model:, resource:, options:)
       @attribute_name = attribute_name.to_sym
@@ -77,12 +76,16 @@ module Madmin
       false
     end
 
+    def filter_type
+      self.class.filter_type if filterable?
+    end
+
+    private
+
     # Only database columns can be filtered, and not encrypted ones since their
     # stored values can't be compared. `filter: false` turns it off
-    def filter_type
-      if options.fetch(:filter, true) && resource.model_column_names.include?(attribute_name.to_s) && !model.try(:encrypted_attributes)&.include?(attribute_name)
-        self.class.filter_type
-      end
+    def filterable?
+      options.fetch(:filter, true) && resource.model_column_names.include?(attribute_name.to_s) && !model.try(:encrypted_attributes)&.include?(attribute_name)
     end
 
     ActiveSupport.run_load_hooks(:madmin_field, self)

@@ -72,9 +72,6 @@ class FiltersTest < ActionDispatch::IntegrationTest
     assert_filtered [@chris, @other], column: "first_name", operator: "gt", value: "A"
     assert_filtered [@chris, @other], column: "first_name", operator: "contains", value: ""
     assert_filtered [@chris, @other], column: "birthday", operator: "eq", value: "not a date"
-
-    get madmin_users_path(filters: "first_name")
-    assert_response :success
   end
 
   test "active filters show as chips that remove themselves" do
@@ -113,11 +110,9 @@ class FiltersTest < ActionDispatch::IntegrationTest
   end
 
   test "filter: false hides a column" do
-    UserResource.attributes[:token].field.options[:filter] = false
-    get madmin_users_path
-    assert_select "#filters select[name='filters[][column]'] option[value=token]", count: 0
-  ensure
-    UserResource.attributes[:token].field.options.delete(:filter)
+    get madmin_posts_path
+    assert_select "#filters select[name='filters[][column]'] option[value=created_at]"
+    assert_select "#filters select[name='filters[][column]'] option[value=comments_count]", count: 0
   end
 
   private

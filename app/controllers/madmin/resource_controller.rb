@@ -127,7 +127,7 @@ module Madmin
 
     # The index filters from `filters[][column]`, `filters[][operator]` and `filters[][value]`
     def filters
-      @filters ||= Madmin::Filter.from_params(resource, Array.wrap(params[:filters]).grep(ActionController::Parameters))
+      @filters ||= Madmin::Filter.from_params(resource, params.slice(:filters).permit(filters: [:column, :operator, :value]).fetch(:filters, []))
     end
     helper_method :filters
 
