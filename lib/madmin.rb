@@ -63,6 +63,12 @@ module Madmin
       elsif (resource_name = sti_resource_name_for(object)) && Object.const_defined?(resource_name)
         resource_name.constantize
 
+      # A resource named differently from its model (`ArticleResource` for
+      # `Blog::Post`) still says which model it is for with `model`. Honor that
+      # declaration before giving up, so association cells can link to it.
+      elsif (resource = resource_declaring(object.class))
+        resource
+
       else
         raise MissingResource, <<~MESSAGE
           `#{object.class.name}Resource` is missing.
@@ -72,6 +78,28 @@ module Madmin
               bin/rails generate madmin:resource #{object.class.name}
         MESSAGE
       end
+    end
+
+    # The one resource whose `model` is +klass+ or, failing that, its nearest
+    # superclass, or nil. Two resources declaring the same model with neither
+    # matching its name is ambiguous, and guessing would silently link to the
+    # wrong admin page, so that raises.
+    def resource_declaring(klass)
+      declared = klass.ancestors.grep(Class).find { |ancestor| resources_by_model.key?(ancestor) }
+      return unless declared
+
+      candidates = resources_by_model[declared]
+      return candidates.first if candidates.one?
+
+      raise MissingResource, <<~MESSAGE
+        `#{declared.name}Resource` is missing, and #{candidates.map(&:name).join(", ")} all declare `model #{declared.name}`.
+
+        Madmin can't tell which one to use. Name one of them `#{declared.name}Resource`.
+      MESSAGE
+    end
+
+    def resources_by_model
+      @resources_by_model ||= resources.group_by(&:model)
     end
 
     def resource_name_for(object)
@@ -90,9 +118,15 @@ module Madmin
       end
     end
 
+    # Returns the Madmin::Resource class for a model or model name, falling
+    # back to the resource that declares the model when none is named after it
     def resource_by_name(name)
       "#{name}Resource".constantize
     rescue NameError
+      model = name.is_a?(Class) ? name : name.to_s.safe_constantize
+      resource = resource_declaring(model) if model
+      return resource if resource
+
       raise MissingResource, <<~MESSAGE
         #{name}Resource is missing. Create it by running:
 
@@ -106,6 +140,7 @@ module Madmin
 
     def reset_resources!
       @resources = nil
+      @resources_by_model = nil
       menu.reset
     end
 
