@@ -1,1 +1,1 @@
-<%= form.select field.to_param, field.options_for_select(record), { prompt: true }, { data: { controller: "select", select_url_value: field.index_path } } %>
+<%= form.select field.to_param, field.options_for_select(record), { prompt: true }, { class: "form-input", data: { controller: "select", select_url_value: field.index_path } } %>
