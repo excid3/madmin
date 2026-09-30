@@ -13,6 +13,10 @@ module Madmin
         {attribute_name => %i[type value]}
       end
 
+      def cast(value)
+        GlobalID::Locator.locate(value[:value])
+      end
+
       def associated_resource_for(object)
         Madmin.resource_for(object)
       rescue MissingResource

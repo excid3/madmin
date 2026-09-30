@@ -1,8 +1,5 @@
 module Madmin
   class Field
-    # Raised by `parse` to reject a submitted value with a validation error
-    class InvalidValue < StandardError; end
-
     attr_reader :attribute_name, :model, :options, :resource
 
     def self.field_type
@@ -33,8 +30,13 @@ module Madmin
     end
 
     # Converts the submitted form value into the value assigned to the record
-    def parse(value)
+    def cast(value)
       value
+    end
+
+    # Whether the value returned by `cast` can be saved. The form is shown again with an error when it can't.
+    def accepts?(value)
+      true
     end
 
     def label

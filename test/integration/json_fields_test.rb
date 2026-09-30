@@ -61,6 +61,33 @@ class JsonFieldsTest < ActionDispatch::IntegrationTest
     assert_equal({"tags" => ["ruby"]}, @post.metadata)
   end
 
+  test "text saved before JSON was parsed can be fixed by saving the form" do
+    @post.update!(metadata: '{"tags": ["ruby"]}')
+
+    get edit_madmin_post_path(@post)
+    put madmin_post_path(@post), params: {post: {metadata: css_select("textarea[name='post[metadata]']").text}}
+
+    assert_equal({"tags" => ["ruby"]}, @post.reload.metadata)
+  end
+
+  test "show page renders the value as JSON" do
+    @post.update!(metadata: {"tags" => ["ruby"]})
+
+    get madmin_post_path(@post)
+
+    assert_select "pre" do |pre|
+      assert_equal({"tags" => ["ruby"]}, JSON.parse(pre.text))
+    end
+  end
+
+  test "polymorphic values are located from the submitted global id" do
+    comment = Comment.create!(commentable: @post, user: users(:one), body: "Hi")
+
+    put madmin_comment_path(comment), params: {comment: {commentable: {type: "polymorphic", value: posts(:two).to_global_id.to_s}}}
+
+    assert_equal posts(:two), comment.reload.commentable
+  end
+
   test "invalid JSON does not create a record" do
     assert_no_difference "Post.count" do
       post madmin_posts_path, params: {post: {title: "New", user_id: users(:one).id, metadata: "nope"}}
