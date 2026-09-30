@@ -19,6 +19,7 @@ module Madmin
 
       def index_path(format: :json)
         associated_resource&.index_path(format: format)
+      rescue MissingRoute
       end
 
       def associated_resource

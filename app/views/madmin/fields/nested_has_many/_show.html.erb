@@ -1,7 +1,7 @@
 <% page, records = field.paginated_value(record, params) %>
 <% records.each do |object| %>
   <% if (associated_resource = field.associated_resource_for(object)) %>
-    <div><%= link_to associated_resource.display_name(object), associated_resource.show_path(object) %></div>
+    <div><%= link_to_record associated_resource, object %></div>
   <% else %>
     <%= render partial: "missing_resource", locals: { resource_name: Madmin.resource_name_for(object) } %>
   <% end %>
