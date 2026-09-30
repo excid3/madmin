@@ -6,6 +6,9 @@ one:
   birthday: 2020-09-10
   password_digest: <%= BCrypt::Password.create('password', cost: 4) %>
   ssn: 123-45-6789
+  admin: true
+  balance: 1234.5
+  digest_time: 2000-01-01 08:30:00
 
 two:
   first_name: MyString

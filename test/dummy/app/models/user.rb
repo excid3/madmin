@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_many :connected_accounts, dependent: :destroy
   has_many :posts, dependent: :destroy
+  has_one :latest_post, -> { order(created_at: :desc) }, class_name: "Post"
   has_many :comments, dependent: :destroy
   has_and_belongs_to_many :habtms, join_table: :user_habtms, dependent: :destroy
 

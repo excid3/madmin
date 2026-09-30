@@ -6,6 +6,9 @@ class UserResource < Madmin::Resource
   attribute :last_name
   attribute :birthday
   attribute :ssn
+  attribute :admin, index: true
+  attribute :balance, :currency, index: true
+  attribute :digest_time
   attribute :token, index: false
   attribute :created_at, form: false
   attribute :updated_at, form: false
@@ -21,6 +24,7 @@ class UserResource < Madmin::Resource
 
   # Associations
   attribute :posts, :nested_has_many, skip: %I[attachments]
+  attribute :latest_post, form: false
   attribute :comments
   attribute :habtms
 

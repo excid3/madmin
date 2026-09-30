@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_08_18_152409) do
+ActiveRecord::Schema.define(version: 2026_09_30_120000) do
   create_table "action_mailbox_inbound_emails", force: :cascade do |t|
     t.bigint "status", default: 0, null: false
     t.string "message_id", null: false
@@ -123,6 +123,9 @@ ActiveRecord::Schema.define(version: 2025_08_18_152409) do
     t.datetime "updated_at", precision: 6, null: false
     t.json "settings"
     t.text "preferences"
+    t.boolean "admin", default: false, null: false
+    t.decimal "balance", precision: 10, scale: 2
+    t.time "digest_time"
   end
 
   create_table "versions", force: :cascade do |t|
