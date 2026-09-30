@@ -7,7 +7,7 @@ class PostResource < Madmin::Resource
   attribute :created_at
   attribute :updated_at, form: false
   attribute :body, index: false
-  attribute :image, index: false
+  attribute :image, index: false, direct_upload: true
   attribute :attachments, index: false
   attribute :state, index: false # Enum example
   attribute :tags, index: false if Post.columns_hash["tags"].try(:array?) # PostgreSQL only

@@ -229,6 +229,19 @@ end
 
 A nested has one shows its fields when the record exists, or an "Add" link when it doesn't, so saving the parent doesn't create an empty record.
 
+### Direct Uploads
+
+File fields upload through the form by default. Add `direct_upload: true` to upload straight from the browser to your Active Storage service instead, which keeps large files off your app servers and avoids request timeouts:
+
+```ruby
+class PostResource < Madmin::Resource
+  attribute :image, direct_upload: true
+  attribute :attachments, direct_upload: true
+end
+```
+
+Cloud services like S3 need CORS configured to accept uploads from the browser. See the [Active Storage guide](https://guides.rubyonrails.org/active_storage_overview.html#cross-origin-resource-sharing-cors-configuration).
+
 ## Custom Fields
 
 You can generate a custom field with:
