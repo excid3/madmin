@@ -83,8 +83,21 @@ module Madmin
 
       # Returns singular name
       # For example: "Forum::Post" -> "Forum / Post"
+      #
+      # Uses the model's translation (`activerecord.models.forum/post`) when there is one
       def friendly_name
-        model_name.split("::").map { |part| part.underscore.humanize }.join(" / ").titlecase
+        translated_name || model_name.split("::").map { |part| part.underscore.humanize }.join(" / ").titlecase
+      end
+
+      # Returns plural name
+      # For example: "Forum::Post" -> "Forum / Posts"
+      def friendly_plural_name
+        singular = translated_name
+        return friendly_name.pluralize unless singular
+
+        # A translation without `one` / `other` keys is the same for every count
+        plural = translated_name(count: 2)
+        (plural == singular && locale_inflections?) ? plural.pluralize(I18n.locale) : plural
       end
 
       # Support for isolated namespaces
@@ -315,7 +328,19 @@ module Madmin
       def menu_options
         return false if @menu_options == false
         @menu_options ||= {}
-        @menu_options.with_defaults(label: friendly_name.pluralize, url: index_path)
+        # The default label follows the locale, so the menu tracks the item by resource instead
+        @menu_options.with_defaults(key: @menu_options[:label] || name, label: friendly_plural_name, url: index_path)
+      end
+
+      private
+
+      def translated_name(count: 1)
+        model.model_name.human(count: count, default: "").presence
+      end
+
+      # Locales without inflection rules of their own (most non-English ones) are left unpluralized
+      def locale_inflections?
+        ActiveSupport::Inflector::Inflections.instance(I18n.locale).plurals.any?
       end
     end
 

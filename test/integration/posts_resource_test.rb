@@ -44,4 +44,23 @@ class PostsResourceTest < ActionDispatch::IntegrationTest
       assert_select "a", text: "Preview"
     end
   end
+
+  test "headings and navigation use the model's translation" do
+    enforce, I18n.enforce_available_locales = I18n.enforce_available_locales, false
+    I18n.backend.store_translations :en, activerecord: {models: {post: {one: "Article", other: "Articles"}}}
+
+    get madmin_post_path(posts(:one))
+    assert_response :success
+    assert_select ".header > h1 > a", text: "Articles"
+    assert_select "nav a[href=?]", madmin_posts_path, text: "Articles"
+    assert_select "nav a[href=?]", madmin_users_path, text: "Users"
+
+    get madmin_posts_path
+    assert_select ".header > h1", text: "Articles"
+    assert_select ".actions a[href=?]", new_madmin_post_path, text: /Article\z/
+  ensure
+    I18n.enforce_available_locales = enforce
+    I18n.reload!
+    Madmin.menu.reset
+  end
 end
