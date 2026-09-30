@@ -10,6 +10,7 @@ class PostResource < Madmin::Resource
   attribute :image, index: false
   attribute :attachments, index: false
   attribute :state, index: false # Enum example
+  attribute :tags, index: false if Post.columns_hash["tags"].try(:array?) # PostgreSQL only
 
   attribute :user_id
 

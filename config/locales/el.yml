@@ -82,3 +82,5 @@ el:
         boolean:
           "true": "είναι αληθές"
           "false": "είναι ψευδές"
+        array:
+          includes: "περιέχει"

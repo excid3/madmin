@@ -80,3 +80,5 @@ ko:
         boolean:
           "true": "참"
           "false": "거짓"
+        array:
+          includes: "포함"

@@ -82,3 +82,5 @@ fr:
         boolean:
           "true": "est vrai"
           "false": "est faux"
+        array:
+          includes: "contient"
