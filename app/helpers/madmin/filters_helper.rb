@@ -1,6 +1,6 @@
 module Madmin
   module FiltersHelper
-    FILTER_INPUT_TYPES = {string: "text", number: "number", date: "date", datetime: "datetime-local", boolean: "text"}.freeze
+    FILTER_INPUT_TYPES = {string: "text", number: "number", date: "date", datetime: "datetime-local", boolean: "text", array: "text"}.freeze
 
     # Operators that don't take a value are marked so the filters controller can hide the value input
     def filter_operator_options(type)

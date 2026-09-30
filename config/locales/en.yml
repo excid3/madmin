@@ -82,3 +82,5 @@ en:
         boolean:
           "true": "is true"
           "false": "is false"
+        array:
+          includes: "includes"

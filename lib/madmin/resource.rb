@@ -190,6 +190,7 @@ module Madmin
 
       def field_for_type(type)
         {
+          array: Fields::Array,
           binary: Fields::String,
           blob: Fields::Text,
           boolean: Fields::Boolean,
@@ -261,6 +262,8 @@ module Madmin
           column_type = model.attribute_types[name_string]
           if column_type.is_a? ::ActiveRecord::Enum::EnumType
             :enum
+          elsif model.columns_hash[name_string].try(:array?)
+            :array
           else
             column_type.type || :string
           end

@@ -6,7 +6,8 @@ module Madmin
       number: %w[eq gt gte lt lte blank],
       date: %w[eq gte lte blank],
       datetime: %w[gte lte blank],
-      boolean: %w[true false]
+      boolean: %w[true false],
+      array: %w[includes]
     }.freeze
 
     WITHOUT_VALUE = %w[blank present true false].freeze
@@ -62,6 +63,7 @@ module Madmin
       when "present" then scope.where.not(column => blank_values)
       when "true" then scope.where(column => true)
       when "false" then scope.where(column => false)
+      when "includes" then scope.where("? = ANY(#{scope.connection.quote_table_name(scope.table_name)}.#{scope.connection.quote_column_name(column)})", typed_value)
       end
     end
 
@@ -70,12 +72,17 @@ module Madmin
       {column: column, operator: operator, value: value}
     end
 
-    # The value in the column's type. Datetimes are parsed in Time.zone, like form input
+    # The value in the column's type, or its element type for arrays. Datetimes are parsed in Time.zone, like form input
     def typed_value
-      @typed_value ||= value.presence && field.model.type_for_attribute(column).cast(value)
+      @typed_value ||= value.presence && column_type.cast(value)
     end
 
     private
+
+    def column_type
+      attribute_type = field.model.type_for_attribute(column)
+      (type == :array) ? attribute_type.subtype : attribute_type
+    end
 
     def escaped_value
       field.model.sanitize_sql_like(value)
