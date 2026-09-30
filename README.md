@@ -11,7 +11,9 @@ Why another Ruby on Rails admin? We wanted an admin that was:
 - Stimulus / Turbolinks / Hotwire ready
 - Works with Import maps and Sprockets
 
-![Madmin Screenshot](docs/images/screenshot.png)
+![Madmin index page with filters](docs/images/index.png)
+
+![Madmin edit form in dark mode, searching for a user](docs/images/edit-dark.png)
 
 ## Installation
 
