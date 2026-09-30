@@ -1,6 +1,6 @@
 ### Unreleased
 
-* Add dark mode, following the system's `prefers-color-scheme` setting. Colors are CSS variables on `:root`, and Madmin's stylesheets now load after the Tom Select stylesheet so they can restyle it. Trix and Lexxy editors get dark colors too. Custom styles with hard-coded light colors may need a dark variant
+* Add dark mode, following the system's light or dark setting. Colors are CSS variables on `:root` defined with `light-dark()`; set `color-scheme: light` on `:root` to opt out. Adds `--link-color` for links, while `--primary-color` stays the button background. Madmin's stylesheets now load after the Tom Select stylesheet so they can restyle it. Trix and Lexxy editors get dark colors too. Custom styles with hard-coded light colors may need a dark variant
 * Remove the unused flatpickr stylesheet. Madmin replaced flatpickr with native date inputs in 2.0.1; apps that still use flatpickr in custom fields should include its stylesheet themselves
 * **Breaking:** Replace Pagy with built-in pagination (`Madmin::Pagination` and `Madmin::Page`). The `pagy` gem is no longer a dependency.
   * Customized `index.html.erb` views should replace the `pagy_nav` / `@pagy.series_nav` block with `<%= render "pagination", page: @page %>`

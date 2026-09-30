@@ -30,46 +30,33 @@
   max-width: 100% !important;
 }
 
-/* Trix draws its toolbar icons in black */
-@media (prefers-color-scheme: dark) {
-  trix-toolbar .trix-button {
-    color: var(--text-color);
-  }
+/* Trix draws its toolbar icons in black, so its buttons stay light */
+trix-toolbar .trix-button-group {
+  background: light-dark(transparent, rgb(209 213 219));
+}
 
-  trix-toolbar .trix-button--icon::before {
-    filter: invert(1);
-  }
-
-  trix-toolbar .trix-button.trix-active {
-    background: var(--hover-color);
-    color: var(--text-color);
-  }
-
-  trix-toolbar .trix-dialog {
-    background: var(--background-color);
-  }
+trix-toolbar .trix-dialog {
+  background: var(--background-color);
 }
 
 /* Lexxy has no dark palette. `html:root` outranks Lexxy's own :root variables, which load after Madmin's */
-@media (prefers-color-scheme: dark) {
-  html:root {
-    --lexxy-color-ink: var(--text-color);
-    --lexxy-color-ink-medium: rgb(209 213 219);
-    --lexxy-color-ink-light: var(--light-text-color);
-    --lexxy-color-ink-lighter: var(--border-color);
-    --lexxy-color-ink-lightest: var(--background-color);
-    --lexxy-color-ink-inverted: var(--surface-color);
+html:root {
+  --lexxy-color-ink: light-dark(oklch(20% 0 0), var(--text-color));
+  --lexxy-color-ink-medium: light-dark(oklch(40% 0 0), rgb(209 213 219));
+  --lexxy-color-ink-light: light-dark(oklch(60% 0 0), var(--light-text-color));
+  --lexxy-color-ink-lighter: light-dark(oklch(85% 0 0), var(--border-color));
+  --lexxy-color-ink-lightest: light-dark(oklch(96% 0 0), var(--background-color));
+  --lexxy-color-ink-inverted: var(--surface-color);
 
-    --lexxy-color-accent-light: rgb(30 64 175);
-    --lexxy-color-accent-lightest: rgb(30 58 138);
+  --lexxy-color-accent-light: light-dark(oklch(88% 0.026 254), rgb(30 64 175));
+  --lexxy-color-accent-lightest: light-dark(oklch(92% 0.026 254), rgb(30 58 138));
 
-    --lexxy-color-code-token-att: #f97583;
-    --lexxy-color-code-token-comment: #959da5;
-    --lexxy-color-code-token-function: #b392f0;
-    --lexxy-color-code-token-operator: #f97583;
-    --lexxy-color-code-token-property: #79b8ff;
-    --lexxy-color-code-token-punctuation: #e1e4e8;
-    --lexxy-color-code-token-selector: #85e89d;
-    --lexxy-color-code-token-variable: #ffab70;
-  }
+  --lexxy-color-code-token-att: light-dark(#d73a49, #f97583);
+  --lexxy-color-code-token-comment: light-dark(#6a737d, #959da5);
+  --lexxy-color-code-token-function: light-dark(#6f42c1, #b392f0);
+  --lexxy-color-code-token-operator: light-dark(#d73a49, #f97583);
+  --lexxy-color-code-token-property: light-dark(#005cc5, #79b8ff);
+  --lexxy-color-code-token-punctuation: light-dark(#24292e, #e1e4e8);
+  --lexxy-color-code-token-selector: light-dark(#22863a, #85e89d);
+  --lexxy-color-code-token-variable: light-dark(#e36209, #ffab70);
 }
