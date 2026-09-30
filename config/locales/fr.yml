@@ -46,3 +46,40 @@ fr:
       next: Suivant
       info: "Affichage de %{from} à %{to} sur %{count}"
       empty: Aucun enregistrement trouvé
+    filters:
+      button: "Filtres"
+      heading: "Afficher les enregistrements où"
+      add: "+ Ajouter un filtre"
+      apply: "Appliquer"
+      clear: "Effacer"
+      clear_all: "Effacer les filtres"
+      remove: "Retirer le filtre"
+      column: "Colonne"
+      operator: "Condition"
+      value: "Valeur"
+      operators:
+        string:
+          contains: "contient"
+          eq: "est"
+          starts_with: "commence par"
+          blank: "est vide"
+          present: "n'est pas vide"
+        number:
+          eq: "="
+          gt: ">"
+          gte: "≥"
+          lt: "<"
+          lte: "≤"
+          blank: "est vide"
+        date:
+          eq: "le"
+          gte: "le ou après"
+          lte: "le ou avant"
+          blank: "est vide"
+        datetime:
+          gte: "après"
+          lte: "avant"
+          blank: "est vide"
+        boolean:
+          "true": "est vrai"
+          "false": "est faux"

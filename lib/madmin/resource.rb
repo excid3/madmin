@@ -171,6 +171,10 @@ module Madmin
         attributes.values.select { |a| a.field.searchable? }
       end
 
+      def filterable_attributes
+        attributes.values.select { |a| a.field&.filter_type }
+      end
+
       def member_action(collection: false, &block)
         member_actions << MemberAction.new(collection: collection, &block)
       end

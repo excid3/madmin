@@ -7,6 +7,11 @@
     <form class="search">
       <%= hidden_field_tag :page, params[:page], value: 1 %>
       <%= search_field_tag :q, params[:q], placeholder: t("madmin.search.placeholder") %>
+      <% filters.each do |filter| %>
+        <% filter.to_h.each do |name, value| %>
+          <%= hidden_field_tag "filters[][#{name}]", value, id: nil %>
+        <% end %>
+      <% end %>
     </form>
 
     <%= link_to clear_search_params, class: "btn btn-secondary" do %>
@@ -14,6 +19,8 @@
         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
       </svg>
       <% end if params[:q].present? %>
+
+    <%= render "filters" %>
 
     <% resource.collection_actions.each do |action| %>
       <%= instance_exec(&action) %>
@@ -27,13 +34,15 @@
   </div>
 </header>
 
+<%= render "active_filters" %>
+
 <nav class="scopes">
   <% if resource.scopes.any? %>
     <%= link_to t("madmin.actions.all"), resource.index_path, class: class_names("btn btn-secondary", {"active" => params[:scope].blank?}) %>
   <% end %>
 
   <% resource.scopes.each do |scope| %>
-    <%= link_to resource.scope_label(scope), resource.index_path(scope: scope, q: params[:q], sort: params[:sort], direction: params[:direction]), class: class_names("btn btn-secondary", {"active" => params[:scope] == scope.to_s}) %>
+    <%= link_to resource.scope_label(scope), resource.index_path(scope: scope, q: params[:q], sort: params[:sort], direction: params[:direction], filters: filter_params), class: class_names("btn btn-secondary", {"active" => params[:scope] == scope.to_s}) %>
   <% end %>
 </nav>
 

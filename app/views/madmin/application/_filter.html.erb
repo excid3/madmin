@@ -1,0 +1,19 @@
+<% attribute = filter ? resource.get_attribute(filter.column.to_sym) : resource.filterable_attributes.first %>
+<% type = attribute.field.filter_type %>
+<% operator = filter&.operator || Madmin::Filter::OPERATORS[type].first %>
+
+<div class="filter-row" data-filter-row>
+  <%= select_tag "filters[][column]",
+        options_for_select(resource.filterable_attributes.map { |a| [a.field.label, a.name, {data: {filter_type: a.field.filter_type}}] }, attribute.name),
+        id: nil, aria: {label: t("madmin.filters.column")}, data: {action: "filters#changeColumn"} %>
+
+  <%= select_tag "filters[][operator]",
+        options_for_select(filter_operator_options(type), operator),
+        id: nil, aria: {label: t("madmin.filters.operator")}, data: {action: "filters#changeOperator"} %>
+
+  <%= tag.input name: "filters[][value]", value: filter&.value, id: nil,
+        type: Madmin::FiltersHelper::FILTER_INPUT_TYPES[type], step: ("any" if type == :number),
+        hidden: Madmin::Filter::WITHOUT_VALUE.include?(operator), aria: {label: t("madmin.filters.value")} %>
+
+  <button type="button" class="filter-remove" aria-label="<%= t("madmin.filters.remove") %>" data-action="filters#remove">&times;</button>
+</div>

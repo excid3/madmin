@@ -2,20 +2,18 @@
 
 module Madmin
   class Search
-    attr_reader :query
+    attr_reader :query, :filters
 
-    def initialize(scoped_resource, resource, term)
+    def initialize(scoped_resource, resource, term, filters = [])
       @resource = resource
       @scoped_resource = scoped_resource
       @query = term
+      @filters = filters
     end
 
     def run
-      if query.blank?
-        @scoped_resource.all
-      else
-        search_results(@scoped_resource)
-      end
+      results = query.blank? ? @scoped_resource.all : search_results(@scoped_resource)
+      filters.reduce(results) { |scope, filter| filter.apply(scope) }
     end
 
     private

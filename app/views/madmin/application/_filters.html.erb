@@ -1,0 +1,34 @@
+<% if resource.filterable_attributes.any? %>
+  <button type="button" id="filters-button" class="btn btn-secondary" popovertarget="filters">
+    <%= t("madmin.filters.button") %>
+    <%= tag.span filters.size, class: "filters-count" if filters.any? %>
+  </button>
+
+  <div id="filters" class="filters" popover data-controller="filters" data-filters-operators-value="<%= filter_operators.to_json %>">
+    <%= form_with url: resource.index_path, method: :get, skip_enforcing_utf8: true do %>
+      <% index_params.each do |name, value| %>
+        <%= hidden_field_tag name, value, id: nil %>
+      <% end %>
+
+      <p class="filters-heading"><%= t("madmin.filters.heading") %></p>
+
+      <div class="filter-rows" data-filters-target="rows">
+        <% (filters.presence || [nil]).each do |filter| %>
+          <%= render "filter", filter: filter %>
+        <% end %>
+      </div>
+
+      <template data-filters-target="template">
+        <%= render "filter", filter: nil %>
+      </template>
+
+      <div class="filters-footer">
+        <button type="button" class="btn btn-link" data-action="filters#add"><%= t("madmin.filters.add") %></button>
+        <div>
+          <%= link_to t("madmin.filters.clear"), resource.index_path(index_params), class: "btn btn-secondary" %>
+          <button type="submit" class="btn btn-primary"><%= t("madmin.filters.apply") %></button>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

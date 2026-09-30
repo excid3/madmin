@@ -11,7 +11,7 @@ module Madmin
     end
 
     def clear_search_params
-      resource.index_path(sort: params[:sort], direction: params[:direction])
+      resource.index_path(sort: params[:sort], direction: params[:direction], filters: filter_params)
     end
   end
 end

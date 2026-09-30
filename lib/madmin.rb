@@ -5,6 +5,7 @@ require "turbo-rails"
 
 module Madmin
   autoload :Field, "madmin/field"
+  autoload :Filter, "madmin/filter"
   autoload :GeneratorHelpers, "madmin/generator_helpers"
   autoload :MemberAction, "madmin/member_action"
   autoload :Menu, "madmin/menu"

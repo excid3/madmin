@@ -46,3 +46,40 @@ el:
       next: Επόμενη
       info: "Εμφάνιση %{from}-%{to} από %{count}"
       empty: Δεν βρέθηκαν εγγραφές
+    filters:
+      button: "Φίλτρα"
+      heading: "Εμφάνιση εγγραφών όπου"
+      add: "+ Προσθήκη φίλτρου"
+      apply: "Εφαρμογή"
+      clear: "Εκκαθάριση"
+      clear_all: "Εκκαθάριση φίλτρων"
+      remove: "Αφαίρεση φίλτρου"
+      column: "Στήλη"
+      operator: "Συνθήκη"
+      value: "Τιμή"
+      operators:
+        string:
+          contains: "περιέχει"
+          eq: "είναι"
+          starts_with: "ξεκινά με"
+          blank: "είναι κενό"
+          present: "δεν είναι κενό"
+        number:
+          eq: "="
+          gt: ">"
+          gte: "≥"
+          lt: "<"
+          lte: "≤"
+          blank: "είναι κενό"
+        date:
+          eq: "στις"
+          gte: "στις ή μετά"
+          lte: "στις ή πριν"
+          blank: "είναι κενό"
+        datetime:
+          gte: "μετά"
+          lte: "πριν"
+          blank: "είναι κενό"
+        boolean:
+          "true": "είναι αληθές"
+          "false": "είναι ψευδές"
