@@ -4,6 +4,7 @@
 
 * Add `direct_upload: true` for attachment and file fields to upload straight to the Active Storage service. Madmin's JavaScript now starts Active Storage; fields without the option keep uploading through the form
 * Remove the unused `tailwindcss-stimulus-components` pin and its `dropdown` controller, which no Madmin view has used since the move to plain CSS. Custom views that use `data-controller="dropdown"` should pin and register it in their app
+
 ### 3.0.0
 
 * Add an array field for PostgreSQL array columns. Values are shown and edited as comma separated text, and index filters offer "includes". Array columns were treated as strings before, so filters ran `ILIKE` against them and failed
