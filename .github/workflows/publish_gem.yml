@@ -37,6 +37,8 @@ jobs:
           # Promote the Unreleased entries to this version and start a fresh Unreleased section
           grep -q '^### Unreleased$' CHANGELOG.md || { echo "No '### Unreleased' heading in CHANGELOG.md"; exit 1; }
           sed -i "s/^### Unreleased$/### Unreleased\n\n### $VERSION/" CHANGELOG.md
+          # Keep one blank line before every version heading
+          ruby -i -0777 -pe '$_.gsub!(/\n+(?=### )/, "\n\n")' CHANGELOG.md
 
           bundle config set --local deployment 'false'
           bundle
