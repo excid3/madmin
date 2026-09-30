@@ -1,5 +1,6 @@
 ### Unreleased
 
+* Add dark mode, following the system's `prefers-color-scheme` setting. Colors are CSS variables on `:root`, and Madmin's stylesheets now load after the Tom Select and flatpickr stylesheets so they can restyle them. Custom styles with hard-coded light colors may need a dark variant
 * **Breaking:** Replace Pagy with built-in pagination (`Madmin::Pagination` and `Madmin::Page`). The `pagy` gem is no longer a dependency.
   * Customized `index.html.erb` views should replace the `pagy_nav` / `@pagy.series_nav` block with `<%= render "pagination", page: @page %>`
   * `paginate_collection` overrides must return `[page, records]` where `page` responds to the `Madmin::Page` interface (`page`, `last`, `count`, `from`, `to`, `prev`, `next`, `series`, `param`)

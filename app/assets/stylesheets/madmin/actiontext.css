@@ -29,3 +29,23 @@
   padding: 0 !important;
   max-width: 100% !important;
 }
+
+/* Trix draws its toolbar icons in black */
+@media (prefers-color-scheme: dark) {
+  trix-toolbar .trix-button {
+    color: var(--text-color);
+  }
+
+  trix-toolbar .trix-button--icon::before {
+    filter: invert(1);
+  }
+
+  trix-toolbar .trix-button.trix-active {
+    background: var(--hover-color);
+    color: var(--text-color);
+  }
+
+  trix-toolbar .trix-dialog {
+    background: var(--background-color);
+  }
+}

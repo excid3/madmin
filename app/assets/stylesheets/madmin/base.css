@@ -1,13 +1,37 @@
 :root {
+  color-scheme: light;
+
   --primary-color: rgb(37 99 235);
   --border-color: rgb(229 231 235);
+  --input-border-color: rgb(156 163 175);
+  --surface-color: white;
   --background-color: rgb(249 250 251);
+  --hover-color: rgb(243 244 246);
   --text-color: rgb(2 6 23);
   --light-text-color: rgb(71 85 105);
+  --danger-color: rgb(239 68 68);
   --sidebar-width: 16rem;
 }
 
+/* Dark mode follows the system setting */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+
+    --primary-color: rgb(59 130 246);
+    --border-color: rgb(55 65 81);
+    --input-border-color: var(--light-text-color);
+    --surface-color: rgb(17 24 39);
+    --background-color: rgb(31 41 55);
+    --hover-color: rgb(31 41 55);
+    --text-color: rgb(243 244 246);
+    --light-text-color: rgb(156 163 175);
+    --danger-color: rgb(248 113 113);
+  }
+}
+
 body {
+  background-color: var(--surface-color);
   color: var(--text-color);
   font-size: 14px;
   -webkit-font-smoothing: antialiased;
@@ -62,6 +86,18 @@ a {
       color: oklch(.723 .219 149.579);
     }
   }
+
+  @media (prefers-color-scheme: dark) {
+    &.alert-danger {
+      background-color: oklch(.258 .092 26.042);
+      color: oklch(.885 .062 18.334);
+    }
+
+    &.alert-notice {
+      background-color: oklch(.266 .065 152.934);
+      color: oklch(.925 .084 155.995);
+    }
+  }
 }
 
 .search {
@@ -104,14 +140,14 @@ a {
 
 
   .metric {
-    border: 1px solid rgb(229 231 235);
+    border: 1px solid var(--border-color);
     border-radius: 0.25rem;
     padding: 1rem;
     margin: 1rem;
     flex: 1 1 0%;
 
     h4 {
-      color: rgb(75 85 99);
+      color: var(--light-text-color);
       font-weight: 600;
       margin-top: 0;
       margin-bottom: 0.5rem;

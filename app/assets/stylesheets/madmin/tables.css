@@ -21,7 +21,7 @@ table {
     text-align: left;
 
     a {
-      color: rgb(17 24 39);
+      color: var(--text-color);
       text-decoration: none;
     }
 
