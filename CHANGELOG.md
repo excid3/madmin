@@ -6,6 +6,7 @@
   * Set the page size with `Madmin.per_page = 20` instead of Pagy's options
   * The `.pagy` CSS class is now `.pagination .pages`
   * Index queries append the primary key to the ordering so rows with equal sort values stay stable across pages
+* Fix belongs_to, has_one and polymorphic index cells raising `Madmin::MissingResource` for a target with no resource. They now go through `associated_resource_for` and render the same missing-resource notice the show partials already do, so one unresolvable row no longer 500s the whole index #367
 
 ### 2.6.0
 
