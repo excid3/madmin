@@ -93,6 +93,21 @@ en:
         published: Live
 ```
 
+### Resource Names
+
+Resource names in the menu, headings and buttons come from the model's translation when it has one, so they follow Rails' own `activerecord.models` keys:
+
+```yaml
+en:
+  activerecord:
+    models:
+      post:
+        one: Article
+        other: Articles
+```
+
+Models without a translation keep their default names, like `Posts` and `Active Storage / Blobs`.
+
 For labels that need logic (e.g. looking up a record name), override `scope_label`:
 
 ```ruby

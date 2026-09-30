@@ -36,8 +36,9 @@ module Madmin
           @children[parent] ||= Item.new(label: parent)
           @children[parent].add options
         else
+          key = options.delete(:key)
           item = Item.new(**options)
-          @children[item.label] = item
+          @children[key || item.label] = item
         end
       end
 
