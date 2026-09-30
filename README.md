@@ -7,9 +7,10 @@
 Why another Ruby on Rails admin? We wanted an admin that was:
 
 - Familiar and customizable like Rails scaffolds (less DSL)
-- Supports all the Rails features out of the box (ActionText, ActionMailbox, has_secure_password, etc)
-- Stimulus / Turbolinks / Hotwire ready
-- Works with Import maps and Sprockets
+- Supports Rails features out of the box (Action Text, Active Storage, Action Mailbox, has_secure_password, etc)
+- Built with Hotwire: Turbo, Stimulus and import maps, with no Node or build step
+- Search, filters and scopes on index pages, and dark mode
+- Works with Propshaft and Sprockets
 
 ![Madmin index page with filters](docs/images/index.png)
 
