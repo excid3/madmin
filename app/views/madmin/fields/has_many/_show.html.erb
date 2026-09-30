@@ -1,4 +1,4 @@
-<% pagy, records = field.paginated_value(record, params) %>
+<% page, records = field.paginated_value(record, params) %>
 <% records.each do |object| %>
   <% if (associated_resource = field.associated_resource_for(object)) %>
     <div><%= link_to associated_resource.display_name(object), associated_resource.show_path(object) %></div>
@@ -7,12 +7,4 @@
   <% end %>
 <% end %>
 
-<div class="pagination">
-  <% if pagy.respond_to?(:series_nav) %>
-    <%== pagy.series_nav if pagy.last > 1 %>
-    <%== pagy.info_tag %>
-  <% else %>
-    <%== pagy_nav pagy if pagy.last > 1 %>
-    <%== pagy_info pagy %>
-  <% end %>
-</div>
+<%= render "pagination", page: page %>

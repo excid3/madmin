@@ -38,3 +38,9 @@ ko:
     missing_resource:
       message: "%{resource}이(가) 존재하지 않습니다."
       create_hint: "다음 명령어를 실행하여 생성하세요:"
+    pagination:
+      label: 페이지 탐색
+      previous: 이전
+      next: 다음
+      info: "%{count}개 중 %{from}-%{to} 표시"
+      empty: 레코드가 없습니다

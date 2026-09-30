@@ -40,3 +40,9 @@ en:
     missing_resource:
       message: "%{resource} is missing."
       create_hint: "Create it by running:"
+    pagination:
+      label: Pagination
+      previous: Previous
+      next: Next
+      info: "Displaying %{from}-%{to} of %{count}"
+      empty: No records found
