@@ -2,6 +2,9 @@ class Post < ApplicationRecord
   extend FriendlyId
   friendly_id :title
 
+  # Declared before the associations so it runs ahead of their dependent: :destroy
+  before_destroy :ensure_unpublished
+
   belongs_to :user
   has_many :comments, as: :commentable, dependent: :destroy
   has_many_attached :attachments
@@ -13,8 +16,6 @@ class Post < ApplicationRecord
   enum :state, [:draft, :published, :archived]
 
   validates :title, presence: true
-
-  before_destroy :ensure_unpublished
 
   private
 

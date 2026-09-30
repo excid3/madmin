@@ -28,6 +28,8 @@ en:
         other: There were %{count} errors with your submission
     flash:
       readonly: "%{name} is read-only"
+      destroy_failed: "%{name} could not be deleted"
+      destroy_restricted: "%{name} could not be deleted because other records depend on it"
     confirmations:
       delete: Are you sure?
       remove_with_changes: Are you sure? You will lose any other changes.

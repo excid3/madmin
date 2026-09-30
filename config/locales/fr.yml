@@ -28,6 +28,8 @@ fr:
         other: Il y a eu %{count} erreurs dans votre soumission
     flash:
       readonly: "%{name} est en lecture seule"
+      destroy_failed: "%{name} n'a pas pu être supprimé"
+      destroy_restricted: "%{name} n'a pas pu être supprimé car d'autres enregistrements en dépendent"
     confirmations:
       delete: Êtes-vous sûr ?
       remove_with_changes: Êtes-vous sûr ? Vous perdrez toutes les autres modifications.

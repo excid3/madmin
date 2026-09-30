@@ -8,8 +8,54 @@ class DestroyTest < ActionDispatch::IntegrationTest
       delete madmin_post_path(posts(:one))
     end
 
+    assert_response :see_other
     assert_redirected_to madmin_posts_path
     assert_equal "Published posts can't be deleted. Unpublish it first.", flash[:alert]
+  end
+
+  test "destroy redirects back to the referring page when the record can't be deleted" do
+    posts(:one).published!
+
+    delete madmin_post_path(posts(:one)), headers: {"HTTP_REFERER" => madmin_post_url(posts(:one))}
+
+    assert_response :see_other
+    assert_redirected_to madmin_post_url(posts(:one))
+  end
+
+  test "destroy shows a generic alert when the record has no errors" do
+    with_post_destroy -> { false } do
+      assert_no_difference "Post.count" do
+        delete madmin_post_path(posts(:one))
+      end
+    end
+
+    assert_redirected_to madmin_posts_path
+    assert_equal "Post could not be deleted", flash[:alert]
+  end
+
+  test "destroy shows an alert when other records restrict the deletion" do
+    [ActiveRecord::DeleteRestrictionError.new(:comments), ActiveRecord::InvalidForeignKey.new("FOREIGN KEY constraint failed")].each do |error|
+      with_post_destroy -> { raise error } do
+        assert_no_difference "Post.count" do
+          delete madmin_post_path(posts(:one))
+        end
+      end
+
+      assert_response :see_other
+      assert_redirected_to madmin_posts_path
+      assert_equal "Post could not be deleted because other records depend on it", flash[:alert]
+    end
+  end
+
+  test "destroy truncates long alerts" do
+    with_post_destroy -> {
+      errors.add(:base, "x" * 1000)
+      false
+    } do
+      delete madmin_post_path(posts(:one))
+    end
+
+    assert_equal 500, flash[:alert].length
   end
 
   test "destroy deletes the record and redirects to the index" do
@@ -17,7 +63,17 @@ class DestroyTest < ActionDispatch::IntegrationTest
       delete madmin_post_path(posts(:one))
     end
 
+    assert_response :see_other
     assert_redirected_to madmin_posts_path
     assert_nil flash[:alert]
+  end
+
+  private
+
+  def with_post_destroy(implementation)
+    Post.define_method(:destroy, &implementation)
+    yield
+  ensure
+    Post.remove_method(:destroy)
   end
 end
