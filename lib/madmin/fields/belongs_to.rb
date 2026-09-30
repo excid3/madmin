@@ -3,7 +3,7 @@ module Madmin
     class BelongsTo < Field
       def options_for_select(record)
         current_value = record.send(attribute_name)
-        records = [current_value].compact + associated_resource.model.excluding(current_value).limit(25)
+        records = [current_value].compact + model.reflect_on_association(attribute_name).klass.excluding(current_value).limit(25)
         records.map { [Madmin.resource_for(_1).display_name(_1), _1.id] }
       end
 
@@ -13,6 +13,7 @@ module Madmin
 
       def index_path(format: :json)
         associated_resource&.index_path(format: format)
+      rescue MissingRoute
       end
 
       def associated_resource

@@ -1,6 +1,8 @@
 module Madmin
   module Fields
     class HasMany < Field
+      include Madmin::Pagination
+
       def options_for_select(record)
         if (records = record.send(attribute_name))
           return [] unless records.first
@@ -17,6 +19,7 @@ module Madmin
 
       def index_path(format: :json)
         associated_resource&.index_path(format: format)
+      rescue MissingRoute
       end
 
       def associated_resource
@@ -33,29 +36,9 @@ module Madmin
         true
       end
 
-      if Gem::Version.new(Pagy::VERSION) >= Gem::Version.new("43.0.0.rc")
-        include Pagy::Method
-
-        def paginated_value(record, params)
-          page_key = "#{attribute_name}_page"
-          request = {
-            params: {
-              "#{attribute_name}_page" => [params[page_key].to_i, 1].max
-            }
-          }
-          pagy value(record), page_key: page_key, request: request
-        rescue Pagy::OptionError
-        end
-      else
-        include Pagy::Backend
-
-        def paginated_value(record, params)
-          page_key = "#{attribute_name}_page"
-          page = [params[page_key].to_i, 1].max
-          pagy value(record), page: page, page_param: page_key
-        rescue Pagy::OverflowError, Pagy::VariableError
-          pagy value, page: 1, page_param: page_key
-        end
+      def paginated_value(record, params)
+        page_key = "#{attribute_name}_page"
+        paginate value(record), page: params[page_key], param: page_key
       end
     end
   end

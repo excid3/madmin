@@ -7,7 +7,7 @@ class CommentResource < Madmin::Resource
 
   # Associations
   attribute :user
-  attribute :commentable, collection: -> { Post.all }
+  attribute :commentable, index: true, collection: -> { Post.all }
 
   # Uncomment this to customize the display name of records in the admin area.
   # def self.display_name(record)

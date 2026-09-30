@@ -2,7 +2,7 @@
   padding: 0.5rem;
 }
 
-.pagy {
+.pagination .pages {
   display: inline-flex;
   isolation: isolate;
   border-radius: 0.375rem;
@@ -30,7 +30,7 @@
     background-color: #F3F4F6;
   }
 
-  a:not([href]) {
+  a[aria-disabled="true"] {
     color: #D1D5DB;
     cursor: default;
   }
@@ -39,21 +39,8 @@
     color: #ffffff;
     background-color: var(--primary-color);
   }
+}
 
-  label {
-    display: inline-block;
-    padding-top: 0.125rem;
-    padding-bottom: 0.125rem;
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
-    border-radius: 0.5rem;
-    white-space: nowrap;
-    background-color: #E5E7EB;
-  }
-
-  label input {
-    border-radius: 0.375rem;
-    border-style: none;
-    background-color: #F3F4F6;
-  }
+.pagination-info {
+  margin-left: 0.5rem;
 }

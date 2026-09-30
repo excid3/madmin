@@ -1,5 +1,16 @@
 ### Unreleased
 
+* **Breaking:** Replace Pagy with built-in pagination (`Madmin::Pagination` and `Madmin::Page`). The `pagy` gem is no longer a dependency.
+  * Customized `index.html.erb` views should replace the `pagy_nav` / `@pagy.series_nav` block with `<%= render "pagination", page: @page %>`
+  * `paginate_collection` overrides must return `[page, records]` where `page` responds to the `Madmin::Page` interface (`page`, `last`, `count`, `from`, `to`, `prev`, `next`, `series`, `param`)
+  * Set the page size with `Madmin.per_page = 20` instead of Pagy's options
+  * The `.pagy` CSS class is now `.pagination .pages`
+  * Index queries append the primary key to the ordering so rows with equal sort values stay stable across pages
+* Fix belongs_to, has_one and polymorphic index cells raising `Madmin::MissingResource` for a target with no resource. They now go through `associated_resource_for` and render the same missing-resource notice the show partials already do, so one unresolvable row no longer 500s the whole index #367
+* Raise `Madmin::MissingRoute` with the route to add when a resource's routes aren't drawn, instead of a `NoMethodError` for the undefined path helper
+* Association fields render the record's name without a link when the associated resource has no show route, and belongs_to / has_many selects skip remote search when it has no index route
+* Fix `Madmin.resource_by_name` raising `NameError` instead of `Madmin::MissingResource`
+* Fix attachment fields raising on show and edit pages when the `ActiveStorage::AttachmentResource` or its routes have been removed. The remove link is now only rendered when the attachment can be deleted through Madmin. Adds `Resource.route?(action)`
 * `Madmin.resource_for` now falls back to the resource that declares the object's class with `model`, so a resource named differently from its model (`ArticleResource` for `Blog::Post`) resolves in association cells without a name-matching alias subclass. Name-derived and STI lookups still win; two differently-named resources declaring the same model raise `MissingResource` with both names rather than guessing
 
 ### 2.6.0

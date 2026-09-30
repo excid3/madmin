@@ -9,7 +9,7 @@ module Madmin
     before_action :set_paper_trail_whodunnit, if: -> { respond_to?(:set_paper_trail_whodunnit, true) }
 
     def index
-      @pagy, @records = paginate_collection(scoped_resources)
+      @page, @records = paginate_collection(scoped_resources)
 
       respond_to do |format|
         format.html
@@ -75,8 +75,10 @@ module Madmin
       resources.reorder(sort_column => sort_direction)
     end
 
+    # Returns [page, records]. Override for non-ActiveRecord collections and
+    # return an object responding to the Madmin::Page interface.
     def paginate_collection(collection)
-      pagy(collection)
+      paginate(collection, page: params[:page])
     end
 
     def valid_scope

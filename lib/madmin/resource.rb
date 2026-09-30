@@ -98,19 +98,28 @@ module Madmin
       end
 
       def index_path(options = {})
-        url_helpers.polymorphic_path([:madmin, route_namespace, model], options)
+        route_path([:madmin, route_namespace, model], options)
       end
 
       def new_path
-        url_helpers.polymorphic_path([:madmin, route_namespace, model], action: :new)
+        route_path([:madmin, route_namespace, model], action: :new)
       end
 
       def show_path(record)
-        url_helpers.polymorphic_path([:madmin, route_namespace, becomes(record)])
+        route_path([:madmin, route_namespace, becomes(record)])
       end
 
       def edit_path(record)
-        url_helpers.polymorphic_path([:madmin, route_namespace, becomes(record)], action: :edit)
+        route_path([:madmin, route_namespace, becomes(record)], action: :edit)
+      end
+
+      # Whether a route is drawn for the given action on this resource's controller
+      # For example: PostResource.route?(:destroy)
+      def route?(action)
+        controller = "madmin/#{model.model_name.collection}"
+        Rails.application.routes.routes.any? do |route|
+          route.defaults[:controller] == controller && route.defaults[:action] == action.to_s
+        end
       end
 
       def becomes(record)
@@ -270,6 +279,26 @@ module Madmin
 
       def url_helpers
         @url_helpers ||= Rails.application.routes.url_helpers
+      end
+
+      # Raises MissingRoute with instructions instead of a NoMethodError for
+      # the undefined route helper when the resource's routes aren't drawn
+      def route_path(components, options = {})
+        url_helpers.polymorphic_path(components, options)
+      rescue NoMethodError => error
+        raise unless error.name.to_s.end_with?("_path")
+
+        *namespaces, resources = model.model_name.collection.split("/")
+        routes = namespaces.reverse.inject("resources :#{resources}") do |body, namespace|
+          "namespace :#{namespace} do\n#{body.indent(2)}\nend"
+        end
+
+        raise MissingRoute, [
+          "`#{error.name}` is not defined, so #{name} has no route for this page.",
+          "Add the route inside `namespace :madmin` in your routes:",
+          routes.indent(4),
+          "To hide the resource from the menu instead, add `menu false` to #{name}."
+        ].join("\n\n")
       end
 
       def model_store_accessors
