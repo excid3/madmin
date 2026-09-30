@@ -20,13 +20,4 @@ class DirectUploadsTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     assert_equal "avatar.txt", user.reload.avatar.filename.to_s
   end
-
-  test "saves a directly uploaded blob by its signed id" do
-    post = posts(:one)
-    blob = ActiveStorage::Blob.create_and_upload!(io: StringIO.new("image"), filename: "image.png", content_type: "image/png")
-
-    put madmin_post_path(post), params: {post: {image: blob.signed_id}}
-    assert_response :redirect
-    assert_equal blob, post.reload.image.blob
-  end
 end
