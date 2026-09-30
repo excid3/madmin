@@ -1,0 +1,15 @@
+<% if filters.any? %>
+  <div class="active-filters">
+    <% filters.each do |filter| %>
+      <span class="filter-chip">
+        <span>
+          <strong><%= filter.field.label %></strong>
+          <%= t("madmin.filters.operators.#{filter.type}.#{filter.operator}") %>
+          <%= tag.strong filter_value_label(filter) if filter.value? %>
+        </span>
+        <%= link_to "×", index_path_with(filters: filters.excluding(filter).map(&:to_h).presence), aria: {label: t("madmin.filters.remove")} %>
+      </span>
+    <% end %>
+    <%= link_to t("madmin.filters.clear_all"), index_path_with(filters: nil) %>
+  </div>
+<% end %>

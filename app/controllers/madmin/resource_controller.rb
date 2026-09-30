@@ -68,7 +68,7 @@ module Madmin
 
     def scoped_resources
       resources = resource.model.send(valid_scope)
-      resources = Madmin::Search.new(resources, resource, search_term).run
+      resources = Madmin::Search.new(resources, resource, search_term, filters).run
 
       return resources if sort_column.blank?
 
@@ -124,6 +124,12 @@ module Madmin
     def search_term
       @search_term ||= params[:q].to_s.strip
     end
+
+    # The index filters from `filters[][column]`, `filters[][operator]` and `filters[][value]`
+    def filters
+      @filters ||= Madmin::Filter.from_params(resource, params.slice(:filters).permit(filters: [:column, :operator, :value]).fetch(:filters, []))
+    end
+    helper_method :filters
 
     def enforce_readonly
       redirect_to resource.index_path, alert: t("madmin.flash.readonly", name: resource.friendly_name) if resource.readonly?

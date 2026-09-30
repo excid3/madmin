@@ -93,6 +93,20 @@ en:
         published: Live
 ```
 
+### Filters
+
+Index pages have a Filters button for narrowing records by their columns, like "Admin is true" or "Created at after Aug 15". Filters combine with search, scopes and sorting, and they're kept in the URL so filtered lists can be bookmarked and shared.
+
+String, text, number, date, datetime and boolean columns can be filtered. Encrypted columns and attributes that aren't database columns are left out. Turn filtering off for an attribute with `filter: false`:
+
+```ruby
+class UserResource < Madmin::Resource
+  attribute :api_token, filter: false
+end
+```
+
+Custom fields can offer a filter by returning `:string`, `:number`, `:date`, `:datetime` or `:boolean` from `self.filter_type`.
+
 ### Resource Names
 
 Resource names in the menu, headings and buttons come from the model's translation when it has one, so they follow Rails' own `activerecord.models` keys:

@@ -44,3 +44,39 @@ ko:
       next: 다음
       info: "%{count}개 중 %{from}-%{to} 표시"
       empty: 레코드가 없습니다
+    filters:
+      button: "필터"
+      heading: "다음 조건의 레코드 표시"
+      add: "+ 필터 추가"
+      apply: "적용"
+      clear_all: "필터 지우기"
+      remove: "필터 제거"
+      column: "열"
+      operator: "조건"
+      value: "값"
+      operators:
+        string:
+          contains: "포함"
+          eq: "일치"
+          starts_with: "시작"
+          blank: "비어 있음"
+          present: "비어 있지 않음"
+        number:
+          eq: "="
+          gt: ">"
+          gte: "≥"
+          lt: "<"
+          lte: "≤"
+          blank: "비어 있음"
+        date:
+          eq: "당일"
+          gte: "이후(당일 포함)"
+          lte: "이전(당일 포함)"
+          blank: "비어 있음"
+        datetime:
+          gte: "이후"
+          lte: "이전"
+          blank: "비어 있음"
+        boolean:
+          "true": "참"
+          "false": "거짓"
