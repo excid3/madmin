@@ -49,7 +49,6 @@ ko:
       heading: "다음 조건의 레코드 표시"
       add: "+ 필터 추가"
       apply: "적용"
-      clear: "지우기"
       clear_all: "필터 지우기"
       remove: "필터 제거"
       column: "열"

@@ -51,7 +51,6 @@ en:
       heading: "Show records where"
       add: "+ Add filter"
       apply: "Apply"
-      clear: "Clear"
       clear_all: "Clear filters"
       remove: "Remove filter"
       column: "Column"

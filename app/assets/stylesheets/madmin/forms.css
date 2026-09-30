@@ -298,11 +298,6 @@ select:not([multiple]) {
   justify-content: space-between;
   margin-top: 0.875rem;
   padding-top: 0.875rem;
-
-  div {
-    display: flex;
-    gap: 0.5rem;
-  }
 }
 
 .btn.btn-link {

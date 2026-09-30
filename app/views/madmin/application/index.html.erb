@@ -7,8 +7,8 @@
     <form class="search">
       <%= hidden_field_tag :page, params[:page], value: 1 %>
       <%= search_field_tag :q, params[:q], placeholder: t("madmin.search.placeholder") %>
-      <% filters.each do |filter| %>
-        <% filter.to_h.each do |name, value| %>
+      <% filters.map(&:to_h).each do |filter| %>
+        <% filter.each do |name, value| %>
           <%= hidden_field_tag "filters[][#{name}]", value, id: nil %>
         <% end %>
       <% end %>
@@ -42,7 +42,7 @@
   <% end %>
 
   <% resource.scopes.each do |scope| %>
-    <%= link_to resource.scope_label(scope), resource.index_path(scope: scope, q: params[:q], sort: params[:sort], direction: params[:direction], filters: filter_params), class: class_names("btn btn-secondary", {"active" => params[:scope] == scope.to_s}) %>
+    <%= link_to resource.scope_label(scope), index_path_with(scope: scope), class: class_names("btn btn-secondary", {"active" => params[:scope] == scope.to_s}) %>
   <% end %>
 </nav>
 

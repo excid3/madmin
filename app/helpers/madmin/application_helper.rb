@@ -11,7 +11,13 @@ module Madmin
     end
 
     def clear_search_params
-      resource.index_path(sort: params[:sort], direction: params[:direction], filters: filter_params)
+      index_path_with(q: nil)
+    end
+
+    # The current index URL with some params changed, keeping the search,
+    # scope, sort and filters. Any change goes back to the first page
+    def index_path_with(**changes)
+      resource.index_path(request.query_parameters.symbolize_keys.except(:page).merge(changes))
     end
   end
 end

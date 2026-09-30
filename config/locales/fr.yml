@@ -51,7 +51,6 @@ fr:
       heading: "Afficher les enregistrements où"
       add: "+ Ajouter un filtre"
       apply: "Appliquer"
-      clear: "Effacer"
       clear_all: "Effacer les filtres"
       remove: "Retirer le filtre"
       column: "Colonne"

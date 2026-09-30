@@ -103,6 +103,15 @@ class FiltersTest < ActionDispatch::IntegrationTest
     assert_select "form.search input[type=hidden][name='filters[][column]'][value=admin]"
   end
 
+  test "links keep the other params and go back to the first page" do
+    filters = [{column: "admin", operator: "true", value: ""}]
+    get madmin_posts_path(q: "My", scope: "recent", sort: "id", direction: "asc", page: 2, filters: filters)
+
+    # Clearing the search keeps the scope, sort and filters
+    assert_select ".header .actions a[href=?]", madmin_posts_path(scope: "recent", sort: "id", direction: "asc", filters: filters)
+    assert_select "th a[href=?]", madmin_posts_path(q: "My", scope: "recent", sort: "id", direction: "desc", filters: filters)
+  end
+
   test "filter: false hides a column" do
     UserResource.attributes[:token].field.options[:filter] = false
     get madmin_users_path

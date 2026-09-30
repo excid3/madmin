@@ -16,11 +16,17 @@ module Madmin
     # Skips conditions for unknown columns or operators, and values that don't
     # cast to the column's type
     def self.from_params(resource, params)
-      Array(params).filter_map do |param|
+      params.filter_map do |param|
         attribute = resource.attributes[param[:column].to_s.to_sym]
         filter = new(attribute.field, param[:operator].to_s, param[:value].to_s) if attribute&.field&.filter_type
         filter if filter&.valid?
       end
+    end
+
+    # A new row in the filters form, for the first filterable column
+    def self.blank(resource)
+      field = resource.filterable_attributes.first.field
+      new(field, OPERATORS.fetch(field.filter_type).first, "")
     end
 
     def initialize(field, operator, value)
@@ -68,12 +74,12 @@ module Madmin
       {column: column, operator: operator, value: value}
     end
 
-    private
-
-    # Datetimes are parsed in Time.zone, like form input
+    # The value in the column's type. Datetimes are parsed in Time.zone, like form input
     def cast_value
       @cast_value ||= value.presence && field.model.type_for_attribute(column).cast(value)
     end
+
+    private
 
     def escaped_value
       field.model.sanitize_sql_like(value)

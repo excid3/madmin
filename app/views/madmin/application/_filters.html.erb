@@ -4,30 +4,28 @@
     <%= tag.span filters.size, class: "filters-count" if filters.any? %>
   </button>
 
-  <div id="filters" class="filters" popover data-controller="filters" data-filters-operators-value="<%= filter_operators.to_json %>">
+  <div id="filters" class="filters" popover data-controller="filters">
     <%= form_with url: resource.index_path, method: :get, skip_enforcing_utf8: true do %>
-      <% index_params.each do |name, value| %>
+      <% request.query_parameters.slice("q", "scope", "sort", "direction").each do |name, value| %>
         <%= hidden_field_tag name, value, id: nil %>
       <% end %>
 
       <p class="filters-heading"><%= t("madmin.filters.heading") %></p>
 
       <div class="filter-rows" data-filters-target="rows">
-        <% (filters.presence || [nil]).each do |filter| %>
+        <% (filters.presence || [Madmin::Filter.blank(resource)]).each do |filter| %>
           <%= render "filter", filter: filter %>
         <% end %>
       </div>
 
-      <template data-filters-target="template">
-        <%= render "filter", filter: nil %>
-      </template>
+      <template data-filters-target="row"><%= render "filter", filter: Madmin::Filter.blank(resource) %></template>
+      <% Madmin::Filter::OPERATORS.each_key do |type| %>
+        <template data-filters-target="operators" data-filter-type="<%= type %>"><%= options_for_select(filter_operator_options(type)) %></template>
+      <% end %>
 
       <div class="filters-footer">
         <button type="button" class="btn btn-link" data-action="filters#add"><%= t("madmin.filters.add") %></button>
-        <div>
-          <%= link_to t("madmin.filters.clear"), resource.index_path(index_params), class: "btn btn-secondary" %>
-          <button type="submit" class="btn btn-primary"><%= t("madmin.filters.apply") %></button>
-        </div>
+        <button type="submit" class="btn btn-primary"><%= t("madmin.filters.apply") %></button>
       </div>
     <% end %>
   </div>
