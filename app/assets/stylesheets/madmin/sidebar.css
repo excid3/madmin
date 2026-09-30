@@ -28,11 +28,11 @@
     margin-bottom: 0.1rem;
 
     &:hover {
-      background-color: rgb(243 244 246);
+      background-color: var(--hover-color);
     }
 
     &.active {
-      background-color: rgb(243 244 246);
+      background-color: var(--hover-color);
       font-weight: 600;
     }
   }
@@ -90,11 +90,11 @@ main {
       margin-bottom: 0.1rem;
 
       &:hover {
-        background-color: rgb(243 244 246);
+        background-color: var(--hover-color);
       }
 
       &.active {
-        background-color: rgb(243 244 246);
+        background-color: var(--hover-color);
         font-weight: 600;
       }
     }
@@ -106,7 +106,7 @@ main {
     margin-top: 1rem;
 
     a {
-      color: rgb(75 85 99);
+      color: var(--light-text-color);
       display: flex;
       align-items: center;
       gap: 0.25rem;
@@ -119,7 +119,7 @@ main {
     }
 
     &:hover {
-      color: var(--primary-color);
+      color: var(--link-color);
     }
   }
 }

@@ -296,6 +296,27 @@ Hooks registered after a class has already loaded run immediately, so ordering i
 You can use a couple of strategies to authenticate users who are trying to
 access your madmin panel: [Authentication Docs](docs/authentication.md)
 
+## Dark Mode
+
+Madmin follows the system's light or dark setting. To always use one, add a stylesheet with `Madmin.stylesheets << "madmin_overrides"` (see [Assets](docs/assets.md)) and set `color-scheme`:
+
+```css
+:root {
+  color-scheme: light;
+}
+```
+
+Madmin's colors are CSS variables on `:root`, defined with `light-dark()` so each has a light and a dark value. Custom fields and views can use them to match both modes, and you can override them to change the theme:
+
+```css
+:root {
+  --primary-color: rgb(79 70 229); /* Button backgrounds */
+  --link-color: light-dark(rgb(79 70 229), rgb(129 140 248));
+}
+```
+
+The variables are `--primary-color`, `--link-color`, `--text-color`, `--light-text-color`, `--surface-color` (page and input backgrounds), `--background-color` (table headers), `--hover-color`, `--border-color`, `--input-border-color` and `--danger-color`.
+
 ## Assets
 You can customize the JavaScript and CSS assets used by Madmin for your application. To learn how
 see the [Assets Doc](docs/assets.md)

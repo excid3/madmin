@@ -1,13 +1,23 @@
 :root {
+  /* Follows the system setting. Set `color-scheme: light` or `dark` on :root to force one */
+  color-scheme: light dark;
+
+  /* Button backgrounds, with white text */
   --primary-color: rgb(37 99 235);
-  --border-color: rgb(229 231 235);
-  --background-color: rgb(249 250 251);
-  --text-color: rgb(2 6 23);
-  --light-text-color: rgb(71 85 105);
+  --link-color: light-dark(rgb(37 99 235), rgb(96 165 250));
+  --border-color: light-dark(rgb(229 231 235), rgb(55 65 81));
+  --input-border-color: rgb(156 163 175);
+  --surface-color: light-dark(white, rgb(17 24 39));
+  --background-color: light-dark(rgb(249 250 251), rgb(31 41 55));
+  --hover-color: light-dark(rgb(243 244 246), rgb(31 41 55));
+  --text-color: light-dark(rgb(2 6 23), rgb(243 244 246));
+  --light-text-color: light-dark(rgb(71 85 105), rgb(156 163 175));
+  --danger-color: light-dark(rgb(239 68 68), rgb(248 113 113));
   --sidebar-width: 16rem;
 }
 
 body {
+  background-color: var(--surface-color);
   color: var(--text-color);
   font-size: 14px;
   -webkit-font-smoothing: antialiased;
@@ -19,7 +29,7 @@ body {
 }
 
 a {
-  color: var(--primary-color);
+  color: var(--link-color);
 }
 
 .size-5 {
@@ -46,8 +56,8 @@ a {
   }
 
   &.alert-danger {
-    background-color: oklch(.936 .032 17.717);
-    color: oklch(.444 .177 26.899);
+    background-color: light-dark(oklch(.936 .032 17.717), oklch(.258 .092 26.042));
+    color: light-dark(oklch(.444 .177 26.899), oklch(.885 .062 18.334));
 
     svg {
       color: oklch(.637 .237 25.331);
@@ -55,13 +65,14 @@ a {
   }
 
   &.alert-notice {
-    background-color: oklch(.962 .044 156.743);
-    color: oklch(.448 .119 151.328);
+    background-color: light-dark(oklch(.962 .044 156.743), oklch(.266 .065 152.934));
+    color: light-dark(oklch(.448 .119 151.328), oklch(.925 .084 155.995));
 
     svg {
       color: oklch(.723 .219 149.579);
     }
   }
+
 }
 
 .search {
@@ -104,14 +115,14 @@ a {
 
 
   .metric {
-    border: 1px solid rgb(229 231 235);
+    border: 1px solid var(--border-color);
     border-radius: 0.25rem;
     padding: 1rem;
     margin: 1rem;
     flex: 1 1 0%;
 
     h4 {
-      color: rgb(75 85 99);
+      color: var(--light-text-color);
       font-weight: 600;
       margin-top: 0;
       margin-bottom: 0.5rem;
