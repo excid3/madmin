@@ -47,8 +47,11 @@ module Madmin
     end
 
     def destroy
-      @record.destroy
-      redirect_to resource.index_path
+      if @record.destroy
+        redirect_to resource.index_path
+      else
+        redirect_back_or_to resource.index_path, alert: @record.errors.full_messages.to_sentence
+      end
     end
 
     private

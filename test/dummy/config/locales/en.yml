@@ -31,3 +31,8 @@
 
 en:
   hello: "Hello world"
+  activerecord:
+    errors:
+      models:
+        post:
+          destroy_published: "Published posts can't be deleted. Unpublish it first."

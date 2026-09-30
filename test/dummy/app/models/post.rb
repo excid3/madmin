@@ -13,4 +13,15 @@ class Post < ApplicationRecord
   enum :state, [:draft, :published, :archived]
 
   validates :title, presence: true
+
+  before_destroy :ensure_unpublished
+
+  private
+
+  def ensure_unpublished
+    return unless published?
+
+    errors.add(:base, :destroy_published)
+    throw :abort
+  end
 end
