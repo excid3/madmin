@@ -1,5 +1,7 @@
 ### Unreleased
 
+### 3.0.0
+
 * Add an array field for PostgreSQL array columns. Values are shown and edited as comma separated text, and index filters offer "includes". Array columns were treated as strings before, so filters ran `ILIKE` against them and failed
 * Add filters to index pages. A Filters button opens a form for conditions on string, text, number, date, datetime and boolean columns, like "Admin is true" or "Created at after Aug 15". Active filters show as removable chips and are kept in the URL, sorting, scopes, search and pagination. Datetime values are parsed in `Time.zone`. Use `filter: false` to leave out an attribute, and `Field.filter_type` for custom fields. Customized `index.html.erb` views can add `<%= render "filters" %>` and `<%= render "active_filters" %>` #227
 * Index links keep the current search, scope, sort and filters through a new `index_path_with` helper. Clearing the search no longer drops the scope
