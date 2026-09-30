@@ -28,7 +28,7 @@ module Madmin
 
     def create
       @record = resource.model.new(resource_params)
-      if @record.save
+      if save_record
         redirect_to resource.show_path(@record)
       else
         render :new, status: :unprocessable_entity
@@ -39,7 +39,8 @@ module Madmin
     end
 
     def update
-      if @record.update(resource_params)
+      @record.assign_attributes(resource_params)
+      if save_record
         redirect_to resource.show_path(@record)
       else
         render :edit, status: :unprocessable_entity
@@ -87,15 +88,42 @@ module Madmin
     end
 
     def resource_params
-      params.require(resource.param_key)
+      parse_fields params.require(resource.param_key)
         .permit(*resource.permitted_params)
         .transform_values { |v| change_polymorphic(v) }
     end
 
     def new_resource_params
-      params.fetch(resource.param_key, {}).permit!
+      parse_fields params.fetch(resource.param_key, {}).permit!
         .permit(*resource.permitted_params)
         .transform_values { |v| change_polymorphic(v) }
+    end
+
+    # Lets each field convert its submitted value, such as parsing JSON.
+    # Values a field rejects are left out and reported by `save_record`.
+    def parse_fields(attributes)
+      attributes.each_pair do |name, value|
+        next unless (field = resource.get_attribute(name.to_sym)&.field)
+
+        attributes[name] = field.parse(value)
+      rescue Field::InvalidValue
+        attributes.delete(name)
+        invalid_params << name
+      end
+      attributes
+    end
+
+    def invalid_params
+      @invalid_params ||= []
+    end
+
+    # Saves the record unless a field rejected its submitted value
+    def save_record
+      return @record.save if invalid_params.empty?
+
+      @record.validate
+      invalid_params.each { |name| @record.errors.add(name, :invalid) }
+      false
     end
 
     def change_polymorphic(data)

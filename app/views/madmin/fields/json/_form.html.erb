@@ -1,1 +1,2 @@
-<%= form.text_area field.attribute_name, class: "form-input" %>
+<%# Shows the submitted text again when the form is re-rendered, so invalid JSON can be corrected %>
+<%= form.text_area field.attribute_name, value: params.dig(resource.param_key, field.attribute_name) || field.form_value(record), class: "form-input" %>
