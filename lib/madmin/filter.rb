@@ -63,7 +63,7 @@ module Madmin
       when "present" then scope.where.not(column => blank_values)
       when "true" then scope.where(column => true)
       when "false" then scope.where(column => false)
-      when "includes" then scope.where("? = ANY(#{scope.connection.quote_table_name(scope.table_name)}.#{scope.connection.quote_column_name(column)})", typed_value)
+      when "includes" then scope.where(Arel::Nodes.build_quoted(typed_value).eq(Arel::Nodes::NamedFunction.new("ANY", [attribute])))
       end
     end
 
@@ -74,12 +74,13 @@ module Madmin
 
     # The value in the column's type, or its element type for arrays. Datetimes are parsed in Time.zone, like form input
     def typed_value
-      @typed_value ||= value.presence && column_type.cast(value)
+      @typed_value ||= value.presence && value_type.cast(value)
     end
 
     private
 
-    def column_type
+    # Arrays filter by their elements
+    def value_type
       attribute_type = field.model.type_for_attribute(column)
       (type == :array) ? attribute_type.subtype : attribute_type
     end
