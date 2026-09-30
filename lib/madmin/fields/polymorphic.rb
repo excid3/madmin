@@ -9,6 +9,7 @@ module Madmin
         end
       end
 
+      # `type` is no longer used, but customized form partials may still submit it
       def to_param
         {attribute_name => %i[type value]}
       end

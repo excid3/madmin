@@ -96,19 +96,25 @@ module Madmin
 
     # Lets each field convert its submitted value, such as parsing JSON
     def cast_fields(attributes)
-      attributes.to_h.to_h { |name, value| [name, (field = field_for(name)) ? field.cast(value) : value] }
+      attributes.to_h.to_h do |name, value|
+        field = field_for(name)
+        [name, field ? field.cast(value) : value]
+      end
     end
 
     # Assigns the attributes and saves, unless a field doesn't accept its value
     def save_record(attributes)
       @record.assign_attributes(attributes)
 
-      rejected = attributes.reject { |name, value| field_for(name)&.accepts?(value) != false }.keys
-      return @record.save if rejected.empty?
+      rejected = attributes.select { |name, value| field_for(name)&.accepts?(value) == false }.keys
 
-      @record.validate
-      rejected.each { |name| @record.errors.add(name, :invalid) }
-      false
+      if rejected.any?
+        @record.validate
+        rejected.each { |name| @record.errors.add(name, :invalid) }
+        false
+      else
+        @record.save
+      end
     end
 
     def field_for(name)

@@ -11,6 +11,26 @@ class JsonFieldsTest < ActionDispatch::IntegrationTest
     assert_equal({"tags" => %w[ruby rails], "priority" => 1}, @post.metadata)
   end
 
+  test "accepts an array" do
+    put madmin_post_path(@post), params: {post: {metadata: '["ruby", {"n": 1}]'}}
+
+    assert_response :redirect
+    assert_equal ["ruby", {"n" => 1}], @post.reload.metadata
+
+    get edit_madmin_post_path(@post)
+    assert_select "textarea[name=?]", "post[metadata]" do |textarea|
+      assert_equal ["ruby", {"n" => 1}], JSON.parse(textarea.text)
+    end
+  end
+
+  test "rejects a string, since text is how unparsed JSON is recognized" do
+    put madmin_post_path(@post), params: {post: {metadata: '"hello"'}}
+
+    assert_response :unprocessable_entity
+    assert_select ".alert-danger li", text: "Metadata is invalid"
+    assert_nil @post.reload.metadata
+  end
+
   test "parses JSON when creating a record" do
     assert_difference "Post.count" do
       post madmin_posts_path, params: {post: {title: "New", user_id: users(:one).id, metadata: '{"draft": true}'}}
@@ -83,7 +103,7 @@ class JsonFieldsTest < ActionDispatch::IntegrationTest
   test "polymorphic values are located from the submitted global id" do
     comment = Comment.create!(commentable: @post, user: users(:one), body: "Hi")
 
-    put madmin_comment_path(comment), params: {comment: {commentable: {type: "polymorphic", value: posts(:two).to_global_id.to_s}}}
+    put madmin_comment_path(comment), params: {comment: {commentable: {value: posts(:two).to_global_id.to_s}}}
 
     assert_equal posts(:two), comment.reload.commentable
   end
