@@ -80,20 +80,21 @@ module Madmin
       end
     end
 
-    # The one resource whose `model` is exactly +klass+, or nil. Two resources
-    # declaring the same model with neither matching its name is ambiguous, and
-    # guessing would silently link to the wrong admin page, so that raises.
+    # The one resource whose `model` is +klass+ or, failing that, its nearest
+    # superclass, or nil. Two resources declaring the same model with neither
+    # matching its name is ambiguous, and guessing would silently link to the
+    # wrong admin page, so that raises.
     def resource_declaring(klass)
-      candidates = resources_by_model[klass]
-      return if candidates.nil? || candidates.empty?
+      declared = klass.ancestors.grep(Class).find { |ancestor| resources_by_model.key?(ancestor) }
+      return unless declared
+
+      candidates = resources_by_model[declared]
       return candidates.first if candidates.one?
 
       raise MissingResource, <<~MESSAGE
-        `#{klass.name}Resource` is missing, and #{candidates.map(&:name).join(", ")} all declare `model #{klass.name}`.
+        `#{declared.name}Resource` is missing, and #{candidates.map(&:name).join(", ")} all declare `model #{declared.name}`.
 
-        Madmin can't tell which one to link to. Either name one of them
-        `#{klass.name}Resource`, or make it a subclass of the other so only one
-        declares the model.
+        Madmin can't tell which one to use. Name one of them `#{declared.name}Resource`.
       MESSAGE
     end
 
@@ -117,9 +118,15 @@ module Madmin
       end
     end
 
+    # Returns the Madmin::Resource class for a model or model name, falling
+    # back to the resource that declares the model when none is named after it
     def resource_by_name(name)
       "#{name}Resource".constantize
     rescue NameError
+      model = name.is_a?(Class) ? name : name.to_s.safe_constantize
+      resource = resource_declaring(model) if model
+      return resource if resource
+
       raise MissingResource, <<~MESSAGE
         #{name}Resource is missing. Create it by running:
 

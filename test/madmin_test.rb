@@ -84,11 +84,41 @@ class Madmin::Test < ActiveSupport::TestCase
   end
 
   test "reset_resources! forgets the declared-model index" do
-    Madmin.resource_for(Article.new)
-    assert Madmin.instance_variable_get(:@resources_by_model)
+    resource = Class.new(Madmin::Resource) { model Nobody }
 
-    Madmin.reset_resources!
-    assert_nil Madmin.instance_variable_get(:@resources_by_model)
+    with_extra_resources(resource) do
+      assert_equal resource, Madmin.resource_for(Nobody.new)
+    end
+
+    assert_raises(Madmin::MissingResource) { Madmin.resource_for(Nobody.new) }
+  end
+
+  test "resource_for falls back to the resource declaring a superclass of the model" do
+    subclass = Class.new(Article)
+
+    assert_equal BlogArticleResource, Madmin.resource_for(subclass.new)
+  end
+
+  test "resource_by_name falls back to the resource that declares the model" do
+    assert_equal BlogArticleResource, Madmin.resource_by_name(Article)
+    assert_equal BlogArticleResource, Madmin.resource_by_name("Article")
+    assert_equal PostResource, Madmin.resource_by_name(Post)
+    assert_raises(Madmin::MissingResource) { Madmin.resource_by_name(Nobody) }
+  end
+
+  # A model associated with Article, whose resource is BlogArticleResource.
+  class Note < ApplicationRecord
+    self.table_name = "comments"
+    belongs_to :article, foreign_key: :commentable_id
+    has_many :articles, foreign_key: :user_id
+  end
+
+  test "association fields find a resource named differently from its model" do
+    [Madmin::Fields::BelongsTo.new(attribute_name: :article, model: Note, resource: CommentResource, options: {}),
+      Madmin::Fields::HasMany.new(attribute_name: :articles, model: Note, resource: CommentResource, options: {})].each do |field|
+      assert_equal BlogArticleResource, field.associated_resource
+      assert_equal BlogArticleResource, field.associated_resource_for(Article.new)
+    end
   end
 
   private

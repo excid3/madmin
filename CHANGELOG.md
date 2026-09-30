@@ -11,7 +11,7 @@
 * Association fields render the record's name without a link when the associated resource has no show route, and belongs_to / has_many selects skip remote search when it has no index route
 * Fix `Madmin.resource_by_name` raising `NameError` instead of `Madmin::MissingResource`
 * Fix attachment fields raising on show and edit pages when the `ActiveStorage::AttachmentResource` or its routes have been removed. The remove link is now only rendered when the attachment can be deleted through Madmin. Adds `Resource.route?(action)`
-* `Madmin.resource_for` now falls back to the resource that declares the object's class with `model`, so a resource named differently from its model (`ArticleResource` for `Blog::Post`) resolves in association cells without a name-matching alias subclass. Name-derived and STI lookups still win; two differently-named resources declaring the same model raise `MissingResource` with both names rather than guessing
+* `Madmin.resource_for` now falls back to the resource that declares the object's class with `model`, so a resource named differently from its model (`ArticleResource` for `Blog::Post`) resolves in association cells and form selects without a name-matching alias subclass. `Madmin.resource_by_name` has the same fallback, and both also match a subclass of the declared model. Name-derived and STI lookups still win; two differently-named resources declaring the same model raise `MissingResource` with both names rather than guessing
 
 ### 2.6.0
 
