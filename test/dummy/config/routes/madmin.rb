@@ -23,6 +23,7 @@ namespace :madmin do
   end
   namespace :user do
     resources :connected_accounts
+    resources :profiles
   end
   namespace :active_storage do
     resources :blobs

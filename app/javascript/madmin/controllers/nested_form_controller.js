@@ -7,6 +7,8 @@ export default class extends Controller {
 
   connect() {
     this.wrapperClass = this.data.get("wrapperClass") || "nested-fields"
+    // A has_one only allows one record, so the add link hides while it has one
+    this.single = this.data.get("single") == "true"
   }
 
   add_association(event) {
@@ -14,6 +16,7 @@ export default class extends Controller {
 
     var content = this.templateTarget.innerHTML.replace(/NEW_RECORD/g, new Date().getTime())
     this.linksTarget.insertAdjacentHTML('beforebegin', content)
+    if (this.single) this.linksTarget.hidden = true
   }
 
   remove_association(event) {
@@ -30,5 +33,7 @@ export default class extends Controller {
       wrapper.querySelector("input[name*='_destroy']").value = 1
       wrapper.style.display = 'none'
     }
+
+    if (this.single) this.linksTarget.hidden = false
   }
 }

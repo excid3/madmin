@@ -2,6 +2,7 @@ class User < ApplicationRecord
   has_many :connected_accounts, dependent: :destroy
   has_many :posts, dependent: :destroy
   has_one :latest_post, -> { order(created_at: :desc) }, class_name: "Post"
+  has_one :profile, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_and_belongs_to_many :habtms, join_table: :user_habtms, dependent: :destroy
 
@@ -20,6 +21,7 @@ class User < ApplicationRecord
   attribute :virtual_attribute, default: "virtual"
 
   accepts_nested_attributes_for :posts, allow_destroy: true
+  accepts_nested_attributes_for :profile, allow_destroy: true
 
   def something
     "Something"
