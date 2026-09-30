@@ -101,8 +101,16 @@ module Madmin
       @resources ||= resource_names.map(&:constantize)
     end
 
+    # Set of "controller#action" strings for every route drawn in the app
+    def routed_actions
+      @routed_actions ||= Rails.application.routes.routes.filter_map do |route|
+        "#{route.defaults[:controller]}##{route.defaults[:action]}" if route.defaults[:controller]
+      end.to_set
+    end
+
     def reset_resources!
       @resources = nil
+      @routed_actions = nil
       menu.reset
     end
 

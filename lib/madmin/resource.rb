@@ -116,10 +116,7 @@ module Madmin
       # Whether a route is drawn for the given action on this resource's controller
       # For example: PostResource.route?(:destroy)
       def route?(action)
-        controller = "madmin/#{model.model_name.collection}"
-        Rails.application.routes.routes.any? do |route|
-          route.defaults[:controller] == controller && route.defaults[:action] == action.to_s
-        end
+        Madmin.routed_actions.include?("madmin/#{model.model_name.collection}##{action}")
       end
 
       def becomes(record)
@@ -295,7 +292,11 @@ module Madmin
       def menu_options
         return false if @menu_options == false
         @menu_options ||= {}
-        @menu_options.with_defaults(label: friendly_name.pluralize, url: index_path)
+        # Without an index route there's nothing to link to by default
+        return false unless @menu_options.key?(:url) || route?(:index)
+        defaults = {label: friendly_name.pluralize}
+        defaults[:url] = index_path unless @menu_options.key?(:url)
+        @menu_options.with_defaults(defaults)
       end
     end
 

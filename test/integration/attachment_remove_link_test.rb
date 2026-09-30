@@ -17,11 +17,12 @@ class AttachmentRemoveLinkTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?][data-turbo-method=delete]", @remove_path, count: 1
   end
 
-  test "show and edit omit the remove link when the attachment routes are not drawn" do
+  test "show and edit omit the remove link and menu item when the attachment routes are not drawn" do
     without_attachment_routes do
       get madmin_user_path(@user)
       assert_response :success
       assert_select "a[data-turbo-method=delete]", count: 0
+      assert_select "a[href=?]", madmin_active_storage_blobs_path
 
       get edit_madmin_user_path(@user)
       assert_response :success
@@ -34,6 +35,21 @@ class AttachmentRemoveLinkTest < ActionDispatch::IntegrationTest
       get madmin_user_path(@user)
       assert_response :success
       assert_select "a[data-turbo-method=delete]", count: 0
+    end
+  end
+
+  test "menu links to the attachments index" do
+    get madmin_user_path(@user)
+    assert_select "a[href=?]", madmin_active_storage_attachments_path
+  end
+
+  test "menu keeps a resource without an index route when it has a custom url" do
+    without_attachment_routes do
+      ActiveStorage::AttachmentResource.menu url: "/custom-attachments"
+      get madmin_user_path(@user)
+      assert_select "a[href=?]", "/custom-attachments"
+    ensure
+      ActiveStorage::AttachmentResource.menu({})
     end
   end
 
@@ -51,12 +67,10 @@ class AttachmentRemoveLinkTest < ActionDispatch::IntegrationTest
 
   private
 
-  # Redraws the dummy app's routes without the Madmin attachment routes and
-  # hides the resource from the menu, as an app removing them would. Active
-  # Storage's own routes are kept since the views link to the files.
+  # Redraws the dummy app's routes without the Madmin attachment routes, as an
+  # app removing them would. Active Storage's own routes are kept since the
+  # views link to the files.
   def without_attachment_routes
-    ActiveStorage::AttachmentResource.menu false
-    Madmin.menu.reset
     routes = Rails.root.join("config/routes/madmin.rb").read.sub(/^  namespace :active_storage do\n    resources :attachments\n  end\n/, "")
     app_routes = Rails.application.routes
     app_routes.disable_clear_and_finalize = true
@@ -67,9 +81,9 @@ class AttachmentRemoveLinkTest < ActionDispatch::IntegrationTest
       instance_eval(routes)
     end
     app_routes.finalize!
+    Madmin.reset_resources!
     yield
   ensure
-    ActiveStorage::AttachmentResource.menu({})
     Rails.application.routes.disable_clear_and_finalize = false
     Rails.application.reload_routes!
     Madmin.reset_resources!

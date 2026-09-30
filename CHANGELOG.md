@@ -8,6 +8,7 @@
   * Index queries append the primary key to the ordering so rows with equal sort values stay stable across pages
 * Fix belongs_to, has_one and polymorphic index cells raising `Madmin::MissingResource` for a target with no resource. They now go through `associated_resource_for` and render the same missing-resource notice the show partials already do, so one unresolvable row no longer 500s the whole index #367
 * Fix attachment fields raising on show and edit pages when the `ActiveStorage::AttachmentResource` or its routes have been removed. The remove link is now only rendered when the attachment can be deleted through Madmin. Adds `Resource.route?(action)`
+* Resources without an index route are left out of the menu instead of raising, so `menu false` is no longer needed when removing a resource's routes
 
 ### 2.6.0
 
