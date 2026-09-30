@@ -131,12 +131,8 @@ export default class extends Controller {
     option.selected = true
     this.changed()
 
-    if (this.multiple) {
-      this.input.value = ""
-      this.search()
-    } else {
-      this.close()
-    }
+    if (this.multiple) this.input.value = ""
+    this.close()
   }
 
   remove(value) {
