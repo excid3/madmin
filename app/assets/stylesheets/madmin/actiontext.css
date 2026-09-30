@@ -49,3 +49,27 @@
     background: var(--background-color);
   }
 }
+
+/* Lexxy has no dark palette. `html:root` outranks Lexxy's own :root variables, which load after Madmin's */
+@media (prefers-color-scheme: dark) {
+  html:root {
+    --lexxy-color-ink: var(--text-color);
+    --lexxy-color-ink-medium: rgb(209 213 219);
+    --lexxy-color-ink-light: var(--light-text-color);
+    --lexxy-color-ink-lighter: var(--border-color);
+    --lexxy-color-ink-lightest: var(--background-color);
+    --lexxy-color-ink-inverted: var(--surface-color);
+
+    --lexxy-color-accent-light: rgb(30 64 175);
+    --lexxy-color-accent-lightest: rgb(30 58 138);
+
+    --lexxy-color-code-token-att: #f97583;
+    --lexxy-color-code-token-comment: #959da5;
+    --lexxy-color-code-token-function: #b392f0;
+    --lexxy-color-code-token-operator: #f97583;
+    --lexxy-color-code-token-property: #79b8ff;
+    --lexxy-color-code-token-punctuation: #e1e4e8;
+    --lexxy-color-code-token-selector: #85e89d;
+    --lexxy-color-code-token-variable: #ffab70;
+  }
+}
