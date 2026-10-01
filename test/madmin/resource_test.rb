@@ -27,6 +27,10 @@ class ResourceTest < ActiveSupport::TestCase
     assert_includes searchable_attribute_names, :first_name
   end
 
+  test "index_associations" do
+    assert_equal [:user, :commentable], CommentResource.index_associations
+  end
+
   test "rich_text" do
     assert_equal :rich_text, PostResource.attributes[:body].type
   end

@@ -72,6 +72,11 @@ module Madmin
       false
     end
 
+    # Whether the index loads this association for all rows up front
+    def preload?
+      false
+    end
+
     def paginateable?
       false
     end

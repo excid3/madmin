@@ -175,6 +175,11 @@ module Madmin
         attributes.values.select { |a| a.field&.filter_type }
       end
 
+      # Associations shown on the index, preloaded instead of loading one per row
+      def index_associations
+        attributes.values.select { |a| a.field&.preload? && a.field.visible?(:index) }.map(&:name)
+      end
+
       def member_action(collection: false, &block)
         member_actions << MemberAction.new(collection: collection, &block)
       end

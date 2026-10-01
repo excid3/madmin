@@ -1,6 +1,10 @@
 module Madmin
   module Fields
     class BelongsTo < Field
+      def preload?
+        true
+      end
+
       def options_for_select(record)
         current_value = record.send(attribute_name)
         records = [current_value].compact + model.reflect_on_association(attribute_name).klass.excluding(current_value).limit(25)

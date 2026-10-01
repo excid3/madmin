@@ -1,5 +1,7 @@
 ### Unreleased
 
+* Fix N+1 queries on index pages. Belongs to and polymorphic columns are preloaded instead of loaded once per row. Adds `Field#preload?` for custom fields that show an association on the index and `Resource.index_associations`
+
 ### 3.1.2
 
 * Fix filters on PostgreSQL UUID columns. "contains" and "starts with" no longer raise, and "is not empty" no longer matches nothing #386

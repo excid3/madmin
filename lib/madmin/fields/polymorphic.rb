@@ -1,6 +1,10 @@
 module Madmin
   module Fields
     class Polymorphic < Field
+      def preload?
+        true
+      end
+
       def options_for_select(record)
         if (collection = options[:collection])
           collection.call
