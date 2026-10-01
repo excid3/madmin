@@ -12,6 +12,9 @@ module Madmin
 
     WITHOUT_VALUE = %w[blank present true false].freeze
 
+    # Operators that match the value as text instead of casting it to the column's type
+    MATCHING_OPERATORS = %w[contains starts_with].freeze
+
     attr_reader :field, :operator, :value
 
     # Skips conditions for unknown columns or operators, and values that don't
@@ -45,15 +48,16 @@ module Madmin
     end
 
     def valid?
-      field&.filter_type.present? && OPERATORS[type].include?(operator) && (typed_value.present? || !value?)
+      field&.filter_type.present? && OPERATORS[type].include?(operator) &&
+        (!value? || (matching_operator? ? value.present? : typed_value.present?))
     end
 
     def apply(scope)
       attribute = scope.arel_table[column]
 
       case operator
-      when "contains" then scope.where(attribute.matches("%#{escaped_value}%"))
-      when "starts_with" then scope.where(attribute.matches("#{escaped_value}%"))
+      when "contains" then scope.where(text(attribute).matches("%#{escaped_value}%"))
+      when "starts_with" then scope.where(text(attribute).matches("#{escaped_value}%"))
       when "eq" then scope.where(column => typed_value)
       when "gt" then scope.where(attribute.gt(typed_value))
       when "gte" then scope.where(attribute.gteq(typed_value))
@@ -85,12 +89,25 @@ module Madmin
       (type == :array) ? attribute_type.subtype : attribute_type
     end
 
+    def matching_operator?
+      MATCHING_OPERATORS.include?(operator)
+    end
+
+    def uuid?
+      value_type.type == :uuid
+    end
+
+    def text(attribute)
+      uuid? ? Arel::Nodes::NamedFunction.new("CAST", [attribute.as("CHAR(36)")]) : attribute
+    end
+
     def escaped_value
       field.model.sanitize_sql_like(value)
     end
 
     def blank_values
-      (type == :string) ? [nil, ""] : nil
+      # UUIDs cast "" to NULL, which would match nothing
+      (type == :string && !uuid?) ? [nil, ""] : nil
     end
   end
 end

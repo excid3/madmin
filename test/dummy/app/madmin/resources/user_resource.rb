@@ -10,6 +10,7 @@ class UserResource < Madmin::Resource
   attribute :balance, :currency, index: true
   attribute :digest_time
   attribute :token, index: false
+  attribute :external_id, index: false if User.columns_hash["external_id"] # PostgreSQL only
   attribute :created_at, form: false
   attribute :updated_at, form: false
   attribute :virtual_attribute, index: false

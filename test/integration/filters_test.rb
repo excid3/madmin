@@ -29,6 +29,21 @@ class FiltersTest < ActionDispatch::IntegrationTest
     assert_filtered [@chris], column: "token", operator: "present"
   end
 
+  test "uuid filters match the uuid as text" do
+    skip "UUID columns are PostgreSQL only" unless User.columns_hash["external_id"]&.type == :uuid
+    uuid = "8a1b6c2e-4f3d-4e5a-9b7c-0d1e2f3a4b5c"
+    @chris.update!(external_id: uuid)
+
+    assert_filtered [@chris], column: "external_id", operator: "contains", value: "4f3d-4E5A"
+    assert_filtered [], column: "external_id", operator: "contains", value: "%"
+    assert_filtered [@chris], column: "external_id", operator: "starts_with", value: "8a1b"
+    assert_filtered [], column: "external_id", operator: "starts_with", value: "4f3d"
+    assert_filtered [@chris], column: "external_id", operator: "eq", value: uuid.upcase
+    assert_filtered [@chris, @other], column: "external_id", operator: "eq", value: "8a1b6c2e"
+    assert_filtered [@other], column: "external_id", operator: "blank"
+    assert_filtered [@chris], column: "external_id", operator: "present"
+  end
+
   test "number filters" do
     assert_filtered [@chris], column: "balance", operator: "gt", value: "1000"
     assert_filtered [@chris], column: "balance", operator: "gte", value: "1234.5"
