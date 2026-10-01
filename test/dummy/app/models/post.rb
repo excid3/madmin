@@ -4,6 +4,7 @@ class Post < ApplicationRecord
 
   # Declared before the associations so it runs ahead of their dependent: :destroy
   before_destroy :ensure_unpublished
+  before_destroy -> { throw :abort }, if: :archived?
 
   belongs_to :user
   has_many :comments, as: :commentable, dependent: :destroy

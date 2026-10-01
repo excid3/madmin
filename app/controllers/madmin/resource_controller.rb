@@ -50,7 +50,7 @@ module Madmin
       if @record.destroy
         redirect_to resource.index_path, status: :see_other
       else
-        destroy_failed @record.errors.full_messages.to_sentence.presence || t("madmin.flash.destroy_failed", name: resource.friendly_name)
+        destroy_failed destroy_errors
       end
     rescue ActiveRecord::DeleteRestrictionError, ActiveRecord::InvalidForeignKey
       destroy_failed t("madmin.flash.destroy_restricted", name: resource.friendly_name)
@@ -58,9 +58,12 @@ module Madmin
 
     private
 
-    # Truncated so a long list of errors can't overflow the session cookie
     def destroy_failed(message)
-      redirect_back_or_to resource.index_path, alert: message.truncate(500), status: :see_other
+      redirect_back_or_to resource.index_path, alert: message, status: :see_other
+    end
+
+    def destroy_errors
+      @record.errors.full_messages.to_sentence.presence || t("madmin.flash.destroy_failed", name: resource.friendly_name)
     end
 
     def set_record

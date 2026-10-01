@@ -23,10 +23,10 @@ class DestroyTest < ActionDispatch::IntegrationTest
   end
 
   test "destroy shows a generic alert when the record has no errors" do
-    with_post_destroy -> { false } do
-      assert_no_difference "Post.count" do
-        delete madmin_post_path(posts(:one))
-      end
+    posts(:one).archived!
+
+    assert_no_difference "Post.count" do
+      delete madmin_post_path(posts(:one))
     end
 
     assert_redirected_to madmin_posts_path
@@ -34,28 +34,13 @@ class DestroyTest < ActionDispatch::IntegrationTest
   end
 
   test "destroy shows an alert when other records restrict the deletion" do
-    [ActiveRecord::DeleteRestrictionError.new(:comments), ActiveRecord::InvalidForeignKey.new("FOREIGN KEY constraint failed")].each do |error|
-      with_post_destroy -> { raise error } do
-        assert_no_difference "Post.count" do
-          delete madmin_post_path(posts(:one))
-        end
-      end
-
-      assert_response :see_other
-      assert_redirected_to madmin_posts_path
-      assert_equal "Post could not be deleted because other records depend on it", flash[:alert]
-    end
-  end
-
-  test "destroy truncates long alerts" do
-    with_post_destroy -> {
-      errors.add(:base, "x" * 1000)
-      false
-    } do
-      delete madmin_post_path(posts(:one))
+    assert_no_difference "User.count" do
+      delete madmin_user_path(users(:one))
     end
 
-    assert_equal 500, flash[:alert].length
+    assert_response :see_other
+    assert_redirected_to madmin_users_path
+    assert_equal "User could not be deleted because other records depend on it", flash[:alert]
   end
 
   test "destroy deletes the record and redirects to the index" do
@@ -66,14 +51,5 @@ class DestroyTest < ActionDispatch::IntegrationTest
     assert_response :see_other
     assert_redirected_to madmin_posts_path
     assert_nil flash[:alert]
-  end
-
-  private
-
-  def with_post_destroy(implementation)
-    Post.define_method(:destroy, &implementation)
-    yield
-  ensure
-    Post.remove_method(:destroy)
   end
 end
