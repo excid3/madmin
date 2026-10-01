@@ -56,8 +56,8 @@ module Madmin
       attribute = scope.arel_table[column]
 
       case operator
-      when "contains" then scope.where(text(attribute).matches("%#{escaped_value}%"))
-      when "starts_with" then scope.where(text(attribute).matches("#{escaped_value}%"))
+      when "contains" then scope.where(as_text(attribute).matches("%#{escaped_value}%"))
+      when "starts_with" then scope.where(as_text(attribute).matches("#{escaped_value}%"))
       when "eq" then scope.where(column => typed_value)
       when "gt" then scope.where(attribute.gt(typed_value))
       when "gte" then scope.where(attribute.gteq(typed_value))
@@ -97,7 +97,7 @@ module Madmin
       value_type.type == :uuid
     end
 
-    def text(attribute)
+    def as_text(attribute)
       uuid? ? Arel::Nodes::NamedFunction.new("CAST", [attribute.as("CHAR(36)")]) : attribute
     end
 
