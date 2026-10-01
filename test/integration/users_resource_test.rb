@@ -70,7 +70,7 @@ class UsersResourceTest < ActionDispatch::IntegrationTest
 
   test "can delete user" do
     assert_difference "User.count", -1 do
-      delete madmin_user_path(users(:one))
+      delete madmin_user_path(users(:two))
       assert_response :redirect
     end
   end

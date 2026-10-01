@@ -2,6 +2,10 @@ class Post < ApplicationRecord
   extend FriendlyId
   friendly_id :title
 
+  # Declared before the associations so it runs ahead of their dependent: :destroy
+  before_destroy :ensure_unpublished
+  before_destroy -> { throw :abort }, if: :archived?
+
   belongs_to :user
   has_many :comments, as: :commentable, dependent: :destroy
   has_many_attached :attachments
@@ -13,4 +17,13 @@ class Post < ApplicationRecord
   enum :state, [:draft, :published, :archived]
 
   validates :title, presence: true
+
+  private
+
+  def ensure_unpublished
+    return unless published?
+
+    errors.add(:base, :destroy_published)
+    throw :abort
+  end
 end

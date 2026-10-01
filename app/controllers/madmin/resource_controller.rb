@@ -47,11 +47,24 @@ module Madmin
     end
 
     def destroy
-      @record.destroy
-      redirect_to resource.index_path
+      if @record.destroy
+        redirect_to resource.index_path, status: :see_other
+      else
+        destroy_failed destroy_errors
+      end
+    rescue ActiveRecord::DeleteRestrictionError, ActiveRecord::InvalidForeignKey
+      destroy_failed t("madmin.flash.destroy_restricted", name: resource.friendly_name)
     end
 
     private
+
+    def destroy_failed(message)
+      redirect_back_or_to resource.index_path, alert: message, status: :see_other
+    end
+
+    def destroy_errors
+      @record.errors.full_messages.to_sentence.presence || t("madmin.flash.destroy_failed", name: resource.friendly_name)
+    end
 
     def set_record
       @record = resource.model_find(params[:id])

@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_many :connected_accounts, dependent: :destroy
+  has_many :connected_accounts, dependent: :restrict_with_exception
   has_many :posts, dependent: :destroy
   has_one :latest_post, -> { order(created_at: :desc) }, class_name: "Post"
   has_one :profile, dependent: :destroy

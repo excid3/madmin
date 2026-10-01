@@ -3,7 +3,3 @@
 one:
   user: one
   service: MyString
-
-two:
-  user: two
-  service: MyString

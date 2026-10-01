@@ -28,6 +28,8 @@ el:
         other: Υπήρξαν %{count} σφάλματα με την υποβολή σας
     flash:
       readonly: "%{name}: μόνο για ανάγνωση"
+      destroy_failed: "%{name}: η διαγραφή απέτυχε"
+      destroy_restricted: "%{name}: η διαγραφή απέτυχε επειδή άλλες εγγραφές εξαρτώνται από αυτήν"
     confirmations:
       delete: Είστε σίγουροι;
       remove_with_changes: Είστε σίγουροι; Θα χάσετε όλες τις άλλες αλλαγές.
