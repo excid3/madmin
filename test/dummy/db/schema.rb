@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2026_09_30_160000) do
+ActiveRecord::Schema.define(version: 2026_10_01_090000) do
   create_table "action_mailbox_inbound_emails", force: :cascade do |t|
     t.bigint "status", default: 0, null: false
     t.string "message_id", null: false
@@ -157,5 +157,10 @@ ActiveRecord::Schema.define(version: 2026_09_30_160000) do
   # Array columns are PostgreSQL only
   if connection.adapter_name == "PostgreSQL"
     add_column "posts", "tags", :string, array: true, default: []
+  end
+
+  # UUID columns are PostgreSQL only
+  if connection.adapter_name == "PostgreSQL"
+    add_column "users", "external_id", :uuid
   end
 end

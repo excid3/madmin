@@ -1,5 +1,7 @@
 ### Unreleased
 
+* Fix filters on UUID columns. "contains" and "starts with" cast them to text, since PostgreSQL has no `ILIKE` for UUIDs and raised an error, and "is not empty" no longer matches nothing
+
 ### 3.1.1
 
 * Show an alert when a record can't be deleted instead of redirecting as if it had been. A destroy halted by a callback shows the model's errors, or "could not be deleted" when there are none, and `dependent: :restrict_with_exception` and foreign key violations show an alert instead of raising. Adds the `madmin.flash.destroy_failed` and `madmin.flash.destroy_restricted` translations. Destroy redirects now respond with 303 See Other #385
