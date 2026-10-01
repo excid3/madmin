@@ -1,5 +1,7 @@
 ### Unreleased
 
+### 3.1.2
+
 * Fix filters on PostgreSQL UUID columns. "contains" and "starts with" no longer raise, and "is not empty" no longer matches nothing #386
 
 ### 3.1.1
