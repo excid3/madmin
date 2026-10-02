@@ -25,6 +25,7 @@ class PostsResourceTest < ActionDispatch::IntegrationTest
     assert_select "tbody tr td:last-child" do
       assert_select "a", text: "View"
       assert_select "a", text: "Edit"
+      assert_select "form[action=?]", madmin_post_path(posts(:one))
       assert_select "a", text: "Preview"
     end
   end

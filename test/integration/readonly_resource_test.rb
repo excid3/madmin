@@ -5,12 +5,13 @@ class ReadonlyResourceTest < ActionDispatch::IntegrationTest
     assert_not PostResource.readonly?
   end
 
-  test "index hides new and edit links for readonly resources" do
+  test "index hides new, edit and delete actions for readonly resources" do
     with_readonly(PostResource) do
       get madmin_posts_path
       assert_response :success
       assert_select "a[href=?]", new_madmin_post_path, count: 0
       assert_select "a[href=?]", edit_madmin_post_path(posts(:one)), count: 0
+      assert_select "form[action=?]", madmin_post_path(posts(:one)), count: 0
     end
   end
 
