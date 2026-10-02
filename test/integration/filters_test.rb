@@ -122,6 +122,12 @@ class FiltersTest < ActionDispatch::IntegrationTest
     # Clearing the search keeps the scope, sort and filters
     assert_select ".header .actions a[href=?]", madmin_posts_path(scope: "recent", sort: "id", direction: "asc", filters: filters)
     assert_select "th a[href=?]", madmin_posts_path(q: "My", scope: "recent", sort: "id", direction: "desc", filters: filters)
+
+    # Searching keeps the scope and sort
+    assert_select "form.search input[type=hidden][name=scope][value=recent]"
+    assert_select "form.search input[type=hidden][name=sort][value=id]"
+    assert_select "form.search input[type=hidden][name=direction][value=asc]"
+    assert_select "form.search input[type=hidden][name=page][value='1']"
   end
 
   test "filter: false hides a column" do

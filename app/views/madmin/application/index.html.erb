@@ -6,6 +6,9 @@
   <div class="actions">
     <form class="search">
       <%= hidden_field_tag :page, params[:page], value: 1 %>
+      <% request.query_parameters.slice("scope", "sort", "direction").each do |name, value| %>
+        <%= hidden_field_tag name, value, id: nil %>
+      <% end %>
       <%= search_field_tag :q, params[:q], placeholder: t("madmin.search.placeholder") %>
       <% filters.map(&:to_h).each do |filter| %>
         <% filter.each do |name, value| %>
