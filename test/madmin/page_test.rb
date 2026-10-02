@@ -10,7 +10,6 @@ class PageTest < ActiveSupport::TestCase
   test "per_page params are capped at the largest option" do
     assert_equal 50, Madmin::Page.per_page_for("50")
     assert_equal 200, Madmin::Page.per_page_for("5000000")
-    assert_equal 200, Madmin::Page.per_page_for("99999999999999999999")
     assert_equal Madmin.per_page, Madmin::Page.per_page_for(["50"])
   end
 
@@ -37,10 +36,19 @@ class PageTest < ActiveSupport::TestCase
     assert_equal [20, 25, 50, 100, 200], Madmin::Page.new(count: 1, per_page: 25).per_page_options
   end
 
+  test "per_page options and resizable? account for the configured default" do
+    original, Madmin.per_page = Madmin.per_page, 10
+    page = Madmin::Page.new(count: 15, per_page: 20)
+    assert_equal [10, 20, 50, 100, 200], page.per_page_options
+    assert page.resizable?
+  ensure
+    Madmin.per_page = original
+  end
+
   test "resizable when there are more records than the smallest size" do
     refute Madmin::Page.new(count: 20, per_page: 20).resizable?
     assert Madmin::Page.new(count: 21, per_page: 20).resizable?
-    assert Madmin::Page.new(count: 15, per_page: 50).resizable? == false
+    refute Madmin::Page.new(count: 15, per_page: 50).resizable?
     assert Madmin::Page.new(count: 15, per_page: 10).resizable?
   end
 

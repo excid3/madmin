@@ -13,9 +13,12 @@ module Madmin
     # and none can exceed the largest option. Sizes passed to Page.new directly
     # aren't capped
     def self.per_page_for(param)
-      default = Madmin.per_page.to_i
       size = param.to_s.to_i
-      (size.positive? ? size : default).clamp(1, [PER_PAGE_OPTIONS.max, default].max)
+      size.positive? ? [size, max_per_page].min : Madmin.per_page
+    end
+
+    def self.max_per_page
+      [PER_PAGE_OPTIONS.max, Madmin.per_page].max
     end
 
     def initialize(count:, page: 1, per_page: Madmin.per_page, param: :page)
@@ -30,9 +33,9 @@ module Madmin
       "#{param.delete_suffix("page")}per_page"
     end
 
-    # Page sizes to offer, always including the current one
+    # Page sizes to offer, always including the default and the current one
     def per_page_options
-      (PER_PAGE_OPTIONS | [per_page]).sort
+      (PER_PAGE_OPTIONS | [Madmin.per_page, per_page]).sort
     end
 
     # Whether a different page size would change what's shown
