@@ -4,7 +4,7 @@
     <% if size == page.per_page %>
       <a role="link" aria-disabled="true" aria-current="true"><%= size %></a>
     <% else %>
-      <%= link_to size, "#{request.path}?#{request.query_parameters.except(page.param).merge(page.per_page_param => size).to_query}" %>
+      <%= link_to size, current_path_with(page.param => nil, page.per_page_param => size) %>
     <% end %>
   <% end %>
 </nav>

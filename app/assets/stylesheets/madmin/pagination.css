@@ -58,7 +58,5 @@
   a[aria-current="true"] {
     color: var(--text-color);
     font-weight: 600;
-    text-decoration: none;
-    cursor: default;
   }
 }

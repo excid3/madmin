@@ -20,6 +20,12 @@ module Madmin
       resource.index_path(request.query_parameters.symbolize_keys.except(:page).merge(changes))
     end
 
+    # The current URL with some params changed, or removed when nil. Works on
+    # any page, unlike index_path_with
+    def current_path_with(changes)
+      "#{request.path}?#{request.query_parameters.merge(changes).compact.to_query}"
+    end
+
     # Hidden fields carrying the current index params through a GET form, so
     # submitting it keeps what index_path_with keeps. Pass the params the form
     # sets itself in except
