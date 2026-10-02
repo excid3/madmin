@@ -3,20 +3,28 @@ require "test_helper"
 class PageTest < ActiveSupport::TestCase
   test "invalid per_page params fall back to the default" do
     [nil, "", "abc", "0", "-5"].each do |param|
-      assert_equal Madmin.per_page, Madmin::Page.new(count: 45, per_page: param).per_page
+      assert_equal Madmin.per_page, Madmin::Page.per_page_for(param)
     end
   end
 
-  test "per_page is capped at the largest option" do
-    assert_equal 200, Madmin::Page.new(count: 45, per_page: 5_000_000).per_page
-    assert_equal 200, Madmin::Page.new(count: 45, per_page: "99999999999999999999").per_page
+  test "per_page params are capped at the largest option" do
+    assert_equal 50, Madmin::Page.per_page_for("50")
+    assert_equal 200, Madmin::Page.per_page_for("5000000")
+    assert_equal 200, Madmin::Page.per_page_for("99999999999999999999")
+    assert_equal Madmin.per_page, Madmin::Page.per_page_for(["50"])
   end
 
-  test "per_page allows a configured default above the largest option" do
+  test "per_page params allow a configured default above the largest option" do
     original, Madmin.per_page = Madmin.per_page, 500
-    assert_equal 500, Madmin::Page.new(count: 45).per_page
+    assert_equal 500, Madmin::Page.per_page_for(nil)
+    assert_equal 500, Madmin::Page.per_page_for("5000000")
   ensure
     Madmin.per_page = original
+  end
+
+  test "per_page passed directly isn't capped" do
+    assert_equal 500, Madmin::Page.new(count: 45, per_page: 500).per_page
+    assert_equal 1, Madmin::Page.new(count: 45, per_page: 0).per_page
   end
 
   test "per_page param follows the page param" do

@@ -9,9 +9,18 @@ module Madmin
 
     attr_reader :count, :page, :per_page, :param
 
+    # The page size for a request param. Invalid sizes fall back to the default,
+    # and none can exceed the largest option. Sizes passed to Page.new directly
+    # aren't capped
+    def self.per_page_for(param)
+      default = Madmin.per_page.to_i
+      size = param.to_s.to_i
+      (size.positive? ? size : default).clamp(1, [PER_PAGE_OPTIONS.max, default].max)
+    end
+
     def initialize(count:, page: 1, per_page: Madmin.per_page, param: :page)
       @count = count.to_i
-      @per_page = per_page_from(per_page)
+      @per_page = [per_page.to_i, 1].max
       @page = [page.to_i, 1].max
       @param = param.to_s
     end
@@ -72,15 +81,6 @@ module Madmin
       pages[-1] = last
       pages[-2] = :gap unless pages[-2] == last - 1
       pages
-    end
-
-    private
-
-    # Invalid sizes fall back to the default, and none can exceed the largest option
-    def per_page_from(value)
-      default = Madmin.per_page.to_i
-      size = value.to_s.to_i
-      (size.positive? ? size : default).clamp(1, [PER_PAGE_OPTIONS.max, default].max)
     end
   end
 end
