@@ -11,9 +11,24 @@ module Madmin
 
     def initialize(count:, page: 1, per_page: Madmin.per_page, param: :page)
       @count = count.to_i
-      @per_page = per_page.to_i.positive? ? per_page.to_i : Madmin.per_page
+      @per_page = per_page_from(per_page)
       @page = [page.to_i, 1].max
       @param = param.to_s
+    end
+
+    # The param carrying the page size: "per_page", or "posts_per_page" for a "posts_page" param
+    def per_page_param
+      "#{param.delete_suffix("page")}per_page"
+    end
+
+    # Page sizes to offer, always including the current one
+    def per_page_options
+      (PER_PAGE_OPTIONS | [per_page]).sort
+    end
+
+    # Whether a different page size would change what's shown
+    def resizable?
+      count > per_page_options.min
     end
 
     def last
@@ -57,6 +72,15 @@ module Madmin
       pages[-1] = last
       pages[-2] = :gap unless pages[-2] == last - 1
       pages
+    end
+
+    private
+
+    # Invalid sizes fall back to the default, and none can exceed the largest option
+    def per_page_from(value)
+      default = Madmin.per_page.to_i
+      size = value.to_s.to_i
+      (size.positive? ? size : default).clamp(1, [PER_PAGE_OPTIONS.max, default].max)
     end
   end
 end

@@ -1,8 +1,10 @@
-<% param = page.param.delete_suffix("page") + "per_page" %>
-<form class="per-page" data-controller="per-page">
-  <%= index_params_fields except: [page.param, param] %>
-  <label>
-    <%= t("madmin.pagination.per_page") %>
-    <%= select_tag param, options_for_select(Madmin::Page::PER_PAGE_OPTIONS, page.per_page), data: {action: "per-page#submit"} %>
-  </label>
-</form>
+<nav class="per-page" aria-label="<%= t("madmin.pagination.per_page") %>">
+  <span><%= t("madmin.pagination.per_page") %></span>
+  <% page.per_page_options.each do |size| %>
+    <% if size == page.per_page %>
+      <a role="link" aria-disabled="true" aria-current="true"><%= size %></a>
+    <% else %>
+      <%= link_to size, "#{request.path}?#{request.query_parameters.except(page.param).merge(page.per_page_param => size).to_query}" %>
+    <% end %>
+  <% end %>
+</nav>

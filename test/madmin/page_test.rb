@@ -7,6 +7,35 @@ class PageTest < ActiveSupport::TestCase
     end
   end
 
+  test "per_page is capped at the largest option" do
+    assert_equal 200, Madmin::Page.new(count: 45, per_page: 5_000_000).per_page
+    assert_equal 200, Madmin::Page.new(count: 45, per_page: "99999999999999999999").per_page
+  end
+
+  test "per_page allows a configured default above the largest option" do
+    original, Madmin.per_page = Madmin.per_page, 500
+    assert_equal 500, Madmin::Page.new(count: 45).per_page
+  ensure
+    Madmin.per_page = original
+  end
+
+  test "per_page param follows the page param" do
+    assert_equal "per_page", Madmin::Page.new(count: 1).per_page_param
+    assert_equal "posts_per_page", Madmin::Page.new(count: 1, param: :posts_page).per_page_param
+  end
+
+  test "per_page options include the current size" do
+    assert_equal [20, 50, 100, 200], Madmin::Page.new(count: 1, per_page: 20).per_page_options
+    assert_equal [20, 25, 50, 100, 200], Madmin::Page.new(count: 1, per_page: 25).per_page_options
+  end
+
+  test "resizable when there are more records than the smallest size" do
+    refute Madmin::Page.new(count: 20, per_page: 20).resizable?
+    assert Madmin::Page.new(count: 21, per_page: 20).resizable?
+    assert Madmin::Page.new(count: 15, per_page: 50).resizable? == false
+    assert Madmin::Page.new(count: 15, per_page: 10).resizable?
+  end
+
   test "first page" do
     page = Madmin::Page.new(count: 45, page: 1, per_page: 20)
     assert_equal 3, page.last

@@ -26,10 +26,29 @@ class PaginationIntegrationTest < ActionDispatch::IntegrationTest
     assert_select "tbody tr", 25
   end
 
-  test "page size dropdown keeps the query params" do
-    get madmin_posts_path(q: "Paginated")
-    assert_select ".per-page option[selected]", text: "20"
-    assert_select ".per-page input[type=hidden][name=q][value=Paginated]"
+  test "index caps per_page" do
+    get madmin_posts_path(per_page: 5_000_000)
+    assert_response :success
+    assert_select ".per-page a[aria-current]", text: "200"
+  end
+
+  test "index ignores invalid per_page params" do
+    get madmin_posts_path(per_page: ["50"])
+    assert_response :success
+    assert_select "tbody tr", Madmin.per_page
+  end
+
+  test "page size links keep the query params and go back to the first page" do
+    get madmin_posts_path(q: "Paginated", page: 2)
+    assert_select ".per-page a[aria-current]", text: "20"
+    assert_select ".per-page a[href*='per_page=50'][href*='q=Paginated']"
+    assert_empty css_select(".per-page a[href]").select { |link| link["href"].match?(/[?&]page=/) }
+  end
+
+  test "page size links include a size that isn't one of the options" do
+    get madmin_posts_path(per_page: 25)
+    assert_select ".per-page a[aria-current]", text: "25"
+    assert_select ".per-page a[href*='per_page=20']"
   end
 
   test "index serves an empty page past the end" do
@@ -67,7 +86,8 @@ class PaginationIntegrationTest < ActionDispatch::IntegrationTest
   test "has many fields change page size with their own param" do
     get madmin_user_path(@user, posts_per_page: 50, posts_page: 1)
     assert_select ".pagination-info", text: /1-45 of 45/
-    assert_select "select[name=posts_per_page] option[selected]", text: "50"
-    assert_select ".per-page input[name=posts_page]", 0
+    assert_select ".per-page a[aria-current]", text: "50"
+    assert_select ".per-page a[href*='posts_per_page=100']"
+    assert_select ".per-page a[href*='posts_page=']", 0
   end
 end

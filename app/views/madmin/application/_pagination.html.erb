@@ -30,5 +30,5 @@
     <% end %>
   </span>
 
-  <%= render "per_page", page: page if page.count > Madmin::Page::PER_PAGE_OPTIONS.min %>
+  <%= render "per_page", page: page if page.resizable? %>
 </div>

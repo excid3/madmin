@@ -49,5 +49,16 @@
 }
 
 .per-page {
+  display: inline-flex;
+  gap: 0.5rem;
+  align-items: center;
   margin-left: auto;
+  font-size: 0.875rem;
+
+  a[aria-current="true"] {
+    color: var(--text-color);
+    font-weight: 600;
+    text-decoration: none;
+    cursor: default;
+  }
 }
