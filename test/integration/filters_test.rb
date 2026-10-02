@@ -128,6 +128,42 @@ class FiltersTest < ActionDispatch::IntegrationTest
     assert_select "form.search input[type=hidden][name=sort][value=id]"
     assert_select "form.search input[type=hidden][name=direction][value=asc]"
     assert_select "form.search input[type=hidden][name=page][value='1']"
+    assert_select "form.search input[type=hidden][name=q]", count: 0
+
+    # Applying filters keeps the search, scope and sort
+    assert_select "#filters input[type=hidden][name=q][value=My]"
+    assert_select "#filters input[type=hidden][name=scope][value=recent]"
+    assert_select "#filters input[type=hidden][name^=filters]", count: 0
+  end
+
+  test "searching keeps params madmin doesn't know about" do
+    get madmin_posts_path(account_id: 3, tags: ["a", "b"])
+
+    assert_select "form.search input[type=hidden][name=account_id][value='3']"
+    assert_select "form.search input[type=hidden][name='tags[]']", count: 2
+    assert_select "#filters input[type=hidden][name=account_id][value='3']"
+  end
+
+  test "searching without a scope or sort adds no empty params" do
+    get madmin_posts_path
+
+    assert_select "form.search input[type=hidden]", count: 1
+    assert_select "form.search input[type=hidden][name=page][value='1']"
+  end
+
+  test "submitting the search keeps the scope and sort" do
+    old = Post.create!(title: "My old post", user: @chris, created_at: 1.month.ago)
+    get madmin_posts_path(scope: "recent", sort: "id", direction: "desc", page: 2)
+
+    fields = css_select("form.search input[name]").to_h { |input| [input["name"], input["value"]] }
+    get madmin_posts_path, params: fields.merge("q" => "My")
+
+    assert_response :success
+    recent = Post.recent.order(id: :desc)
+    assert_select "tbody tr", count: recent.size
+    assert_select "tbody tr:first-child a[href=?]", madmin_post_path(recent.first)
+    assert_select "tbody a[href=?]", madmin_post_path(old), count: 0
+    assert_select ".scopes a.active[href=?]", madmin_posts_path(q: "My", scope: "recent", sort: "id", direction: "desc")
   end
 
   test "filter: false hides a column" do
