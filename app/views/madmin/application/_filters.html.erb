@@ -6,9 +6,7 @@
 
   <div id="filters" class="filters" popover data-controller="filters">
     <%= form_with url: resource.index_path, method: :get, skip_enforcing_utf8: true do %>
-      <% request.query_parameters.slice("q", "scope", "sort", "direction").each do |name, value| %>
-        <%= hidden_field_tag name, value, id: nil %>
-      <% end %>
+      <%= index_params_fields except: [:filters] %>
 
       <p class="filters-heading"><%= t("madmin.filters.heading") %></p>
 

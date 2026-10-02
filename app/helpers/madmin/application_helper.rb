@@ -19,5 +19,17 @@ module Madmin
     def index_path_with(**changes)
       resource.index_path(request.query_parameters.symbolize_keys.except(:page).merge(changes))
     end
+
+    # Hidden fields carrying the current index params through a GET form, so
+    # submitting it keeps what index_path_with keeps. Pass the params the form
+    # sets itself in except
+    def index_params_fields(except: [])
+      query = request.query_parameters.except("page", *except.map(&:to_s)).to_query
+      fields = query.split("&").map do |pair|
+        name, value = pair.split("=", 2).map { |part| CGI.unescape(part) }
+        hidden_field_tag name, value, id: nil
+      end
+      safe_join(fields, "\n")
+    end
   end
 end
