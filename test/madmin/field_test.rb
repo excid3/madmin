@@ -13,8 +13,8 @@ class Madmin::FieldTest < ActiveSupport::TestCase
 
   test "preload?" do
     assert CommentResource.attributes[:user].field.preload?
-    assert CommentResource.attributes[:commentable].field.preload?
-    refute UserResource.attributes[:latest_post].field.preload?
+    refute CommentResource.attributes[:commentable].field.preload?
+    assert UserResource.attributes[:latest_post].field.preload?
     refute UserResource.attributes[:comments].field.preload?
     refute UserResource.attributes[:first_name].field.preload?
   end

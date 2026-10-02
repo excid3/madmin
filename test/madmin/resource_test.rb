@@ -28,7 +28,7 @@ class ResourceTest < ActiveSupport::TestCase
   end
 
   test "index_associations" do
-    assert_equal [:user, :commentable], CommentResource.index_associations
+    assert_equal [:user], CommentResource.index_associations
   end
 
   test "rich_text" do

@@ -82,7 +82,7 @@ module Madmin
     def scoped_resources
       resources = resource.model.send(valid_scope)
       resources = Madmin::Search.new(resources, resource, search_term, filters).run
-      resources = resources.preload(resource.index_associations) if resource.index_associations.any?
+      resources = resources.preload(resource.index_associations)
 
       return resources if sort_column.blank?
 

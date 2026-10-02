@@ -1,6 +1,6 @@
 ### Unreleased
 
-* Fix N+1 queries on index pages. Belongs to and polymorphic columns are preloaded instead of loaded once per row. Adds `Field#preload?` for custom fields that show an association on the index and `Resource.index_associations`
+* Fix N+1 queries on index pages. Belongs to and has one columns are preloaded instead of loaded once per row. Adds `Field#preload?` for custom fields that show an association on the index and `Resource.index_associations`
 
 ### 3.1.2
 

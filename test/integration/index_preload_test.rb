@@ -12,6 +12,5 @@ class IndexPreloadTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_equal 1, queries.count("User Load")
-    assert_equal 1, queries.count("Post Load")
   end
 end
