@@ -10,7 +10,7 @@ module Madmin
 
     def initialize(count:, page: 1, per_page: Madmin.per_page, param: :page)
       @count = count.to_i
-      @per_page = [per_page.to_i, 1].max
+      @per_page = per_page.to_i.positive? ? per_page.to_i : Madmin.per_page
       @page = [page.to_i, 1].max
       @param = param.to_s
     end

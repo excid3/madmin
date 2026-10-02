@@ -21,6 +21,11 @@ class PaginationIntegrationTest < ActionDispatch::IntegrationTest
     assert_select "tbody tr", 5
   end
 
+  test "index honors per_page" do
+    get madmin_posts_path(per_page: 25)
+    assert_select "tbody tr", 25
+  end
+
   test "index serves an empty page past the end" do
     get madmin_posts_path(q: "Paginated", page: 99)
     assert_response :success
@@ -50,5 +55,10 @@ class PaginationIntegrationTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select ".pagination .pages a[aria-current=page]", text: "2"
     assert_select ".pagination .pages a[href*='posts_page=3']"
+  end
+
+  test "has many fields change page size with their own param" do
+    get madmin_user_path(@user, posts_per_page: 25)
+    assert_select ".pagination-info", text: /1-25 of 45/
   end
 end

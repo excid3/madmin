@@ -38,7 +38,8 @@ module Madmin
 
       def paginated_value(record, params)
         page_key = "#{attribute_name}_page"
-        paginate value(record), page: params[page_key], param: page_key
+        per_page_key = "#{attribute_name}_per_page"
+        paginate value(record), page: params[page_key], per_page: params[per_page_key], param: page_key
       end
     end
   end

@@ -1,6 +1,12 @@
 require "test_helper"
 
 class PageTest < ActiveSupport::TestCase
+  test "invalid per_page params fall back to the default" do
+    [nil, "", "abc", "0", "-5"].each do |param|
+      assert_equal Madmin.per_page, Madmin::Page.new(count: 45, per_page: param).per_page
+    end
+  end
+
   test "first page" do
     page = Madmin::Page.new(count: 45, page: 1, per_page: 20)
     assert_equal 3, page.last
