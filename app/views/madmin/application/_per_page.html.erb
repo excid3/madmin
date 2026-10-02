@@ -1,0 +1,10 @@
+<nav class="per-page" aria-label="<%= t("madmin.pagination.per_page") %>">
+  <span><%= t("madmin.pagination.per_page") %></span>
+  <% page.per_page_options.each do |size| %>
+    <% if size == page.per_page %>
+      <a role="link" aria-disabled="true" aria-current="true"><%= size %></a>
+    <% else %>
+      <%= link_to size, current_path_with(page.param => nil, page.per_page_param => size) %>
+    <% end %>
+  <% end %>
+</nav>

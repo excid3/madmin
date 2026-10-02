@@ -1,6 +1,22 @@
 require "test_helper"
 
 class PageTest < ActiveSupport::TestCase
+  test "per_page params fall back to the default and are capped" do
+    [nil, "", "abc", "0", "-5", ["50"]].each do |param|
+      assert_equal Madmin.per_page, Madmin::Page.per_page_for(param)
+    end
+
+    assert_equal 50, Madmin::Page.per_page_for("50")
+    assert_equal 200, Madmin::Page.per_page_for("5000000")
+  end
+
+  test "page size options include the current size" do
+    page = Madmin::Page.new(count: 21, per_page: 25)
+    assert_equal [20, 25, 50, 100, 200], page.per_page_options
+    assert page.resizable?
+    refute Madmin::Page.new(count: 20, per_page: 25).resizable?
+  end
+
   test "first page" do
     page = Madmin::Page.new(count: 45, page: 1, per_page: 20)
     assert_equal 3, page.last

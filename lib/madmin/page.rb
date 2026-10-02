@@ -5,14 +5,42 @@ module Madmin
   # these (or any object responding to the same methods) alongside their records.
   class Page
     SERIES_SLOTS = 7
+    PER_PAGE_OPTIONS = [20, 50, 100, 200].freeze
 
     attr_reader :count, :page, :per_page, :param
+
+    # The page size for a request param. Invalid sizes fall back to the default
+    # and large ones are capped. Sizes passed to Page.new directly aren't capped
+    def self.per_page_for(param)
+      size = param.to_s.to_i
+      size.positive? ? [size, max_per_page].min : Madmin.per_page
+    end
+
+    def self.max_per_page
+      [PER_PAGE_OPTIONS.max, Madmin.per_page].max
+    end
+    private_class_method :max_per_page
 
     def initialize(count:, page: 1, per_page: Madmin.per_page, param: :page)
       @count = count.to_i
       @per_page = [per_page.to_i, 1].max
       @page = [page.to_i, 1].max
       @param = param.to_s
+    end
+
+    # The param carrying the page size: "per_page", or "posts_per_page" for a "posts_page" param
+    def per_page_param
+      "#{param.delete_suffix("page")}per_page"
+    end
+
+    # Page sizes to offer, always including the default and the current one
+    def per_page_options
+      (PER_PAGE_OPTIONS | [Madmin.per_page, per_page]).sort
+    end
+
+    # Whether a different page size would change what's shown
+    def resizable?
+      count > per_page_options.min
     end
 
     def last

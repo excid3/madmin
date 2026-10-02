@@ -1,8 +1,7 @@
 <div class="pagination">
   <% if page.last > 1 %>
-    <% page_url = ->(number) { "#{request.path}?#{request.query_parameters.merge(page.param => number).to_query}" } %>
     <nav class="pages" aria-label="<%= t("madmin.pagination.label") %>">
-      <%= link_to_if page.prev, "<", page.prev && page_url.call(page.prev), aria: { label: t("madmin.pagination.previous") } do %>
+      <%= link_to_if page.prev, "<", page.prev && current_path_with(page.param => page.prev), aria: { label: t("madmin.pagination.previous") } do %>
         <a role="link" aria-disabled="true" aria-label="<%= t("madmin.pagination.previous") %>">&lt;</a>
       <% end %>
 
@@ -12,11 +11,11 @@
         <% elsif number == page.page %>
           <a role="link" aria-disabled="true" aria-current="page"><%= number %></a>
         <% else %>
-          <%= link_to number, page_url.call(number) %>
+          <%= link_to number, current_path_with(page.param => number) %>
         <% end %>
       <% end %>
 
-      <%= link_to_if page.next, ">", page.next && page_url.call(page.next), aria: { label: t("madmin.pagination.next") } do %>
+      <%= link_to_if page.next, ">", page.next && current_path_with(page.param => page.next), aria: { label: t("madmin.pagination.next") } do %>
         <a role="link" aria-disabled="true" aria-label="<%= t("madmin.pagination.next") %>">&gt;</a>
       <% end %>
     </nav>
@@ -29,4 +28,6 @@
       <%= t("madmin.pagination.info", from: page.from, to: page.to, count: page.count) %>
     <% end %>
   </span>
+
+  <%= render "per_page", page: page if page.resizable? %>
 </div>

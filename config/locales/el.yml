@@ -48,6 +48,7 @@ el:
       next: Επόμενη
       info: "Εμφάνιση %{from}-%{to} από %{count}"
       empty: Δεν βρέθηκαν εγγραφές
+      per_page: Ανά σελίδα
     filters:
       button: "Φίλτρα"
       heading: "Εμφάνιση εγγραφών όπου"
