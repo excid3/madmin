@@ -48,6 +48,7 @@ fr:
       next: Suivant
       info: "Affichage de %{from} à %{to} sur %{count}"
       empty: Aucun enregistrement trouvé
+      per_page: Par page
     filters:
       button: "Filtres"
       heading: "Afficher les enregistrements où"

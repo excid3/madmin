@@ -26,6 +26,12 @@ class PaginationIntegrationTest < ActionDispatch::IntegrationTest
     assert_select "tbody tr", 25
   end
 
+  test "page size dropdown keeps the query params" do
+    get madmin_posts_path(q: "Paginated")
+    assert_select ".per-page option[selected]", text: "20"
+    assert_select ".per-page input[type=hidden][name=q][value=Paginated]"
+  end
+
   test "index serves an empty page past the end" do
     get madmin_posts_path(q: "Paginated", page: 99)
     assert_response :success
@@ -43,6 +49,7 @@ class PaginationIntegrationTest < ActionDispatch::IntegrationTest
     get madmin_users_path
     assert_response :success
     assert_select ".pagination .pages", 0
+    assert_select ".per-page", 0
   end
 
   test "json index is paginated" do
@@ -58,7 +65,9 @@ class PaginationIntegrationTest < ActionDispatch::IntegrationTest
   end
 
   test "has many fields change page size with their own param" do
-    get madmin_user_path(@user, posts_per_page: 25)
-    assert_select ".pagination-info", text: /1-25 of 45/
+    get madmin_user_path(@user, posts_per_page: 50, posts_page: 1)
+    assert_select ".pagination-info", text: /1-45 of 45/
+    assert_select "select[name=posts_per_page] option[selected]", text: "50"
+    assert_select ".per-page input[name=posts_page]", 0
   end
 end

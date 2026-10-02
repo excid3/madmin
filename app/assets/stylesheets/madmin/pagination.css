@@ -1,4 +1,7 @@
 .pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   padding: 0.5rem;
 }
 
@@ -43,4 +46,8 @@
 
 .pagination-info {
   margin-left: 0.5rem;
+}
+
+.per-page {
+  margin-left: auto;
 }

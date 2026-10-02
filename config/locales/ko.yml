@@ -47,6 +47,7 @@ ko:
       next: 다음
       info: "%{count}개 중 %{from}-%{to} 표시"
       empty: 레코드가 없습니다
+      per_page: 페이지당
     filters:
       button: "필터"
       heading: "다음 조건의 레코드 표시"

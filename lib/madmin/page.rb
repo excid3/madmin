@@ -5,6 +5,7 @@ module Madmin
   # these (or any object responding to the same methods) alongside their records.
   class Page
     SERIES_SLOTS = 7
+    PER_PAGE_OPTIONS = [20, 50, 100, 200].freeze
 
     attr_reader :count, :page, :per_page, :param
 

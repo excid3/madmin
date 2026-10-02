@@ -29,4 +29,6 @@
       <%= t("madmin.pagination.info", from: page.from, to: page.to, count: page.count) %>
     <% end %>
   </span>
+
+  <%= render "per_page", page: page if page.count > Madmin::Page::PER_PAGE_OPTIONS.min %>
 </div>
