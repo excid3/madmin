@@ -13,7 +13,7 @@
     <% end %>
     <% unless resource.readonly? %>
       <%= link_to t("madmin.actions.edit"), resource.edit_path(@record), class: "btn btn-secondary" %>
-      <%= button_to t("madmin.actions.delete"), resource.show_path(@record), method: :delete, data: { turbo_confirm: t("madmin.confirmations.delete") }, class: "btn btn-danger" %>
+      <%= button_to t("madmin.actions.delete"), resource.show_path(@record), method: :delete, data: { turbo_confirm: t("madmin.confirmations.delete", resource: resource.friendly_name, name: resource.display_name(@record)) }, class: "btn btn-danger" %>
     <% end %>
   </div>
 </header>
