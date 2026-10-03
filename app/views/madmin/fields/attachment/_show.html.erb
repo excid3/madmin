@@ -6,6 +6,6 @@
   <% end %>
 
   <% if (remove_path = field.remove_path(attachment)) %>
-    <%= link_to t("madmin.actions.remove"), remove_path, data: { turbo_method: :delete, turbo_confirm: t("madmin.confirmations.remove_with_changes")} %>
+    <%= link_to t("madmin.actions.remove"), remove_path, data: { turbo_method: :delete, turbo_confirm: t("madmin.confirmations.remove_with_changes", name: attachment.filename.to_s) } %>
   <% end %>
 <% end %>

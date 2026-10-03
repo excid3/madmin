@@ -1,5 +1,7 @@
 ### Unreleased
 
+* Pass `resource` and `name` to the `madmin.confirmations.delete` translation and `name` (the filename) to `madmin.confirmations.remove_with_changes`, so apps can say what is being deleted, e.g. `delete: "Delete %{name}?"`. The default messages are unchanged #392
+
 ### 3.2.0
 
 * Add page size links to pagination. The index accepts a `per_page` param and has many fields accept `<attribute>_per_page`, capped at 200, or at `Madmin.per_page` when that is higher #390
