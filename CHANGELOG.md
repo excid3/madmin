@@ -1,5 +1,7 @@
 ### Unreleased
 
+### 3.3.0
+
 * Draw form field borders with `border` instead of an inset `box-shadow`, so fields stay outlined in forced colors (high contrast) mode and match Lexxy and Trix. Field sizes are unchanged. Fields that an app's `field_error_proc` marks with `.error` (inputs, selects, textareas and Lexxy/Trix editors) now get a red border instead of red text, which also tinted Lexxy's toolbar. `.error` messages are still red
 * Pass `resource` and `name` to the `madmin.confirmations.delete` translation and `name` (the filename) to `madmin.confirmations.remove_with_changes`, so apps can say what is being deleted, e.g. `delete: "Delete %{name}?"`. The default messages are unchanged #392
 

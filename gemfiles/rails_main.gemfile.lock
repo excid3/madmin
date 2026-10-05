@@ -103,7 +103,7 @@ GIT
 PATH
   remote: ..
   specs:
-    madmin (3.2.0)
+    madmin (3.3.0)
       importmap-rails
       rails (>= 7.0.0)
       stimulus-rails
