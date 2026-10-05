@@ -2,6 +2,17 @@
   color: var(--danger-color);
 }
 
+/* Apps often add .error to invalid fields with a field_error_proc. Outline those fields instead of coloring their text, which would also tint Lexxy's toolbar */
+:is(input, select, textarea).error {
+  color: inherit;
+  box-shadow: inset 0 0 0 1px var(--danger-color);
+}
+
+:is(lexxy-editor, trix-editor).error {
+  color: inherit;
+  border-color: var(--danger-color);
+}
+
 .form-hint {
   font-size: 0.875rem;
   margin-top: 0.5rem;

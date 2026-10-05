@@ -1,5 +1,6 @@
 ### Unreleased
 
+* Outline fields that an app's `field_error_proc` marks with `.error` (inputs, selects, textareas and Lexxy/Trix editors) instead of coloring their text, which also tinted Lexxy's toolbar red. `.error` messages are still red
 * Pass `resource` and `name` to the `madmin.confirmations.delete` translation and `name` (the filename) to `madmin.confirmations.remove_with_changes`, so apps can say what is being deleted, e.g. `delete: "Delete %{name}?"`. The default messages are unchanged #392
 
 ### 3.2.0
