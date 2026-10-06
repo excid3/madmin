@@ -20,13 +20,21 @@ module Madmin
 
       def generate_route
         if route_namespace_exists?
-          route "resources :#{plural_name}", namespace: class_path, indentation: separated_routes_file? ? 2 : 4, sentinel: /namespace :madmin[^\n]*do\s*\n/m
+          route resource_routes, namespace: class_path, indentation: separated_routes_file? ? 2 : 4, sentinel: /namespace :madmin[^\n]*do\s*\n/m
         else
-          route "resources :#{plural_name}", namespace: [:madmin] + class_path
+          route resource_routes, namespace: [:madmin] + class_path
         end
       end
 
       private
+
+      def resource_routes
+        <<~RUBY.chomp
+          resources :#{plural_name} do
+            collection { delete :bulk_destroy }
+          end
+        RUBY
+      end
 
       def model
         @model ||= class_name.constantize

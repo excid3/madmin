@@ -310,7 +310,8 @@ module Madmin
         raise unless error.name.to_s.end_with?("_path")
 
         *namespaces, resources = model.model_name.collection.split("/")
-        routes = namespaces.reverse.inject("resources :#{resources}") do |body, namespace|
+        routes = resource_routes(resources)
+        routes = namespaces.reverse.inject(routes) do |body, namespace|
           "namespace :#{namespace} do\n#{body.indent(2)}\nend"
         end
 
@@ -341,6 +342,14 @@ module Madmin
       end
 
       private
+
+      def resource_routes(resources)
+        <<~RUBY.chomp
+          resources :#{resources} do
+            collection { delete :bulk_destroy }
+          end
+        RUBY
+      end
 
       def translated_name(count: 1)
         model.model_name.human(count: count, default: "").presence
