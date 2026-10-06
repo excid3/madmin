@@ -14,6 +14,7 @@ el:
       view: Προβολή
       edit: Επεξεργασία
       delete: Διαγραφή
+      delete_selected: Διαγραφή επιλεγμένων
       new: Νέο
       remove: Αφαίρεση
       cancel: Ακύρωση
@@ -30,8 +31,18 @@ el:
       readonly: "%{name}: μόνο για ανάγνωση"
       destroy_failed: "%{name}: η διαγραφή απέτυχε"
       destroy_restricted: "%{name}: η διαγραφή απέτυχε επειδή άλλες εγγραφές εξαρτώνται από αυτήν"
+      destroyed: "%{name}: διαγράφηκε"
+      bulk_destroyed:
+        one: "Διαγράφηκε %{count} εγγραφή"
+        other: "Διαγράφηκαν %{count} εγγραφές"
+      bulk_destroy_failed:
+        one: "%{count} εγγραφή δεν ήταν δυνατό να διαγραφεί"
+        other: "%{count} εγγραφές δεν ήταν δυνατό να διαγραφούν"
     confirmations:
       delete: Είστε σίγουροι;
+      delete_selected:
+        one: "Είστε σίγουροι ότι θέλετε να διαγράψετε %{count} εγγραφή;"
+        other: "Είστε σίγουροι ότι θέλετε να διαγράψετε %{count} εγγραφές;"
       remove_with_changes: Είστε σίγουροι; Θα χάσετε όλες τις άλλες αλλαγές.
     nested_form:
       add_new: "+ Προσθήκη νέου"

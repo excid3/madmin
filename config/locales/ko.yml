@@ -14,6 +14,7 @@ ko:
       view: 보기
       edit: 수정
       delete: 삭제
+      delete_selected: 선택 항목 삭제
       new: 새로 만들기
       remove: 제거
       cancel: 취소
@@ -29,8 +30,18 @@ ko:
     flash:
       destroy_failed: "%{name}을(를) 삭제할 수 없습니다"
       destroy_restricted: "다른 레코드가 참조하고 있어 %{name}을(를) 삭제할 수 없습니다"
+      destroyed: "%{name}을(를) 삭제했습니다"
+      bulk_destroyed:
+        one: "레코드 %{count}개를 삭제했습니다"
+        other: "레코드 %{count}개를 삭제했습니다"
+      bulk_destroy_failed:
+        one: "레코드 %{count}개를 삭제할 수 없습니다"
+        other: "레코드 %{count}개를 삭제할 수 없습니다"
     confirmations:
       delete: 정말 삭제하시겠습니까?
+      delete_selected:
+        one: "레코드 %{count}개를 정말 삭제하시겠습니까?"
+        other: "레코드 %{count}개를 정말 삭제하시겠습니까?"
       remove_with_changes: 정말 제거하시겠습니까? 다른 변경 사항도 함께 사라집니다.
     nested_form:
       add_new: "+ 새로 추가"

@@ -311,6 +311,22 @@ class PostResource < Madmin::Resource
 end
 ```
 
+### Bulk Delete
+
+Index pages have a checkbox on each row and a "Delete selected" button that shows up once a record is checked. Records are destroyed one by one so callbacks and `dependent:` options run, and only records the index shows (with its scope, search and filters) can be deleted. Records that can't be deleted are left in place and an alert says how many.
+
+The resource generator adds the route. For resources generated before, add it to their routes:
+
+```ruby
+resources :posts do
+  collection { delete :bulk_destroy }
+end
+```
+
+Leave the route out to turn bulk delete off for a resource. It's also hidden for read-only resources. To change what it does, override `bulk_destroy` in the resource's controller.
+
+If you copied the index view with `rails g madmin:views:index`, copy it again to get the checkboxes. The confirmation is the `madmin.confirmations.delete_selected` translation, which needs `one` and `other` forms with `%{count}`.
+
 ## Extending Madmin
 
 Madmin runs `ActiveSupport` load hooks on its core classes so you can extend them from an initializer without reopening or monkey patching them. This is the recommended way for engines and gems to add behavior to Madmin.

@@ -67,5 +67,11 @@ table {
     padding-bottom: clamp(0.5rem, 0.25rem + 1.25vw, 0.75rem);
     padding-left: clamp(0.5rem, 0.125rem + 1.875vw, 0.875rem);
     padding-right: clamp(0.5rem, 0.125rem + 1.875vw, 0.875rem);
+
+    &.select {
+      min-width: 0;
+      padding-right: 0;
+      width: 1%;
+    }
   }
 }

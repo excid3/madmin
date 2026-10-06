@@ -136,7 +136,8 @@ a {
   }
 }
 
-.scopes {
+.scopes,
+.bulk-actions {
   margin-bottom: 1rem;
 }
 

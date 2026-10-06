@@ -1,4 +1,5 @@
 <%= content_for :title, resource.friendly_plural_name %>
+<% bulk_destroy = resource.route?(:bulk_destroy) && !resource.readonly? %>
 
 <header class="header">
   <h1><%= resource.friendly_plural_name %></h1>
@@ -42,10 +43,17 @@
   <% end %>
 </nav>
 
+<% if bulk_destroy %>
+  <%= button_to t("madmin.actions.delete_selected"), url_for(action: :bulk_destroy), method: :delete, params: request.query_parameters, form: { id: "bulk_destroy", class: "bulk-actions", hidden: true, data: { controller: "bulk-destroy", action: "change@document->bulk-destroy#update", bulk_destroy_confirm_value: t("madmin.confirmations.delete_selected").to_json } }, class: "btn btn-danger" %>
+<% end %>
+
 <div class="table-scroll">
   <table>
     <thead>
       <tr>
+        <% if bulk_destroy %>
+          <th class="select"><%= check_box_tag nil, nil, false, id: nil, form: "bulk_destroy", data: { controller: "select-all", action: "select-all#toggle" } %></th>
+        <% end %>
         <% resource.attributes.values.each do |attribute| %>
           <% next if attribute.field.nil? %>
           <% next unless attribute.field.visible?(action_name) %>
@@ -59,6 +67,9 @@
     <tbody>
       <% @records.each do |record| %>
         <tr>
+          <% if bulk_destroy %>
+            <td class="select"><%= check_box_tag "ids[]", record.id, false, id: nil, form: "bulk_destroy" %></td>
+          <% end %>
           <% resource.attributes.values.each do |attribute| %>
             <% next if attribute.field.nil? %>
             <% next unless attribute.field.visible?(action_name) %>
