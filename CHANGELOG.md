@@ -1,5 +1,8 @@
 ### Unreleased
 
+* Add bulk delete to index pages. Check records and click "Delete selected" to destroy them one by one, limited to the records the index shows. The resource generator adds the `bulk_destroy` route; resources generated before need `collection { delete :bulk_destroy }` added to their routes to get it. Copied index views need to be copied again
+* Show a notice after deleting records. Adds the `madmin.flash.destroyed`, `madmin.flash.bulk_destroyed`, `madmin.flash.bulk_destroy_failed`, `madmin.actions.delete_selected` and `madmin.confirmations.delete_selected` translations
+
 ### 3.3.0
 
 * Draw form field borders with `border` instead of an inset `box-shadow`, so fields stay outlined in forced colors (high contrast) mode and match Lexxy and Trix. Field sizes are unchanged. Fields that an app's `field_error_proc` marks with `.error` (inputs, selects, textareas and Lexxy/Trix editors) now get a red border instead of red text, which also tinted Lexxy's toolbar. `.error` messages are still red

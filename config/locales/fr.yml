@@ -14,6 +14,7 @@ fr:
       view: Voir
       edit: Modifier
       delete: Supprimer
+      delete_selected: Supprimer la sélection
       new: Nouveau
       remove: Retirer
       cancel: Annuler
@@ -30,8 +31,18 @@ fr:
       readonly: "%{name} est en lecture seule"
       destroy_failed: "%{name} n'a pas pu être supprimé"
       destroy_restricted: "%{name} n'a pas pu être supprimé car d'autres enregistrements en dépendent"
+      destroyed: "%{name} supprimé"
+      bulk_destroyed:
+        one: "%{count} enregistrement supprimé"
+        other: "%{count} enregistrements supprimés"
+      bulk_destroy_failed:
+        one: "%{count} enregistrement n'a pas pu être supprimé"
+        other: "%{count} enregistrements n'ont pas pu être supprimés"
     confirmations:
       delete: Êtes-vous sûr ?
+      delete_selected:
+        one: "Voulez-vous vraiment supprimer %{count} enregistrement ?"
+        other: "Voulez-vous vraiment supprimer %{count} enregistrements ?"
       remove_with_changes: Êtes-vous sûr ? Vous perdrez toutes les autres modifications.
     nested_form:
       add_new: "+ Ajouter"

@@ -2,8 +2,8 @@ module Madmin
   class ResourceController < Madmin::ApplicationController
     include SortHelper
 
-    before_action :set_record, except: [:index, :new, :create]
-    before_action :enforce_readonly, only: [:new, :create, :edit, :update, :destroy]
+    before_action :set_record, except: [:index, :new, :create, :bulk_destroy]
+    before_action :enforce_readonly, only: [:new, :create, :edit, :update, :destroy, :bulk_destroy]
 
     # Assign current_user for paper_trail gem
     before_action :set_paper_trail_whodunnit, if: -> { respond_to?(:set_paper_trail_whodunnit, true) }
@@ -48,7 +48,7 @@ module Madmin
 
     def destroy
       if @record.destroy
-        redirect_to resource.index_path, status: :see_other
+        redirect_to resource.index_path, notice: t("madmin.flash.destroyed", name: resource.friendly_name), status: :see_other
       else
         destroy_failed destroy_errors
       end
@@ -56,10 +56,26 @@ module Madmin
       destroy_failed t("madmin.flash.destroy_restricted", name: resource.friendly_name)
     end
 
+    def bulk_destroy
+      records = scoped_resources.where(id: params[:ids]).to_a
+      failed = records.reject { |record| destroy_record(record) }
+      if failed.empty?
+        redirect_back_or_to resource.index_path, notice: t("madmin.flash.bulk_destroyed", count: records.size), status: :see_other
+      else
+        destroy_failed t("madmin.flash.bulk_destroy_failed", count: failed.size)
+      end
+    end
+
     private
 
     def destroy_failed(message)
       redirect_back_or_to resource.index_path, alert: message, status: :see_other
+    end
+
+    def destroy_record(record)
+      record.destroy
+    rescue ActiveRecord::DeleteRestrictionError, ActiveRecord::InvalidForeignKey
+      false
     end
 
     def destroy_errors

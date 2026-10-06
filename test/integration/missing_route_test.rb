@@ -38,7 +38,7 @@ class MissingRouteTest < ActionDispatch::IntegrationTest
     error = assert_raises(Madmin::MissingRoute) { Unrouted::ThingResource.index_path }
 
     assert_match "`madmin_unrouted_things_path` is not defined, so Unrouted::ThingResource has no route", error.message
-    assert_match "    namespace :unrouted do\n      resources :things\n    end", error.message
+    assert_match "    namespace :unrouted do\n      resources :things do\n        collection { delete :bulk_destroy }\n      end\n    end", error.message
     assert_match "menu false", error.message
     assert_kind_of NoMethodError, error.cause
 
