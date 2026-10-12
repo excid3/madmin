@@ -6,13 +6,13 @@ class DeleteConfirmationTest < ActionDispatch::IntegrationTest
     assert_select "form[action=?] input[type=submit][data-turbo-confirm=?]", madmin_post_path(posts(:one)), "Are you sure?"
   end
 
-  test "show confirms with the resource's translation" do
+  test "show confirms with the resource's translation key" do
     habtm = Habtm.create!(name: "Tags")
     get madmin_habtm_path(habtm)
     assert_select "form[action=?] input[type=submit][data-turbo-confirm=?]", madmin_habtm_path(habtm), "Delete the habtm Habtm ##{habtm.id}?"
   end
 
-  test "show confirms with the resource's message" do
+  test "show confirms with the resource's overridden method" do
     get madmin_comment_path(comments(:one))
     assert_select "form[action=?] input[type=submit][data-turbo-confirm=?]", madmin_comment_path(comments(:one)), "Delete the comment by Chris Oliver?"
   end
