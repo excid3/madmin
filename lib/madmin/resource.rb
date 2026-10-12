@@ -151,6 +151,20 @@ module Madmin
         "#{record.class} ##{record.id}"
       end
 
+      # The confirmation shown before deleting a record. Returns nil to skip the confirmation.
+      #
+      # Looks up a translation for this resource (`madmin.resources.forum/post.confirmations.delete`)
+      # before the shared `madmin.confirmations.delete`. Both receive `resource` and `name`.
+      # Override for wording that needs more than the display name:
+      #
+      #   def self.delete_confirmation(record) = "Delete the RSVP for #{record.full_name}?"
+      def delete_confirmation(record)
+        I18n.t("madmin.resources.#{model.model_name.i18n_key}.confirmations.delete",
+          default: :"madmin.confirmations.delete",
+          resource: friendly_name,
+          name: display_name(record))
+      end
+
       def friendly_model?
         model.respond_to? :friendly
       end
