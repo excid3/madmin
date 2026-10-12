@@ -14,6 +14,10 @@ class CommentResource < Madmin::Resource
   #   record.name
   # end
 
+  def self.delete_confirmation(record)
+    "Delete the comment by #{record.user.name}?"
+  end
+
   # Uncomment this to customize the default sort column and direction.
   # def self.default_sort_column
   #   "created_at"

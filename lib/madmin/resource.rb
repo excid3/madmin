@@ -151,6 +151,14 @@ module Madmin
         "#{record.class} ##{record.id}"
       end
 
+      # Override for wording that needs more than the display name. Return nil to skip the confirmation.
+      def delete_confirmation(record)
+        I18n.t("madmin.resources.#{model.model_name.i18n_key}.confirmations.delete",
+          default: :"madmin.confirmations.delete",
+          resource: friendly_name,
+          name: display_name(record))
+      end
+
       def friendly_model?
         model.respond_to? :friendly
       end

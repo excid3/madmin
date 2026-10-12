@@ -13,6 +13,8 @@ class NumericalResource < Madmin::Resource
   #   record.name
   # end
 
+  def self.delete_confirmation(_record) = nil
+
   # Uncomment this to customize the default sort column and direction.
   # def self.default_sort_column
   #   "created_at"

@@ -1,5 +1,7 @@
 ### Unreleased
 
+* Add `Resource.delete_confirmation(record)` to customize the delete confirmation per resource. The default looks up `madmin.resources.<model>.confirmations.delete` (e.g. `madmin.resources.rsvp.confirmations.delete`) before `madmin.confirmations.delete`, with the same `resource` and `name` values. Override the method for wording that needs the record, like "Delete the RSVP for Jane Smith?", or return nil to skip the confirmation #392
+
 ### 3.3.0
 
 * Draw form field borders with `border` instead of an inset `box-shadow`, so fields stay outlined in forced colors (high contrast) mode and match Lexxy and Trix. Field sizes are unchanged. Fields that an app's `field_error_proc` marks with `.error` (inputs, selects, textareas and Lexxy/Trix editors) now get a red border instead of red text, which also tinted Lexxy's toolbar. `.error` messages are still red
