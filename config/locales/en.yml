@@ -31,7 +31,6 @@ en:
       readonly: "%{name} is read-only"
       destroy_failed: "%{name} could not be deleted"
       destroy_restricted: "%{name} could not be deleted because other records depend on it"
-      destroyed: "%{name} deleted"
       bulk_destroyed:
         one: "%{count} record deleted"
         other: "%{count} records deleted"
@@ -40,9 +39,7 @@ en:
         other: "%{count} records could not be deleted"
     confirmations:
       delete: Are you sure?
-      delete_selected:
-        one: "Are you sure you want to delete %{count} record?"
-        other: "Are you sure you want to delete %{count} records?"
+      delete_selected: Are you sure?
       remove_with_changes: Are you sure? You will lose any other changes.
     nested_form:
       add_new: "+ Add new"

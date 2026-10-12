@@ -126,6 +126,10 @@ module Madmin
         route_path([:madmin, route_namespace, becomes(record)], action: :edit)
       end
 
+      def bulk_destroy_path(options = {})
+        route_path([:madmin, route_namespace, model], options.merge(action: :bulk_destroy))
+      end
+
       # Whether a route is drawn for the given action on this resource's controller
       # For example: PostResource.route?(:destroy)
       def route?(action)
@@ -165,6 +169,11 @@ module Madmin
 
       def readonly?
         false
+      end
+
+      # Bulk delete needs its route drawn: `resources :posts do collection { delete :bulk_destroy } end`
+      def bulk_destroy?
+        route?(:bulk_destroy) && !readonly?
       end
 
       def sortable_columns
@@ -318,8 +327,7 @@ module Madmin
         raise unless error.name.to_s.end_with?("_path")
 
         *namespaces, resources = model.model_name.collection.split("/")
-        routes = resource_routes(resources)
-        routes = namespaces.reverse.inject(routes) do |body, namespace|
+        routes = namespaces.reverse.inject("resources :#{resources}") do |body, namespace|
           "namespace :#{namespace} do\n#{body.indent(2)}\nend"
         end
 
@@ -350,14 +358,6 @@ module Madmin
       end
 
       private
-
-      def resource_routes(resources)
-        <<~RUBY.chomp
-          resources :#{resources} do
-            collection { delete :bulk_destroy }
-          end
-        RUBY
-      end
 
       def translated_name(count: 1)
         model.model_name.human(count: count, default: "").presence

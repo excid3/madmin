@@ -1,5 +1,4 @@
 <%= content_for :title, resource.friendly_plural_name %>
-<% bulk_destroy = resource.route?(:bulk_destroy) && !resource.readonly? %>
 
 <header class="header">
   <h1><%= resource.friendly_plural_name %></h1>
@@ -43,51 +42,53 @@
   <% end %>
 </nav>
 
-<% if bulk_destroy %>
-  <%= button_to t("madmin.actions.delete_selected"), url_for(action: :bulk_destroy), method: :delete, params: request.query_parameters, form: { id: "bulk_destroy", class: "bulk-actions", hidden: true, data: { controller: "bulk-destroy", action: "change@document->bulk-destroy#update", bulk_destroy_confirm_value: t("madmin.confirmations.delete_selected").to_json } }, class: "btn btn-danger" %>
-<% end %>
+<div data-controller="bulk-destroy">
+  <% if resource.bulk_destroy? %>
+    <%= button_to t("madmin.actions.delete_selected"), resource.bulk_destroy_path, method: :delete, params: request.query_parameters, form: { id: "bulk_destroy", class: "bulk-actions", hidden: true, data: { bulk_destroy_target: "form", turbo_confirm: t("madmin.confirmations.delete_selected") } }, class: "btn btn-danger" %>
+  <% end %>
 
-<div class="table-scroll">
-  <table>
-    <thead>
-      <tr>
-        <% if bulk_destroy %>
-          <th class="select"><%= check_box_tag nil, nil, false, id: nil, form: "bulk_destroy", data: { controller: "select-all", action: "select-all#toggle" } %></th>
-        <% end %>
-        <% resource.attributes.values.each do |attribute| %>
-          <% next if attribute.field.nil? %>
-          <% next unless attribute.field.visible?(action_name) %>
-
-          <th><%= sortable attribute.name, attribute.field.label %></th>
-        <% end %>
-        <th></th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @records.each do |record| %>
+  <div class="table-scroll">
+    <table>
+      <thead>
         <tr>
-          <% if bulk_destroy %>
-            <td class="select"><%= check_box_tag "ids[]", record.id, false, id: nil, form: "bulk_destroy" %></td>
+          <% if resource.bulk_destroy? %>
+            <th class="select"><%= check_box_tag nil, nil, false, id: nil, data: { action: "change->bulk-destroy#toggleAll" } %></th>
           <% end %>
           <% resource.attributes.values.each do |attribute| %>
             <% next if attribute.field.nil? %>
             <% next unless attribute.field.visible?(action_name) %>
-            <td><%= render partial: attribute.field.to_partial_path("index"), locals: { field: attribute.field, record: record, resource: resource } %></td>
+
+            <th><%= sortable attribute.name, attribute.field.label %></th>
           <% end %>
-
-          <td class="actions">
-            <%= link_to t("madmin.actions.view"), resource.show_path(record), class: "btn btn-secondary" %>
-            <%= link_to t("madmin.actions.edit"), resource.edit_path(record), class: "btn btn-secondary" unless resource.readonly? %>
-
-            <% resource.collection_member_actions.each do |action| %>
-              <%= instance_exec(record, &action) %>
-            <% end %>
-          </td>
+          <th></th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+
+      <tbody>
+        <% @records.each do |record| %>
+          <tr>
+            <% if resource.bulk_destroy? %>
+              <td class="select"><%= check_box_tag "ids[]", record.id, false, id: nil, form: "bulk_destroy", data: { bulk_destroy_target: "checkbox", action: "change->bulk-destroy#update" } %></td>
+            <% end %>
+            <% resource.attributes.values.each do |attribute| %>
+              <% next if attribute.field.nil? %>
+              <% next unless attribute.field.visible?(action_name) %>
+              <td><%= render partial: attribute.field.to_partial_path("index"), locals: { field: attribute.field, record: record, resource: resource } %></td>
+            <% end %>
+
+            <td class="actions">
+              <%= link_to t("madmin.actions.view"), resource.show_path(record), class: "btn btn-secondary" %>
+              <%= link_to t("madmin.actions.edit"), resource.edit_path(record), class: "btn btn-secondary" unless resource.readonly? %>
+
+              <% resource.collection_member_actions.each do |action| %>
+                <%= instance_exec(record, &action) %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <%= render "pagination", page: @page %>

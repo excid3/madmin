@@ -1,8 +1,7 @@
 ### Unreleased
 
+* Add bulk delete to index pages. Check records and click "Delete selected" to destroy them one by one, limited to the records the index shows. The resource generator adds the `bulk_destroy` route; resources generated before need `collection { delete :bulk_destroy }` added to their routes to get it. Copied index views need to be copied again. Adds the `madmin.actions.delete_selected`, `madmin.confirmations.delete_selected`, `madmin.flash.bulk_destroyed` and `madmin.flash.bulk_destroy_failed` translations
 * Add `Resource.delete_confirmation(record)` to customize the delete confirmation per resource. The default looks up `madmin.resources.<model>.confirmations.delete` (e.g. `madmin.resources.rsvp.confirmations.delete`) before `madmin.confirmations.delete`, with the same `resource` and `name` values. Override the method for wording that needs the record, like "Delete the RSVP for Jane Smith?", or return nil to skip the confirmation #392
-* Add bulk delete to index pages. Check records and click "Delete selected" to destroy them one by one, limited to the records the index shows. The resource generator adds the `bulk_destroy` route; resources generated before need `collection { delete :bulk_destroy }` added to their routes to get it. Copied index views need to be copied again
-* Show a notice after deleting records. Adds the `madmin.flash.destroyed`, `madmin.flash.bulk_destroyed`, `madmin.flash.bulk_destroy_failed`, `madmin.actions.delete_selected` and `madmin.confirmations.delete_selected` translations
 
 ### 3.3.0
 

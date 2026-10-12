@@ -325,7 +325,7 @@ end
 
 Leave the route out to turn bulk delete off for a resource. It's also hidden for read-only resources. To change what it does, override `bulk_destroy` in the resource's controller.
 
-If you copied the index view with `rails g madmin:views:index`, copy it again to get the checkboxes. The confirmation is the `madmin.confirmations.delete_selected` translation, which needs `one` and `other` forms with `%{count}`.
+If you copied the index view with `rails g madmin:views:index`, copy it again to get the checkboxes.
 
 ## Extending Madmin
 

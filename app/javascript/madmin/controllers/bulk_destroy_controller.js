@@ -1,17 +1,15 @@
 import { Controller } from "@hotwired/stimulus"
 
+// Shows the "Delete selected" button while any record is checked
 export default class extends Controller {
-  static values = { confirm: Object }
+  static targets = [ "form", "checkbox" ]
 
-  connect() {
+  toggleAll(event) {
+    this.checkboxTargets.forEach((checkbox) => checkbox.checked = event.target.checked)
     this.update()
   }
 
   update() {
-    const count = Array.from(this.element.elements).filter((element) => element.name === "ids[]" && element.checked).length
-    const message = count === 1 ? this.confirmValue.one : this.confirmValue.other
-
-    this.element.hidden = count === 0
-    this.element.dataset.turboConfirm = message.replace("%{count}", count)
+    this.formTarget.hidden = !this.checkboxTargets.some((checkbox) => checkbox.checked)
   }
 }

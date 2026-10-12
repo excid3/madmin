@@ -4,7 +4,7 @@ class BulkDestroyTest < ActionDispatch::IntegrationTest
   test "index shows the delete selected button and a checkbox for each record" do
     get madmin_posts_path
 
-    assert_select "form#bulk_destroy[action=?]", bulk_destroy_madmin_posts_path
+    assert_select "form#bulk_destroy[action=?][data-turbo-confirm='Are you sure?']", bulk_destroy_madmin_posts_path
     assert_select "input[type=checkbox][name='ids[]'][form=bulk_destroy]", count: Post.count
     assert_select "input[name='ids[]'][value=?]", posts(:one).id.to_s
   end
@@ -17,14 +17,6 @@ class BulkDestroyTest < ActionDispatch::IntegrationTest
       assert_select "input[type=hidden][name=q][value=My]"
       assert_select "input[type=hidden][name='filters[][column]'][value=title]"
     end
-  end
-
-  test "index passes the delete selected confirmation with a count" do
-    get madmin_posts_path
-
-    form = css_select("form#bulk_destroy").first
-    confirm = JSON.parse(form["data-bulk-destroy-confirm-value"])
-    assert_equal "Are you sure you want to delete %{count} records?", confirm["other"]
   end
 
   test "index hides the delete selected button without the bulk destroy route" do

@@ -47,16 +47,15 @@ module Madmin
     end
 
     def destroy
-      if @record.destroy
-        redirect_to resource.index_path, notice: t("madmin.flash.destroyed", name: resource.friendly_name), status: :see_other
+      if destroy_record(@record)
+        redirect_to resource.index_path, status: :see_other
       else
         destroy_failed destroy_errors
       end
-    rescue ActiveRecord::DeleteRestrictionError, ActiveRecord::InvalidForeignKey
-      destroy_failed t("madmin.flash.destroy_restricted", name: resource.friendly_name)
     end
 
     def bulk_destroy
+      # Loaded up front so the count doesn't query the rows that were just deleted
       records = scoped_resources.where(id: params[:ids]).to_a
       failed = records.reject { |record| destroy_record(record) }
       if failed.empty?
@@ -72,9 +71,11 @@ module Madmin
       redirect_back_or_to resource.index_path, alert: message, status: :see_other
     end
 
+    # Returns false when other records depend on it, with the reason in the record's errors
     def destroy_record(record)
       record.destroy
     rescue ActiveRecord::DeleteRestrictionError, ActiveRecord::InvalidForeignKey
+      record.errors.add(:base, t("madmin.flash.destroy_restricted", name: resource.friendly_name))
       false
     end
 
