@@ -36,3 +36,8 @@ en:
       models:
         post:
           destroy_published: "Published posts can't be deleted. Unpublish it first."
+  madmin:
+    resources:
+      habtm:
+        confirmations:
+          delete: "Delete the habtm %{name}?"
