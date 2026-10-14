@@ -126,6 +126,10 @@ module Madmin
         route_path([:madmin, route_namespace, becomes(record)], action: :edit)
       end
 
+      def bulk_destroy_path(options = {})
+        route_path([:madmin, route_namespace, model], options.merge(action: :bulk_destroy))
+      end
+
       # Whether a route is drawn for the given action on this resource's controller
       # For example: PostResource.route?(:destroy)
       def route?(action)
@@ -165,6 +169,11 @@ module Madmin
 
       def readonly?
         false
+      end
+
+      # Bulk delete needs its route drawn: `resources :posts do collection { delete :bulk_destroy } end`
+      def bulk_destroy?
+        route?(:bulk_destroy) && !readonly?
       end
 
       def sortable_columns

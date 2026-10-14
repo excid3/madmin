@@ -9,7 +9,9 @@ namespace :madmin do
   resources :numericals
   resources :habtms
   resources :teams
-  resources :users
+  resources :users do
+    collection { delete :bulk_destroy }
+  end
   resources :comments
   resources :posts do
     member do
@@ -17,6 +19,7 @@ namespace :madmin do
       patch :publish
       patch :archive
     end
+    collection { delete :bulk_destroy }
   end
   namespace :action_text do
     resources :rich_texts

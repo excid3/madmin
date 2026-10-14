@@ -11,6 +11,7 @@ class ReadonlyResourceTest < ActionDispatch::IntegrationTest
       assert_response :success
       assert_select "a[href=?]", new_madmin_post_path, count: 0
       assert_select "a[href=?]", edit_madmin_post_path(posts(:one)), count: 0
+      assert_select "form#bulk_destroy", count: 0
     end
   end
 
@@ -49,6 +50,16 @@ class ReadonlyResourceTest < ActionDispatch::IntegrationTest
         delete madmin_post_path(posts(:one))
       end
       assert_redirected_to madmin_posts_path
+    end
+  end
+
+  test "bulk destroy redirects for readonly resources" do
+    with_readonly(PostResource) do
+      assert_no_difference "Post.count" do
+        delete bulk_destroy_madmin_posts_path, params: {ids: [posts(:one).id]}
+      end
+      assert_redirected_to madmin_posts_path
+      assert_equal "Post is read-only", flash[:alert]
     end
   end
 
