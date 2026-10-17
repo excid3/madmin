@@ -92,9 +92,10 @@ module Madmin
 
     private
 
-    # A proc other Ractors can call. The block is instance_eval'd, so its self
-    # is replaced either way. A block capturing a local variable can't be
-    # shared and is kept as it is, which Madmin.ractorize! then reports
+    # A proc other Ractors can call, on Ruby 4.0. The block is instance_eval'd,
+    # so its self is replaced either way. A block capturing something
+    # unshareable, or any block on an earlier Ruby, is kept as it is, which
+    # Madmin.ractorize! then reports
     def shareable(block)
       return block unless Ractor.respond_to?(:shareable_proc)
 

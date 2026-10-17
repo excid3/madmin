@@ -29,13 +29,11 @@ class MenuTest < ActiveSupport::TestCase
   test "rendering changes nothing, so a frozen menu renders" do
     menu = Madmin::Menu.new
     menu.add label: "Dashboard", url: "/madmin"
-    menu.before_render { add label: "Reports", url: "/madmin/reports" }
     Ractor.make_shareable(menu)
 
     labels = []
     menu.render { |item| labels << item.label }
     assert_includes labels, "Dashboard"
-    assert_includes labels, "Reports"
     assert_includes labels, "Users"
   end
 

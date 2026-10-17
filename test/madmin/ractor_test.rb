@@ -9,7 +9,6 @@ class RactorTest < ActiveSupport::TestCase
 
   setup do
     Madmin.menu.add label: "Dashboard", url: "/madmin"
-    Madmin.menu.before_render { add label: "Reports", url: "/madmin/reports", position: 1 }
   end
 
   test "ractorize! makes the settings, menu and resources shareable" do
@@ -29,12 +28,23 @@ class RactorTest < ActiveSupport::TestCase
 
     labels = []
     Madmin.menu.render { |item| labels << item.label }
-    assert_equal "Reports", labels.first
     assert_includes labels, "Dashboard"
     assert_includes labels, "Users"
   end
 
-  test "ractorize! reports a before_render block that captures something unshareable" do
+  test "before_render blocks are shared too" do
+    skip "Needs Ractor.shareable_proc" unless Ractor.respond_to?(:shareable_proc)
+    Madmin.menu.before_render { add label: "Reports", url: "/madmin/reports", position: 1 }
+    Madmin.ractorize!
+
+    labels = []
+    Madmin.menu.render { |item| labels << item.label }
+    assert_equal "Reports", labels.first
+  end
+
+  # Before Ruby 4.0 no block written outside a class body can be shared, since
+  # its self can't be. From 4.0 the catch is capturing something unshareable
+  test "ractorize! reports a before_render block that can't be shared" do
     url = +"/madmin/reports" # a mutable String, which can't be shared
     Madmin.menu.before_render { add label: "Reports", url: url }
 

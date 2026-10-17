@@ -349,7 +349,7 @@ Rails.application.ractorize!
 Madmin.ractorize!
 ```
 
-This freezes the settings, the menu and every resource's attributes and actions. Member and collection action blocks and the menu's `before_render` block are shared as well, which works as long as they don't capture something unshareable like a mutable local variable, and raises `Ractor::IsolationError` for one that does. `Madmin.importmap` is left to importmap-rails, as `Rails.application.importmap` is.
+This freezes the settings, the menu and every resource's attributes and actions. Member and collection action blocks are shared as well, as is the menu's `before_render` block on Ruby 4.0, which works as long as they don't capture something unshareable like a mutable local variable, and raises `Ractor::IsolationError` for one that does. Earlier Rubies can't share a `before_render` block at all, since `Ractor.shareable_proc` is what detaches it from the initializer it was written in. `Madmin.importmap` is left to importmap-rails, as `Rails.application.importmap` is.
 
 ## Authentication
 
