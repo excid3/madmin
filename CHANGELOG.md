@@ -1,5 +1,6 @@
 ### Unreleased
 
+* Prepare Madmin for Ractors, which Rails is working toward. Settings live in instance variables of the `Madmin` module instead of class variables, the memoized resource lists are frozen, and the menu builds its items on every render instead of caching them, so rendering no longer changes state shared between requests. `Madmin.menu.reset` is gone with the cache. `Madmin.ractorize!` makes the settings, menu and resources Ractor-shareable for apps that call `Rails.application.ractorize!`, see the README. Every Ruby file in the gem has `frozen_string_literal: true`
 * Add `Resource.delete_confirmation(record)` to customize the delete confirmation per resource. The default looks up `madmin.resources.<model>.confirmations.delete` (e.g. `madmin.resources.rsvp.confirmations.delete`) before `madmin.confirmations.delete`, with the same `resource` and `name` values. Override the method for wording that needs the record, like "Delete the RSVP for Jane Smith?", or return nil to skip the confirmation #392
 
 ### 3.3.0

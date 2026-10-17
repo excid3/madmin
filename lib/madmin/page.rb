@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Madmin
   # Holds the numbers for a single page of results. Knows nothing about the database.
   #

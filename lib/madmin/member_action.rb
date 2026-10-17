@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Madmin
   # Wraps a member action block along with its options so views can decide
   # where to render it. Responds to `to_proc` and `call` so it can be used

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Madmin
   module FiltersHelper
     FILTER_INPUT_TYPES = {string: "text", number: "number", date: "date", datetime: "datetime-local", boolean: "text", array: "text"}.freeze

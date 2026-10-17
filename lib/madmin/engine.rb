@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Madmin
   class Engine < ::Rails::Engine
     isolate_namespace Madmin

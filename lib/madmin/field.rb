@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Madmin
   class Field
     attr_reader :attribute_name, :model, :options, :resource

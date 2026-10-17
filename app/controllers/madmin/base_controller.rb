@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Madmin
   class BaseController < ActionController::Base
     include ::ActiveStorage::SetCurrent if defined?(::ActiveStorage)

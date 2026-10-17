@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "madmin/engine"
 require "importmap-rails"
 require "stimulus-rails"
@@ -43,12 +45,17 @@ module Madmin
     autoload :Time, "madmin/fields/time"
   end
 
-  mattr_accessor :importmap, default: Importmap::Map.new
-  mattr_accessor :menu, default: Menu.new
-  mattr_accessor :per_page, default: 20
-  mattr_accessor :site_name
-  mattr_accessor :stylesheets, default: []
-  mattr_accessor :resource_locations, default: []
+  # Settings live in instance variables of the module rather than class
+  # variables, which Ractors other than the main one can't read at all
+  class << self
+    attr_accessor :importmap, :menu, :per_page, :site_name, :stylesheets, :resource_locations
+  end
+
+  self.importmap = Importmap::Map.new
+  self.menu = Menu.new
+  self.per_page = 20
+  self.stylesheets = []
+  self.resource_locations = []
 
   class MissingResource < StandardError
   end
@@ -102,7 +109,7 @@ module Madmin
     end
 
     def resources_by_model
-      @resources_by_model ||= resources.group_by(&:model)
+      @resources_by_model ||= resources.group_by(&:model).each_value(&:freeze).freeze
     end
 
     def resource_name_for(object)
@@ -137,14 +144,30 @@ module Madmin
       MESSAGE
     end
 
+    # Frozen, like resources_by_model, so the memo is readable from any Ractor
     def resources
-      @resources ||= resource_names.map(&:constantize)
+      @resources ||= resource_names.map(&:constantize).freeze
     end
 
     def reset_resources!
       @resources = nil
       @resources_by_model = nil
-      menu.reset
+    end
+
+    # Makes Madmin's settings, menu and resources Ractor-shareable, for apps
+    # that serve requests from Ractors. Call it after Rails.application.ractorize!.
+    # Resource attributes, member and collection actions and the menu's
+    # `before_render` block are frozen and shared too. A block that captures a
+    # local variable can't be shared, and raises Ractor::IsolationError here
+    # rather than during a request.
+    #
+    # Madmin.importmap is left alone: Importmap::Map caches per request, so
+    # it is importmap-rails' to share, as with Rails.application.importmap.
+    def ractorize!
+      resources.each(&:ractorize!)
+      resources_by_model
+      Ractor.make_shareable([site_name, stylesheets, resource_locations, menu])
+      self
     end
 
     def resource_names

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Madmin::NavHelper
   def nav_link_to(name = nil, options = {}, html_options = {}, &block)
     if block
