@@ -7,6 +7,11 @@ require "test_helper"
 class RactorTest < ActiveSupport::TestCase
   include ActiveSupport::Testing::Isolation
 
+  # Nothing here needs records. Loading the fixtures in the forked process
+  # trips PostgreSQL's foreign keys when this class happens to run first
+  self.fixture_table_names = []
+  self.use_transactional_tests = false
+
   setup do
     Madmin.menu.add label: "Dashboard", url: "/madmin"
   end
