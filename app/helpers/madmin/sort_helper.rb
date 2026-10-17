@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Madmin
   module SortHelper
     def sortable(column, title, options = {})

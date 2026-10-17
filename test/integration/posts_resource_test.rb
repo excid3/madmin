@@ -61,7 +61,6 @@ class PostsResourceTest < ActionDispatch::IntegrationTest
   ensure
     I18n.enforce_available_locales = enforce
     I18n.reload!
-    Madmin.menu.reset
   end
 
   test "association selects search the associated resource and fixed options use native selects" do

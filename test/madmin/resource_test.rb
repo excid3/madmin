@@ -95,8 +95,6 @@ class ResourceTest < ActiveSupport::TestCase
       assert_includes labels, "Posts"
       assert_not_includes labels, "文章"
     end
-  ensure
-    Madmin.menu.reset
   end
 
   test "custom menu label is kept" do
@@ -105,7 +103,6 @@ class ResourceTest < ActiveSupport::TestCase
     assert_includes menu_labels, "Custom label"
   ensure
     UserResource.menu nil
-    Madmin.menu.reset
   end
 
   test "collection_actions defaults to empty array" do

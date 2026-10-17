@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Madmin
   module GeneratorHelpers
     ROUTES_FILE = {default: "config/routes.rb", separated: "config/routes/madmin.rb"}.freeze

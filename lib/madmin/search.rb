@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # based on Administrate Search: https://github.com/thoughtbot/administrate/blob/main/lib/administrate/search.rb
 
 module Madmin

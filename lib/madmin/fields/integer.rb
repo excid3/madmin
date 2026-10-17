@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Madmin
   module Fields
     class Integer < Field

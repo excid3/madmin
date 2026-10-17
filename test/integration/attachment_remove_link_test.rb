@@ -56,7 +56,6 @@ class AttachmentRemoveLinkTest < ActionDispatch::IntegrationTest
   # Storage's own routes are kept since the views link to the files.
   def without_attachment_routes
     ActiveStorage::AttachmentResource.menu false
-    Madmin.menu.reset
     routes = Rails.root.join("config/routes/madmin.rb").read.sub(/^  namespace :active_storage do\n    resources :attachments\n  end\n/, "")
     app_routes = Rails.application.routes
     app_routes.disable_clear_and_finalize = true

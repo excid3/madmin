@@ -340,6 +340,17 @@ end
 
 Hooks registered after a class has already loaded run immediately, so ordering in your initializers doesn't matter. The controllers live in the engine's `app/` directory and are reloadable, which means their hooks re-run on every reload in development — keep the blocks idempotent.
 
+## Ractors
+
+Rails is working toward serving requests from Ractors, and Madmin keeps up: its settings are readable from any Ractor, nothing memoized is written during a request, and rendering the menu changes nothing shared. Once Rails' experimental `Rails.application.ractorize!` has run, make Madmin's state shareable too:
+
+```ruby
+Rails.application.ractorize!
+Madmin.ractorize!
+```
+
+This freezes the settings, the menu and every resource's attributes and actions. Member and collection action blocks and the menu's `before_render` block are shared as well, which works as long as they don't capture something unshareable like a mutable local variable, and raises `Ractor::IsolationError` for one that does. `Madmin.importmap` is left to importmap-rails, as `Rails.application.importmap` is.
+
 ## Authentication
 
 You can use a couple of strategies to authenticate users who are trying to

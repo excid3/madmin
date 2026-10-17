@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 module Madmin
   # One condition from the index filters, like `created_at gte 2026-08-15T09:00`
   class Filter
     OPERATORS = {
-      string: %w[contains eq starts_with blank present],
-      number: %w[eq gt gte lt lte blank],
-      date: %w[eq gte lte blank],
-      datetime: %w[gte lte blank],
-      boolean: %w[true false],
-      array: %w[includes]
+      string: %w[contains eq starts_with blank present].freeze,
+      number: %w[eq gt gte lt lte blank].freeze,
+      date: %w[eq gte lte blank].freeze,
+      datetime: %w[gte lte blank].freeze,
+      boolean: %w[true false].freeze,
+      array: %w[includes].freeze
     }.freeze
 
     WITHOUT_VALUE = %w[blank present true false].freeze

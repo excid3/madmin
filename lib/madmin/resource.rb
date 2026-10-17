@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Madmin
   class Resource
     Attribute = Data.define(:name, :type, :field)
@@ -306,8 +308,10 @@ module Madmin
         end
       end
 
+      # Not memoized: Rails already memoizes it, and a Ractor other than the
+      # main one can't write instance variables of a class
       def url_helpers
-        @url_helpers ||= Rails.application.routes.url_helpers
+        Rails.application.routes.url_helpers
       end
 
       # Raises MissingRoute with instructions instead of a NoMethodError for
@@ -346,6 +350,16 @@ module Madmin
         @menu_options ||= {}
         # The default label follows the locale, so the menu tracks the item by resource instead
         @menu_options.with_defaults(key: @menu_options[:label] || name, label: friendly_plural_name, url: index_path)
+      end
+
+      # Settles what the class memoizes and freezes the attributes and actions
+      # so the resource can be used from any Ractor. See Madmin.ractorize!
+      def ractorize!
+        model
+        route_namespace
+        menu_options
+        Ractor.make_shareable([attributes, scopes, member_actions, collection_actions, @menu_options])
+        self
       end
 
       private
