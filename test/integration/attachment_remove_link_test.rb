@@ -37,6 +37,17 @@ class AttachmentRemoveLinkTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test "show omits the remove link when either resource is readonly" do
+    [UserResource, ActiveStorage::AttachmentResource].each do |resource|
+      with_readonly(resource) do
+        get madmin_user_path(@user)
+        assert_response :success
+        assert_select "a", text: "avatar.txt"
+        assert_select "a[data-turbo-method=delete]", count: 0
+      end
+    end
+  end
+
   test "route? is true for drawn actions only" do
     assert PostResource.route?(:destroy)
     assert PostResource.route?(:publish)
@@ -72,6 +83,13 @@ class AttachmentRemoveLinkTest < ActionDispatch::IntegrationTest
     Rails.application.routes.disable_clear_and_finalize = false
     Rails.application.reload_routes!
     Madmin.reset_resources!
+  end
+
+  def with_readonly(resource_class)
+    resource_class.singleton_class.define_method(:readonly?) { true }
+    yield
+  ensure
+    resource_class.singleton_class.remove_method(:readonly?)
   end
 
   def without_attachment_resource
