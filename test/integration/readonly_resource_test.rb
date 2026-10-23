@@ -51,13 +51,4 @@ class ReadonlyResourceTest < ActionDispatch::IntegrationTest
       assert_redirected_to madmin_posts_path
     end
   end
-
-  private
-
-  def with_readonly(resource_class)
-    resource_class.singleton_class.define_method(:readonly?) { true }
-    yield
-  ensure
-    resource_class.singleton_class.remove_method(:readonly?)
-  end
 end
