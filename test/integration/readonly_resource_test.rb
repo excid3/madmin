@@ -23,6 +23,14 @@ class ReadonlyResourceTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test "write actions redirect back to the referring page for readonly resources" do
+    with_readonly(PostResource) do
+      delete madmin_post_path(posts(:one)), headers: {"HTTP_REFERER" => madmin_post_url(posts(:one))}
+      assert_redirected_to madmin_post_path(posts(:one))
+      assert_equal "Post is read-only", flash[:alert]
+    end
+  end
+
   test "new and create redirect for readonly resources" do
     with_readonly(PostResource) do
       get new_madmin_post_path

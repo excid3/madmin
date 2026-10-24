@@ -148,7 +148,7 @@ module Madmin
 
     def enforce_readonly
       if (readonly_resource = [resource, attached_record_resource].compact.find(&:readonly?))
-        redirect_to resource.index_path, alert: t("madmin.flash.readonly", name: readonly_resource.friendly_name)
+        redirect_back_or_to resource.index_path, alert: t("madmin.flash.readonly", name: readonly_resource.friendly_name)
       end
     end
 
@@ -157,7 +157,7 @@ module Madmin
     # attachments controller because that controller is generated into the
     # host app as an empty subclass.
     def attached_record_resource
-      return unless @record.is_a?(::ActiveStorage::Attachment)
+      return unless defined?(::ActiveStorage::Attachment) && @record.is_a?(::ActiveStorage::Attachment)
 
       Madmin.resource_for(@record.record)
     rescue MissingResource

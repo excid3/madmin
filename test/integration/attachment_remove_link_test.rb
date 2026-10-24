@@ -61,8 +61,8 @@ class AttachmentRemoveLinkTest < ActionDispatch::IntegrationTest
 
   test "destroy keeps the attachment when the record's resource is readonly" do
     with_readonly(UserResource) do
-      delete @remove_path
-      assert_redirected_to madmin_active_storage_attachments_path
+      delete @remove_path, headers: {"HTTP_REFERER" => madmin_user_url(@user)}
+      assert_redirected_to madmin_user_path(@user)
       assert_equal "User is read-only", flash[:alert]
       assert @user.reload.avatar.attached?
     end

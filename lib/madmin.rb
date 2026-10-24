@@ -114,7 +114,7 @@ module Madmin
     end
 
     def resource_name_for(object)
-      if object.is_a? ::ActiveStorage::Attached
+      if defined?(::ActiveStorage::Attached) && object.is_a?(::ActiveStorage::Attached)
         "ActiveStorage::AttachmentResource"
       else
         "#{object.class.name}Resource"
