@@ -73,7 +73,7 @@ class AuditLogResource < Madmin::Resource
 end
 ```
 
-The new, edit, and delete links are hidden for read-only resources, and any write actions redirect back to the page they came from, or the index. An attachment belongs to its record, so writes to it are refused when either resource is read-only.
+The new, edit, and delete links are hidden for read-only resources, and any write actions redirect back to the referring page. An attachment belongs to its record, so writes to it are refused when either resource is read-only.
 
 ### Large Tables
 
