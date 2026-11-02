@@ -2,10 +2,11 @@
 
 module Madmin
   module SortHelper
-    # Links the column header to sort by it, or returns the plain title for
-    # attributes that aren't in the resource's sortable_columns
+    # sort_column ignores a sort outside sortable_columns, so a header for one
+    # of those gets a plain title rather than a link that would silently re-sort
+    # by the default column
     def sortable(column, title, options = {})
-      return title unless resource.sortable_columns.include?(column.to_s)
+      return title unless sortable_column?(column)
 
       matching_column = (column.to_s == sort_column)
       direction = (sort_direction == "asc") ? "desc" : "asc"
@@ -20,7 +21,7 @@ module Madmin
     end
 
     def sort_column
-      resource.sortable_columns.include?(params[:sort]) ? params[:sort] : default_sort_column
+      sortable_column?(params[:sort]) ? params[:sort] : default_sort_column
     end
 
     def sort_direction
@@ -49,6 +50,12 @@ module Madmin
           <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
         </svg>
       SVG
+    end
+
+    private
+
+    def sortable_column?(column)
+      resource.sortable_columns.include?(column.to_s)
     end
   end
 end
