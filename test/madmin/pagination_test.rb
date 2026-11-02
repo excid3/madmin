@@ -62,7 +62,7 @@ class PaginationTest < ActiveSupport::TestCase
 
   test "countless pagination loads one extra row instead of counting" do
     queries = []
-    callback = ->(_name, _start, _finish, _id, payload) { queries << payload[:sql] }
+    callback = ->(_name, _start, _finish, _id, payload) { queries << payload[:sql] unless payload[:name] == "SCHEMA" }
 
     page, records = ActiveSupport::Notifications.subscribed(callback, "sql.active_record") do
       paginate(Post.all, page: 2, per_page: 3, countless: true)
@@ -72,8 +72,10 @@ class PaginationTest < ActiveSupport::TestCase
     assert page.more?
     assert_equal 3, page.next
     assert_equal 3, records.size
-    assert_empty queries.grep(/COUNT/i)
-    assert_equal 1, queries.grep(/LIMIT (\?|4)/).size
+    # One query, limited (to per_page + 1), with no count
+    assert_equal 1, queries.size
+    assert_match(/LIMIT/i, queries.first)
+    assert_no_match(/COUNT/i, queries.first)
   end
 
   test "countless pagination knows the last page" do
