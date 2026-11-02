@@ -1,11 +1,11 @@
-<% if (attachment = field.value(record)) && attachment.attached? %>
-  <% if attachment.variable? %>
-    <%= image_tag main_app.url_for(attachment), class: "max-h-32" %>
+<% if (attached = field.value(record)) && attached.attached? %>
+  <% if attached.variable? %>
+    <%= image_tag main_app.url_for(attached), class: "max-h-32" %>
   <% else %>
-    <%= link_to attachment.filename, main_app.url_for(attachment), target: :_blank, class: "text-blue-500 underline" %>
+    <%= link_to attached.filename, main_app.url_for(attached), target: :_blank, class: "text-blue-500 underline" %>
   <% end %>
 
-  <% if (remove_path = field.remove_path(attachment)) %>
-    <%= link_to t("madmin.actions.remove"), remove_path, data: { turbo_method: :delete, turbo_confirm: t("madmin.confirmations.remove_with_changes", name: attachment.filename.to_s) } %>
+  <% if (remove_path = field.remove_path(attached)) %>
+    <%= link_to t("madmin.actions.remove"), remove_path, data: { turbo_method: :delete, turbo_confirm: t("madmin.confirmations.remove_with_changes", name: attached.filename.to_s) } %>
   <% end %>
 <% end %>

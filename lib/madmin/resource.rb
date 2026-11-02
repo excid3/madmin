@@ -169,8 +169,9 @@ module Madmin
         false
       end
 
-      # Whether a write to `record` through this resource is refused. An
-      # attachment belongs to its record, so that record's resource gets a say too
+      # Whether a write to `record` through this resource is refused. Attachments
+      # defer to the resource of the record they belong to, and that check lives
+      # here because ActiveStorage::AttachmentResource is generated into the host app
       def readonly_for?(record)
         readonly? || (record.is_a?(::ActiveStorage::Attachment) && Madmin.resource_for(record.record).readonly?)
       end
