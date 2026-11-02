@@ -1,6 +1,8 @@
 ### Unreleased
 
 * Let resources wrap models without a database table, like ActiveModel classes backed by an API. `attribute` infers types only from what the model responds to, and `Madmin::Search` passes through collections that can't be queried with SQL. Override `scoped_resources` and `paginate_collection` in the resource's controller to search and page the collection yourself #402
+* An attachment belongs to its record, so the Remove link is hidden and writes to the attachment refused when either resource is read-only #398
+* Refused writes to read-only resources redirect back to the referring page instead of always the index, with a 303 so browsers don't replay the write #398
 
 ### 3.4.0
 

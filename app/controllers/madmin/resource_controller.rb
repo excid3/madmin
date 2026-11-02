@@ -147,7 +147,9 @@ module Madmin
     helper_method :filters
 
     def enforce_readonly
-      redirect_to resource.index_path, alert: t("madmin.flash.readonly", name: resource.friendly_name) if resource.readonly?
+      if resource.readonly_for?(@record)
+        redirect_back_or_to resource.index_path, alert: t("madmin.flash.readonly", name: resource.friendly_name), status: :see_other
+      end
     end
 
     ActiveSupport.run_load_hooks(:madmin_resource_controller, self)

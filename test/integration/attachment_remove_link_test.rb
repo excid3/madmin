@@ -37,6 +37,38 @@ class AttachmentRemoveLinkTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test "show omits the remove link when the record's resource is readonly" do
+    with_readonly(UserResource) do
+      get madmin_user_path(@user)
+      assert_response :success
+      assert_select "a", text: "avatar.txt"
+      assert_select "a[data-turbo-method=delete]", count: 0
+    end
+  end
+
+  test "show and edit omit the remove link when the attachment resource is readonly" do
+    with_readonly(ActiveStorage::AttachmentResource) do
+      get madmin_user_path(@user)
+      assert_response :success
+      assert_select "a", text: "avatar.txt"
+      assert_select "a[data-turbo-method=delete]", count: 0
+
+      get edit_madmin_user_path(@user)
+      assert_response :success
+      assert_select "a[data-turbo-method=delete]", count: 0
+    end
+  end
+
+  test "destroy keeps the attachment when the record's resource is readonly" do
+    with_readonly(UserResource) do
+      delete @remove_path, headers: {"HTTP_REFERER" => madmin_user_url(@user)}
+      assert_redirected_to madmin_user_path(@user)
+      assert_response :see_other
+      assert_equal "Active Storage / Attachment is read-only", flash[:alert]
+      assert @user.reload.avatar.attached?
+    end
+  end
+
   test "route? is true for drawn actions only" do
     assert PostResource.route?(:destroy)
     assert PostResource.route?(:publish)

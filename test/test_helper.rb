@@ -23,3 +23,13 @@ elsif ActiveSupport::TestCase.respond_to?(:fixture_path=)
   ActiveSupport::TestCase.file_fixture_path = ActiveSupport::TestCase.fixture_path + "/files"
   ActiveSupport::TestCase.fixtures :all
 end
+
+class ActiveSupport::TestCase
+  # Marks a resource read-only for the duration of the block
+  def with_readonly(resource_class)
+    resource_class.singleton_class.define_method(:readonly?) { true }
+    yield
+  ensure
+    resource_class.singleton_class.remove_method(:readonly?)
+  end
+end
