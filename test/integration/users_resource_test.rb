@@ -6,6 +6,15 @@ class UsersResourceTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "links sorting only on sortable columns" do
+    get madmin_users_path
+    assert_select "th a[href*='sort=created_at']"
+
+    # Name is a method, not a column, so its header has nothing to sort by
+    assert_select "th", text: "Name"
+    assert_select "th a[href*='sort=name']", count: 0
+  end
+
   test "can see the users new" do
     get new_madmin_user_path
     assert_response :success
