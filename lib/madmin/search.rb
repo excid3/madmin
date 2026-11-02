@@ -26,7 +26,7 @@ module Madmin
     private
 
     def sql?
-      @scoped_resource.respond_to?(:table_name) && @scoped_resource.respond_to?(:where)
+      @scoped_resource.respond_to?(:table_name)
     end
 
     def search_results(resources)

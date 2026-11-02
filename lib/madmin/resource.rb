@@ -271,9 +271,7 @@ module Madmin
         }[type]
       end
 
-      # Infers the attribute's type from the model's attributes and associations.
-      # Models without them, like plain ActiveModel classes, are only asked what
-      # they respond to, so unknown attributes return nil and default to a String field
+      # Plain ActiveModel classes have no columns or associations to ask, so their unknown attributes default to a String field
       def infer_type(name)
         name_string = name.to_s
 
@@ -286,13 +284,13 @@ module Madmin
           else
             column_type.type || :string
           end
-        elsif (association = model_association(name))
+        elsif (association = model.try(:reflect_on_association, name))
           type_for_association(association)
-        elsif model_association(:"rich_text_#{name_string}")
+        elsif model.try(:reflect_on_association, :"rich_text_#{name_string}")
           :rich_text
-        elsif model_association(:"#{name_string}_attachment")
+        elsif model.try(:reflect_on_association, :"#{name_string}_attachment")
           :attachment
-        elsif model_association(:"#{name_string}_attachments")
+        elsif model.try(:reflect_on_association, :"#{name_string}_attachments")
           :attachments
 
         # has_secure_password
@@ -303,18 +301,6 @@ module Madmin
         elsif model_store_accessors.include?(name)
           :string
         end
-      end
-
-      def model_attribute_types
-        model.respond_to?(:attribute_types) ? model.attribute_types : {}
-      end
-
-      def model_column(name)
-        model.columns_hash[name] if model.respond_to?(:columns_hash)
-      end
-
-      def model_association(name)
-        model.reflect_on_association(name) if model.respond_to?(:reflect_on_association)
       end
 
       def type_for_association(association)
@@ -384,6 +370,14 @@ module Madmin
       end
 
       private
+
+      def model_attribute_types
+        model.respond_to?(:attribute_types) ? model.attribute_types : {}
+      end
+
+      def model_column(name)
+        model.columns_hash[name] if model.respond_to?(:columns_hash)
+      end
 
       def translated_name(count: 1)
         model.model_name.human(count: count, default: "").presence

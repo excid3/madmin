@@ -85,7 +85,7 @@ module Madmin
       resources = resource.model.send(valid_scope)
       resources = Madmin::Search.new(resources, resource, search_term, filters).run
 
-      return resources if sort_column.blank? || !resources.respond_to?(:reorder)
+      return resources if sort_column.blank?
 
       resources.reorder(sort_column => sort_direction)
     end

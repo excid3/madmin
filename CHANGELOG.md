@@ -1,6 +1,6 @@
 ### Unreleased
 
-* Let resources wrap models without a database table, like ActiveModel classes backed by an API. `attribute` infers types only from what the model responds to, `Madmin::Search` passes through collections that can't be queried with SQL, and sorting is skipped for collections without `reorder`. Override `scoped_resources` and `paginate_collection` in the resource's controller to search and page the collection yourself #402
+* Let resources wrap models without a database table, like ActiveModel classes backed by an API. `attribute` infers types only from what the model responds to, and `Madmin::Search` passes through collections that can't be queried with SQL. Override `scoped_resources` and `paginate_collection` in the resource's controller to search and page the collection yourself #402
 
 ### 3.4.0
 
