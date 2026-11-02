@@ -25,11 +25,15 @@ elsif ActiveSupport::TestCase.respond_to?(:fixture_path=)
 end
 
 class ActiveSupport::TestCase
-  # Marks a resource read-only for the duration of the block
+  # Marks a resource read-only for the duration of the block, restoring any
+  # `readonly?` the resource defined itself
   def with_readonly(resource_class)
-    resource_class.singleton_class.define_method(:readonly?) { true }
+    singleton = resource_class.singleton_class
+    original = singleton.instance_method(:readonly?) if singleton.method_defined?(:readonly?, false)
+    singleton.define_method(:readonly?) { true }
     yield
   ensure
-    resource_class.singleton_class.remove_method(:readonly?)
+    singleton.remove_method(:readonly?)
+    singleton.define_method(:readonly?, original) if original
   end
 end

@@ -148,15 +148,16 @@ module Madmin
 
     def enforce_readonly
       if (readonly_resource = [resource, attached_record_resource].compact.find(&:readonly?))
-        redirect_back_or_to resource.index_path, alert: t("madmin.flash.readonly", name: readonly_resource.friendly_name)
+        redirect_back_or_to resource.index_path, alert: t("madmin.flash.readonly", name: readonly_resource.friendly_name), status: :see_other
       end
     end
 
     # Removing an attachment is a write to the record it belongs to, so that
-    # record's resource gets a say. This lives here rather than in the
-    # attachments controller because that controller is generated into the
-    # host app as an empty subclass.
+    # record's resource gets a say in the destroy. This lives here rather than
+    # in the attachments controller because that controller is generated into
+    # the host app as an empty subclass.
     def attached_record_resource
+      return unless action_name == "destroy"
       return unless defined?(::ActiveStorage::Attachment) && @record.is_a?(::ActiveStorage::Attachment)
 
       Madmin.resource_for(@record.record)

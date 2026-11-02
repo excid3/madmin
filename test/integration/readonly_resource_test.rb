@@ -27,6 +27,7 @@ class ReadonlyResourceTest < ActionDispatch::IntegrationTest
     with_readonly(PostResource) do
       delete madmin_post_path(posts(:one)), headers: {"HTTP_REFERER" => madmin_post_url(posts(:one))}
       assert_redirected_to madmin_post_path(posts(:one))
+      assert_response :see_other
       assert_equal "Post is read-only", flash[:alert]
     end
   end
