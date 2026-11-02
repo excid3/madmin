@@ -75,6 +75,20 @@ end
 
 The new, edit, and delete links are hidden for read-only resources, and any write actions redirect back to the index.
 
+### Large Tables
+
+Index pages count the records to show page numbers and a total. On tables with tens of millions of rows that count alone can take long enough that the page never loads. Override `countless?` to skip it:
+
+```ruby
+class SubmissionEventResource < Madmin::Resource
+  def self.countless?
+    true
+  end
+end
+```
+
+The index and has many listings for that resource then show Previous and Next links without page numbers or a total. Madmin loads one record more than the page size to tell whether there is a next page. Pairing this with `sortable_columns` limited to indexed columns keeps sorting cheap too.
+
 ### Scopes
 
 Declare scopes on a resource to render filter buttons on the index page. Each scope must be a scope or class method on the model:

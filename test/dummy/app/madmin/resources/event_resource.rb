@@ -7,6 +7,9 @@ class EventResource < Madmin::Resource
 
   # Associations
 
+  # Paginate with Previous and Next links instead of counting the table
+  def self.countless? = true
+
   # Add scopes to easily filter records
   # scope :published
 

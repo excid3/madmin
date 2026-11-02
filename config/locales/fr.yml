@@ -47,6 +47,7 @@ fr:
       previous: Précédent
       next: Suivant
       info: "Affichage de %{from} à %{to} sur %{count}"
+      range: "Affichage de %{from} à %{to}"
       empty: Aucun enregistrement trouvé
       per_page: Par page
     filters:

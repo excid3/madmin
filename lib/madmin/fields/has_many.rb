@@ -42,7 +42,7 @@ module Madmin
         page_key = "#{attribute_name}_page"
         per_page = Madmin::Page.per_page_for(params["#{attribute_name}_per_page"])
 
-        paginate value(record), page: params[page_key], per_page: per_page, param: page_key
+        paginate value(record), page: params[page_key], per_page: per_page, param: page_key, countless: associated_resource&.countless?
       end
     end
   end

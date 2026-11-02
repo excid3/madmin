@@ -54,6 +54,33 @@ class PaginationIntegrationTest < ActionDispatch::IntegrationTest
     assert_select ".per-page", 0
   end
 
+  test "countless resources page with previous and next links only" do
+    Event.insert_all!(45.times.map { {type: "CommentEvent", created_at: Time.current, updated_at: Time.current} })
+
+    get madmin_events_path
+    assert_response :success
+    assert_select "tbody tr", 20
+    assert_select ".pagination .pages a[href*='page=2']"
+    assert_select ".pagination .pages a[aria-current=page]", 0
+    assert_select ".pagination-info", text: /\A\s*Displaying 1-20\s*\z/
+    assert_select ".per-page a[href*='per_page=50']"
+
+    get madmin_events_path(page: 3)
+    assert_select "tbody tr", 5
+    assert_select ".pagination .pages a[href*='page=2']"
+    assert_select ".pagination .pages a[href*='page=4']", 0
+    assert_select ".pagination-info", text: /41-45/
+  end
+
+  test "countless resources hide page links when everything fits on one page" do
+    Event.insert_all!(3.times.map { {type: "CommentEvent", created_at: Time.current, updated_at: Time.current} })
+
+    get madmin_events_path
+    assert_select ".pagination .pages", 0
+    assert_select ".per-page", 0
+    assert_select ".pagination-info", text: /Displaying 1-3/
+  end
+
   test "json index is paginated" do
     get madmin_posts_path(format: :json)
     assert_equal Madmin.per_page, response.parsed_body.size

@@ -24,8 +24,10 @@
   <span class="pagination-info">
     <% if page.to.zero? %>
       <%= t("madmin.pagination.empty") %>
-    <% else %>
+    <% elsif page.count %>
       <%= t("madmin.pagination.info", from: page.from, to: page.to, count: page.count) %>
+    <% else %>
+      <%= t("madmin.pagination.range", from: page.from, to: page.to) %>
     <% end %>
   </span>
 

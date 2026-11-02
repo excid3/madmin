@@ -6,6 +6,7 @@ require "stimulus-rails"
 require "turbo-rails"
 
 module Madmin
+  autoload :CountlessPage, "madmin/countless_page"
   autoload :Field, "madmin/field"
   autoload :Filter, "madmin/filter"
   autoload :GeneratorHelpers, "madmin/generator_helpers"

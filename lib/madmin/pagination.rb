@@ -6,10 +6,22 @@ module Madmin
   module Pagination
     private
 
-    # Returns [Madmin::Page, records]
-    def paginate(collection, page: 1, per_page: Madmin.per_page, param: :page)
-      page = Madmin::Page.new(count: count_for(collection), page: page, per_page: per_page, param: param)
-      [page, with_tiebreaker(collection).offset(page.offset).limit(page.per_page)]
+    # Returns [Madmin::Page, records]. With countless, the relation isn't counted:
+    # one row more than the page is loaded to tell whether a next page exists
+    def paginate(collection, page: 1, per_page: Madmin.per_page, param: :page, countless: false)
+      if countless
+        paginate_without_count(collection, page: page, per_page: per_page, param: param)
+      else
+        page = Madmin::Page.new(count: count_for(collection), page: page, per_page: per_page, param: param)
+        [page, with_tiebreaker(collection).offset(page.offset).limit(page.per_page)]
+      end
+    end
+
+    def paginate_without_count(collection, page:, per_page:, param:)
+      page = Madmin::CountlessPage.new(page: page, per_page: per_page, param: param)
+      records = with_tiebreaker(collection).offset(page.offset).limit(page.per_page + 1).to_a
+      page.fetched = records.size
+      [page, records.first(page.per_page)]
     end
 
     def count_for(collection)

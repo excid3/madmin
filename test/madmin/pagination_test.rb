@@ -60,6 +60,36 @@ class PaginationTest < ActiveSupport::TestCase
     assert_equal 1, records.to_a.size
   end
 
+  test "countless pagination loads one extra row instead of counting" do
+    queries = []
+    callback = ->(_name, _start, _finish, _id, payload) { queries << payload[:sql] }
+
+    page, records = ActiveSupport::Notifications.subscribed(callback, "sql.active_record") do
+      paginate(Post.all, page: 2, per_page: 3, countless: true)
+    end
+
+    assert_nil page.count
+    assert page.more?
+    assert_equal 3, page.next
+    assert_equal 3, records.size
+    assert_empty queries.grep(/COUNT/i)
+    assert_equal 1, queries.grep(/LIMIT (\?|4)/).size
+  end
+
+  test "countless pagination knows the last page" do
+    page, records = paginate(Post.all, page: 3, per_page: 3, countless: true)
+
+    assert_equal 1, records.size
+    assert_nil page.next
+    assert_equal 2, page.prev
+  end
+
+  test "countless pagination keeps the tiebreaker" do
+    ids = (1..3).flat_map { |number| paginate(Post.reorder(title: :desc), page: number, per_page: 3, countless: true).last.map(&:id) }
+
+    assert_equal Post.order(id: :desc).ids, ids
+  end
+
   test "paginates distinct relations" do
     page, records = paginate(Post.select(:title).distinct, per_page: 3)
 
