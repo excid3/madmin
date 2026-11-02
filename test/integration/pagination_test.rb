@@ -62,6 +62,7 @@ class PaginationIntegrationTest < ActionDispatch::IntegrationTest
     assert_select "tbody tr", 20
     assert_select ".pagination .pages a[href*='page=2']"
     assert_select ".pagination .pages a[aria-current=page]", 0
+    # No total after the range
     assert_select ".pagination-info", text: /\A\s*Displaying 1-20\s*\z/
     assert_select ".per-page a[href*='per_page=50']"
 

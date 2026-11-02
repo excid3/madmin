@@ -43,7 +43,7 @@ module Madmin
     end
 
     # No page numbers without a total
-    def series(slots: SERIES_SLOTS)
+    def series(*)
       []
     end
   end
