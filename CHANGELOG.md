@@ -1,5 +1,7 @@
 ### Unreleased
 
+* Let resources wrap models without a database table, like ActiveModel classes backed by an API. `attribute` infers types only from what the model responds to, and `Madmin::Search` passes through collections that can't be queried with SQL. Override `scoped_resources` and `paginate_collection` in the resource's controller to search and page the collection yourself #402
+
 ### 3.4.0
 
 * Add `Resource.countless?` for tables too large to count. Index and has many pages for a countless resource skip the `COUNT(*)` and load one record past the page size to detect a next page, showing Previous and Next links without page numbers or a total. Adds the `madmin.pagination.range` translation #400

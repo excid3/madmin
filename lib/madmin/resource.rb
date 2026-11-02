@@ -271,29 +271,30 @@ module Madmin
         }[type]
       end
 
+      # Plain ActiveModel classes have no columns or associations to ask, so their unknown attributes default to a String field
       def infer_type(name)
         name_string = name.to_s
 
-        if model.attribute_types.include?(name_string)
-          column_type = model.attribute_types[name_string]
+        if model_attribute_types.include?(name_string)
+          column_type = model_attribute_types[name_string]
           if column_type.is_a? ::ActiveRecord::Enum::EnumType
             :enum
-          elsif model.columns_hash[name_string].try(:array?)
+          elsif model_column(name_string).try(:array?)
             :array
           else
             column_type.type || :string
           end
-        elsif (association = model.reflect_on_association(name))
+        elsif (association = model.try(:reflect_on_association, name))
           type_for_association(association)
-        elsif model.reflect_on_association(:"rich_text_#{name_string}")
+        elsif model.try(:reflect_on_association, :"rich_text_#{name_string}")
           :rich_text
-        elsif model.reflect_on_association(:"#{name_string}_attachment")
+        elsif model.try(:reflect_on_association, :"#{name_string}_attachment")
           :attachment
-        elsif model.reflect_on_association(:"#{name_string}_attachments")
+        elsif model.try(:reflect_on_association, :"#{name_string}_attachments")
           :attachments
 
         # has_secure_password
-        elsif model.attribute_types.include?("#{name_string}_digest") || name_string.ends_with?("_confirmation")
+        elsif model_attribute_types.include?("#{name_string}_digest") || name_string.ends_with?("_confirmation")
           :password
 
           # ActiveRecord Store
@@ -369,6 +370,14 @@ module Madmin
       end
 
       private
+
+      def model_attribute_types
+        model.try(:attribute_types) || {}
+      end
+
+      def model_column(name)
+        model.columns_hash[name] if model.respond_to?(:columns_hash)
+      end
 
       def translated_name(count: 1)
         model.model_name.human(count: count, default: "").presence

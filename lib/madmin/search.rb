@@ -13,7 +13,10 @@ module Madmin
       @filters = filters
     end
 
+    # Search and filters are SQL, so collections without a table pass through for `scoped_resources` to search
     def run
+      return @scoped_resource unless @scoped_resource.respond_to?(:table_name)
+
       results = query.blank? ? @scoped_resource.all : search_results(@scoped_resource)
       filters.reduce(results) { |scope, filter| filter.apply(scope) }
     end
