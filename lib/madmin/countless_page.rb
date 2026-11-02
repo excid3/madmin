@@ -7,21 +7,15 @@ module Madmin
   # without page numbers or a total.
   class CountlessPage < Page
     # Rows loaded for this page, up to per_page + 1
-    attr_accessor :fetched
+    attr_reader :fetched
 
     def initialize(page: 1, per_page: Madmin.per_page, param: :page, fetched: 0)
-      super(count: 0, page: page, per_page: per_page, param: param)
+      super(count: nil, page: page, per_page: per_page, param: param)
       @fetched = fetched
     end
 
-    # The total is unknown
     def count
       nil
-    end
-
-    # Rows shown on this page
-    def size
-      [fetched, per_page].min
     end
 
     def more?
@@ -32,21 +26,12 @@ module Madmin
       page > 1 || fetched > per_page_options.min
     end
 
-    # The furthest page known to exist
-    def last
-      more? ? page + 1 : page
-    end
-
-    def overflow?
-      page > 1 && fetched.zero?
-    end
-
     def from
       fetched.zero? ? 0 : offset + 1
     end
 
     def to
-      fetched.zero? ? 0 : offset + size
+      fetched.zero? ? 0 : offset + [fetched, per_page].min
     end
 
     def prev

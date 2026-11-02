@@ -6,22 +6,24 @@ module Madmin
   module Pagination
     private
 
-    # Returns [Madmin::Page, records]. With countless, the relation isn't counted:
-    # one row more than the page is loaded to tell whether a next page exists
+    # Returns [Madmin::Page, records]. With countless, the relation isn't counted
+    # and the records come back as an Array rather than a relation
     def paginate(collection, page: 1, per_page: Madmin.per_page, param: :page, countless: false)
       if countless
-        paginate_without_count(collection, page: page, per_page: per_page, param: param)
+        paginate_countless(collection, page: page, per_page: per_page, param: param)
       else
         page = Madmin::Page.new(count: count_for(collection), page: page, per_page: per_page, param: param)
         [page, with_tiebreaker(collection).offset(page.offset).limit(page.per_page)]
       end
     end
 
-    def paginate_without_count(collection, page:, per_page:, param:)
-      page = Madmin::CountlessPage.new(page: page, per_page: per_page, param: param)
-      records = with_tiebreaker(collection).offset(page.offset).limit(page.per_page + 1).to_a
-      page.fetched = records.size
-      [page, records.first(page.per_page)]
+    # Loads one row past the page to learn whether a next page exists, so the
+    # page object is built after the query
+    def paginate_countless(collection, page:, per_page:, param:)
+      page = [page.to_i, 1].max
+      records = with_tiebreaker(collection).offset((page - 1) * per_page).limit(per_page + 1).to_a
+
+      [Madmin::CountlessPage.new(page: page, per_page: per_page, param: param, fetched: records.size), records.first(per_page)]
     end
 
     def count_for(collection)

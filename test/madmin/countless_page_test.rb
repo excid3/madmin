@@ -10,13 +10,10 @@ class CountlessPageTest < ActiveSupport::TestCase
   test "a full fetch means there is a next page" do
     page = Madmin::CountlessPage.new(page: 2, per_page: 20, fetched: 21)
     assert page.more?
-    assert_equal 20, page.size
     assert_equal 21, page.from
     assert_equal 40, page.to
     assert_equal 1, page.prev
     assert_equal 3, page.next
-    assert_equal 3, page.last
-    refute page.overflow?
   end
 
   test "a short fetch is the last page" do
@@ -26,7 +23,6 @@ class CountlessPageTest < ActiveSupport::TestCase
     assert_equal 45, page.to
     assert_equal 2, page.prev
     assert_nil page.next
-    assert_equal 3, page.last
   end
 
   test "first and only page" do
@@ -35,7 +31,6 @@ class CountlessPageTest < ActiveSupport::TestCase
     assert_equal 5, page.to
     assert_nil page.prev
     assert_nil page.next
-    assert_equal 1, page.last
     refute page.resizable?
   end
 
@@ -43,12 +38,13 @@ class CountlessPageTest < ActiveSupport::TestCase
     page = Madmin::CountlessPage.new
     assert_equal 0, page.from
     assert_equal 0, page.to
-    refute page.overflow?
+    assert_nil page.prev
+    assert_nil page.next
   end
 
   test "pages past the end are empty and link back" do
     page = Madmin::CountlessPage.new(page: 10, per_page: 20, fetched: 0)
-    assert page.overflow?
+    assert_equal 0, page.from
     assert_equal 0, page.to
     assert_equal 9, page.prev
     assert_nil page.next

@@ -1,5 +1,5 @@
 <div class="pagination">
-  <% if page.last > 1 %>
+  <% if page.prev || page.next %>
     <nav class="pages" aria-label="<%= t("madmin.pagination.label") %>">
       <%= link_to_if page.prev, "<", page.prev && current_path_with(page.param => page.prev), aria: { label: t("madmin.pagination.previous") } do %>
         <a role="link" aria-disabled="true" aria-label="<%= t("madmin.pagination.previous") %>">&lt;</a>
