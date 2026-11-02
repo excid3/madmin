@@ -372,7 +372,7 @@ module Madmin
       private
 
       def model_attribute_types
-        model.respond_to?(:attribute_types) ? model.attribute_types : {}
+        model.try(:attribute_types) || {}
       end
 
       def model_column(name)

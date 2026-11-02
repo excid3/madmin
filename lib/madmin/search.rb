@@ -13,21 +13,15 @@ module Madmin
       @filters = filters
     end
 
-    # Returns the resources matching the search term and filters. Both are
-    # written in SQL, so collections without a table (in-memory or API-backed
-    # models) are returned as they are, for a `scoped_resources` override to search
+    # Search and filters are SQL, so collections without a table pass through for `scoped_resources` to search
     def run
-      return @scoped_resource unless sql?
+      return @scoped_resource unless @scoped_resource.respond_to?(:table_name)
 
       results = query.blank? ? @scoped_resource.all : search_results(@scoped_resource)
       filters.reduce(results) { |scope, filter| filter.apply(scope) }
     end
 
     private
-
-    def sql?
-      @scoped_resource.respond_to?(:table_name)
-    end
 
     def search_results(resources)
       resources.where(query_template, *query_values)
