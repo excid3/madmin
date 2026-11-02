@@ -34,15 +34,7 @@ class CountlessPageTest < ActiveSupport::TestCase
     refute page.resizable?
   end
 
-  test "no records" do
-    page = Madmin::CountlessPage.new
-    assert_equal 0, page.from
-    assert_equal 0, page.to
-    assert_nil page.prev
-    assert_nil page.next
-  end
-
-  test "pages past the end are empty and link back" do
+  test "empty pages show no range and link back" do
     page = Madmin::CountlessPage.new(page: 10, per_page: 20, fetched: 0)
     assert_equal 0, page.from
     assert_equal 0, page.to

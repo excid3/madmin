@@ -9,7 +9,7 @@ module Madmin
     # Rows loaded for this page, up to per_page + 1
     attr_reader :fetched
 
-    def initialize(page: 1, per_page: Madmin.per_page, param: :page, fetched: 0)
+    def initialize(fetched:, page: 1, per_page: Madmin.per_page, param: :page)
       super(count: nil, page: page, per_page: per_page, param: param)
       @fetched = fetched
     end
