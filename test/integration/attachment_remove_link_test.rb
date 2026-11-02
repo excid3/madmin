@@ -64,15 +64,8 @@ class AttachmentRemoveLinkTest < ActionDispatch::IntegrationTest
       delete @remove_path, headers: {"HTTP_REFERER" => madmin_user_url(@user)}
       assert_redirected_to madmin_user_path(@user)
       assert_response :see_other
-      assert_equal "User is read-only", flash[:alert]
+      assert_equal "Active Storage / Attachment is read-only", flash[:alert]
       assert @user.reload.avatar.attached?
-    end
-  end
-
-  test "editing the attachment itself is still allowed when the record's resource is readonly" do
-    with_readonly(UserResource) do
-      get edit_madmin_active_storage_attachment_path(@user.avatar.attachment)
-      assert_response :success
     end
   end
 

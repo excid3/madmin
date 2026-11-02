@@ -169,6 +169,12 @@ module Madmin
         false
       end
 
+      # Whether a write to `record` through this resource is refused. An
+      # attachment belongs to its record, so that record's resource gets a say too
+      def readonly_for?(record)
+        readonly? || (record.is_a?(::ActiveStorage::Attachment) && Madmin.resource_for(record.record).readonly?)
+      end
+
       # Override to return true for tables too large to count. Index and has many
       # pages then page with Previous and Next links and no page numbers or total
       def countless?

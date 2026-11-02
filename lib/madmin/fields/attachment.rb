@@ -6,20 +6,7 @@ module Madmin
       # Path for removing the attachment, or nil when it can't be removed
       def remove_path(attachment)
         attachment_resource = Madmin.resource_for(attachment)
-        attachment_resource.show_path(attachment) if removable?(attachment, attachment_resource)
-      rescue MissingResource
-      end
-
-      private
-
-      # Mirrors ResourceController#enforce_readonly: removal is refused when the
-      # attachment's resource or the attached record's resource is read-only
-      def removable?(attachment, attachment_resource)
-        attachment_resource.route?(:destroy) && !attachment_resource.readonly? && !record_resource(attachment)&.readonly?
-      end
-
-      def record_resource(attachment)
-        Madmin.resource_for(attachment.record)
+        attachment_resource.show_path(attachment) if attachment_resource.route?(:destroy) && !attachment_resource.readonly_for?(attachment.attachment)
       rescue MissingResource
       end
     end
