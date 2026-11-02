@@ -93,7 +93,7 @@ module Madmin
     # Returns [page, records]. Override for non-ActiveRecord collections and
     # return an object responding to the Madmin::Page interface.
     def paginate_collection(collection)
-      paginate(collection, page: params[:page], per_page: Madmin::Page.per_page_for(params[:per_page]))
+      paginate(collection, page: params[:page], per_page: Madmin::Page.per_page_for(params[:per_page]), countless: resource.countless?)
     end
 
     def valid_scope

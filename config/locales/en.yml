@@ -47,6 +47,7 @@ en:
       previous: Previous
       next: Next
       info: "Displaying %{from}-%{to} of %{count}"
+      range: "Displaying %{from}-%{to}"
       empty: No records found
       per_page: Per page
     filters:

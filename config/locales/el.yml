@@ -47,6 +47,7 @@ el:
       previous: Προηγούμενη
       next: Επόμενη
       info: "Εμφάνιση %{from}-%{to} από %{count}"
+      range: "Εμφάνιση %{from}-%{to}"
       empty: Δεν βρέθηκαν εγγραφές
       per_page: Ανά σελίδα
     filters:

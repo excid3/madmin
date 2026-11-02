@@ -169,6 +169,12 @@ module Madmin
         false
       end
 
+      # Override to return true for tables too large to count. Index and has many
+      # pages then page with Previous and Next links and no page numbers or total
+      def countless?
+        false
+      end
+
       def sortable_columns
         model_column_names
       end
