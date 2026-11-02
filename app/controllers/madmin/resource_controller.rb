@@ -4,8 +4,8 @@ module Madmin
   class ResourceController < Madmin::ApplicationController
     include SortHelper
 
-    before_action :set_record, except: [:index, :new, :create]
-    before_action :enforce_readonly, only: [:new, :create, :edit, :update, :destroy]
+    before_action :set_record, except: [:index, :new, :create, :bulk_destroy]
+    before_action :enforce_readonly, only: [:new, :create, :edit, :update, :destroy, :bulk_destroy]
 
     # Assign current_user for paper_trail gem
     before_action :set_paper_trail_whodunnit, if: -> { respond_to?(:set_paper_trail_whodunnit, true) }
@@ -58,7 +58,38 @@ module Madmin
       destroy_failed t("madmin.flash.destroy_restricted", name: resource.friendly_name)
     end
 
+    # Deletes the records checked on the index, or with `all`, every record
+    # matching the index's scope, search and filters. Records that can't be
+    # deleted are skipped and counted in the alert
+    def bulk_destroy
+      deleted = failed = 0
+      bulk_records.each { |record| destroy_record(record) ? deleted += 1 : failed += 1 }
+
+      flash[:notice] = t("madmin.bulk.deleted", count: deleted) if deleted > 0
+      flash[:alert] = t("madmin.bulk.failed", count: failed) if failed > 0
+      redirect_to resource.index_path(bulk_index_params), status: :see_other
+    end
+
     private
+
+    def bulk_records
+      if params[:all].present?
+        scoped_resources.unscope(:order).find_each
+      else
+        resource.model.where(resource.model.primary_key => Array(params[:ids])).to_a
+      end
+    end
+
+    def destroy_record(record)
+      record.destroy
+    rescue ActiveRecord::DeleteRestrictionError, ActiveRecord::InvalidForeignKey
+      false
+    end
+
+    # The index params the bulk form carries, to return to the same list
+    def bulk_index_params
+      request.request_parameters.slice("scope", "q", "sort", "direction", "per_page", "filters")
+    end
 
     def destroy_failed(message)
       redirect_back_or_to resource.index_path, alert: message, status: :see_other

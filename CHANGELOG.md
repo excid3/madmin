@@ -1,5 +1,6 @@
 ### Unreleased
 
+* Add bulk delete to index pages. Checkboxes select individual records or the whole page, and "Select all" extends that to every record matching the current scope, search and filters. Records that can't be deleted are skipped and counted in an alert. Opt in per resource by drawing the route: `delete :bulk_destroy, on: :collection`
 * Let resources wrap models without a database table, like ActiveModel classes backed by an API. `attribute` infers types only from what the model responds to, and `Madmin::Search` passes through collections that can't be queried with SQL. Override `scoped_resources` and `paginate_collection` in the resource's controller to search and page the collection yourself #402
 
 ### 3.4.0

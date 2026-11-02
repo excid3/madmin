@@ -42,10 +42,17 @@
   <% end %>
 </nav>
 
+<% bulk = resource.bulk_actions? %>
+<%= tag.div data: ({ controller: "bulk", bulk_total_value: @page.count, bulk_confirm_value: t("madmin.bulk.confirm_delete") } if bulk) do %>
+<%= render "bulk_actions", page: @page if bulk %>
+
 <div class="table-scroll">
   <table>
     <thead>
       <tr>
+        <% if bulk %>
+          <th class="bulk-select"><%= check_box_tag nil, nil, false, id: nil, aria: { label: t("madmin.bulk.select_page") }, data: { bulk_target: "page", action: "bulk#togglePage" } %></th>
+        <% end %>
         <% resource.attributes.values.each do |attribute| %>
           <% next if attribute.field.nil? %>
           <% next unless attribute.field.visible?(action_name) %>
@@ -59,6 +66,9 @@
     <tbody>
       <% @records.each do |record| %>
         <tr>
+          <% if bulk %>
+            <td class="bulk-select"><%= check_box_tag "ids[]", record.id, false, id: nil, form: "bulk-form", aria: { label: t("madmin.bulk.select_record", name: resource.display_name(record)) }, data: { bulk_target: "record", action: "bulk#update" } %></td>
+          <% end %>
           <% resource.attributes.values.each do |attribute| %>
             <% next if attribute.field.nil? %>
             <% next unless attribute.field.visible?(action_name) %>
@@ -78,5 +88,6 @@
     </tbody>
   </table>
 </div>
+<% end %>
 
 <%= render "pagination", page: @page %>

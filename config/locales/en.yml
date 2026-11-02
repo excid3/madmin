@@ -50,6 +50,19 @@ en:
       range: "Displaying %{from}-%{to}"
       empty: No records found
       per_page: Per page
+    bulk:
+      select_page: Select all on this page
+      select_record: "Select %{name}"
+      selected_html: "%{count} selected"
+      select_all: "Select all %{count}"
+      clear: Clear selection
+      confirm_delete: "Delete the selected records (%{count})? This can't be undone."
+      deleted:
+        one: Deleted 1 record
+        other: "Deleted %{count} records"
+      failed:
+        one: 1 record could not be deleted
+        other: "%{count} records could not be deleted"
     filters:
       button: "Filters"
       heading: "Show records where"

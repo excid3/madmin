@@ -10,8 +10,11 @@ namespace :madmin do
   resources :habtms
   resources :teams
   resources :users
-  resources :comments
+  resources :comments do
+    delete :bulk_destroy, on: :collection
+  end
   resources :posts do
+    delete :bulk_destroy, on: :collection
     member do
       patch :draft
       patch :publish

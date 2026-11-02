@@ -128,6 +128,16 @@ module Madmin
         route_path([:madmin, route_namespace, becomes(record)], action: :edit)
       end
 
+      def bulk_destroy_path
+        route_path([:madmin, route_namespace, model], action: :bulk_destroy)
+      end
+
+      # Whether the index offers checkboxes for deleting records in bulk.
+      # Needs the route: `resources :posts do delete :bulk_destroy, on: :collection end`
+      def bulk_actions?
+        !readonly? && route?(:bulk_destroy)
+      end
+
       # Whether a route is drawn for the given action on this resource's controller
       # For example: PostResource.route?(:destroy)
       def route?(action)

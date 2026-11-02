@@ -50,6 +50,19 @@ fr:
       range: "Affichage de %{from} à %{to}"
       empty: Aucun enregistrement trouvé
       per_page: Par page
+    bulk:
+      select_page: Tout sélectionner sur cette page
+      select_record: "Sélectionner %{name}"
+      selected_html: "%{count} sélectionnés"
+      select_all: "Sélectionner les %{count}"
+      clear: Effacer la sélection
+      confirm_delete: "Supprimer les enregistrements sélectionnés (%{count}) ? Cette action est irréversible."
+      deleted:
+        one: 1 enregistrement supprimé
+        other: "%{count} enregistrements supprimés"
+      failed:
+        one: 1 enregistrement n'a pas pu être supprimé
+        other: "%{count} enregistrements n'ont pas pu être supprimés"
     filters:
       button: "Filtres"
       heading: "Afficher les enregistrements où"

@@ -1,0 +1,14 @@
+<%# Shown while records are checked on the index. Submits their ids, or `all` with the index params for every matching record %>
+<%= form_with url: resource.bulk_destroy_path, method: :delete, id: "bulk-form", class: "bulk-actions", hidden: true, data: { bulk_target: "bar" } do %>
+  <%= index_params_fields %>
+  <%= hidden_field_tag :all, 1, id: nil, disabled: true, data: { bulk_target: "all" } %>
+
+  <span><%= t("madmin.bulk.selected_html", count: tag.strong(0, data: { bulk_target: "count" })) %></span>
+
+  <% if page.count > @records.size %>
+    <%= tag.button t("madmin.bulk.select_all", count: page.count), type: "button", class: "btn-link", data: { bulk_target: "selectAll", action: "bulk#selectAll" } %>
+  <% end %>
+  <%= tag.button t("madmin.bulk.clear"), type: "button", class: "btn-link", data: { action: "bulk#clear" } %>
+
+  <%= tag.button t("madmin.actions.delete"), class: "btn btn-danger", data: { bulk_target: "submit" } %>
+<% end %>

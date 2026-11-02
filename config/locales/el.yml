@@ -50,6 +50,19 @@ el:
       range: "Εμφάνιση %{from}-%{to}"
       empty: Δεν βρέθηκαν εγγραφές
       per_page: Ανά σελίδα
+    bulk:
+      select_page: Επιλογή όλων σε αυτή τη σελίδα
+      select_record: "Επιλογή %{name}"
+      selected_html: "%{count} επιλεγμένα"
+      select_all: "Επιλογή και των %{count}"
+      clear: Εκκαθάριση επιλογής
+      confirm_delete: "Διαγραφή των επιλεγμένων εγγραφών (%{count}); Η ενέργεια δεν αναιρείται."
+      deleted:
+        one: Διαγράφηκε 1 εγγραφή
+        other: "Διαγράφηκαν %{count} εγγραφές"
+      failed:
+        one: 1 εγγραφή δεν ήταν δυνατό να διαγραφεί
+        other: "%{count} εγγραφές δεν ήταν δυνατό να διαγραφούν"
     filters:
       button: "Φίλτρα"
       heading: "Εμφάνιση εγγραφών όπου"

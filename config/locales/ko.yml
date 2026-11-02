@@ -49,6 +49,19 @@ ko:
       range: "%{from}-%{to} 표시"
       empty: 레코드가 없습니다
       per_page: 페이지당
+    bulk:
+      select_page: 이 페이지 전체 선택
+      select_record: "%{name} 선택"
+      selected_html: "%{count}개 선택됨"
+      select_all: "%{count}개 모두 선택"
+      clear: 선택 해제
+      confirm_delete: "선택한 레코드(%{count}개)를 삭제하시겠습니까? 되돌릴 수 없습니다."
+      deleted:
+        one: "레코드 %{count}개를 삭제했습니다"
+        other: "레코드 %{count}개를 삭제했습니다"
+      failed:
+        one: "레코드 %{count}개를 삭제할 수 없습니다"
+        other: "레코드 %{count}개를 삭제할 수 없습니다"
     filters:
       button: "필터"
       heading: "다음 조건의 레코드 표시"
