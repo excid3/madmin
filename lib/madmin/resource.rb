@@ -271,35 +271,50 @@ module Madmin
         }[type]
       end
 
+      # Infers the attribute's type from the model's attributes and associations.
+      # Models without them, like plain ActiveModel classes, are only asked what
+      # they respond to, so unknown attributes return nil and default to a String field
       def infer_type(name)
         name_string = name.to_s
 
-        if model.attribute_types.include?(name_string)
-          column_type = model.attribute_types[name_string]
+        if model_attribute_types.include?(name_string)
+          column_type = model_attribute_types[name_string]
           if column_type.is_a? ::ActiveRecord::Enum::EnumType
             :enum
-          elsif model.columns_hash[name_string].try(:array?)
+          elsif model_column(name_string).try(:array?)
             :array
           else
             column_type.type || :string
           end
-        elsif (association = model.reflect_on_association(name))
+        elsif (association = model_association(name))
           type_for_association(association)
-        elsif model.reflect_on_association(:"rich_text_#{name_string}")
+        elsif model_association(:"rich_text_#{name_string}")
           :rich_text
-        elsif model.reflect_on_association(:"#{name_string}_attachment")
+        elsif model_association(:"#{name_string}_attachment")
           :attachment
-        elsif model.reflect_on_association(:"#{name_string}_attachments")
+        elsif model_association(:"#{name_string}_attachments")
           :attachments
 
         # has_secure_password
-        elsif model.attribute_types.include?("#{name_string}_digest") || name_string.ends_with?("_confirmation")
+        elsif model_attribute_types.include?("#{name_string}_digest") || name_string.ends_with?("_confirmation")
           :password
 
           # ActiveRecord Store
         elsif model_store_accessors.include?(name)
           :string
         end
+      end
+
+      def model_attribute_types
+        model.respond_to?(:attribute_types) ? model.attribute_types : {}
+      end
+
+      def model_column(name)
+        model.columns_hash[name] if model.respond_to?(:columns_hash)
+      end
+
+      def model_association(name)
+        model.reflect_on_association(name) if model.respond_to?(:reflect_on_association)
       end
 
       def type_for_association(association)
