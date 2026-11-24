@@ -22,9 +22,8 @@ appraise "rails-7-1" do
 end
 
 appraise "rails-7-2" do
-  gem "rails", "~> 7.2.0.beta2"
+  gem "rails", "~> 7.2.4" # 7.2.4 stops passing quirks_mode, which json 3 rejects
   gem "minitest", "< 6.0.0"
-  gem "json", "< 3" # Rails < 8.1 passes quirks_mode, which json 3 removed
 end
 
 appraise "rails-8-0" do
