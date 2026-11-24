@@ -1,0 +1,90 @@
+ja:
+  madmin:
+    layout:
+      open_menu: メニューを開く
+      admin_suffix: 管理画面
+    navigation:
+      dashboard: ダッシュボード
+      github: GitHub の Madmin
+    dashboard:
+      title: Madmin ダッシュボード
+      hint_html: <code>app/views/madmin/dashboard/show.html.erb</code> を作成すると、ダッシュボードをカスタマイズできます。
+    actions:
+      all: すべて
+      view: 表示
+      edit: 編集
+      delete: 削除
+      new: 新規作成
+      remove: 削除
+      cancel: キャンセル
+    search:
+      placeholder: 検索
+    titles:
+      new: "%{name} の新規作成"
+      edit: "%{name} の編集"
+    form:
+      errors:
+        one: 送信内容にエラーが 1 件あります。
+        other: 送信内容にエラーが %{count} 件あります。
+    flash:
+      readonly: "%{name} は読み取り専用です。"
+      destroy_failed: "%{name} を削除できませんでした。"
+      destroy_restricted: "他のレコードが依存しているため、%{name} を削除できませんでした。"
+    confirmations:
+      delete: 削除しますか？
+      remove_with_changes: 削除しますか？ほかの変更内容も失われます。
+    nested_form:
+      add_new: "+ 新規追加"
+    fields:
+      attachment:
+        one: "添付ファイル %{count} 件"
+        other: "添付ファイル %{count} 件"
+    missing_resource:
+      message: "%{resource} が見つかりません。"
+      create_hint: "次のコマンドを実行して作成してください："
+    pagination:
+      label: ページ送り
+      previous: 前へ
+      next: 次へ
+      info: "%{count} 件中 %{from}-%{to} 件を表示"
+      range: "%{from}-%{to} 件を表示"
+      empty: レコードが見つかりません。
+      per_page: 表示件数
+    filters:
+      button: "フィルター"
+      heading: "次の条件に一致するレコードを表示"
+      add: "+ フィルターを追加"
+      apply: "適用"
+      clear_all: "フィルターをクリア"
+      remove: "フィルターを削除"
+      column: "項目"
+      operator: "条件"
+      value: "値"
+      operators:
+        string:
+          contains: "が次を含む"
+          eq: "が次と等しい"
+          starts_with: "が次で始まる"
+          blank: "が空"
+          present: "が空でない"
+        number:
+          eq: "="
+          gt: ">"
+          gte: "≥"
+          lt: "<"
+          lte: "≤"
+          blank: "が空"
+        date:
+          eq: "が次の日付"
+          gte: "が次の日付以降"
+          lte: "が次の日付以前"
+          blank: "が空"
+        datetime:
+          gte: "が次の日時以降"
+          lte: "が次の日時以前"
+          blank: "が空"
+        boolean:
+          "true": "が真"
+          "false": "が偽"
+        array:
+          includes: "が次を含む"
