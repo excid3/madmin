@@ -1,5 +1,7 @@
 ### Unreleased
 
+* Add Japanese (ja) locale #414
+
 ### 3.4.1
 
 * Let resources wrap models without a database table, like ActiveModel classes backed by an API. `attribute` infers types only from what the model responds to, and `Madmin::Search` passes through collections that can't be queried with SQL. Override `scoped_resources` and `paginate_collection` in the resource's controller to search and page the collection yourself #402
