@@ -1,5 +1,7 @@
 ### Unreleased
 
+### 3.4.2
+
 * Add Japanese (ja) locale #414
 
 ### 3.4.1

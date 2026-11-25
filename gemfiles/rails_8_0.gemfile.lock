@@ -1,7 +1,7 @@
 PATH
   remote: ..
   specs:
-    madmin (3.4.1)
+    madmin (3.4.2)
       importmap-rails
       rails (>= 7.0.0)
       stimulus-rails
@@ -131,6 +131,7 @@ GEM
       net-smtp
     marcel (1.2.1)
     mini_mime (1.1.5)
+    mini_portile2 (2.8.9)
     minitest (5.27.0)
     mysql2 (0.5.7)
       bigdecimal
@@ -146,6 +147,9 @@ GEM
     net-smtp (0.5.2)
       net-protocol
     nio4r (2.7.5)
+    nokogiri (1.19.7)
+      mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
     nokogiri (1.19.7-arm64-darwin)
       racc (~> 1.4)
     nokogiri (1.19.7-x86_64-linux-gnu)
@@ -154,11 +158,13 @@ GEM
     parser (3.3.14.0)
       ast (~> 2.4.1)
       racc
+    pg (1.7.0)
     pg (1.7.0-arm64-darwin)
     pg (1.7.0-x86_64-linux)
     pp (0.6.4)
       prettyprint
     prettyprint (0.2.1)
+    prism (2.1.0)
     prism (2.1.0-arm64-darwin)
     prism (2.1.0-x86_64-linux-gnu)
     propshaft (1.3.2)
@@ -242,6 +248,8 @@ GEM
       rubocop-ast (>= 1.47.1, < 2.0)
     ruby-progressbar (1.13.0)
     securerandom (0.4.1)
+    sqlite3 (2.10.2)
+      mini_portile2 (~> 2.8.0)
     sqlite3 (2.10.2-arm64-darwin)
     sqlite3 (2.10.2-x86_64-linux-gnu)
     standard (1.57.0)
@@ -306,4 +314,4 @@ DEPENDENCIES
   web-console
 
 BUNDLED WITH
-  4.0.21
+  4.1.0

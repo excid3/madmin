@@ -1,7 +1,7 @@
 PATH
   remote: ..
   specs:
-    madmin (3.4.1)
+    madmin (3.4.2)
       importmap-rails
       rails (>= 7.0.0)
       stimulus-rails
@@ -332,4 +332,4 @@ DEPENDENCIES
   web-console
 
 BUNDLED WITH
-  4.0.21
+  4.1.0
