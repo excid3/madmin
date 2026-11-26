@@ -1,0 +1,91 @@
+---
+pt-BR:
+  madmin:
+    layout:
+      open_menu: Abrir menu
+      admin_suffix: Administração
+    navigation:
+      dashboard: Painel
+      github: Madmin no GitHub
+    dashboard:
+      title: Painel do Madmin
+      hint_html: Crie o arquivo <code>app/views/madmin/dashboard/show.html.erb</code> para personalizar seu painel.
+    actions:
+      all: Todos
+      view: Ver
+      edit: Editar
+      delete: Excluir
+      new: Novo
+      remove: Remover
+      cancel: Cancelar
+    search:
+      placeholder: Buscar
+    titles:
+      new: "Criar %{name}"
+      edit: "Editar %{name}"
+    form:
+      errors:
+        one: Houve 1 erro ao enviar o formulário
+        other: Houve %{count} erros ao enviar o formulário
+    flash:
+      readonly: "%{name} está em modo somente leitura"
+      destroy_failed: "Não foi possível excluir %{name}"
+      destroy_restricted: "Não foi possível excluir %{name} porque há outros registros vinculados"
+    confirmations:
+      delete: Tem certeza?
+      remove_with_changes: Tem certeza? Você perderá as demais alterações.
+    nested_form:
+      add_new: "+ Adicionar"
+    fields:
+      attachment:
+        one: "%{count} anexo"
+        other: "%{count} anexos"
+    missing_resource:
+      message: "Recurso %{resource} não encontrado."
+      create_hint: "Para criá-lo, execute:"
+    pagination:
+      label: Paginação
+      previous: Anterior
+      next: Próxima
+      info: "Exibindo de %{from} a %{to} de %{count} registros"
+      range: "Exibindo de %{from} a %{to}"
+      empty: Nenhum registro encontrado
+      per_page: Por página
+    filters:
+      button: Filtros
+      heading: Exibir registros em que
+      add: "+ Adicionar filtro"
+      apply: Aplicar
+      clear_all: Limpar filtros
+      remove: Remover filtro
+      column: Coluna
+      operator: Condição
+      value: Valor
+      operators:
+        string:
+          contains: contém
+          eq: é igual a
+          starts_with: começa com
+          blank: está vazio
+          present: não está vazio
+        number:
+          eq: "="
+          gt: ">"
+          gte: "≥"
+          lt: "<"
+          lte: "≤"
+          blank: está vazio
+        date:
+          eq: na data de
+          gte: na data ou depois
+          lte: na data ou antes
+          blank: está vazio
+        datetime:
+          gte: a partir de
+          lte: até
+          blank: está vazio
+        boolean:
+          "true": é verdadeiro
+          "false": é falso
+        array:
+          includes: inclui
