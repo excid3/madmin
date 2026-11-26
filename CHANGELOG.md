@@ -1,5 +1,7 @@
 ### Unreleased
 
+* Add Brazilian Portuguese (pt-BR) locale #417
+
 ### 3.4.2
 
 * Add Japanese (ja) locale #414
